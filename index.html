@@ -878,19 +878,19 @@
           <div class="cad-card space-y-2.5">
             <div class="flex justify-between items-center">
               <div class="flex items-center">
-                <span class="text-xs font-semibold text-stone-800 dark:text-stone-100">Planificação 2D (Leque Curvo + Base)</span>
-                <span class="help-tip" tabindex="0" role="button" aria-label="Ajuda sobre Planificação 2D em Leque"
-                  data-tip-cat="Geometria Descritiva"
-                  data-tip-title="Desenvolvimento Exato de Cones e Cilindros"
-                  data-tip-body="Converte cada cone em seu setor circular exato (arco R_ext, R_int e ângulo θ) e cada cilindro em retângulo, garantindo fechamento perfeito ao dobrar a placa."
-                  data-tip-advice="Se a peça for maior que uma folha A4, o PDF divide automaticamente em páginas com marcas de registro (⊕) para colar com fita!">?</span>
+                <span class="text-xs font-semibold text-stone-800 dark:text-stone-100">Planificação 2D Otimizada (Nesting A4)</span>
+                <span class="help-tip" tabindex="0" role="button" aria-label="Ajuda sobre Planificação 2D e Encaixe A4"
+                  data-tip-cat="Geometria Descritiva & Nesting"
+                  data-tip-title="Encaixe 2D Otimizado com Folga de 2 cm"
+                  data-tip-body="Agrupa múltiplos cones, cilindros e o disco de base na mesma folha A4 com rotação automática inteligente para economizar papel e acelerar o corte das placas de argila."
+                  data-tip-advice="Garante no mínimo 2 cm (20 mm) de distância de segurança entre cada peça. Peças maiores que uma folha A4 usam divisão automática (tiling) com marcas ⊕.">?</span>
               </div>
               <span id="pdf-summary-badge" class="text-[11px] font-mono-cad text-terracotta-500 font-semibold"></span>
             </div>
             <canvas id="pdf-preview-canvas" width="420" height="125" class="w-full border border-stone-200 dark:border-cad-border bg-stone-50 dark:bg-stone-900 rounded-lg"></canvas>
 
             <button onclick="generateVasePDF()" class="w-full bg-terracotta-500 hover:bg-terracotta-600 text-white font-semibold py-2.5 px-4 rounded-lg text-xs shadow-xs transition flex items-center justify-center gap-2">
-              📄 Baixar Moldes PDF A4 (Escala 1:1 com Marcas ⊕)
+              📄 Baixar Moldes PDF A4 (Escala 1:1 · Encaixe Otimizado · Folga 2 cm)
             </button>
           </div>
 
@@ -4023,7 +4023,7 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
     }
 
     // =========================================================================
-    // GEOMETRIA DESCRITIVA 2D EXATA: PLANIFICAÇÃO DE CONES, CILINDROS & ESFERAS
+    // GEOMETRIA DESCRITIVA 2D EXATA: PLANIFICAÇÃO, ROTAÇÃO ÓTIMA & NESTING A4
     // =========================================================================
     function polygonBounds(points) {
       let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
@@ -4034,6 +4034,39 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
         if (p.y > maxY) maxY = p.y;
       });
       return { minX, maxX, minY, maxY, width: Math.max(1, maxX - minX), height: Math.max(1, maxY - minY) };
+    }
+
+    // Rotaciona (0°, 90°, 180°, 270°) e normaliza o polígono para minX=0, minY=0
+    function rotateAndNormalizePolygon(points, rotDeg) {
+      const rad = (rotDeg * Math.PI) / 180;
+      const cos = Math.round(Math.cos(rad));
+      const sin = Math.round(Math.sin(rad));
+      const rotated = points.map(p => ({
+        x: p.x * cos - p.y * sin,
+        y: p.x * sin + p.y * cos
+      }));
+      let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+      rotated.forEach(p => {
+        if (p.x < minX) minX = p.x;
+        if (p.x > maxX) maxX = p.x;
+        if (p.y < minY) minY = p.y;
+        if (p.y > maxY) maxY = p.y;
+      });
+      return {
+        points: rotated.map(p => ({ x: p.x - minX, y: p.y - minY })),
+        width: Math.max(1, maxX - minX),
+        height: Math.max(1, maxY - minY)
+      };
+    }
+
+    // Verifica colisão entre dois retângulos exigindo distância mínima de gap (20 mm)
+    function itemsCollideWithGap(x1, y1, w1, h1, x2, y2, w2, h2, gap) {
+      return !(
+        (x1 + w1 + gap <= x2) ||
+        (x2 + w2 + gap <= x1) ||
+        (y1 + h1 + gap <= y2) ||
+        (y2 + h2 + gap <= y1)
+      );
     }
 
     // Desenvolvimento matemático exato do tronco de cone (cone frustum) em 2D
@@ -4082,7 +4115,167 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
       return points;
     }
 
-    // Pré-visualização Interativa 2D no Canvas com Arcos Reais, Cotas e Folhas A4
+    // Prepara a lista unificada de todos os moldes 2D do vaso (cones, cilindros e disco da base)
+    function prepareAllVasePatternItems(rings) {
+      if (!rings || rings.length === 0) return [];
+      const items = [];
+
+      rings.forEach((rg, idx) => {
+        const pts = frustumPatternPoints(rg);
+        const isCylinder = Math.abs(rg.R1 - rg.R2) < 0.05;
+        const outerArcMm = 2 * Math.PI * Math.max(rg.R1, rg.R2);
+        const innerArcMm = 2 * Math.PI * Math.min(rg.R1, rg.R2);
+        const angleDeg = isCylinder ? 0 : ((2 * Math.PI * Math.abs(rg.R1 - rg.R2) / rg.G) * (180 / Math.PI));
+
+        items.push({
+          id: `stage-${idx}`,
+          type: isCylinder ? 'cilindro' : 'cone',
+          label: rg.label,
+          rawPoints: pts,
+          outerArcMm,
+          innerArcMm,
+          slantMm: rg.G,
+          angleDeg,
+          rg
+        });
+      });
+
+      // Adiciona o Disco da Base (Fundo do Vaso)
+      const rBase = rings[0]?.R1 || 40;
+      const diamBase = rBase * 2;
+      const basePts = [];
+      const numPts = 64;
+      for (let i = 0; i <= numPts; i++) {
+        const a = (i / numPts) * Math.PI * 2;
+        basePts.push({ x: rBase + rBase * Math.cos(a), y: rBase + rBase * Math.sin(a) });
+      }
+      items.push({
+        id: 'base-disc',
+        type: 'base',
+        label: `Disco Base Ø${diamBase.toFixed(0)}`,
+        rawPoints: basePts,
+        outerArcMm: Math.PI * diamBase,
+        innerArcMm: 0,
+        slantMm: diamBase,
+        angleDeg: 360,
+        rBase
+      });
+
+      return items;
+    }
+
+    // Motor de Agrupamento 2D (Nesting / Bin Packing) com orientação ótima e distância mínima de 2 cm (20 mm)
+    function packPatternsToA4Sheets(items, usableW = 182, usableH = 253, minGap = 20) {
+      // 1. Analisa dimensões e filtra peças que excedem uma única folha A4 (oversized)
+      const processed = items.map(item => {
+        const r0 = rotateAndNormalizePolygon(item.rawPoints, 0);
+        const r90 = rotateAndNormalizePolygon(item.rawPoints, 90);
+
+        const fits0 = r0.width <= usableW && r0.height <= usableH;
+        const fits90 = r90.width <= usableW && r90.height <= usableH;
+        const isOversized = !fits0 && !fits90;
+
+        return {
+          item,
+          r0,
+          r90,
+          isOversized,
+          diag: Math.sqrt(r0.width * r0.width + r0.height * r0.height),
+          area: r0.width * r0.height
+        };
+      });
+
+      const oversized = processed.filter(p => p.isOversized).map(p => p.item);
+      const regular = processed.filter(p => !p.isOversized);
+
+      // 2. Ordena por maior dimensão decrescente para otimizar encaixe (Best-Fit Decreasing)
+      regular.sort((a, b) => b.diag - a.diag);
+
+      const sheets = [];
+
+      // 3. Empacota cada peça regular nas folhas disponíveis com folga >= minGap (20 mm)
+      for (const entry of regular) {
+        let placed = false;
+
+        // Testa orientações: 0° e 90°
+        const orientations = [];
+        if (entry.r0.width <= usableW && entry.r0.height <= usableH) {
+          orientations.push({ rot: 0, w: entry.r0.width, h: entry.r0.height, points: entry.r0.points });
+        }
+        if (entry.r90.width <= usableW && entry.r90.height <= usableH) {
+          orientations.push({ rot: 90, w: entry.r90.width, h: entry.r90.height, points: entry.r90.points });
+        }
+
+        // Tenta encaixar em folhas já abertas
+        for (const sheet of sheets) {
+          // Pontos âncora candidatos gerados pelas peças já presentes na folha
+          const candPoints = [{ x: 0, y: 0 }];
+          for (const p of sheet.placed) {
+            candPoints.push({ x: p.x + p.w + minGap, y: p.y });
+            candPoints.push({ x: p.x + p.w + minGap, y: 0 });
+            candPoints.push({ x: p.x, y: p.y + p.h + minGap });
+            candPoints.push({ x: 0, y: p.y + p.h + minGap });
+            for (const q of sheet.placed) {
+              candPoints.push({ x: p.x + p.w + minGap, y: q.y + q.h + minGap });
+            }
+          }
+
+          // Prioriza topo e esquerda (menor Y, depois menor X)
+          candPoints.sort((a, b) => (a.y === b.y ? a.x - b.x : a.y - b.y));
+
+          for (const ori of orientations) {
+            for (const pt of candPoints) {
+              if (pt.x + ori.w > usableW || pt.y + ori.h > usableH) continue;
+
+              // Checa colisão com folga de segurança de 2 cm (minGap)
+              let collides = false;
+              for (const p of sheet.placed) {
+                if (itemsCollideWithGap(pt.x, pt.y, ori.w, ori.h, p.x, p.y, p.w, p.h, minGap)) {
+                  collides = true;
+                  break;
+                }
+              }
+
+              if (!collides) {
+                sheet.placed.push({
+                  item: entry.item,
+                  x: pt.x,
+                  y: pt.y,
+                  w: ori.w,
+                  h: ori.h,
+                  rot: ori.rot,
+                  points: ori.points
+                });
+                placed = true;
+                break;
+              }
+            }
+            if (placed) break;
+          }
+          if (placed) break;
+        }
+
+        // Se não coube em nenhuma folha existente, cria uma nova folha A4
+        if (!placed) {
+          const newSheet = { placed: [] };
+          const bestOri = orientations[0] || { rot: 0, w: entry.r0.width, h: entry.r0.height, points: entry.r0.points };
+          newSheet.placed.push({
+            item: entry.item,
+            x: 0,
+            y: 0,
+            w: bestOri.w,
+            h: bestOri.h,
+            rot: bestOri.rot,
+            points: bestOri.points
+          });
+          sheets.push(newSheet);
+        }
+      }
+
+      return { sheets, oversized };
+    }
+
+    // Pré-visualização Interativa 2D no Canvas com Miniaturas das Folhas A4 e Distância de 2 cm
     function draw2DPatternPreview(rings) {
       const canvas = document.getElementById('pdf-preview-canvas');
       if (!canvas) return;
@@ -4091,59 +4284,12 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
 
       if (!rings || rings.length === 0) return;
 
-      const itemsToDraw = [];
-      let totalWidthMm = 0;
-      let maxHeightMm = 0;
+      const items = prepareAllVasePatternItems(rings);
+      const { sheets, oversized } = packPatternsToA4Sheets(items, 182, 253, 20);
+      const totalSheetsCount = sheets.length + oversized.length;
 
-      // 1. Gera pontos para cada anel/estágio
-      rings.forEach((rg, idx) => {
-        const pts = frustumPatternPoints(rg);
-        const b = polygonBounds(pts);
-        const isCylinder = Math.abs(rg.R1 - rg.R2) < 0.05;
-        const outerArcMm = 2 * Math.PI * Math.max(rg.R1, rg.R2);
-        const innerArcMm = 2 * Math.PI * Math.min(rg.R1, rg.R2);
-        const angleDeg = isCylinder ? 0 : ((2 * Math.PI * Math.abs(rg.R1 - rg.R2) / rg.G) * (180 / Math.PI));
-
-        itemsToDraw.push({
-          type: isCylinder ? 'cilindro' : 'cone',
-          label: rg.label,
-          pts,
-          bounds: b,
-          rg,
-          outerArcMm,
-          innerArcMm,
-          angleDeg
-        });
-        totalWidthMm += b.width + 15;
-        maxHeightMm = Math.max(maxHeightMm, b.height);
-      });
-
-      // 2. Adiciona o Disco da Base (Fundo do Vaso)
-      const rBase = rings[0]?.R1 || 40;
-      const diamBase = rBase * 2;
-      const basePts = [];
-      for (let i = 0; i <= 48; i++) {
-        const a = (i / 48) * Math.PI * 2;
-        basePts.push({ x: rBase + rBase * Math.cos(a), y: rBase + rBase * Math.sin(a) });
-      }
-      itemsToDraw.push({
-        type: 'base',
-        label: `Disco Base Ø${diamBase.toFixed(0)}`,
-        pts: basePts,
-        bounds: { minX: 0, maxX: diamBase, minY: 0, maxY: diamBase, width: diamBase, height: diamBase },
-        outerArcMm: Math.PI * diamBase
-      });
-      totalWidthMm += diamBase + 15;
-      maxHeightMm = Math.max(maxHeightMm, diamBase);
-
-      // 3. Calcula Escala de Enquadramento no Canvas
-      const padding = 14;
-      const scaleX = (canvas.width - padding * 2) / Math.max(100, totalWidthMm);
-      const scaleY = (canvas.height - padding * 2 - 20) / Math.max(50, maxHeightMm);
-      const scale = Math.min(scaleX, scaleY, 0.45);
-
-      // Fundo suave de grade técnica
-      ctx.strokeStyle = 'rgba(120, 100, 90, 0.12)';
+      // Grade técnica suave de fundo
+      ctx.strokeStyle = 'rgba(120, 100, 90, 0.08)';
       ctx.lineWidth = 1;
       for (let gx = 0; gx < canvas.width; gx += 20) {
         ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, canvas.height); ctx.stroke();
@@ -4152,72 +4298,96 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
         ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(canvas.width, gy); ctx.stroke();
       }
 
-      let curX = padding;
-      let countCones = 0;
-      let countCil = 0;
+      // Dimensões virtuais da folha A4: 210 x 297 mm
+      const a4Aspect = 210 / 297;
+      const displaySheets = sheets.slice(0, 4); // Exibe até 4 folhas lado a lado no canvas
+      const sheetCount = Math.max(1, displaySheets.length);
 
-      itemsToDraw.forEach((item) => {
-        const b = item.bounds;
-        const drawW = b.width * scale;
-        const drawH = b.height * scale;
-        const startY = padding + 16 + (canvas.height - padding * 2 - 20 - drawH) / 2;
+      const maxCardH = canvas.height - 28;
+      const maxCardW = (canvas.width - 24 - (sheetCount - 1) * 12) / sheetCount;
+      const sheetH = Math.min(maxCardH, maxCardW / a4Aspect);
+      const sheetW = sheetH * a4Aspect;
+      const scale = sheetW / 210; // escala px por mm da folha A4
 
-        if (item.type === 'cone') countCones++;
-        else if (item.type === 'cilindro') countCil++;
+      const marginX = 14 * scale;
+      const marginTop = 20 * scale;
 
+      let startX = (canvas.width - (sheetCount * sheetW + (sheetCount - 1) * 12)) / 2;
+
+      displaySheets.forEach((sheet, sIdx) => {
+        const curSheetX = startX + sIdx * (sheetW + 12);
+        const curSheetY = 16;
+
+        // Desenha Folha A4 com Sombra Suave
         ctx.save();
-        ctx.translate(curX - b.minX * scale, startY - b.minY * scale);
-
-        // Preenchimento e contorno
-        ctx.beginPath();
-        item.pts.forEach((pt, pIdx) => {
-          const px = pt.x * scale;
-          const py = pt.y * scale;
-          if (pIdx === 0) ctx.moveTo(px, py);
-          else ctx.lineTo(px, py);
-        });
-        ctx.closePath();
-
-        if (item.type === 'cone') {
-          ctx.fillStyle = 'rgba(208, 88, 64, 0.18)';
-          ctx.strokeStyle = '#B03428';
-        } else if (item.type === 'cilindro') {
-          ctx.fillStyle = 'rgba(56, 120, 180, 0.16)';
-          ctx.strokeStyle = '#2563EB';
-        } else {
-          ctx.fillStyle = 'rgba(16, 185, 129, 0.16)';
-          ctx.strokeStyle = '#059669';
-        }
-        ctx.fill();
-        ctx.lineWidth = 1.6;
-        ctx.stroke();
-
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.12)';
+        ctx.shadowBlur = 6;
+        ctx.shadowOffsetY = 2;
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(curSheetX, curSheetY, sheetW, sheetH);
         ctx.restore();
 
-        // Rótulo da Peça
-        ctx.font = 'bold 9px "JetBrains Mono", monospace';
-        ctx.fillStyle = '#443833';
-        ctx.fillText(item.label.substring(0, 12), curX, 14);
+        // Borda da Folha
+        ctx.strokeStyle = '#D6D3D1';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(curSheetX, curSheetY, sheetW, sheetH);
 
-        // Dimensões em mm
-        ctx.font = '8px "JetBrains Mono", monospace';
-        ctx.fillStyle = '#8C6D62';
-        if (item.type === 'cone') {
-          ctx.fillText(`Arco: ${item.outerArcMm.toFixed(0)} mm | θ: ${item.angleDeg.toFixed(0)}°`, curX, canvas.height - 4);
-        } else if (item.type === 'cilindro') {
-          ctx.fillText(`L: ${item.outerArcMm.toFixed(0)} × H: ${item.rg.H.toFixed(0)} mm`, curX, canvas.height - 4);
-        } else {
-          ctx.fillText(`Fundo Ø: ${(rBase * 2).toFixed(0)} mm`, curX, canvas.height - 4);
-        }
+        // Guia tracejada de margem útil de corte
+        ctx.save();
+        ctx.setLineDash([2, 2]);
+        ctx.strokeStyle = 'rgba(180, 160, 150, 0.4)';
+        ctx.strokeRect(curSheetX + marginX, curSheetY + marginTop, 182 * scale, 253 * scale);
+        ctx.restore();
 
-        curX += drawW + 12;
+        // Rótulo da Folha
+        ctx.font = 'bold 8.5px "JetBrains Mono", monospace';
+        ctx.fillStyle = '#78716C';
+        ctx.textAlign = 'center';
+        ctx.fillText(`A4 #${sIdx + 1} (${sheet.placed.length} itens)`, curSheetX + sheetW / 2, 11);
+
+        // Desenha cada molde posicionado dentro da folha com a folga de 2 cm visível
+        sheet.placed.forEach(p => {
+          const px = curSheetX + marginX + p.x * scale;
+          const py = curSheetY + marginTop + p.y * scale;
+
+          ctx.save();
+          ctx.beginPath();
+          p.points.forEach((pt, idx) => {
+            const x = px + pt.x * scale;
+            const y = py + pt.y * scale;
+            if (idx === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          });
+          ctx.closePath();
+
+          if (p.item.type === 'cone') {
+            ctx.fillStyle = 'rgba(184, 74, 57, 0.22)';
+            ctx.strokeStyle = '#B84A39';
+          } else if (p.item.type === 'cilindro') {
+            ctx.fillStyle = 'rgba(37, 99, 235, 0.18)';
+            ctx.strokeStyle = '#2563EB';
+          } else {
+            ctx.fillStyle = 'rgba(16, 185, 129, 0.2)';
+            ctx.strokeStyle = '#059669';
+          }
+          ctx.fill();
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+
+          // Mini rótulo sobre a peça
+          ctx.font = 'bold 6.5px "JetBrains Mono", monospace';
+          ctx.fillStyle = '#292524';
+          ctx.textAlign = 'left';
+          ctx.fillText(p.item.label.substring(0, 10), px + 2, py + 7);
+          ctx.restore();
+        });
       });
 
-      // Estima folhas A4
-      const estPages = Math.max(1, Math.ceil(totalWidthMm / 185));
+      // Atualiza Badge do Cabeçalho com dados de economia
       const badge = document.getElementById('pdf-summary-badge');
       if (badge) {
-        badge.textContent = `${countCones} cones em arco + ${countCil} cilindros + base (~${estPages} A4)`;
+        const economy = Math.max(0, items.length - totalSheetsCount);
+        badge.innerHTML = `📦 <strong class="text-stone-900 dark:text-white">${items.length} itens</strong> em <strong class="text-terracotta-600 dark:text-terracotta-400">${totalSheetsCount} A4</strong> (folga ≥ 2 cm · economia de ${economy} folhas)`;
       }
     }
 
@@ -4978,31 +5148,92 @@ Linhas Pretas (#000000) = relevo saliente de ${rel} mm; Branco (#FFFFFF) = base 
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4', compress: true });
         const rings = computeFrustumRings();
-        const retracao = parseFloat(document.getElementById('v-retracao').value) || 1.12;
+        const retracao = parseFloat(document.getElementById('v-retracao')?.value || document.getElementById('v-spline-retracao')?.value) || 1.12;
 
         if (!rings.length) {
           alert('Adicione ao menos uma seção ao vaso para gerar os moldes.');
           return;
         }
 
+        const items = prepareAllVasePatternItems(rings);
+        const { sheets, oversized } = packPatternsToA4Sheets(items, 182, 253, 20);
+        const totalSheetsCount = sheets.length + oversized.length;
+
         pdfPageStarted = false;
 
-        // 1. Gera cada anel/estágio (cones em leque curvo real e cilindros em retângulo)
-        rings.forEach((rg, idx) => {
-          const pts = frustumPatternPoints(rg);
-          drawTiledPattern(doc, pts, `${rg.label} (G: ${rg.G.toFixed(1)} mm)`, retracao);
+        // 1. Renderiza folhas A4 com agrupamento otimizado (folga mínima de 2 cm)
+        sheets.forEach((sheet, sheetIdx) => {
+          if (pdfPageStarted) doc.addPage('a4', 'portrait');
+          pdfPageStarted = true;
+
+          const pageNum = sheetIdx + 1;
+
+          // Cabeçalho Técnico da Folha
+          doc.setFont('helvetica', 'bold');
+          doc.setFontSize(8.5);
+          doc.setTextColor(35, 30, 25);
+          doc.text(`CERAMICAD STUDIO · FOLHA ${pageNum}/${totalSheetsCount} (MOLDES OTIMIZADOS)`, 14, 8.5);
+
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(7.2);
+          doc.setTextColor(110, 95, 85);
+          const itemNames = sheet.placed.map(p => p.item.label).join(' · ');
+          doc.text(`Itens: ${itemNames} · Escala 1:1 · Distância entre peças: ≥ 2 cm (20 mm) · Retração: ${retracao}x`, 14, 12.5);
+
+          // Renderiza cada peça empacotada na folha
+          sheet.placed.forEach(p => {
+            const originX = 14 + p.x;
+            const originY = 20 + p.y;
+
+            // Contorno vetorial da peça
+            doc.setDrawColor(25, 20, 18);
+            doc.setLineWidth(0.35);
+            const pts = p.points;
+            for (let i = 0; i < pts.length; i++) {
+              const p1 = pts[i];
+              const p2 = pts[(i + 1) % pts.length];
+              doc.line(originX + p1.x, originY + p1.y, originX + p2.x, originY + p2.y);
+            }
+
+            // Rótulo técnico e cotas essenciais
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(7.5);
+            doc.setTextColor(184, 74, 57);
+            doc.text(`${p.item.label.toUpperCase()} ${p.rot === 90 ? '⤾ (ROT. 90°)' : ''}`, originX + 2, originY + 5);
+
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(6.8);
+            doc.setTextColor(70, 60, 55);
+            let dimText = '';
+            if (p.item.type === 'cone') {
+              dimText = `Geratriz: ${p.item.slantMm.toFixed(1)} mm | Arco Maior: ${p.item.outerArcMm.toFixed(0)} mm | Ângulo: ${p.item.angleDeg.toFixed(0)}°`;
+            } else if (p.item.type === 'cilindro') {
+              dimText = `Desenvolvimento: ${p.item.outerArcMm.toFixed(0)} mm × Altura: ${p.item.slantMm.toFixed(0)} mm`;
+            } else if (p.item.type === 'base') {
+              dimText = `Fundo Ø: ${(p.item.rBase * 2).toFixed(1)} mm | Perímetro: ${p.item.outerArcMm.toFixed(0)} mm`;
+            }
+            doc.text(dimText, originX + 2, originY + 9);
+          });
+
+          // Régua de Calibração Física de 50 mm no rodapé
+          doc.setDrawColor(35, 30, 25);
+          doc.setLineWidth(0.45);
+          doc.line(14, 283, 64, 283);
+          for (let t = 0; t <= 50; t += 10) {
+            doc.line(14 + t, 280.5, 14 + t, 285.5);
+          }
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(7);
+          doc.setTextColor(60, 50, 45);
+          doc.text('Régua 50 mm (Confira com régua física antes de cortar as placas de argila)', 68, 284);
         });
 
-        // 2. Gera o Disco da Base / Fundo do Vaso
-        const rBase = rings[0]?.R1 || 40;
-        const basePts = [];
-        for (let i = 0; i <= 64; i++) {
-          const a = (i / 64) * Math.PI * 2;
-          basePts.push({ x: rBase + rBase * Math.cos(a), y: rBase + rBase * Math.sin(a) });
-        }
-        drawTiledPattern(doc, basePts, `Disco da Base / Fundo (Ø ${(rBase * 2).toFixed(1)} mm)`, retracao);
+        // 2. Se houver peças gigantes que excedem 1 folha A4, gera via Tiling com marcas ⊕
+        oversized.forEach(item => {
+          drawTiledPattern(doc, item.rawPoints, item.label, retracao);
+        });
 
-        doc.save('moldes_vaso_geometrico_A4_1_1.pdf');
+        doc.save('moldes_vaso_geometrico_A4_otimizado.pdf');
       } catch (err) {
         console.error(err);
         alert('Erro ao gerar PDF: ' + err.message);
