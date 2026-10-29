@@ -1,0 +1,6 @@
+# Ambientes e caches
+.DS_Store
+Thumbs.db
+*.log
+graphify-out/cache/
+.system_generated/
