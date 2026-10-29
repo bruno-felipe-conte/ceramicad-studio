@@ -806,10 +806,11 @@
               <span class="text-[10px] text-emerald-700 dark:text-emerald-300 font-medium bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-md border border-emerald-500/30">✓ Juntas C⁰</span>
             </div>
 
-            <div class="grid grid-cols-3 gap-1.5">
+            <div class="grid grid-cols-4 gap-1.5">
               <button onclick="addVaseStage('cilindro')" class="bg-stone-800 dark:bg-stone-700 hover:bg-terracotta-500 text-white text-xs font-medium py-1.5 rounded-lg transition">+ Cilindro</button>
               <button onclick="addVaseStage('cone')" class="bg-stone-800 dark:bg-stone-700 hover:bg-terracotta-500 text-white text-xs font-medium py-1.5 rounded-lg transition">+ Cone</button>
-              <button onclick="addVaseStage('esfera')" class="bg-terracotta-500 hover:bg-terracotta-600 text-white text-xs font-medium py-1.5 rounded-lg transition">+ Bojo Esférico</button>
+              <button onclick="addVaseStage('esfera')" class="bg-stone-800 dark:bg-stone-700 hover:bg-terracotta-500 text-white text-xs font-medium py-1.5 rounded-lg transition">+ Bojo Esf.</button>
+              <button onclick="addVaseStage('disco')" class="bg-amber-600 hover:bg-amber-700 text-white text-xs font-medium py-1.5 rounded-lg transition flex items-center justify-center gap-1">+ Disco</button>
             </div>
 
             <div id="vase-stages-list" class="space-y-2 max-h-56 overflow-y-auto pr-1 pt-1"></div>
@@ -2459,6 +2460,7 @@
 
     // Estágios do Vaso com bordas conectadas (para modo clássico de placas)
     let vaseStages = [
+      { tipo: 'disco', rBase: 42, rTopo: 42, altura: 8, corteTipo: 'furo_central', furoDiam: 20, furoQtd: 6, furoDist: 24, setorAng: 45 },
       { tipo: 'cilindro', rBase: 42, rTopo: 42, altura: 30, aneis: 1 },
       { tipo: 'cone', rBase: 42, rTopo: 58, altura: 45, aneis: 1 },
       { tipo: 'esfera', rBase: 58, rTopo: 46, rEsfera: 66, altura: 60, aneis: 4 },
@@ -2928,8 +2930,16 @@
         if (i > 0) {
           st.rBase = vaseStages[i - 1].rTopo;
         }
-        if (st.tipo === 'cilindro') {
+        if (st.tipo === 'cilindro' || st.tipo === 'disco') {
           st.rTopo = st.rBase;
+          if (st.tipo === 'disco') {
+            if (!st.corteTipo) st.corteTipo = 'furo_central';
+            if (st.furoDiam === undefined) st.furoDiam = 20;
+            if (!st.furoQtd) st.furoQtd = 6;
+            if (!st.furoDist) st.furoDist = Math.round(st.rBase * 0.55);
+            if (!st.setorAng) st.setorAng = 45;
+            if (!st.altura || st.altura < 3) st.altura = 8;
+          }
         } else if (st.tipo === 'esfera') {
           if (!st.rEsfera || st.rEsfera < Math.max(st.rBase, st.rTopo)) {
             st.rEsfera = Math.max(st.rBase, st.rTopo) + 12;
@@ -2947,8 +2957,20 @@
         vaseStages.push({ tipo: 'cilindro', rBase: rCon, rTopo: rCon, altura: 35, aneis: 1 });
       } else if (tipo === 'cone') {
         vaseStages.push({ tipo: 'cone', rBase: rCon, rTopo: Math.max(20, rCon - 10), altura: 45, aneis: 1 });
-      } else {
+      } else if (tipo === 'esfera') {
         vaseStages.push({ tipo: 'esfera', rBase: rCon, rTopo: rCon, rEsfera: rCon + 14, altura: 55, aneis: 4 });
+      } else if (tipo === 'disco') {
+        vaseStages.push({
+          tipo: 'disco',
+          rBase: rCon,
+          rTopo: rCon,
+          altura: 8,
+          corteTipo: 'furo_central',
+          furoDiam: 20,
+          furoQtd: 6,
+          furoDist: Math.round(rCon * 0.55),
+          setorAng: 45
+        });
       }
       enforceStageContinuity();
       renderVaseStagesUI();
@@ -2965,25 +2987,41 @@
 
     function updateStageParam(idx, field, value) {
       if (!vaseStages[idx]) return;
+
+      if (field === 'corteTipo') {
+        vaseStages[idx].corteTipo = value;
+        renderVaseStagesUI();
+        rebuildVase();
+        return;
+      }
+
       const val = parseFloat(value);
       if (isNaN(val)) return;
 
       if (field === 'rBase') {
         vaseStages[idx].rBase = Math.max(5, val);
-        if (vaseStages[idx].tipo === 'cilindro') {
+        if (vaseStages[idx].tipo === 'cilindro' || vaseStages[idx].tipo === 'disco') {
           vaseStages[idx].rTopo = vaseStages[idx].rBase;
         }
       } else if (field === 'rTopo') {
         vaseStages[idx].rTopo = Math.max(5, val);
-        if (vaseStages[idx].tipo === 'cilindro') {
+        if (vaseStages[idx].tipo === 'cilindro' || vaseStages[idx].tipo === 'disco') {
           vaseStages[idx].rBase = vaseStages[idx].rTopo;
         }
       } else if (field === 'altura') {
-        vaseStages[idx].altura = Math.max(5, val);
+        vaseStages[idx].altura = Math.max(3, val);
       } else if (field === 'rEsfera') {
         vaseStages[idx].rEsfera = Math.max(5, val);
       } else if (field === 'aneis') {
         vaseStages[idx].aneis = Math.max(2, Math.min(12, parseInt(value) || 4));
+      } else if (field === 'furoDiam') {
+        vaseStages[idx].furoDiam = Math.max(2, Math.min(vaseStages[idx].rBase * 1.8, val));
+      } else if (field === 'furoQtd') {
+        vaseStages[idx].furoQtd = Math.max(2, Math.min(16, parseInt(value) || 6));
+      } else if (field === 'furoDist') {
+        vaseStages[idx].furoDist = Math.max(5, Math.min(vaseStages[idx].rBase - 4, val));
+      } else if (field === 'setorAng') {
+        vaseStages[idx].setorAng = Math.max(10, Math.min(180, val));
       }
 
       enforceStageContinuity();
@@ -3006,7 +3044,9 @@
       const rings = [];
 
       vaseStages.forEach((st, sIdx) => {
-        if (st.tipo === 'cilindro') {
+        if (st.tipo === 'disco') {
+          rings.push({ label: `S${sIdx + 1} Disco (${st.corteTipo || 'furo'})`, r1: st.rBase, r2: st.rBase, h: st.altura, tipo: 'disco', stageIdx: sIdx, stageObj: st });
+        } else if (st.tipo === 'cilindro') {
           rings.push({ label: `S${sIdx + 1} Cilindro`, r1: st.rBase, r2: st.rBase, h: st.altura, tipo: 'cilindro', stageIdx: sIdx });
         } else if (st.tipo === 'cone') {
           rings.push({ label: `S${sIdx + 1} Cone`, r1: st.rBase, r2: st.rTopo, h: st.altura, tipo: 'cone', stageIdx: sIdx });
@@ -3049,10 +3089,102 @@
 
       container.innerHTML = vaseStages.map((st, i) => {
         const isFirst = i === 0;
+        const isDisc = st.tipo === 'disco';
         const isCil = st.tipo === 'cilindro';
         const isCone = st.tipo === 'cone';
         const isSph = st.tipo === 'esfera';
         const gSlant = isCone ? Math.sqrt(st.altura * st.altura + Math.pow(st.rBase - st.rTopo, 2)).toFixed(1) : (isCil ? st.altura.toFixed(1) : '--');
+
+        if (isDisc) {
+          return `
+          <div class="p-2.5 bg-amber-50/50 dark:bg-amber-950/30 rounded-lg border border-amber-300/70 dark:border-amber-800/60 text-xs space-y-2 font-mono-cad shadow-xs">
+            <div class="flex justify-between items-center font-sans font-bold text-amber-800 dark:text-amber-300">
+              <div class="flex items-center gap-1.5">
+                <span>${i + 1}. DISCO / FUNDO</span>
+                ${isFirst 
+                  ? '<span class="text-[9px] bg-amber-200/70 dark:bg-amber-900/90 text-amber-900 dark:text-amber-100 px-1.5 py-0.5 rounded font-semibold">Base / Fundo</span>'
+                  : `<span class="text-[9px] bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 px-1.5 py-0.5 rounded font-semibold" title="Conectado à Camada ${i}">🔗 Junta ${i}</span>`
+                }
+              </div>
+              <button onclick="removeVaseStage(${i})" class="text-red-500 hover:underline text-[10px]" ${vaseStages.length <= 1 ? 'disabled style="opacity:0.3"' : ''}>Remover</button>
+            </div>
+            <div class="grid grid-cols-3 gap-1.5">
+              <div>
+                <label class="text-[9px] text-stone-500 block">${isFirst ? 'Raio Base (mm)' : 'Raio (🔗 Junta)'}</label>
+                <input type="number" id="st-${i}-rbase" value="${st.rBase}" ${!isFirst ? 'disabled title="Travado na Junta com a camada anterior"' : ''} oninput="updateStageParam(${i}, 'rBase', this.value)" class="w-full p-1 bg-white dark:bg-stone-900 border rounded text-xs ${!isFirst ? 'opacity-60 bg-stone-100 dark:bg-stone-800' : 'font-bold'}" />
+              </div>
+              <div>
+                <label class="text-[9px] text-stone-500 block" title="Espessura da placa de argila">Esp. Placa (mm)</label>
+                <input type="number" id="st-${i}-altura" value="${st.altura}" min="3" max="50" oninput="updateStageParam(${i}, 'altura', this.value)" class="w-full p-1 bg-white dark:bg-stone-900 border rounded text-xs font-bold" />
+              </div>
+              <div>
+                <label class="text-[9px] text-stone-500 block">Corte / Furação</label>
+                <select onchange="updateStageParam(${i}, 'corteTipo', this.value)" class="w-full p-1 bg-white dark:bg-stone-900 border rounded text-[11px] font-sans">
+                  <option value="furo_central" ${st.corteTipo === 'furo_central' ? 'selected' : ''}>🔘 Furo Central</option>
+                  <option value="crivo_multiplo" ${st.corteTipo === 'crivo_multiplo' ? 'selected' : ''}>⁖ Crivo Multi-Furos</option>
+                  <option value="entalhes_borda" ${st.corteTipo === 'entalhes_borda' ? 'selected' : ''}>⚙️ Entalhes Borda</option>
+                  <option value="setor_vazado" ${st.corteTipo === 'setor_vazado' ? 'selected' : ''}>⌔ Setor Vazado</option>
+                  <option value="solido" ${st.corteTipo === 'solido' ? 'selected' : ''}>⚪ Sólido</option>
+                </select>
+              </div>
+            </div>
+
+            ${st.corteTipo === 'furo_central' ? `
+              <div class="grid grid-cols-2 gap-1.5 p-1.5 bg-amber-100/60 dark:bg-amber-900/30 rounded border border-amber-200/60">
+                <div>
+                  <label class="text-[9px] text-stone-600 dark:text-stone-300 block">Ø Furo Dreno (mm)</label>
+                  <input type="number" value="${st.furoDiam || 20}" min="4" max="${st.rBase * 1.8}" oninput="updateStageParam(${i}, 'furoDiam', this.value)" class="w-full p-1 bg-white dark:bg-stone-900 border rounded text-xs font-bold text-amber-800 dark:text-amber-300" />
+                </div>
+                <div class="text-[10px] text-stone-600 dark:text-stone-300 flex items-center pt-2">
+                  <span>Área dreno: ${(Math.PI * Math.pow((st.furoDiam || 20)/2, 2) / 100).toFixed(1)} cm²</span>
+                </div>
+              </div>
+            ` : ''}
+
+            ${st.corteTipo === 'crivo_multiplo' ? `
+              <div class="grid grid-cols-3 gap-1.5 p-1.5 bg-amber-100/60 dark:bg-amber-900/30 rounded border border-amber-200/60">
+                <div>
+                  <label class="text-[9px] text-stone-600 dark:text-stone-300 block">Qtd Furos</label>
+                  <input type="number" value="${st.furoQtd || 6}" min="3" max="16" oninput="updateStageParam(${i}, 'furoQtd', this.value)" class="w-full p-1 bg-white dark:bg-stone-900 border rounded text-xs font-bold" />
+                </div>
+                <div>
+                  <label class="text-[9px] text-stone-600 dark:text-stone-300 block">Ø Cada (mm)</label>
+                  <input type="number" value="${st.furoDiam || 14}" min="3" max="25" oninput="updateStageParam(${i}, 'furoDiam', this.value)" class="w-full p-1 bg-white dark:bg-stone-900 border rounded text-xs font-bold" />
+                </div>
+                <div>
+                  <label class="text-[9px] text-stone-600 dark:text-stone-300 block">Raio Anel (mm)</label>
+                  <input type="number" value="${st.furoDist || Math.round(st.rBase * 0.55)}" min="5" max="${st.rBase - 4}" oninput="updateStageParam(${i}, 'furoDist', this.value)" class="w-full p-1 bg-white dark:bg-stone-900 border rounded text-xs font-bold" />
+                </div>
+              </div>
+            ` : ''}
+
+            ${st.corteTipo === 'entalhes_borda' ? `
+              <div class="grid grid-cols-2 gap-1.5 p-1.5 bg-amber-100/60 dark:bg-amber-900/30 rounded border border-amber-200/60">
+                <div>
+                  <label class="text-[9px] text-stone-600 dark:text-stone-300 block">Qtd Entalhes</label>
+                  <input type="number" value="${st.furoQtd || 4}" min="2" max="12" oninput="updateStageParam(${i}, 'furoQtd', this.value)" class="w-full p-1 bg-white dark:bg-stone-900 border rounded text-xs font-bold" />
+                </div>
+                <div>
+                  <label class="text-[9px] text-stone-600 dark:text-stone-300 block">Largura Entalhe (mm)</label>
+                  <input type="number" value="${st.furoDiam || 14}" min="4" max="30" oninput="updateStageParam(${i}, 'furoDiam', this.value)" class="w-full p-1 bg-white dark:bg-stone-900 border rounded text-xs font-bold" />
+                </div>
+              </div>
+            ` : ''}
+
+            ${st.corteTipo === 'setor_vazado' ? `
+              <div class="grid grid-cols-2 gap-1.5 p-1.5 bg-amber-100/60 dark:bg-amber-900/30 rounded border border-amber-200/60">
+                <div>
+                  <label class="text-[9px] text-stone-600 dark:text-stone-300 block">Ângulo do Recorte (°)</label>
+                  <input type="number" value="${st.setorAng || 45}" min="15" max="180" oninput="updateStageParam(${i}, 'setorAng', this.value)" class="w-full p-1 bg-white dark:bg-stone-900 border rounded text-xs font-bold" />
+                </div>
+                <div class="text-[10px] text-stone-600 dark:text-stone-300 flex items-center pt-2">
+                  <span>Passa-cabo / abertura angular</span>
+                </div>
+              </div>
+            ` : ''}
+          </div>
+          `;
+        }
 
         return `
         <div class="p-2.5 bg-white dark:bg-terracotta-800 rounded-lg border border-stone-200 dark:border-cad-border text-xs space-y-1.5 font-mono-cad shadow-xs">
@@ -3921,30 +4053,83 @@
         });
         activeMeshGroup.add(new THREE.Mesh(intGeo, intMat));
 
-        // 1. Fundo Sólido Inferior (Y = 0)
-        const basePts = outerGrid[0];
-        const bottomGeo = new THREE.BufferGeometry();
-        const bVerts = [];
-        for (let i = 0; i < radialSegs; i++) {
-          const p1 = basePts[i], p2 = basePts[i + 1];
-          bVerts.push(0, 0, 0, p2.x, 0, p2.z, p1.x, 0, p1.z);
-        }
-        bottomGeo.setAttribute('position', new THREE.Float32BufferAttribute(bVerts, 3));
-        bottomGeo.computeVertexNormals();
-        activeMeshGroup.add(new THREE.Mesh(bottomGeo, new THREE.MeshStandardMaterial({ color: 0x942B21, roughness: 0.5, side: THREE.DoubleSide })));
-
-        // 2. Fundo Sólido Interno (Chão da cavidade em Y = innerRows[0].y)
-        const floorPts = innerGrid[0];
+        // 1. Fundo e Chão Interno da Cavidade do Vaso
+        const baseDisc = vaseStages.find(st => st.tipo === 'disco');
         const floorY = innerRows[0].y;
-        const floorGeo = new THREE.BufferGeometry();
-        const fVerts = [];
-        for (let i = 0; i < radialSegs; i++) {
-          const p1 = floorPts[i], p2 = floorPts[i + 1];
-          fVerts.push(0, floorY, 0, p1.x, floorY, p1.z, p2.x, floorY, p2.z);
+
+        if (baseDisc && baseDisc.corteTipo === 'furo_central' && (baseDisc.furoDiam || 20) / 2 > 1) {
+          const rHole = Math.min(outerRows[0].r - 4, (baseDisc.furoDiam || 20) / 2);
+
+          // A) Fundo com furo em Y = 0 (anel circular)
+          const bottomGeo = new THREE.BufferGeometry();
+          const bVerts = [];
+          for (let i = 0; i < radialSegs; i++) {
+            const u1 = i / radialSegs, u2 = (i + 1) / radialSegs;
+            const phi1 = thetaStart + u1 * thetaLength, phi2 = thetaStart + u2 * thetaLength;
+            const p1 = outerGrid[0][i], p2 = outerGrid[0][i + 1];
+            const h1x = rHole * Math.sin(phi1), h1z = rHole * Math.cos(phi1);
+            const h2x = rHole * Math.sin(phi2), h2z = rHole * Math.cos(phi2);
+            bVerts.push(h1x, 0, h1z, p2.x, 0, p2.z, p1.x, 0, p1.z);
+            bVerts.push(h1x, 0, h1z, h2x, 0, h2z, p2.x, 0, p2.z);
+          }
+          bottomGeo.setAttribute('position', new THREE.Float32BufferAttribute(bVerts, 3));
+          bottomGeo.computeVertexNormals();
+          activeMeshGroup.add(new THREE.Mesh(bottomGeo, new THREE.MeshStandardMaterial({ color: 0x942B21, roughness: 0.5, side: THREE.DoubleSide })));
+
+          // B) Chão interno com furo em Y = floorY (anel circular)
+          const floorGeo = new THREE.BufferGeometry();
+          const fVerts = [];
+          for (let i = 0; i < radialSegs; i++) {
+            const u1 = i / radialSegs, u2 = (i + 1) / radialSegs;
+            const phi1 = thetaStart + u1 * thetaLength, phi2 = thetaStart + u2 * thetaLength;
+            const p1 = innerGrid[0][i], p2 = innerGrid[0][i + 1];
+            const h1x = rHole * Math.sin(phi1), h1z = rHole * Math.cos(phi1);
+            const h2x = rHole * Math.sin(phi2), h2z = rHole * Math.cos(phi2);
+            fVerts.push(h1x, floorY, h1z, p1.x, floorY, p1.z, p2.x, floorY, p2.z);
+            fVerts.push(h1x, floorY, h1z, p2.x, floorY, p2.z, h2x, floorY, h2z);
+          }
+          floorGeo.setAttribute('position', new THREE.Float32BufferAttribute(fVerts, 3));
+          floorGeo.computeVertexNormals();
+          activeMeshGroup.add(new THREE.Mesh(floorGeo, new THREE.MeshStandardMaterial({ color: 0x7A5C52, roughness: 0.5, side: THREE.DoubleSide })));
+
+          // C) Manga tubular conectando Y = 0 a Y = floorY no raio do dreno
+          const tubeGeo = new THREE.BufferGeometry();
+          const tVerts = [];
+          for (let i = 0; i < radialSegs; i++) {
+            const u1 = i / radialSegs, u2 = (i + 1) / radialSegs;
+            const phi1 = thetaStart + u1 * thetaLength, phi2 = thetaStart + u2 * thetaLength;
+            const h1x = rHole * Math.sin(phi1), h1z = rHole * Math.cos(phi1);
+            const h2x = rHole * Math.sin(phi2), h2z = rHole * Math.cos(phi2);
+            tVerts.push(h1x, 0, h1z, h1x, floorY, h1z, h2x, floorY, h2z);
+            tVerts.push(h1x, 0, h1z, h2x, floorY, h2z, h2x, 0, h2z);
+          }
+          tubeGeo.setAttribute('position', new THREE.Float32BufferAttribute(tVerts, 3));
+          tubeGeo.computeVertexNormals();
+          activeMeshGroup.add(new THREE.Mesh(tubeGeo, new THREE.MeshStandardMaterial({ color: 0x8C6D62, roughness: 0.5, side: THREE.DoubleSide })));
+        } else {
+          // Fundo Sólido Padrão
+          const basePts = outerGrid[0];
+          const bottomGeo = new THREE.BufferGeometry();
+          const bVerts = [];
+          for (let i = 0; i < radialSegs; i++) {
+            const p1 = basePts[i], p2 = basePts[i + 1];
+            bVerts.push(0, 0, 0, p2.x, 0, p2.z, p1.x, 0, p1.z);
+          }
+          bottomGeo.setAttribute('position', new THREE.Float32BufferAttribute(bVerts, 3));
+          bottomGeo.computeVertexNormals();
+          activeMeshGroup.add(new THREE.Mesh(bottomGeo, new THREE.MeshStandardMaterial({ color: 0x942B21, roughness: 0.5, side: THREE.DoubleSide })));
+
+          const floorPts = innerGrid[0];
+          const floorGeo = new THREE.BufferGeometry();
+          const fVerts = [];
+          for (let i = 0; i < radialSegs; i++) {
+            const p1 = floorPts[i], p2 = floorPts[i + 1];
+            fVerts.push(0, floorY, 0, p1.x, floorY, p1.z, p2.x, floorY, p2.z);
+          }
+          floorGeo.setAttribute('position', new THREE.Float32BufferAttribute(fVerts, 3));
+          floorGeo.computeVertexNormals();
+          activeMeshGroup.add(new THREE.Mesh(floorGeo, new THREE.MeshStandardMaterial({ color: 0x7A5C52, roughness: 0.5, side: THREE.DoubleSide })));
         }
-        floorGeo.setAttribute('position', new THREE.Float32BufferAttribute(fVerts, 3));
-        floorGeo.computeVertexNormals();
-        activeMeshGroup.add(new THREE.Mesh(floorGeo, new THREE.MeshStandardMaterial({ color: 0x7A5C52, roughness: 0.5, side: THREE.DoubleSide })));
 
         // 3. Boca Superior do Vaso (Tampa conectando parede externa à interna no topo)
         const topOuter = outerGrid[totalOuterSlices];
@@ -4140,26 +4325,115 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
         });
       });
 
-      // Adiciona o Disco da Base (Fundo do Vaso)
-      const rBase = rings[0]?.R1 || 40;
-      const diamBase = rBase * 2;
-      const basePts = [];
-      const numPts = 64;
-      for (let i = 0; i <= numPts; i++) {
-        const a = (i / numPts) * Math.PI * 2;
-        basePts.push({ x: rBase + rBase * Math.cos(a), y: rBase + rBase * Math.sin(a) });
+      // Adiciona o(s) Disco(s) configurado(s) pelo usuário
+      const discStages = (vaseStages || []).filter(st => st.tipo === 'disco');
+      const retracao = parseFloat(document.getElementById('v-retracao')?.value || document.getElementById('v-spline-retracao')?.value) || 1.12;
+
+      if (discStages.length > 0) {
+        discStages.forEach((st, dIdx) => {
+          const rBase = st.rBase * retracao;
+          const diamBase = rBase * 2;
+          const basePts = [];
+          const numPts = 64;
+
+          if (st.corteTipo === 'setor_vazado') {
+            const cutDeg = Math.max(15, Math.min(180, st.setorAng || 45));
+            const cutRad = (cutDeg * Math.PI) / 180;
+            const startAng = cutRad / 2;
+            const endAng = Math.PI * 2 - cutRad / 2;
+            basePts.push({ x: rBase, y: rBase });
+            for (let i = 0; i <= numPts; i++) {
+              const a = startAng + (i / numPts) * (endAng - startAng);
+              basePts.push({ x: rBase + rBase * Math.cos(a), y: rBase + rBase * Math.sin(a) });
+            }
+          } else {
+            for (let i = 0; i <= numPts; i++) {
+              const a = (i / numPts) * Math.PI * 2;
+              basePts.push({ x: rBase + rBase * Math.cos(a), y: rBase + rBase * Math.sin(a) });
+            }
+          }
+
+          // Orifícios internos
+          const holes = [];
+          if (st.corteTipo === 'furo_central') {
+            const rHole = Math.min(rBase - 4, ((st.furoDiam || 20) * retracao) / 2);
+            holes.push({ x: rBase, y: rBase, r: rHole });
+          } else if (st.corteTipo === 'crivo_multiplo') {
+            const rCenter = Math.min(rBase * 0.3, ((st.furoDiam || 14) * retracao) / 2);
+            holes.push({ x: rBase, y: rBase, r: rCenter });
+            const qtd = Math.max(3, Math.min(16, st.furoQtd || 6));
+            const rDist = Math.min(rBase - 8, Math.max(rCenter + 6, (st.furoDist || Math.round(st.rBase * 0.55)) * retracao));
+            const rP = Math.min(12, ((st.furoDiam || 14) * retracao) * 0.38);
+            for (let k = 0; k < qtd; k++) {
+              const ang = (k / qtd) * Math.PI * 2;
+              holes.push({
+                x: rBase + rDist * Math.cos(ang),
+                y: rBase + rDist * Math.sin(ang),
+                r: rP
+              });
+            }
+          } else if (st.corteTipo === 'entalhes_borda') {
+            const qtd = Math.max(2, Math.min(12, st.furoQtd || 4));
+            const rNotch = Math.min(10, ((st.furoDiam || 14) * retracao) / 2);
+            const rDist = rBase - rNotch * 0.6;
+            for (let k = 0; k < qtd; k++) {
+              const ang = (k / qtd) * Math.PI * 2;
+              holes.push({
+                x: rBase + rDist * Math.cos(ang),
+                y: rBase + rDist * Math.sin(ang),
+                r: rNotch
+              });
+            }
+          }
+
+          const corteDesc = st.corteTipo === 'furo_central' ? `Dreno Ø${st.furoDiam || 20}`
+            : st.corteTipo === 'crivo_multiplo' ? `Crivo ${st.furoQtd || 6}x`
+            : st.corteTipo === 'entalhes_borda' ? `Entalhes`
+            : st.corteTipo === 'setor_vazado' ? `Setor ${st.setorAng || 45}°` : 'Sólido';
+
+          items.push({
+            id: `disco-${dIdx}`,
+            type: 'base',
+            label: `Disco ${dIdx === 0 ? 'Fundo' : `Placa ${dIdx+1}`} Ø${(st.rBase * 2).toFixed(0)} (${corteDesc})`,
+            rawPoints: basePts,
+            holes,
+            corteTipo: st.corteTipo || 'solido',
+            furoDiam: st.furoDiam || 20,
+            furoQtd: st.furoQtd || 6,
+            setorAng: st.setorAng || 45,
+            outerArcMm: Math.PI * diamBase,
+            innerArcMm: 0,
+            slantMm: diamBase,
+            angleDeg: 360,
+            rBase: st.rBase,
+            altura: st.altura
+          });
+        });
+      } else {
+        // Fallback: Disco da Base Padrão
+        const rBase = (rings[0]?.R1 || 40);
+        const diamBase = rBase * 2;
+        const basePts = [];
+        const numPts = 64;
+        for (let i = 0; i <= numPts; i++) {
+          const a = (i / numPts) * Math.PI * 2;
+          basePts.push({ x: rBase + rBase * Math.cos(a), y: rBase + rBase * Math.sin(a) });
+        }
+        items.push({
+          id: 'base-disc',
+          type: 'base',
+          label: `Disco Base Ø${diamBase.toFixed(0)}`,
+          rawPoints: basePts,
+          holes: [],
+          corteTipo: 'solido',
+          outerArcMm: Math.PI * diamBase,
+          innerArcMm: 0,
+          slantMm: diamBase,
+          angleDeg: 360,
+          rBase: rings[0]?.r1 || 40,
+          altura: 8
+        });
       }
-      items.push({
-        id: 'base-disc',
-        type: 'base',
-        label: `Disco Base Ø${diamBase.toFixed(0)}`,
-        rawPoints: basePts,
-        outerArcMm: Math.PI * diamBase,
-        innerArcMm: 0,
-        slantMm: diamBase,
-        angleDeg: 360,
-        rBase
-      });
 
       return items;
     }
@@ -4373,6 +4647,30 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
           ctx.fill();
           ctx.lineWidth = 1.2;
           ctx.stroke();
+
+          // Desenha furos e cortes internos se existirem
+          if (p.item.holes && p.item.holes.length > 0) {
+            ctx.fillStyle = '#FFFFFF';
+            ctx.strokeStyle = '#B84A39';
+            ctx.lineWidth = 0.9;
+            p.item.holes.forEach(h => {
+              const hx = px + h.x * scale;
+              const hy = py + h.y * scale;
+              const hr = Math.max(1.2, h.r * scale);
+              ctx.beginPath();
+              ctx.arc(hx, hy, hr, 0, Math.PI * 2);
+              ctx.fill();
+              ctx.stroke();
+
+              // Cruz de centro +
+              ctx.beginPath();
+              ctx.moveTo(hx - 2, hy); ctx.lineTo(hx + 2, hy);
+              ctx.moveTo(hx, hy - 2); ctx.lineTo(hx, hy + 2);
+              ctx.strokeStyle = '#78716C';
+              ctx.lineWidth = 0.6;
+              ctx.stroke();
+            });
+          }
 
           // Mini rótulo sobre a peça
           ctx.font = 'bold 6.5px "JetBrains Mono", monospace';
@@ -5195,6 +5493,23 @@ Linhas Pretas (#000000) = relevo saliente de ${rel} mm; Branco (#FFFFFF) = base 
               doc.line(originX + p1.x, originY + p1.y, originX + p2.x, originY + p2.y);
             }
 
+            // Orifícios e marcações de centro ⊕ para vazador de argila
+            if (p.item.holes && p.item.holes.length > 0) {
+              doc.setDrawColor(184, 74, 57);
+              doc.setLineWidth(0.35);
+              p.item.holes.forEach(h => {
+                const hx = originX + h.x;
+                const hy = originY + h.y;
+                doc.circle(hx, hy, h.r);
+                doc.setDrawColor(120, 110, 100);
+                doc.setLineWidth(0.18);
+                doc.line(hx - 2.5, hy, hx + 2.5, hy);
+                doc.line(hx, hy - 2.5, hx, hy + 2.5);
+                doc.setDrawColor(184, 74, 57);
+                doc.setLineWidth(0.35);
+              });
+            }
+
             // Rótulo técnico e cotas essenciais
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(7.5);
@@ -5210,7 +5525,11 @@ Linhas Pretas (#000000) = relevo saliente de ${rel} mm; Branco (#FFFFFF) = base 
             } else if (p.item.type === 'cilindro') {
               dimText = `Desenvolvimento: ${p.item.outerArcMm.toFixed(0)} mm × Altura: ${p.item.slantMm.toFixed(0)} mm`;
             } else if (p.item.type === 'base') {
-              dimText = `Fundo Ø: ${(p.item.rBase * 2).toFixed(1)} mm | Perímetro: ${p.item.outerArcMm.toFixed(0)} mm`;
+              const corteLabel = p.item.corteTipo === 'furo_central' ? `Dreno Ø${p.item.furoDiam || 20} mm`
+                : p.item.corteTipo === 'crivo_multiplo' ? `Crivo ${p.item.furoQtd || 6}x Ø${p.item.furoDiam || 14} mm`
+                : p.item.corteTipo === 'entalhes_borda' ? `Entalhes Borda`
+                : p.item.corteTipo === 'setor_vazado' ? `Setor ${p.item.setorAng || 45}°` : 'Sólido';
+              dimText = `Disco Ø${(p.item.rBase * 2).toFixed(1)} mm | Placa ${p.item.altura || 8} mm | ${corteLabel}`;
             }
             doc.text(dimText, originX + 2, originY + 9);
           });
