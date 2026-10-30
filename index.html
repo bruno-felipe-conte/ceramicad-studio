@@ -693,7 +693,7 @@
                     data-tip-body="Define se o corte horizontal do vaso será perfeitamente redondo, recortado em pétalas suaves ou facetado em polígono."
                     data-tip-advice="Combine 'Pétalas Onduladas' com 6 a 12 lóbulos para vasos estilo flor de lótus.">?</span>
                 </label>
-                <select id="v-cross-shape" onchange="rebuildVase()" class="cad-input font-medium">
+                <select id="v-cross-shape" onchange="if (typeof onCrossShapeChange === 'function') onCrossShapeChange(this.value); rebuildVase();" class="cad-input font-medium">
                   <option value="circle">Circular Clássico</option>
                   <option value="petals">Pétalas Onduladas (Fluted)</option>
                   <option value="polygon">Polígono Regular</option>
@@ -2739,26 +2739,31 @@
       });
 
       document.addEventListener('pointerenter', (e) => {
+        if (!e.target || typeof e.target.closest !== 'function') return;
         const tip = e.target.closest('.help-tip');
         if (tip) showTooltip(tip);
       }, true);
 
       document.addEventListener('pointerleave', (e) => {
+        if (!e.target || typeof e.target.closest !== 'function') return;
         const tip = e.target.closest('.help-tip');
         if (tip) hideTooltip();
       }, true);
 
       document.addEventListener('focusin', (e) => {
+        if (!e.target || typeof e.target.closest !== 'function') return;
         const tip = e.target.closest('.help-tip');
         if (tip) showTooltip(tip);
       });
 
       document.addEventListener('focusout', (e) => {
+        if (!e.target || typeof e.target.closest !== 'function') return;
         const tip = e.target.closest('.help-tip');
         if (tip) hideTooltip();
       });
 
       document.addEventListener('click', (e) => {
+        if (!e.target || typeof e.target.closest !== 'function') return;
         const tip = e.target.closest('.help-tip');
         if (tip) {
           e.preventDefault();
@@ -3875,6 +3880,13 @@
       switchVaseMode('estagios');
     }
 
+    function onCrossShapeChange(val) {
+      const midEl = document.getElementById('v-loft-mid');
+      if (midEl && val !== 'circle') {
+        midEl.value = val;
+      }
+    }
+
     // =========================================================================
     // CONSTRUÇÃO THREE.JS DA MALHA SPLINE AVANÇADA COM LOFT, TORÇÃO & TEXTURAS
     // =========================================================================
@@ -3885,9 +3897,9 @@
       const totalH = parseFloat(document.getElementById('v-total-height')?.value) || 165;
       const isPoly = document.getElementById('v-spline-type')?.value === 'polilinha';
       const tension = (parseFloat(document.getElementById('v-spline-tension')?.value) || 50) / 100;
-      const wall = parseFloat(document.getElementById('v-spline-wall')?.value) || 5.5;
+      const wall = Math.max(2.0, parseFloat(document.getElementById('v-spline-wall')?.value) || 5.5);
       const densidade = parseFloat(document.getElementById('v-spline-densidade')?.value) || 1.95;
-      const verCorte = document.getElementById('v-section-cut').checked;
+      const verCorte = document.getElementById('v-section-cut')?.checked || false;
 
       const crossShape = document.getElementById('v-cross-shape')?.value || 'circle';
       const symmetry = document.getElementById('v-symmetry-mode')?.value || 'windmill';
@@ -3905,32 +3917,129 @@
       const texAmp = parseFloat(document.getElementById('v-spline-tex-amp')?.value) || 2.0;
 
       const drainageHole = parseFloat(document.getElementById('v-drainage-hole')?.value) || 0;
-      const rHole = drainageHole / 2;
+      const rHole = Math.max(0, drainageHole / 2);
+      const baseFillet = Math.max(0, parseFloat(document.getElementById('v-base-fillet')?.value) || 0);
 
-      const slices = 64;
-      const radialSegs = 72;
+      // Resolução radial e vertical aprimorada para fidelidade geométrica
+      const slices = 96;
+      const radialSegs = 120;
 
       const thetaStart = verCorte ? Math.PI * 0.25 : 0;
       const thetaLength = verCorte ? Math.PI * 1.5 : Math.PI * 2;
 
-      // Matrizes de vértices da casca externa e interna
+      // Determinação das formas de seção transversal ao longo da altura (Loft)
+      let effBaseShape = loftBase;
+      let effMidShape = loftMid;
+      let effTopShape = loftTop;
+
+      // Se o usuário selecionou uma forma horizontal diferente de circular no seletor primário
+      // e os tiers de loft estiverem todos circulares, aplica a forma primária ao corpo
+      if (crossShape !== 'circle' && loftBase === 'circle' && loftMid === 'circle' && loftTop === 'circle') {
+        effBaseShape = crossShape;
+        effMidShape = crossShape;
+        effTopShape = crossShape;
+      } else if (crossShape !== 'circle' && effMidShape === 'circle') {
+        effMidShape = crossShape;
+      }
+
+      // Função de avaliação de deformação da seção transversal
+      const evalShapeDelta = (shapeType, angle, baseRadius) => {
+        if (shapeType === 'circle' || crossDepth <= 0) return 0;
+
+        if (shapeType === 'petals') {
+          let wave = 0;
+          if (symmetry === 'windmill') {
+            // Lóbulo assimétrico estilo turbina cerâmica / moinho de vento com quina inclinada
+            const psi = angle * crossCount;
+            wave = Math.cos(psi + 0.55 * Math.sin(psi));
+          } else if (symmetry === 'quarter') {
+            // Simetria forçada de 4 quadrantes alinhada a múltiplos de 4
+            const k = Math.max(4, Math.round(crossCount / 4) * 4);
+            wave = Math.cos(angle * k);
+          } else if (symmetry === 'half') {
+            // Simetria bilateral espelhada (eixo frontal Z)
+            const wrapped = ((angle % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
+            const symAng = wrapped <= Math.PI ? wrapped : (Math.PI * 2 - wrapped);
+            wave = Math.cos(symAng * crossCount);
+          } else {
+            // Simetria livre / radial pura
+            wave = Math.cos(angle * crossCount);
+          }
+          return wave * crossDepth;
+        }
+
+        if (shapeType === 'polygon') {
+          const k = Math.max(3, crossCount);
+          const segAng = (Math.PI * 2) / k;
+          let wrapped = ((angle % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
+
+          if (symmetry === 'half') {
+            wrapped = wrapped <= Math.PI ? wrapped : (Math.PI * 2 - wrapped);
+          }
+
+          let modAng = ((wrapped % segAng) + segAng) % segAng - segAng / 2;
+          if (symmetry === 'windmill') {
+            modAng += 0.2 * Math.sin(modAng * 2);
+          }
+
+          const cosHalf = Math.cos(segAng / 2);
+          const cosMod = Math.cos(modAng);
+          const polyR = cosHalf / Math.max(0.001, cosMod);
+          const depthFactor = Math.min(2.0, Math.max(0.3, crossDepth / 3.5));
+          return (polyR - 1.0) * baseRadius * depthFactor;
+        }
+
+        return 0;
+      };
+
+      // Fundo e espessura da base sólida
+      const rawBaseR = evaluateSplineRadius(0, vaseSplineNodes, tension, isPoly);
+      const maxFillet = Math.min(rawBaseR * 0.45, totalH * 0.25, 20.0);
+      const F = Math.min(baseFillet, maxFillet);
+      const floorThick = Math.min(Math.max(wall, 6.0), totalH * 0.15);
+
+      // Distribuição inteligente de slices para máxima resolução no filete de base
+      const filletSlices = 14;
+      const bodySlices = slices - filletSlices;
+      const hFilletZone = Math.max(F, floorThick, 6.0);
+
+      // Matrizes de vértices
       const outerGrid = [];
       const innerGrid = [];
+      const sliceHeights = [];
 
+      let floorSliceIdx = -1;
       let volMm3 = 0;
       let areaSurfMm2 = 0;
 
       for (let j = 0; j <= slices; j++) {
-        const yNorm = j / slices;
-        const yPos = yNorm * totalH;
-        const baseR = evaluateSplineRadius(yNorm, vaseSplineNodes, tension, isPoly);
+        let yPos = 0;
+        if (j <= filletSlices) {
+          yPos = (j / filletSlices) * hFilletZone;
+        } else {
+          yPos = hFilletZone + ((j - filletSlices) / bodySlices) * (totalH - hFilletZone);
+        }
+        sliceHeights.push(yPos);
 
-        // Fator de lofting interpolado entre Base, Meio e Boca
-        let shapeMorph = 0.0;
-        if (yNorm < 0.5) shapeMorph = yNorm * 2.0; // transição base -> meio
-        else shapeMorph = (1.0 - yNorm) * 2.0;    // transição meio -> boca
+        if (floorSliceIdx === -1 && yPos >= floorThick - 0.001) {
+          floorSliceIdx = j;
+        }
 
+        const yNorm = Math.min(1.0, yPos / totalH);
+        const rSpline = evaluateSplineRadius(yNorm, vaseSplineNodes, tension, isPoly);
+
+        // Aplicação do Filete de Base Circular (Cânon anti-trinca da cerâmica)
+        let baseR = rSpline;
+        if (F > 0.05 && yPos < F) {
+          const dy = F - yPos;
+          const deltaF = F - Math.sqrt(Math.max(0, F * F - dy * dy));
+          baseR = Math.max(rHole + 4.0, rSpline - deltaF);
+        }
+
+        // Fator de lofting interpolado com curva suave Hermite
+        let shapeDelta = 0;
         const currentTwist = twistRad * yNorm;
+
         const outerRow = [];
         const innerRow = [];
 
@@ -3939,21 +4048,22 @@
           const phi = thetaStart + u * thetaLength;
           const twistedPhi = phi + currentTwist;
 
-          // Deformação da seção transversal
-          let shapeDelta = 0;
-          if (crossShape === 'petals') {
-            let petVal = Math.cos(twistedPhi * crossCount);
-            if (symmetry === 'quarter') petVal = Math.abs(Math.cos(twistedPhi * 2));
-            else if (symmetry === 'half') petVal = Math.cos(twistedPhi);
-            shapeDelta = petVal * crossDepth * Math.max(0.2, shapeMorph);
-          } else if (crossShape === 'polygon') {
-            const segAng = (Math.PI * 2) / Math.max(3, crossCount);
-            const modAng = ((twistedPhi % segAng) + segAng) % segAng - segAng / 2;
-            const polyR = Math.cos(segAng / 2) / Math.cos(modAng);
-            shapeDelta = (polyR - 1) * baseR * 0.65;
+          // Avaliação morfológica de loft entre Base ➔ Meio ➔ Boca
+          if (yNorm <= 0.5) {
+            const alpha = yNorm / 0.5;
+            const s = alpha * alpha * (3 - 2 * alpha);
+            const dBase = evalShapeDelta(effBaseShape, twistedPhi, baseR);
+            const dMid = evalShapeDelta(effMidShape, twistedPhi, baseR);
+            shapeDelta = (1 - s) * dBase + s * dMid;
+          } else {
+            const beta = (yNorm - 0.5) / 0.5;
+            const s = beta * beta * (3 - 2 * beta);
+            const dMid = evalShapeDelta(effMidShape, twistedPhi, baseR);
+            const dTop = evalShapeDelta(effTopShape, twistedPhi, baseR);
+            shapeDelta = (1 - s) * dMid + s * dTop;
           }
 
-          // Textura de superfície
+          // Textura de superfície periódica
           let texDelta = 0;
           if (texture === 'canelado') {
             texDelta = Math.cos(twistedPhi * texFreq) * texAmp;
@@ -3965,32 +4075,51 @@
             texDelta = Math.max(0, Math.sin(yNorm * Math.PI * texFreq + Math.cos(twistedPhi * texFreq))) * texAmp;
           }
 
-          const rExt = Math.max(8, baseR + shapeDelta + texDelta);
-          const rInt = Math.max(rHole > 0 ? rHole + 1 : 3, rExt - wall);
+          const rExt = Math.max(rHole + 4.0, baseR + shapeDelta + texDelta);
+          const maxIntR = Math.max(3.0, rExt - 2.5);
+          const rInt = Math.min(maxIntR, Math.max(rHole > 0 ? rHole + 1.5 : 3.0, baseR + shapeDelta * 0.45 - wall));
 
           const vxExt = rExt * Math.sin(phi);
           const vzExt = rExt * Math.cos(phi);
-          const vxInt = rInt * Math.sin(phi);
-          const vzInt = rInt * Math.cos(phi);
-
           outerRow.push(new THREE.Vector3(vxExt, yPos, vzExt));
-          innerRow.push(new THREE.Vector3(vxInt, yPos, vzInt));
+
+          if (floorSliceIdx !== -1 && j >= floorSliceIdx) {
+            const vxInt = rInt * Math.sin(phi);
+            const vzInt = rInt * Math.cos(phi);
+            innerRow.push(new THREE.Vector3(vxInt, yPos, vzInt));
+          }
         }
 
         outerGrid.push(outerRow);
-        innerGrid.push(innerRow);
+        if (innerRow.length > 0) {
+          innerGrid.push(innerRow);
+        }
 
-        // Integração de volume
+        // Integração de volume e massa física real
         if (j > 0) {
-          const dy = totalH / slices;
-          const prevExtR = evaluateSplineRadius((j - 1) / slices, vaseSplineNodes, tension, isPoly);
-          const prevIntR = Math.max(3, prevExtR - wall);
-          volMm3 += Math.PI * ((baseR * baseR) - (prevIntR * prevIntR)) * dy;
-          areaSurfMm2 += 2 * Math.PI * baseR * dy * 2;
+          const dy = yPos - sliceHeights[j - 1];
+          const prevExtR = outerGrid[j - 1][0].length();
+          const curExtR = outerRow[0].length();
+          const avgExtR = (prevExtR + curExtR) / 2;
+
+          if (j < floorSliceIdx) {
+            // Base sólida
+            volMm3 += Math.PI * (avgExtR * avgExtR - rHole * rHole) * dy;
+          } else {
+            // Parede oca
+            const innerIdx = j - floorSliceIdx;
+            const prevIntR = innerIdx > 0 ? innerGrid[innerIdx - 1][0].length() : (rHole > 0 ? rHole : 3);
+            const curIntR = innerRow[0].length();
+            const avgIntR = (prevIntR + curIntR) / 2;
+            volMm3 += Math.PI * Math.max(0, avgExtR * avgExtR - avgIntR * avgIntR) * dy;
+          }
+          areaSurfMm2 += 2 * Math.PI * avgExtR * dy * 2;
         }
       }
 
-      // Constrói Geometria da Parede Externa
+      if (floorSliceIdx === -1) floorSliceIdx = 0;
+
+      // 1. Constrói Geometria da Parede Externa
       const extGeo = buildGridMeshGeometry(outerGrid, slices, radialSegs, false);
       const extMat = new THREE.MeshStandardMaterial({
         color: 0xD05840,
@@ -4000,19 +4129,21 @@
       });
       activeMeshGroup.add(new THREE.Mesh(extGeo, extMat));
 
-      // Constrói Geometria da Parede Interna (Oca)
-      const intGeo = buildGridMeshGeometry(innerGrid, slices, radialSegs, true);
-      const intMat = new THREE.MeshStandardMaterial({
-        color: 0x8C6D62,
-        roughness: 0.65,
-        side: THREE.DoubleSide,
-        wireframe: isWireframe
-      });
-      activeMeshGroup.add(new THREE.Mesh(intGeo, intMat));
+      // 2. Constrói Geometria da Parede Interna (Oca, do fundo até o topo)
+      const innerSlices = innerGrid.length - 1;
+      if (innerSlices > 0) {
+        const intGeo = buildGridMeshGeometry(innerGrid, innerSlices, radialSegs, true);
+        const intMat = new THREE.MeshStandardMaterial({
+          color: 0x8C6D62,
+          roughness: 0.65,
+          side: THREE.DoubleSide,
+          wireframe: isWireframe
+        });
+        activeMeshGroup.add(new THREE.Mesh(intGeo, intMat));
+      }
 
-      // Fundo Sólido (Y = 0) com ou sem Furo de Drenagem
+      // 3. Fundo Sólido em Y = 0 (Base Externa com ou sem Furo de Drenagem)
       const baseOuterPts = outerGrid[0];
-      const baseInnerPts = innerGrid[0];
       const bottomCapGeo = new THREE.BufferGeometry();
       const bVerts = [];
 
@@ -4020,48 +4151,112 @@
         const p1Ext = baseOuterPts[i];
         const p2Ext = baseOuterPts[i + 1];
         if (rHole > 0) {
-          // Furo central vazado
-          const p1Hole = new THREE.Vector3(rHole * Math.sin(thetaStart + (i / radialSegs) * thetaLength), 0, rHole * Math.cos(thetaStart + (i / radialSegs) * thetaLength));
-          const p2Hole = new THREE.Vector3(rHole * Math.sin(thetaStart + ((i + 1) / radialSegs) * thetaLength), 0, rHole * Math.cos(thetaStart + ((i + 1) / radialSegs) * thetaLength));
-          bVerts.push(p1Hole.x, 0, p1Hole.z, p1Ext.x, 0, p1Ext.z, p2Ext.x, 0, p2Ext.z);
-          bVerts.push(p1Hole.x, 0, p1Hole.z, p2Ext.x, 0, p2Ext.z, p2Hole.x, 0, p2Hole.z);
+          const u1 = i / radialSegs;
+          const u2 = (i + 1) / radialSegs;
+          const phi1 = thetaStart + u1 * thetaLength;
+          const phi2 = thetaStart + u2 * thetaLength;
+          const p1Hole = new THREE.Vector3(rHole * Math.sin(phi1), 0, rHole * Math.cos(phi1));
+          const p2Hole = new THREE.Vector3(rHole * Math.sin(phi2), 0, rHole * Math.cos(phi2));
+          bVerts.push(p1Hole.x, 0, p1Hole.z, p2Ext.x, 0, p2Ext.z, p1Ext.x, 0, p1Ext.z);
+          bVerts.push(p1Hole.x, 0, p1Hole.z, p2Hole.x, 0, p2Hole.z, p2Ext.x, 0, p2Ext.z);
         } else {
-          // Base fechada
-          bVerts.push(0, 0, 0, p1Ext.x, 0, p1Ext.z, p2Ext.x, 0, p2Ext.z);
+          bVerts.push(0, 0, 0, p2Ext.x, 0, p2Ext.z, p1Ext.x, 0, p1Ext.z);
         }
       }
       bottomCapGeo.setAttribute('position', new THREE.Float32BufferAttribute(bVerts, 3));
       bottomCapGeo.computeVertexNormals();
       activeMeshGroup.add(new THREE.Mesh(bottomCapGeo, extMat));
 
-      // Borda Superior (Boca do Vaso fechando parede)
-      const topOuterPts = outerGrid[slices];
-      const topInnerPts = innerGrid[slices];
-      const topCapGeo = new THREE.BufferGeometry();
-      const tVerts = [];
-      for (let i = 0; i < radialSegs; i++) {
-        const o1 = topOuterPts[i], o2 = topOuterPts[i + 1];
-        const n1 = topInnerPts[i], n2 = topInnerPts[i + 1];
-        tVerts.push(o1.x, totalH, o1.z, n1.x, totalH, n1.z, n2.x, totalH, n2.z);
-        tVerts.push(o1.x, totalH, o1.z, n2.x, totalH, n2.z, o2.x, totalH, o2.z);
+      // 4. Chão Interno da Cavidade do Vaso (em Y = yFloor)
+      const floorY = sliceHeights[floorSliceIdx] || floorThick;
+      if (innerGrid.length > 0) {
+        const floorPts = innerGrid[0];
+        const floorGeo = new THREE.BufferGeometry();
+        const fVerts = [];
+        for (let i = 0; i < radialSegs; i++) {
+          const p1 = floorPts[i];
+          const p2 = floorPts[i + 1];
+          if (rHole > 0) {
+            const u1 = i / radialSegs;
+            const u2 = (i + 1) / radialSegs;
+            const phi1 = thetaStart + u1 * thetaLength;
+            const phi2 = thetaStart + u2 * thetaLength;
+            const h1 = new THREE.Vector3(rHole * Math.sin(phi1), floorY, rHole * Math.cos(phi1));
+            const h2 = new THREE.Vector3(rHole * Math.sin(phi2), floorY, rHole * Math.cos(phi2));
+            fVerts.push(h1.x, floorY, h1.z, p1.x, floorY, p1.z, p2.x, floorY, p2.z);
+            fVerts.push(h1.x, floorY, h1.z, p2.x, floorY, p2.z, h2.x, floorY, h2.z);
+          } else {
+            fVerts.push(0, floorY, 0, p1.x, floorY, p1.z, p2.x, floorY, p2.z);
+          }
+        }
+        floorGeo.setAttribute('position', new THREE.Float32BufferAttribute(fVerts, 3));
+        floorGeo.computeVertexNormals();
+        activeMeshGroup.add(new THREE.Mesh(floorGeo, new THREE.MeshStandardMaterial({ color: 0x7A5C52, roughness: 0.5, side: THREE.DoubleSide })));
       }
-      topCapGeo.setAttribute('position', new THREE.Float32BufferAttribute(tVerts, 3));
-      topCapGeo.computeVertexNormals();
-      activeMeshGroup.add(new THREE.Mesh(topCapGeo, new THREE.MeshStandardMaterial({ color: 0xE09070, side: THREE.DoubleSide })));
 
-      // Se Corte 270° ativo, fecha as faces cortadas laterais
+      // 5. Manga Tubular do Dreno conectando Y=0 a Y=floorY
+      if (rHole > 0) {
+        const tubeGeo = new THREE.BufferGeometry();
+        const tubeVerts = [];
+        for (let i = 0; i < radialSegs; i++) {
+          const u1 = i / radialSegs;
+          const u2 = (i + 1) / radialSegs;
+          const phi1 = thetaStart + u1 * thetaLength;
+          const phi2 = thetaStart + u2 * thetaLength;
+          const h1x = rHole * Math.sin(phi1), h1z = rHole * Math.cos(phi1);
+          const h2x = rHole * Math.sin(phi2), h2z = rHole * Math.cos(phi2);
+          tubeVerts.push(h1x, 0, h1z, h1x, floorY, h1z, h2x, floorY, h2z);
+          tubeVerts.push(h1x, 0, h1z, h2x, floorY, h2z, h2x, 0, h2z);
+        }
+        tubeGeo.setAttribute('position', new THREE.Float32BufferAttribute(tubeVerts, 3));
+        tubeGeo.computeVertexNormals();
+        activeMeshGroup.add(new THREE.Mesh(tubeGeo, new THREE.MeshStandardMaterial({ color: 0x8C6D62, roughness: 0.5, side: THREE.DoubleSide })));
+      }
+
+      // 6. Borda Superior (Boca do Vaso fechando parede externa à interna no topo)
+      const topOuterPts = outerGrid[slices];
+      const topInnerPts = innerGrid.length > 0 ? innerGrid[innerGrid.length - 1] : null;
+      if (topInnerPts) {
+        const topCapGeo = new THREE.BufferGeometry();
+        const tVerts = [];
+        for (let i = 0; i < radialSegs; i++) {
+          const o1 = topOuterPts[i], o2 = topOuterPts[i + 1];
+          const n1 = topInnerPts[i], n2 = topInnerPts[i + 1];
+          tVerts.push(o1.x, totalH, o1.z, n1.x, totalH, n1.z, n2.x, totalH, n2.z);
+          tVerts.push(o1.x, totalH, o1.z, n2.x, totalH, n2.z, o2.x, totalH, o2.z);
+        }
+        topCapGeo.setAttribute('position', new THREE.Float32BufferAttribute(tVerts, 3));
+        topCapGeo.computeVertexNormals();
+        activeMeshGroup.add(new THREE.Mesh(topCapGeo, new THREE.MeshStandardMaterial({ color: 0xE09070, side: THREE.DoubleSide })));
+      }
+
+      // 7. Se Corte 270° ativo, veda as duas faces cortadas exibindo massa cerâmica sólida
       if (verCorte) {
         const makeSectionWall = (colIdx) => {
           const capGeo = new THREE.BufferGeometry();
           const cVerts = [];
-          for (let j = 0; j < slices; j++) {
+
+          // A) Bloco do Fundo Sólido (de Y = 0 até Y = floorY)
+          for (let j = 0; j < floorSliceIdx; j++) {
             const o1 = outerGrid[j][colIdx];
             const o2 = outerGrid[j + 1][colIdx];
-            const n1 = innerGrid[j][colIdx];
-            const n2 = innerGrid[j + 1][colIdx];
-            cVerts.push(o1.x, o1.y, o1.z, n1.x, n1.y, n1.z, n2.x, n2.y, n2.z);
-            cVerts.push(o1.x, o1.y, o1.z, n2.x, n2.y, n2.z, o2.x, o2.y, o2.z);
+            cVerts.push(0, o1.y, 0, o1.x, o1.y, o1.z, o2.x, o2.y, o2.z);
+            cVerts.push(0, o1.y, 0, o2.x, o2.y, o2.z, 0, o2.y, 0);
           }
+
+          // B) Parede Lateral Oca (de Y = floorY até Y = totalH)
+          if (innerGrid.length > 0) {
+            for (let k = 0; k < innerGrid.length - 1; k++) {
+              const j = floorSliceIdx + k;
+              const o1 = outerGrid[j][colIdx];
+              const o2 = outerGrid[j + 1][colIdx];
+              const n1 = innerGrid[k][colIdx];
+              const n2 = innerGrid[k + 1][colIdx];
+              cVerts.push(o1.x, o1.y, o1.z, n1.x, n1.y, n1.z, n2.x, n2.y, n2.z);
+              cVerts.push(o1.x, o1.y, o1.z, n2.x, n2.y, n2.z, o2.x, o2.y, o2.z);
+            }
+          }
+
           capGeo.setAttribute('position', new THREE.Float32BufferAttribute(cVerts, 3));
           capGeo.computeVertexNormals();
           return new THREE.Mesh(capGeo, new THREE.MeshStandardMaterial({ color: 0xE5A98C, roughness: 0.4, side: THREE.DoubleSide }));
@@ -4075,7 +4270,7 @@
       // Métricas e custos sincronizados
       const volumeTotalCm3 = volMm3 / 1000;
       const massaBrutaKg = ((volumeTotalCm3 * densidade) / 1000) * 1.25;
-      const volInternoMl = Math.max(0, (Math.PI * Math.pow(evaluateSplineRadius(0.5, vaseSplineNodes, tension, isPoly) - wall, 2) * totalH) / 1000);
+      const volInternoMl = Math.max(0, (Math.PI * Math.pow(evaluateSplineRadius(0.5, vaseSplineNodes, tension, isPoly) - wall, 2) * (totalH - floorThick)) / 1000);
 
       document.getElementById('bar-clay-kg').textContent = `${massaBrutaKg.toFixed(2)} kg`;
       document.getElementById('bar-volume-ml').textContent = volInternoMl >= 1000 ? `${(volInternoMl / 1000).toFixed(2)} L` : `${Math.round(volInternoMl)} mL`;
@@ -4155,6 +4350,22 @@
           }
           curY += rg.h;
         });
+
+        // Aplicação do Filete de Base no Modo Estágios
+        const baseFilletEst = parseFloat(document.getElementById('v-base-fillet')?.value) || 0;
+        if (baseFilletEst > 0 && outerRows.length > 0) {
+          const r0 = outerRows[0].r;
+          const F = Math.min(baseFilletEst, r0 * 0.45, 20);
+          if (F > 0.1) {
+            outerRows.forEach(row => {
+              if (row.y < F) {
+                const dy = F - row.y;
+                const deltaF = F - Math.sqrt(Math.max(0, F * F - dy * dy));
+                row.r = Math.max(4, row.r - deltaF);
+              }
+            });
+          }
+        }
 
         // Índice onde começa o fundo interno da cavidade do vaso
         let floorIdx = outerRows.findIndex(row => row.y >= espessura - 0.001);
