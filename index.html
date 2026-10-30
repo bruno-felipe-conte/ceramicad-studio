@@ -7216,17 +7216,24 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
       return 1.0 - smoothStepOrganic(Math.max(0, halfWidth - softness), halfWidth + softness, Math.abs(dist));
     }
 
-    function evalRollerProceduralPattern(preset, u, v) {
+    function fractPos(x) {
+      return ((x % 1) + 1) % 1;
+    }
+
+    // Avalia o padrão procedural em coordenadas de repetição física (u, v) onde v cresce proporcionalmente
+    // ao comprimento em milímetros (vy / 100), expandindo a malha de textura sem jamais esticar/distorcer!
+    function evalRollerProceduralPattern(preset, u, v, vyMm = 50, alturaMm = 100) {
       const tau = Math.PI * 2;
       if (preset === 'marajoara') {
-        const uPhase = (u * 6) % 1;
+        const uPhase = fractPos(u * 6);
         const triWave = 1.0 - Math.abs(uPhase - 0.5) * 2.0;
         const zig = smoothStepOrganic(0.0, 1.0, triWave);
-        const wave = ((v * 5 + zig * 0.45) % 1);
+        const wave = fractPos(v * 5 + zig * 0.45);
         const ridge1 = ridgeBell(wave - 0.28, 0.085, 0.045);
         const ridge2 = ridgeBell(wave - 0.72, 0.085, 0.045);
-        const fretMask = ridgeBell(v - 0.5, 0.09, 0.035) * smoothStepOrganic(-0.2, 0.45, Math.cos(u * tau * 12));
-        const spiralDots = ridgeBell(Math.hypot(((u * 12) % 1) - 0.5, ((v * 5) % 1) - 0.5), 0.14, 0.06) * 0.85;
+        const fretV = fractPos(v * 2.5) - 0.5;
+        const fretMask = ridgeBell(fretV, 0.14, 0.05) * smoothStepOrganic(-0.2, 0.45, Math.cos(u * tau * 12));
+        const spiralDots = ridgeBell(Math.hypot(fractPos(u * 12) - 0.5, fractPos(v * 5) - 0.5), 0.14, 0.06) * 0.85;
         return Math.min(1.0, Math.max(ridge1, ridge2, fretMask * 0.92, spiralDots));
       } else if (preset === 'seigaiha') {
         const cols = 6, rows = 8;
@@ -7234,7 +7241,7 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
         for (let dr = -1; dr <= 1; dr++) {
           const rIdx = Math.floor(v * rows) + dr;
           const vCenter = (rIdx + 0.5) / rows;
-          const uShift = ((u * cols + (Math.abs(rIdx) % 2) * 0.5) % 1) - 0.5;
+          const uShift = fractPos(u * cols + (Math.abs(rIdx) % 2) * 0.5) - 0.5;
           const vLocal = (v - vCenter) * rows;
           const d = Math.hypot(uShift, vLocal * 0.85);
           if (d < 0.72) {
@@ -7246,10 +7253,10 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
         return best;
       } else if (preset === 'folhagem') {
         const vineWave = Math.sin(u * tau * 3) * 0.14;
-        const vineDist = Math.abs(((v * 3 + vineWave + 10) % 1) - 0.5);
+        const vineDist = Math.abs(fractPos(v * 3 + vineWave) - 0.5);
         const stem = ridgeBell(vineDist, 0.045, 0.03);
-        const leafU = ((u * 9) % 1) - 0.5;
-        const leafV = ((v * 6 + (Math.floor(u * 9) % 2) * 0.35) % 1) - 0.5;
+        const leafU = fractPos(u * 9) - 0.5;
+        const leafV = fractPos(v * 6 + (Math.floor(u * 9) % 2) * 0.35) - 0.5;
         const rotU = leafU * 0.8 + leafV * 0.6;
         const rotV = -leafU * 0.6 + leafV * 0.8;
         const leafDist = Math.hypot(rotU * 0.9, rotV * 1.65);
@@ -7257,18 +7264,18 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
         const vein = ridgeBell(rotV, 0.025, 0.02) * ridgeBell(rotU, 0.22, 0.06);
         return Math.min(1.0, Math.max(stem * 0.9, leafBody * 0.82 + vein * 0.28));
       } else if (preset === 'espinha') {
-        const col = (u * 12) % 1;
+        const col = fractPos(u * 12);
         const zig = 1.0 - Math.abs(col - 0.5) * 2.0;
         const zigSmooth = 0.5 - 0.5 * Math.cos(zig * Math.PI);
-        const phase = (v * 10 + zigSmooth * 0.65) % 1;
+        const phase = fractPos(v * 10 + zigSmooth * 0.65);
         const rib = 0.5 + 0.5 * Math.cos((phase - 0.5) * tau);
         return Math.pow(rib, 1.45) * 0.96;
       } else if (preset === 'favo') {
         const sx = u * 12;
         const sy = v * 10;
         const row = Math.floor(sy);
-        const hx = ((sx + (row % 2) * 0.5) % 1) - 0.5;
-        const hy = (sy % 1) - 0.5;
+        const hx = fractPos(sx + (row % 2) * 0.5) - 0.5;
+        const hy = fractPos(sy) - 0.5;
         const hexDist = Math.max(Math.abs(hx), Math.abs(hx) * 0.5 + Math.abs(hy) * 0.866025);
         const wall = ridgeBell(hexDist - 0.42, 0.055, 0.035);
         const centerDome = ridgeBell(hexDist, 0.14, 0.07) * 0.55;
@@ -7277,9 +7284,11 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
         const d1 = Math.sin(u * tau * 8) * Math.sin(v * tau * 4);
         const d2 = Math.cos(u * tau * 16) * Math.cos(v * tau * 8);
         const medallion = smoothStepOrganic(0.05, 0.55, d1 + d2 * 0.55);
-        const scallopTop = ridgeBell(v - 0.10 - 0.025 * Math.sin(u * tau * 16), 0.028, 0.02);
-        const scallopBot = ridgeBell(v - 0.90 - 0.025 * Math.sin(u * tau * 16), 0.028, 0.02);
-        return Math.min(1.0, Math.max(medallion * 0.94, scallopTop, scallopBot));
+        const scallopWave = 2.2 * Math.sin(u * tau * 16);
+        const scallopTop = ridgeBell((vyMm - 9.0) - scallopWave, 2.5, 1.6);
+        const scallopBot = ridgeBell((alturaMm - 9.0 - vyMm) - scallopWave, 2.5, 1.6);
+        const periodicBand = ridgeBell((fractPos(v * 2) - 0.5) - 0.025 * Math.sin(u * tau * 16), 0.045, 0.03);
+        return Math.min(1.0, Math.max(medallion * 0.94, scallopTop, scallopBot, periodicBand * 0.88));
       } else if (preset === 'cestaria') {
         const wu = Math.sin(u * tau * 12);
         const wv = Math.sin(v * tau * 9);
@@ -7287,16 +7296,16 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
         const strandV = Math.pow(0.5 + 0.5 * Math.cos(v * tau * 9), 1.3) * (0.65 - 0.35 * wu);
         return Math.min(1.0, Math.max(strandU, strandV) * 0.95);
       } else if (preset === 'meandro') {
-        const gx = ((u * 8) % 1) - 0.5;
-        const gy = ((v * 5) % 1) - 0.5;
+        const gx = fractPos(u * 8) - 0.5;
+        const gy = fractPos(v * 5) - 0.5;
         const rMax = Math.max(Math.abs(gx), Math.abs(gy));
         const outerRing = ridgeBell(rMax - 0.36, 0.05, 0.028);
         const innerSpiral = ridgeBell(rMax - 0.18, 0.05, 0.028);
         const bridge = ridgeBell(gy, 0.045, 0.025) * smoothStepOrganic(0.12, 0.38, gx);
         return Math.min(1.0, Math.max(outerRing, innerSpiral, bridge));
       } else if (preset === 'constelacao') {
-        const cx = ((u * 6) % 1) - 0.5;
-        const cy = ((v * 4) % 1) - 0.5;
+        const cx = fractPos(u * 6) - 0.5;
+        const cy = fractPos(v * 4) - 0.5;
         const r = Math.hypot(cx, cy);
         const ang = Math.atan2(cy, cx);
         const starRadius = 0.17 + 0.13 * Math.cos(ang * 4);
@@ -7309,8 +7318,8 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
         const bark = Math.pow(wave1 * 0.65 + wave2 * 0.35, 1.4);
         return smoothStepOrganic(0.18, 0.85, bark) * 0.96;
       } else if (preset === 'azulejo') {
-        const ax = Math.abs(((u * 8) % 1) - 0.5) * 2;
-        const ay = Math.abs(((v * 6) % 1) - 0.5) * 2;
+        const ax = Math.abs(fractPos(u * 8) - 0.5) * 2;
+        const ay = Math.abs(fractPos(v * 6) - 0.5) * 2;
         const diamond = ridgeBell((ax + ay) - 0.70, 0.08, 0.045);
         const crossDiag = ridgeBell(ax - ay, 0.075, 0.045) * (1.0 - smoothStepOrganic(0.65, 0.92, Math.max(ax, ay)));
         const rosette = ridgeBell(Math.hypot(ax, ay), 0.22, 0.06);
@@ -7352,8 +7361,17 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
       const hasAxleHole = document.getElementById('r-axle-hole')?.checked ?? true;
       const raioBase = diam / 2;
 
-      // Malha cilíndrica HD (220 segmentos radiais × 150 longitudinais) para curvas orgânicas perfeitas sem serrilhado
-      const geo = new THREE.CylinderGeometry(raioBase, raioBase, altura, 220, 150, false);
+      // Densidade de malha adaptativa: mantém a nitidez por milímetro constante mesmo em rolos longos (ex: 200mm+)
+      const radialSegs = Math.min(320, Math.max(200, Math.round((diam / 40) * 220)));
+      const heightSegs = Math.min(420, Math.max(120, Math.round(altura * 1.6)));
+
+      // Escala de repetição física (Tiling em mm):
+      // - uScale usa múltiplo inteiro para garantir emenda 360° 100% invisível ao redor do cilindro
+      // - vTiled usa vy / 100.0 (escala física em mm) para que ao aumentar o comprimento (altura),
+      //   a textura se expanda adicionando novas repetições sem jamais esticar ou achatar o desenho!
+      const uScale = Math.max(1, Math.round(diam / 40));
+
+      const geo = new THREE.CylinderGeometry(raioBase, raioBase, altura, radialSegs, heightSegs, false);
       geo.translate(0, altura / 2, 0);
       const pos = geo.attributes.position;
 
@@ -7366,7 +7384,8 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
         if (r > raioBase * 0.85 && vy > 0.8 && vy < altura - 0.8) {
           const angle = Math.atan2(vz, vx) + Math.PI;
           const u = angle / (2 * Math.PI);
-          const v = vy / altura;
+          const uTiled = fractPos(u * uScale);
+          const vTiled = vy / 100.0;
 
           // Chanfro orgânico cosseno nas extremidades para não marcar linhas na placa de argila
           const distEdge = Math.min(vy - 0.8, altura - 0.8 - vy);
@@ -7374,10 +7393,10 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
 
           let darkness = 0;
           if (rollerHeightMapData) {
-            darkness = 1.0 - sampleBilinearLum(rollerHeightMapData, u, v);
+            darkness = 1.0 - sampleBilinearLum(rollerHeightMapData, uTiled, fractPos(vTiled));
             darkness = smoothStepOrganic(0.12, 0.88, darkness);
           } else {
-            darkness = evalRollerProceduralPattern(preset, u, v);
+            darkness = evalRollerProceduralPattern(preset, uTiled, vTiled, vy, altura);
           }
 
           const newR = raioBase + darkness * relevo * edgeFade;
