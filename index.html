@@ -1262,11 +1262,18 @@
                     data-tip-advice="Experimente 'Costela-de-Adão' para pingentes ou 'Selo Marajoara' para porta-copos.">?</span>
                 </label>
                 <select id="c-preset-shape" onchange="loadPresetPattern(this.value)" class="cad-input font-medium">
-                  <option value="morcego" selected>🦇 Morcego Noturno (Kit 3 Peças Real)</option>
-                  <option value="gato">Gato Minimalista</option>
-                  <option value="folha">Costela-de-Adão Botânica</option>
-                  <option value="marajoara">Selo Geométrico Marajoara</option>
-                  <option value="flor">Flor de Lótus Simétrica</option>
+                  <option value="morcego" selected>🦇 1. Morcego Noturno (Kit 3 Peças Real)</option>
+                  <option value="gato">🐱 2. Gato Minimalista</option>
+                  <option value="folha">🍃 3. Costela-de-Adão Botânica</option>
+                  <option value="marajoara">🏺 4. Selo Geométrico Marajoara</option>
+                  <option value="flor">🪷 5. Flor de Lótus Simétrica</option>
+                  <option value="sol_boho">☀️ 6. Sol Radiante & Arco Boho</option>
+                  <option value="cogumelo">🍄 7. Cogumelo Silvestre Amanita</option>
+                  <option value="concha">🐚 8. Concha Vieira Marinha (Scallop)</option>
+                  <option value="coracao_sagrado">❤️‍🔥 9. Coração Flamejante Mexicano</option>
+                  <option value="borboleta">🦋 10. Borboleta Monarca Simétrica</option>
+                  <option value="hamsa_mao">🪬 11. Mão de Hamsa & Olho Místico</option>
+                  <option value="passaro">🕊️ 12. Andorinha em Voo (Folk Art)</option>
                 </select>
               </div>
               <div>
@@ -1568,6 +1575,31 @@
 
           <!-- Rolo -->
           <div id="subpanel-rolo" class="cad-card space-y-3">
+            <div>
+              <label class="cad-label" for="r-preset-select">
+                <span>Modelo de Textura Contínua (12 Presets)</span>
+                <span class="help-tip" tabindex="0" role="button" aria-label="Ajuda sobre Modelos de Rolo"
+                  data-tip-cat="Rolos 360°"
+                  data-tip-title="Padrões Seamless Calibrados para Argila"
+                  data-tip-body="Selecione um dos 12 padrões contínuos sem emenda gerados matematicamente em 360° ao redor do cilindro."
+                  data-tip-advice="Todos os rolos possuem chanfro suave nas extremidades para não marcar linhas laterais na placa de argila.">?</span>
+              </label>
+              <select id="r-preset-select" onchange="loadRollerPreset(this.value)" class="cad-input font-medium">
+                <option value="marajoara" selected>🏺 1. Ondas Geométricas Marajoaras</option>
+                <option value="seigaiha">🌊 2. Escamas Seigaiha (Ondas Japonesas)</option>
+                <option value="folhagem">🌿 3. Folhagem Tropical & Samambaias</option>
+                <option value="espinha">🌾 4. Espinha de Peixe (Herringbone)</option>
+                <option value="favo">🐝 5. Favos de Mel Hexagonais (Honeycomb)</option>
+                <option value="renda">🌸 6. Renda Floral Vitoriana</option>
+                <option value="cestaria">🧺 7. Trama de Cestaria Indígena (Woven)</option>
+                <option value="meandro">🏛️ 8. Labirinto Grego (Meandro Clássico)</option>
+                <option value="constelacao">✨ 9. Constelação & Estrelas Celestiais</option>
+                <option value="casca">🪵 10. Casca de Árvore Rústica (Woodgrain)</option>
+                <option value="azulejo">💠 11. Azulejo Português / Arabesco</option>
+                <option value="seixos">🪨 12. Seixos Rolados de Rio (Pebble Stone)</option>
+              </select>
+            </div>
+
             <div class="grid grid-cols-3 gap-2">
               <div>
                 <label class="cad-label" for="r-diam">
@@ -1604,26 +1636,24 @@
               </div>
             </div>
 
-            <div>
-              <label class="cad-label" for="roller-img-input">
-                <span>Imagem de textura contínua (P&B)</span>
-                <span class="help-tip" tabindex="0" role="button" aria-label="Ajuda sobre Imagem do Rolo"
-                  data-tip-cat="Textura Seamless"
-                  data-tip-title="Mapa de Relevo Contínuo 360°"
-                  data-tip-body="A imagem é enrolada perfeitamente na superfície cilíndrica. O lado esquerdo se encontra com o lado direito sem costura aparente."
-                  data-tip-advice="Use padrões geométricos ou orgânicos repetitivos para resultados impecáveis.">?</span>
-              </label>
-              <input type="file" id="roller-img-input" accept="image/*" class="w-full text-xs file:mr-2 file:py-1 file:px-2.5 file:rounded-md file:border-0 file:bg-stone-800 file:text-white cursor-pointer bg-stone-50 dark:bg-terracotta-900 rounded-lg border border-stone-200 dark:border-cad-border p-1" />
+            <div class="grid grid-cols-2 gap-2 items-center">
+              <div>
+                <label class="cad-label" for="roller-img-input">
+                  <span>Ou subir imagem P&B</span>
+                </label>
+                <input type="file" id="roller-img-input" accept="image/*" class="w-full text-[11px] file:mr-1.5 file:py-1 file:px-2 file:rounded-md file:border-0 file:bg-stone-800 file:text-white cursor-pointer bg-stone-50 dark:bg-terracotta-900 rounded-lg border border-stone-200 dark:border-cad-border p-1" />
+              </div>
+              <div class="pt-4">
+                <label class="flex items-center gap-1.5 cursor-pointer bg-stone-50 dark:bg-terracotta-900 p-2 rounded-lg border border-stone-200 dark:border-cad-border">
+                  <input type="checkbox" id="r-axle-hole" checked onchange="rebuildRoller3D()" class="accent-terracotta-500 rounded" />
+                  <span class="text-[11px] font-medium">Furo Eixo Ø8mm</span>
+                </label>
+              </div>
             </div>
 
             <div>
               <label class="cad-label" for="r-tema">
                 <span>Tema para prompt seamless</span>
-                <span class="help-tip" tabindex="0" role="button" aria-label="Ajuda sobre Tema do Rolo"
-                  data-tip-cat="Prompt IA"
-                  data-tip-title="Gerador de Textura Seamless para IA"
-                  data-tip-body="Gera instruções especializadas para criar texturas contínuas (azulejáveis) no Midjourney ou DALL-E."
-                  data-tip-advice="Copie o prompt gerado abaixo e cole na IA de imagens da sua preferência.">?</span>
               </label>
               <input type="text" id="r-tema" value="Ondas geométricas marajoaras e folhas tropicais" oninput="updateRollerPrompt()" class="cad-input font-medium" />
             </div>
@@ -1633,65 +1663,89 @@
                 <span class="text-xs font-semibold text-stone-700 dark:text-stone-300">Prompt Textura Contínua 360°</span>
                 <button onclick="copyText('roller-prompt-text')" class="bg-stone-800 text-white text-[10px] font-medium px-2 py-0.5 rounded transition hover:bg-stone-900">Copiar</button>
               </div>
-              <textarea id="roller-prompt-text" readonly rows="3" class="w-full p-2.5 text-[11px] font-mono-cad bg-stone-100 dark:bg-stone-900 text-stone-800 dark:text-emerald-300 rounded-lg border border-stone-200 dark:border-cad-border resize-none select-all"></textarea>
+              <textarea id="roller-prompt-text" readonly rows="2" class="w-full p-2 text-[11px] font-mono-cad bg-stone-100 dark:bg-stone-900 text-stone-800 dark:text-emerald-300 rounded-lg border border-stone-200 dark:border-cad-border resize-none select-all"></textarea>
             </div>
 
-            <button onclick="exportActiveMeshSTL('rolo_textura_360.stl')" class="w-full bg-terracotta-500 hover:bg-terracotta-600 text-white font-semibold py-2.5 px-4 rounded-lg text-xs shadow-xs transition flex items-center justify-center gap-2">
-              <span>⬇️</span> Baixar Rolo Cilíndrico (.STL)
-            </button>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="rebuildRoller3D()" class="bg-stone-800 hover:bg-stone-900 text-white font-medium py-2 px-3 rounded-lg text-xs transition">
+                🔄 Gerar Rolo 3D
+              </button>
+              <button onclick="exportActiveMeshSTL('rolo_textura_360.stl')" class="bg-terracotta-500 hover:bg-terracotta-600 text-white font-semibold py-2 px-3 rounded-lg text-xs shadow-xs transition flex items-center justify-center gap-1">
+                <span>⬇️</span> Baixar Rolo (.STL)
+              </button>
+            </div>
           </div>
 
           <!-- Carimbo -->
           <div id="subpanel-carimbo" class="hidden cad-card space-y-3">
+            <div>
+              <label class="cad-label" for="m-preset-select">
+                <span>Modelo de Carimbo / Chancela (12 Presets)</span>
+                <span class="help-tip" tabindex="0" role="button" aria-label="Ajuda sobre Presets de Carimbo"
+                  data-tip-cat="Selo de Ateliê"
+                  data-tip-title="Biblioteca de Carimbos em Alto-Relevo"
+                  data-tip-body="Escolha entre 12 selos cerâmicos clássicos e autorais. O relevo 3D é esculpido diretamente sobre a face do carimbo junto com suas iniciais!"
+                  data-tip-advice="Use o modo 'Vista do Relevo' para inspecionar os detalhes da gravura antes de exportar o STL.">?</span>
+              </label>
+              <select id="m-preset-select" onchange="loadStampPreset(this.value)" class="cad-input font-medium">
+                <option value="oliveira" selected>🌿 1. Monograma Clássico & Ramo de Oliveira</option>
+                <option value="hanko">⛩️ 2. Selo Japonês Hanko / Inkan Oriental</option>
+                <option value="sol_lua">☀️ 3. Sol Radiante & Meia-Lua Boho</option>
+                <option value="monstera">🍃 4. Folha de Costela-de-Adão (Monstera)</option>
+                <option value="hamsa">🧿 5. Olho Místico Protetor (Hamsa / Nazar)</option>
+                <option value="abelha">🐝 6. Abelha Imperial & Favo Hexagonal</option>
+                <option value="rosa_ventos">🧭 7. Rosa dos Ventos Náutica (8 Pontas)</option>
+                <option value="marajoara">🏺 8. Selo Geométrico Marajoara Autêntico</option>
+                <option value="lotus">🪷 9. Flor de Lótus & Mandala Zen</option>
+                <option value="maos_oleiro">🤲 10. Mãos de Oleiro & Vaso Central</option>
+                <option value="lavanda">🌾 11. Ramo de Lavanda & Espiga de Trigo</option>
+                <option value="coroa">👑 12. Coroa Real & Brasão Handmade</option>
+              </select>
+            </div>
+
             <div class="grid grid-cols-3 gap-2">
               <div>
                 <label class="cad-label" for="m-formato">
                   <span>Formato</span>
-                  <span class="help-tip" tabindex="0" role="button" aria-label="Ajuda sobre Formato do Carimbo"
-                    data-tip-cat="Selo de Ateliê"
-                    data-tip-title="Geometria do Selo do Ceramista"
-                    data-tip-body="Define se o carimbo de fundo da peça será circular clássico ou quadrado moderno."
-                    data-tip-advice="Circulares são fáceis de aplicar em pés de xícaras e tigelas.">?</span>
                 </label>
                 <select id="m-formato" onchange="rebuildStamp3D(); updateStampPrompts()" class="cad-input font-medium">
                   <option value="circular">Circular</option>
                   <option value="quadrado">Quadrado</option>
+                  <option value="hexagonal">Hexagonal</option>
+                  <option value="oval">Oval / Cartela</option>
                 </select>
               </div>
               <div>
                 <label class="cad-label" for="m-diam">
                   <span>Diâmetro (mm)</span>
-                  <span class="help-tip" tabindex="0" role="button" aria-label="Ajuda sobre Diâmetro do Carimbo"
-                    data-tip-cat="Selo de Ateliê"
-                    data-tip-title="Tamanho da Marca do Oleiro (mm)"
-                    data-tip-body="Dimensão externa da cabeça do carimbo."
-                    data-tip-advice="20 mm a 28 mm cabe perfeitamente no fundo torneado da maioria das peças.">?</span>
                 </label>
-                <input type="number" id="m-diam" value="26.0" oninput="rebuildStamp3D(); updateStampPrompts()" class="cad-input font-semibold" />
+                <input type="number" id="m-diam" value="32.0" min="14" max="90" oninput="rebuildStamp3D(); updateStampPrompts()" class="cad-input font-semibold" />
               </div>
               <div>
                 <label class="cad-label" for="m-prof">
                   <span>Relevo (mm)</span>
-                  <span class="help-tip" tabindex="0" role="button" aria-label="Ajuda sobre Relevo do Carimbo"
-                    data-tip-cat="Selo de Ateliê"
-                    data-tip-title="Profundidade da Assinatura (mm)"
-                    data-tip-body="Altura dos caracteres em relevo."
-                    data-tip-advice="1.4 mm a 1.8 mm garante marca legível mesmo após a queima e esmalte.">?</span>
                 </label>
-                <input type="number" id="m-prof" value="1.6" step="0.1" oninput="rebuildStamp3D(); updateStampPrompts()" class="cad-input font-semibold" />
+                <input type="number" id="m-prof" value="2.0" step="0.2" min="0.8" max="5.0" oninput="rebuildStamp3D(); updateStampPrompts()" class="cad-input font-semibold" />
               </div>
             </div>
 
-            <div>
-              <label class="cad-label" for="m-iniciais">
-                <span>Iniciais / Símbolo do ateliê</span>
-                <span class="help-tip" tabindex="0" role="button" aria-label="Ajuda sobre Iniciais do Ateliê"
-                  data-tip-cat="Maker's Mark"
-                  data-tip-title="Identidade do Ceramista"
-                  data-tip-body="Texto ou monograma para gravar no carimbo."
-                  data-tip-advice="Letras maiúsculas sem serifa são as mais fáceis de imprimir e limpar.">?</span>
-              </label>
-              <input type="text" id="m-iniciais" value="Monograma A&C com ramo de oliveira" oninput="updateStampPrompts()" class="cad-input font-medium" />
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="cad-label" for="m-iniciais">
+                  <span>Sigla / Iniciais (até 6 letras)</span>
+                </label>
+                <input type="text" id="m-iniciais" value="A&C" maxlength="18" oninput="rebuildStamp3D(); updateStampPrompts()" class="cad-input font-semibold" />
+              </div>
+              <div>
+                <label class="cad-label" for="m-view-pos">
+                  <span>Posição no Palco 3D</span>
+                </label>
+                <select id="m-view-pos" onchange="rebuildStamp3D()" class="cad-input font-medium">
+                  <option value="face_up" selected>🔍 Face c/ Relevo p/ Cima (Mesa FDM)</option>
+                  <option value="side_both">🎭 Par Duplo (Cabo em Pé + Face Visível)</option>
+                  <option value="stamp_down">👇 Posição de Carimbar (Cabo no Topo)</option>
+                </select>
+              </div>
             </div>
 
             <div class="space-y-1">
@@ -1699,12 +1753,17 @@
                 <span class="text-xs font-semibold text-stone-700 dark:text-stone-300">Prompt Carimbo (.STL)</span>
                 <button onclick="copyText('stamp-prompt')" class="bg-stone-800 text-white text-[10px] font-medium px-2 py-0.5 rounded transition hover:bg-stone-900">Copiar</button>
               </div>
-              <textarea id="stamp-prompt" readonly rows="3" class="w-full p-2.5 text-[11px] font-mono-cad bg-stone-100 dark:bg-stone-900 text-stone-800 dark:text-amber-200 rounded-lg border border-stone-200 dark:border-cad-border resize-none select-all"></textarea>
+              <textarea id="stamp-prompt" readonly rows="2" class="w-full p-2 text-[11px] font-mono-cad bg-stone-100 dark:bg-stone-900 text-stone-800 dark:text-amber-200 rounded-lg border border-stone-200 dark:border-cad-border resize-none select-all"></textarea>
             </div>
 
-            <button onclick="exportActiveMeshSTL('carimbo_makers_mark.stl')" class="w-full bg-terracotta-500 hover:bg-terracotta-600 text-white font-semibold py-2.5 px-4 rounded-lg text-xs shadow-xs transition flex items-center justify-center gap-2">
-              <span>⬇️</span> Baixar Carimbo com Cabo (.STL)
-            </button>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="rebuildStamp3D()" class="bg-stone-800 hover:bg-stone-900 text-white font-medium py-2 px-3 rounded-lg text-xs transition">
+                🔄 Gerar Carimbo 3D
+              </button>
+              <button onclick="exportActiveMeshSTL('carimbo_makers_mark.stl')" class="bg-terracotta-500 hover:bg-terracotta-600 text-white font-semibold py-2 px-3 rounded-lg text-xs shadow-xs transition flex items-center justify-center gap-1">
+                <span>⬇️</span> Baixar Carimbo (.STL)
+              </button>
+            </div>
           </div>
         </div>
 
@@ -1719,18 +1778,25 @@
                 data-tip-body="Transforma tons de cinza de qualquer foto em espessuras 3D: partes claras ficam finas (passam mais luz) e partes escuras ficam grossas (bloqueiam luz)."
                 data-tip-advice="Pode ser impressa em PLA branco translúcido ou modelada em porcelana de alta temperatura!">?</span>
             </div>
-            <p class="text-[11px] text-stone-500 mt-0.5">Converte fotos em relevo óptico para luminárias e cúpulas.</p>
+            <p class="text-[11px] text-stone-500 mt-0.5">Converte motivos artísticos ou fotos em relevo óptico translúcido.</p>
           </div>
 
           <div class="grid grid-cols-2 gap-2.5">
             <div>
               <label class="cad-label" for="litho-preset-select">
-                <span>Preset de imagem</span>
+                <span>Modelo de imagem (10 Presets)</span>
               </label>
               <select id="litho-preset-select" onchange="loadLithoPreset(this.value)" class="cad-input font-medium">
-                <option value="lotus">Flor de Lótus Botânica</option>
-                <option value="vaso">Vaso Bojudo Cerâmico</option>
-                <option value="paisagem">Paisagem Orgânica</option>
+                <option value="lotus" selected>🪷 1. Flor de Lótus Botânica</option>
+                <option value="onda">🌊 2. A Grande Onda de Kanagawa</option>
+                <option value="estrelada">🌌 3. Noite Estrelada (Espiral Cósmica)</option>
+                <option value="mandala">☀️ 4. Mandala Solar Geometria Sagrada</option>
+                <option value="bambu">🎋 5. Bosque de Bambu Zen & Garça</option>
+                <option value="vitral">⛪ 6. Rosácea de Vitral Gótico</option>
+                <option value="gato_lua">🐈 7. Gato na Janela & Lua Cheia</option>
+                <option value="vaso">🏺 8. Ânfora Clássica Greco-Romana</option>
+                <option value="paisagem">🏔️ 9. Montanhas & Pinheiros ao Sol</option>
+                <option value="colibri">🐦 10. Colibri & Flores de Hibisco</option>
               </select>
             </div>
             <div>
@@ -1743,23 +1809,19 @@
 
           <div>
             <label class="cad-label" for="litho-shape">
-              <span>Formato da litofania</span>
-              <span class="help-tip" tabindex="0" role="button" aria-label="Ajuda sobre Formato da Litofania"
-                data-tip-cat="Geometria da Litofania"
-                data-tip-title="Painel Plano vs Arco Curvo vs Cilindro"
-                data-tip-body="'Arco Curvo 120°' fica em pé na mesa sozinho sem precisar de suporte. 'Cilindro 360°' vira cúpula tubular completa para soquete de lâmpada."
-                data-tip-advice="Para abajures de cabeceira, o formato Curvo 120° é o mais estável e elegante.">?</span>
+              <span>Formato da luminária</span>
             </label>
             <select id="litho-shape" onchange="generateLithophane3D()" class="cad-input font-medium">
-              <option value="plana">Placa Plana Retangular (com Borda 3mm)</option>
-              <option value="curva">Arco Curvo 120° (Luminária Autossustentável)</option>
-              <option value="cilindro">Cilindro 360° (Abajur Tubular Completo)</option>
+              <option value="plana">Placa Plana Retangular (com Moldura Estrutural 3mm)</option>
+              <option value="curva" selected>Arco Curvo 120° (Luminária Autossustentável de Mesa)</option>
+              <option value="cilindro">Cilindro 360° (Cúpula de Abajur Tubular Completa)</option>
+              <option value="cupula">Domo Semiesférico (Luminária Pendente / Cúpula)</option>
             </select>
           </div>
 
           <div class="grid grid-cols-2 gap-2.5">
             <div>
-              <label class="cad-label" for="litho-w">Largura (mm)</label>
+              <label class="cad-label" for="litho-w">Largura / Diâm. (mm)</label>
               <input type="number" id="litho-w" value="100" min="40" max="250" oninput="generateLithophane3D()" class="cad-input font-semibold" />
             </div>
             <div>
@@ -1772,7 +1834,7 @@
             </div>
             <div>
               <label class="cad-label" for="litho-max-thick">Esp. Máxima (mm)</label>
-              <input type="number" id="litho-max-thick" value="3.0" step="0.2" min="1.5" max="6.0" oninput="generateLithophane3D()" class="cad-input font-semibold" />
+              <input type="number" id="litho-max-thick" value="3.2" step="0.2" min="1.5" max="6.0" oninput="generateLithophane3D()" class="cad-input font-semibold" />
             </div>
           </div>
 
@@ -1792,22 +1854,31 @@
             <div class="flex items-center">
               <h3 class="text-xs font-bold text-stone-900 dark:text-white uppercase">Caixas & Caxilhos de Gesso</h3>
               <span class="help-tip" tabindex="0" role="button" aria-label="Ajuda sobre Caxilhos de Gesso"
-                data-tip-cat="Moldes de Gesso"
-                data-tip-title="Coddle Boards e Gabaritos de Ateliê"
-                data-tip-body="Gera réguas em L de contenção para vazamento de gesso, eliminando vazamentos de gesso líquido na bancada."
-                data-tip-advice="Quatro peças em L montadas com grampos formam caixas de qualquer tamanho!">?</span>
+                data-tip-cat="Moldes de Gesso & Olaria"
+                data-tip-title="Coddle Boards, Moldes de Gesso e Gabaritos"
+                data-tip-body="Gera 12 ferramentas estruturais de ateliê com paredes reforçadas e abas de fixação calibradas para sargentos e grampos."
+                data-tip-advice="Todos os 5 parâmetros numéricos (Comp., Larg., Alt., Parede e Aba) atualizam a geometria 3D em tempo real!">?</span>
             </div>
-            <p class="text-[11px] text-stone-500 mt-0.5">Caxilhos reguláveis e réguas-guia para rolo de placas.</p>
+            <p class="text-[11px] text-stone-500 mt-0.5">Caxilhos reguláveis, réguas-guia, caixas com tampa e berços.</p>
           </div>
 
           <div>
             <label class="cad-label" for="box-mode-select">
-              <span>Tipo de ferramenta</span>
+              <span>Tipo de ferramenta (12 Modelos de Ateliê)</span>
             </label>
             <select id="box-mode-select" onchange="updateBoxToolUI(); generateBoxTool3D();" class="cad-input font-medium">
-              <option value="caxilho">Caxilhos em L para Moldes de Gesso (Coddle Boards)</option>
-              <option value="gabarito">Gabaritos de Altura para Rolo de Placas (Clay Guides)</option>
-              <option value="caixa">Caixa Organizadora com Tampa Encaixável</option>
+              <option value="caxilho_kit4" selected>🧱 1. Kit 4 Caxilhos em L Montados (Coddle Boards p/ Gesso)</option>
+              <option value="caxilho">📐 2. Caxilho em L Individual Reforçado (c/ Aba e Nervuras)</option>
+              <option value="molde_bipartido">🏺 3. Camisa Cilíndrica Bipartida p/ Gesso (c/ Chaves)</option>
+              <option value="gabarito">📏 4. Par de Réguas-Guia para Rolo de Placas (Clay Guides)</option>
+              <option value="gabarito_escada">🪜 5. Réguas-Guia Escalonadas Multi-Espessura (4/6/8/10mm)</option>
+              <option value="caixa">🧰 6. Caixa Organizadora Oca c/ Tampa de Encaixe (Lado a Lado)</option>
+              <option value="damp_box">💧 7. Caixa Úmida (Damp Box) c/ Grelha Interna Vazada</option>
+              <option value="bisel_45">📐 8. Gabarito Cortador de Bisel 45° para União de Placas</option>
+              <option value="berco_alcas">☕ 9. Berço Curvo Secador de Alças de Caneca (4 Cavidades)</option>
+              <option value="centralizador">🎯 10. Gabarito Centralizador Concêntrico (Rim & Foot Finder)</option>
+              <option value="porta_estecas">🖌️ 11. Organizador Alveolar de Bancada p/ Estecas e Esponja</option>
+              <option value="bat_torno">💿 12. Disco Bat de Torno c/ Furação de Pinos e Nervuras</option>
             </select>
           </div>
 
@@ -1815,25 +1886,25 @@
             <div class="grid grid-cols-3 gap-2">
               <div>
                 <label id="box-dim1-lbl" class="cad-label">Comp. (mm)</label>
-                <input type="number" id="box-dim1" value="140" oninput="generateBoxTool3D()" class="cad-input font-semibold" />
+                <input type="number" id="box-dim1" value="140" min="20" max="400" oninput="generateBoxTool3D()" class="cad-input font-semibold" />
               </div>
               <div>
                 <label id="box-dim2-lbl" class="cad-label">Larg. (mm)</label>
-                <input type="number" id="box-dim2" value="140" oninput="generateBoxTool3D()" class="cad-input font-semibold" />
+                <input type="number" id="box-dim2" value="140" min="20" max="400" oninput="generateBoxTool3D()" class="cad-input font-semibold" />
               </div>
               <div>
                 <label id="box-dim3-lbl" class="cad-label">Alt. (mm)</label>
-                <input type="number" id="box-dim3" value="100" oninput="generateBoxTool3D()" class="cad-input font-semibold" />
+                <input type="number" id="box-dim3" value="100" min="4" max="300" oninput="generateBoxTool3D()" class="cad-input font-semibold" />
               </div>
             </div>
             <div class="grid grid-cols-2 gap-2">
               <div>
-                <label class="cad-label" for="box-wall">Espessura Parede (mm)</label>
-                <input type="number" id="box-wall" value="8.0" step="1" oninput="generateBoxTool3D()" class="cad-input font-semibold" />
+                <label id="box-wall-lbl" class="cad-label" for="box-wall">Espessura Parede (mm)</label>
+                <input type="number" id="box-wall" value="8.0" min="2" max="25" step="0.5" oninput="generateBoxTool3D()" class="cad-input font-semibold" />
               </div>
               <div>
-                <label class="cad-label" for="box-lip">Aba de Fixação (mm)</label>
-                <input type="number" id="box-lip" value="12.0" step="1" oninput="generateBoxTool3D()" class="cad-input font-semibold" />
+                <label id="box-lip-lbl" class="cad-label" for="box-lip">Aba de Fixação (mm)</label>
+                <input type="number" id="box-lip" value="12.0" min="0" max="40" step="1" oninput="generateBoxTool3D()" class="cad-input font-semibold" />
               </div>
             </div>
           </div>
@@ -1852,19 +1923,19 @@
         <div id="subpanel-util-qrcode" class="hidden cad-card space-y-3">
           <div class="pb-1 border-b border-stone-200/80 dark:border-cad-border">
             <div class="flex items-center">
-              <h3 class="text-xs font-bold text-stone-900 dark:text-white uppercase">Placa QR Code 3D</h3>
+              <h3 class="text-xs font-bold text-stone-900 dark:text-white uppercase">Placa QR Code 3D & Selos</h3>
               <span class="help-tip" tabindex="0" role="button" aria-label="Ajuda sobre Placa QR Code"
                 data-tip-cat="Identidade & Vendas"
                 data-tip-title="Display de Balcão e Carimbo Pix/Instagram"
-                data-tip-body="Gera modelos 3D com blocos em relevo para leitura imediata pela câmera do celular do cliente na feira ou loja."
-                data-tip-advice="Na opção 'Carimbo Cerâmico', o código é invertido em espelho para você carimbar o fundo de peças de argila!">?</span>
+                data-tip-body="Gera 10 modelos 3D com matriz QR em alto-relevo para leitura pela câmera do celular na feira ou carimbo espelhado para argila."
+                data-tip-advice="Na opção 'Carimbo Cerâmico', o código é invertido em espelho com cabo ergonômico traseiro!">?</span>
             </div>
-            <p class="text-[11px] text-stone-500 mt-0.5">Placas para Pix/Instagram ou carimbos espelhados de assinatura.</p>
+            <p class="text-[11px] text-stone-500 mt-0.5">Placas para Pix/Instagram, totens de feira ou carimbos espelhados.</p>
           </div>
 
           <div>
             <label class="cad-label" for="qr-text-input">
-              <span>Conteúdo (URL, Pix ou Texto)</span>
+              <span>Conteúdo (URL, Chave Pix ou @Instagram)</span>
             </label>
             <input type="text" id="qr-text-input" value="https://instagram.com/atelie.ceramica" oninput="generateQrPlate3D()" class="cad-input font-medium" />
           </div>
@@ -1872,30 +1943,37 @@
           <div class="grid grid-cols-2 gap-2.5">
             <div>
               <label class="cad-label" for="qr-plate-type">
-                <span>Tipo de placa</span>
+                <span>Modelo de Placa (10 Presets)</span>
               </label>
               <select id="qr-plate-type" onchange="generateQrPlate3D()" class="cad-input font-medium">
-                <option value="display">Display de Balcão (com Apoio)</option>
-                <option value="chaveiro">Chaveiro (com Furo Ø4mm)</option>
-                <option value="carimbo">Carimbo Cerâmico (Espelhado)</option>
+                <option value="display" selected>🏪 1. Display de Balcão 65° (c/ Cavalete)</option>
+                <option value="placa_dupla">💳 2. Placa Dupla Pix + Insta (Base Estável)</option>
+                <option value="chaveiro">🔑 3. Chaveiro do Ateliê (c/ Aba e Furo Ø4mm)</option>
+                <option value="carimbo">🏷️ 4. Carimbo Cerâmico QR Espelhado (c/ Cabo)</option>
+                <option value="parede">🔩 5. Placa de Parede (4 Furos nos Cantos)</option>
+                <option value="medalhao">🪙 6. Medalhão Circular de Mesa Chanfrado</option>
+                <option value="hexagonal">⬡ 7. Placa Hexagonal Moderna de Balcão</option>
+                <option value="totem">⛺ 8. Totem Prisma Triangular (Dupla Face)</option>
+                <option value="quadro">🖼️ 9. Quadro Minimalista c/ Moldura Alta</option>
+                <option value="tag_colecao">🏺 10. Tag de Identificação de Coleção</option>
               </select>
             </div>
             <div>
               <label class="cad-label" for="qr-size-mm">
-                <span>Largura (mm)</span>
+                <span>Largura / Diâm. (mm)</span>
               </label>
-              <input type="number" id="qr-size-mm" value="65" min="30" max="150" oninput="generateQrPlate3D()" class="cad-input font-semibold" />
+              <input type="number" id="qr-size-mm" value="70" min="30" max="180" oninput="generateQrPlate3D()" class="cad-input font-semibold" />
             </div>
           </div>
 
           <div class="grid grid-cols-2 gap-2.5">
             <div>
               <label class="cad-label" for="qr-base-thick">Base (mm)</label>
-              <input type="number" id="qr-base-thick" value="2.5" step="0.5" oninput="generateQrPlate3D()" class="cad-input font-semibold" />
+              <input type="number" id="qr-base-thick" value="3.0" step="0.5" min="1.5" max="10" oninput="generateQrPlate3D()" class="cad-input font-semibold" />
             </div>
             <div>
               <label class="cad-label" for="qr-relief-thick">Relevo QR (mm)</label>
-              <input type="number" id="qr-relief-thick" value="1.6" step="0.2" oninput="generateQrPlate3D()" class="cad-input font-semibold" />
+              <input type="number" id="qr-relief-thick" value="1.8" step="0.2" min="0.8" max="5" oninput="generateQrPlate3D()" class="cad-input font-semibold" />
             </div>
           </div>
 
@@ -6200,6 +6278,88 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
         ctx.beginPath();
         ctx.arc(48, 48, 12, 0, Math.PI * 2);
         ctx.stroke();
+      } else if (presetName === 'sol_boho') {
+        // Arco boho e sol nascente radiante
+        ctx.beginPath();
+        ctx.arc(48, 52, 34, Math.PI, 0, false);
+        ctx.lineTo(82, 84);
+        ctx.lineTo(14, 84);
+        ctx.closePath();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(48, 60, 14, 0, Math.PI * 2);
+        ctx.stroke();
+        for (let a = Math.PI; a <= Math.PI * 2; a += Math.PI / 6) {
+          ctx.beginPath();
+          ctx.moveTo(48 + Math.cos(a) * 17, 60 + Math.sin(a) * 17);
+          ctx.lineTo(48 + Math.cos(a) * 28, 60 + Math.sin(a) * 28);
+          ctx.stroke();
+        }
+      } else if (presetName === 'cogumelo') {
+        // Chapéu de cogumelo Amanita com pintas e caule
+        ctx.beginPath();
+        ctx.arc(48, 46, 32, Math.PI, 0, false);
+        ctx.closePath();
+        ctx.stroke();
+        ctx.strokeRect(36, 46, 24, 36);
+        [[36, 30], [56, 28], [48, 38]].forEach(([px, py]) => {
+          ctx.beginPath(); ctx.arc(px, py, 4, 0, Math.PI * 2); ctx.fill();
+        });
+      } else if (presetName === 'concha') {
+        // Concha Vieira (Scallop) com leque de nervuras
+        ctx.beginPath();
+        ctx.arc(48, 52, 34, Math.PI, 0, false);
+        ctx.lineTo(64, 82);
+        ctx.lineTo(32, 82);
+        ctx.closePath();
+        ctx.stroke();
+        for (let i = -3; i <= 3; i++) {
+          ctx.beginPath();
+          ctx.moveTo(48, 80);
+          ctx.lineTo(48 + i * 9, 24 + Math.abs(i) * 3);
+          ctx.stroke();
+        }
+      } else if (presetName === 'coracao_sagrado') {
+        // Coração Flamejante Mexicano
+        ctx.beginPath();
+        ctx.moveTo(48, 82);
+        ctx.bezierCurveTo(14, 60, 14, 28, 34, 28);
+        ctx.bezierCurveTo(44, 28, 48, 38, 48, 38);
+        ctx.bezierCurveTo(48, 38, 52, 28, 62, 28);
+        ctx.bezierCurveTo(82, 28, 82, 60, 48, 82);
+        ctx.stroke();
+        // Chamas superiores
+        ctx.beginPath();
+        ctx.moveTo(40, 26); ctx.lineTo(48, 12); ctx.lineTo(56, 26);
+        ctx.stroke();
+      } else if (presetName === 'borboleta') {
+        // Borboleta Monarca Simétrica
+        ctx.beginPath();
+        ctx.ellipse(30, 36, 18, 14, -0.4, 0, Math.PI * 2);
+        ctx.ellipse(66, 36, 18, 14, 0.4, 0, Math.PI * 2);
+        ctx.ellipse(32, 64, 14, 12, 0.4, 0, Math.PI * 2);
+        ctx.ellipse(64, 64, 14, 12, -0.4, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.fillRect(45, 22, 6, 52);
+      } else if (presetName === 'hamsa_mao') {
+        // Mão de Hamsa Protetora & Olho Central
+        ctx.beginPath();
+        ctx.arc(48, 58, 26, 0, Math.PI, false);
+        ctx.lineTo(22, 28); ctx.lineTo(74, 28); ctx.closePath();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.ellipse(48, 52, 14, 8, 0, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath(); ctx.arc(48, 52, 4, 0, Math.PI * 2); ctx.fill();
+      } else if (presetName === 'passaro') {
+        // Andorinha Folk Art em voo
+        ctx.beginPath();
+        ctx.ellipse(48, 52, 18, 9, -0.2, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(42, 46); ctx.lineTo(22, 18); ctx.lineTo(56, 44);
+        ctx.moveTo(48, 56); ctx.lineTo(28, 78); ctx.lineTo(58, 54);
+        ctx.stroke();
       } else {
         // Flor de Lótus
         for (let a = 0; a < Math.PI * 2; a += Math.PI / 4) {
@@ -6767,16 +6927,42 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
     }
 
     // =========================================================================
-    // MÓDULO 3: ROLOS DE TEXTURA 360° & CARIMBOS MAKER'S MARK (Y-UP)
+    // MÓDULO 3: ROLOS DE TEXTURA 360° (12 PRESETS) & CARIMBOS MAKER'S MARK (12 PRESETS)
     // =========================================================================
+    const ROLLER_PRESET_THEMES = {
+      marajoara: 'Ondas geométricas marajoaras e labirintos indígenas simétricos',
+      seigaiha: 'Escamas de ondas japonesas Seigaiha concêntricas tradicionais',
+      folhagem: 'Folhagem botânica de samambaias e folhas tropicais entrelaçadas',
+      espinha: 'Trama espinha de peixe (Herringbone) geométrica de precisão',
+      favo: 'Favos de mel hexagonais (Honeycomb) em colmeia contínua',
+      renda: 'Renda floral vitoriana com medalhões e arabescos delicados',
+      cestaria: 'Trama de cestaria indígena trançada ortogonal',
+      meandro: 'Labirinto grego clássico (Meandro / Greek Key) contínuo',
+      constelacao: 'Constelação celestial com estrelas de 8 pontas e luas crescentes',
+      casca: 'Casca de árvore rústica orgânica com veios de madeira profunda',
+      azulejo: 'Azulejo português mourisco com estrelas e cruzes geométricas',
+      seixos: 'Seixos rolados de rio (Pebble Stone) em mosaico celular natural'
+    };
+
+    function loadRollerPreset(val) {
+      rollerHeightMapData = null;
+      const temaInput = document.getElementById('r-tema');
+      if (temaInput && ROLLER_PRESET_THEMES[val]) {
+        temaInput.value = ROLLER_PRESET_THEMES[val];
+      }
+      updateRollerPrompt();
+      rebuildRoller3D();
+    }
+
     function updateRollerPrompt() {
-      const tema = document.getElementById('r-tema').value;
-      const diam = document.getElementById('r-diam').value;
-      const alt = document.getElementById('r-altura').value;
-      const rel = document.getElementById('r-relevo').value;
-      document.getElementById('roller-prompt-text').value =
-`Crie um mapa de textura 2D contínuo (seamless 360°) em alto contraste P&B sobre: "${tema}".
-Linhas Pretas (#000000) = relevo saliente de ${rel} mm; Branco (#FFFFFF) = base cilíndrica (Ø ${diam} mm × ${alt} mm). Sem sombras ou degradês.`;
+      const tema = document.getElementById('r-tema')?.value || 'Ondas geométricas marajoaras';
+      const diam = document.getElementById('r-diam')?.value || 40;
+      const alt = document.getElementById('r-altura')?.value || 100;
+      const rel = document.getElementById('r-relevo')?.value || 1.8;
+      const el = document.getElementById('roller-prompt-text');
+      if (el) {
+        el.value = `Crie um mapa de textura 2D contínuo (seamless 360°) em alto contraste P&B sobre: "${tema}". Linhas Pretas (#000000) = relevo saliente de ${rel} mm; Branco (#FFFFFF) = base cilíndrica (Ø ${diam} mm × ${alt} mm). Sem sombras ou degradês.`;
+      }
     }
 
     document.getElementById('roller-img-input').addEventListener('change', function(e) {
@@ -6795,16 +6981,95 @@ Linhas Pretas (#000000) = relevo saliente de ${rel} mm; Branco (#FFFFFF) = base 
       img.src = URL.createObjectURL(file);
     });
 
+    function evalRollerProceduralPattern(preset, u, v) {
+      const tau = Math.PI * 2;
+      if (preset === 'marajoara') {
+        const zig = Math.abs(((u * 6) % 1) - 0.5) * 2;
+        const wave = ((v * 5 + zig * 0.45) % 1);
+        const step1 = (wave > 0.18 && wave < 0.38) || (wave > 0.62 && wave < 0.82) ? 1.0 : 0.0;
+        const fret = (Math.sin(u * tau * 12) > 0.3 && Math.abs(v - 0.5) < 0.12) ? 0.9 : 0.0;
+        return Math.max(step1, fret);
+      } else if (preset === 'seigaiha') {
+        const cols = 6, rows = 8;
+        const row = Math.floor(v * rows);
+        const uShift = (u * cols + (row % 2) * 0.5) % 1;
+        const vLocal = (v * rows) % 1;
+        const d = Math.hypot(uShift - 0.5, vLocal);
+        const rings = Math.sin(d * Math.PI * 7);
+        return rings > 0.15 ? 0.95 : 0.0;
+      } else if (preset === 'folhagem') {
+        const stem = Math.abs(Math.sin((u * 4 + v * 2) * Math.PI)) < 0.08 ? 0.9 : 0.0;
+        const leafAngle = (u * 8 + v * 6) * Math.PI;
+        const leaves = (Math.sin(leafAngle) * Math.cos((v * 10 - u * 4) * Math.PI)) > 0.28 ? 0.85 : 0.0;
+        return Math.max(stem, leaves);
+      } else if (preset === 'espinha') {
+        const col = (u * 12) % 1;
+        const dir = Math.floor(u * 12) % 2 === 0 ? 1 : -1;
+        const stripe = ((v * 10 + dir * col * 0.8 + 10) % 1);
+        return stripe < 0.45 ? 0.92 : 0.0;
+      } else if (preset === 'favo') {
+        const sx = u * 12;
+        const sy = v * 10;
+        const row = Math.floor(sy);
+        const hx = (sx + (row % 2) * 0.5) % 1 - 0.5;
+        const hy = (sy % 1) - 0.5;
+        const dist = Math.max(Math.abs(hx), Math.abs(hx) * 0.5 + Math.abs(hy) * 0.866);
+        return (dist > 0.34 && dist < 0.48) ? 1.0 : 0.0;
+      } else if (preset === 'renda') {
+        const d1 = Math.sin(u * tau * 8) * Math.sin(v * tau * 4);
+        const d2 = Math.cos(u * tau * 16) * Math.cos(v * tau * 8);
+        const border = (v < 0.12 || v > 0.88) && Math.sin(u * tau * 24) > 0 ? 0.9 : 0;
+        return Math.max(border, (d1 + d2 * 0.5) > 0.25 ? 0.9 : 0.0);
+      } else if (preset === 'cestaria') {
+        const wu = Math.sin(u * tau * 14);
+        const wv = Math.sin(v * tau * 10);
+        return (wu * wv > -0.15 && (Math.abs(wu) > 0.35 || Math.abs(wv) > 0.35)) ? 0.88 : 0.1;
+      } else if (preset === 'meandro') {
+        const gx = ((u * 8) % 1);
+        const gy = ((v * 4) % 1);
+        const inBox = (gx > 0.15 && gx < 0.85 && gy > 0.15 && gy < 0.85);
+        const ring1 = (gx > 0.12 && gx < 0.88 && (gy < 0.22 || gy > 0.78)) || (gy > 0.12 && gy < 0.88 && gx < 0.24);
+        const inner = inBox && ((gx > 0.35 && gx < 0.68 && (gy > 0.35 && gy < 0.65)));
+        return (ring1 || inner) ? 0.95 : 0.0;
+      } else if (preset === 'constelacao') {
+        const cx = ((u * 6) % 1) - 0.5;
+        const cy = ((v * 4) % 1) - 0.5;
+        const r = Math.hypot(cx, cy);
+        const ang = Math.atan2(cy, cx);
+        const star = r < (0.18 + 0.14 * Math.cos(ang * 4)) ? 1.0 : 0.0;
+        const line = Math.abs(cx - cy * 0.7) < 0.03 ? 0.55 : 0.0;
+        return Math.max(star, line);
+      } else if (preset === 'casca') {
+        const n = Math.sin(u * tau * 18 + Math.sin(v * tau * 3) * 2.2) * 0.5 + 0.5;
+        const n2 = Math.cos(u * tau * 9 - v * tau * 5) * 0.3;
+        return Math.max(0, Math.min(1, n + n2 > 0.52 ? 0.9 : 0.15));
+      } else if (preset === 'azulejo') {
+        const ax = Math.abs(((u * 8) % 1) - 0.5) * 2;
+        const ay = Math.abs(((v * 6) % 1) - 0.5) * 2;
+        const starCross = (ax + ay > 0.55 && ax + ay < 0.85) || (Math.abs(ax - ay) < 0.16);
+        return starCross ? 0.95 : 0.0;
+      } else {
+        // seixos
+        const px = ((u * 10) % 1) - 0.5;
+        const py = ((v * 8 + (Math.floor(u * 10) % 2) * 0.5) % 1) - 0.5;
+        const d = Math.hypot(px * 1.1, py * 0.9);
+        return d < 0.38 ? Math.sqrt(Math.max(0, 1 - (d / 0.38) ** 2)) : 0.0;
+      }
+    }
+
     function rebuildRoller3D() {
-      if (!scene || activeTool !== 'rolos' || subToolRolos !== 'rolo') return;
+      if (!scene) return;
+      if (activeTool !== 'utilitarios' || subToolUtil !== 'rolos' || subToolRolos !== 'rolo') return;
       clearActiveGroup();
 
-      const diam = parseFloat(document.getElementById('r-diam').value) || 40;
-      const altura = parseFloat(document.getElementById('r-altura').value) || 100;
-      const relevo = parseFloat(document.getElementById('r-relevo').value) || 1.8;
+      const preset = document.getElementById('r-preset-select')?.value || 'marajoara';
+      const diam = parseFloat(document.getElementById('r-diam')?.value) || 40;
+      const altura = parseFloat(document.getElementById('r-altura')?.value) || 100;
+      const relevo = parseFloat(document.getElementById('r-relevo')?.value) || 1.8;
+      const hasAxleHole = document.getElementById('r-axle-hole')?.checked ?? true;
       const raioBase = diam / 2;
 
-      const geo = new THREE.CylinderGeometry(raioBase, raioBase, altura, 96, 72, false);
+      const geo = new THREE.CylinderGeometry(raioBase, raioBase, altura, 128, 96, false);
       geo.translate(0, altura / 2, 0);
       const pos = geo.attributes.position;
 
@@ -6814,63 +7079,400 @@ Linhas Pretas (#000000) = relevo saliente de ${rel} mm; Branco (#FFFFFF) = base 
         const vz = pos.getZ(i);
         const r = Math.sqrt(vx * vx + vz * vz);
 
-        if (r > raioBase * 0.85 && vy > 2 && vy < altura - 2) {
+        if (r > raioBase * 0.85 && vy > 1.0 && vy < altura - 1.0) {
           const angle = Math.atan2(vz, vx) + Math.PI;
           const u = angle / (2 * Math.PI);
           const v = vy / altura;
 
-          let delta = 0;
+          // Chanfro suave nas extremidades para não marcar linhas na placa de argila
+          const edgeFade = Math.min(1.0, Math.min(vy - 1.0, altura - 1.0 - vy) / 3.5);
+
+          let darkness = 0;
           if (rollerHeightMapData) {
-            const px = Math.floor(u * 127);
-            const py = Math.floor(v * 127);
+            const px = Math.min(127, Math.max(0, Math.floor(u * 127)));
+            const py = Math.min(127, Math.max(0, Math.floor(v * 127)));
             const idx = (py * 128 + px) * 4;
-            const darkness = 1.0 - (rollerHeightMapData.data[idx] / 255);
-            delta = darkness * relevo;
+            darkness = 1.0 - (rollerHeightMapData.data[idx] / 255);
           } else {
-            delta = (Math.sin(u * Math.PI * 16) * Math.cos(v * Math.PI * 10) * 0.5 + 0.5) * relevo;
+            darkness = evalRollerProceduralPattern(preset, u, v);
           }
 
-          const newR = raioBase + delta;
+          const newR = raioBase + darkness * relevo * edgeFade;
           pos.setX(i, (vx / r) * newR);
           pos.setZ(i, (vz / r) * newR);
         }
       }
       geo.computeVertexNormals();
 
-      const mat = new THREE.MeshStandardMaterial({ color: 0xD05840, roughness: 0.4, wireframe: isWireframe });
+      const mat = new THREE.MeshStandardMaterial({ color: 0xD05840, roughness: 0.38, wireframe: isWireframe });
       activeMeshGroup.add(new THREE.Mesh(geo, mat));
+
+      // Furo central passante Ø8mm para eixo rotativo e buchas de topo
+      if (hasAxleHole) {
+        const holeMat = new THREE.MeshStandardMaterial({ color: 0x1E1A18, roughness: 0.7 });
+        const holeGeo = new THREE.CylinderGeometry(4.2, 4.2, altura + 0.6, 32);
+        holeGeo.translate(0, altura / 2, 0);
+        activeMeshGroup.add(new THREE.Mesh(holeGeo, holeMat));
+
+        const collarMat = new THREE.MeshStandardMaterial({ color: 0x9E3524, roughness: 0.4, wireframe: isWireframe });
+        const collarTop = new THREE.RingGeometry(4.2, Math.min(raioBase * 0.7, 9.5), 32);
+        collarTop.rotateX(-Math.PI / 2);
+        collarTop.translate(0, altura + 0.15, 0);
+        activeMeshGroup.add(new THREE.Mesh(collarTop, collarMat));
+      }
+
       updateViewportBoundingBox();
+      const estGrams = Math.round((diam / 40) ** 2 * (altura / 100) * 46);
+      const barG = document.getElementById('bar-pla-g');
+      if (barG) barG.textContent = `~${estGrams} g`;
+      const pFilG = document.getElementById('p-filament-g');
+      if (pFilG) pFilG.value = estGrams;
+      recalcPricing();
+    }
+
+    // =========================================================================
+    // GERADOR DE CARIMBOS DE ATELIÊ / MAKER'S MARK (12 PRESETS EM ALTO-RELEVO 3D)
+    // =========================================================================
+    const STAMP_PRESET_DEFAULTS = {
+      oliveira: { initials: 'A&C', formato: 'circular', label: 'Monograma Clássico & Ramo de Oliveira' },
+      hanko: { initials: '陶芸', formato: 'quadrado', label: 'Selo Japonês Hanko / Inkan Oriental' },
+      sol_lua: { initials: 'SOL', formato: 'circular', label: 'Sol Radiante & Meia-Lua Boho' },
+      monstera: { initials: 'BIO', formato: 'oval', label: 'Folha de Costela-de-Adão (Monstera)' },
+      hamsa: { initials: 'LUZ', formato: 'circular', label: 'Olho Místico Protetor (Hamsa / Nazar)' },
+      abelha: { initials: 'MEL', formato: 'hexagonal', label: 'Abelha Imperial & Favo Hexagonal' },
+      rosa_ventos: { initials: 'SUL', formato: 'circular', label: 'Rosa dos Ventos Náutica (8 Pontas)' },
+      marajoara: { initials: 'MRJ', formato: 'quadrado', label: 'Selo Geométrico Marajoara Autêntico' },
+      lotus: { initials: 'ZEN', formato: 'circular', label: 'Flor de Lótus & Mandala Zen' },
+      maos_oleiro: { initials: 'ART', formato: 'oval', label: 'Mãos de Oleiro & Vaso Central' },
+      lavanda: { initials: 'PAZ', formato: 'oval', label: 'Ramo de Lavanda & Espiga de Trigo' },
+      coroa: { initials: 'REI', formato: 'hexagonal', label: 'Coroa Real & Brasão Handmade' }
+    };
+
+    function loadStampPreset(presetKey) {
+      const def = STAMP_PRESET_DEFAULTS[presetKey];
+      if (def) {
+        const iniEl = document.getElementById('m-iniciais');
+        if (iniEl) iniEl.value = def.initials;
+        const fmtEl = document.getElementById('m-formato');
+        if (fmtEl) fmtEl.value = def.formato;
+      }
+      updateStampPrompts();
+      rebuildStamp3D();
     }
 
     function updateStampPrompts() {
-      const iniciais = document.getElementById('m-iniciais').value;
-      const formato = document.getElementById('m-formato').value;
-      const diam = document.getElementById('m-diam').value;
-      const prof = document.getElementById('m-prof').value;
-      document.getElementById('stamp-prompt').value =
-`Atue como Engenheiro CAD e crie um Carimbo de Assinatura (Maker's Mark) formato ${formato} (${diam} mm), relevo de ${prof} mm com chanfro de desmolde para "${iniciais}", e cabo ergonômico de 50 mm. Entregue código STL ASCII e binário.`;
+      const presetKey = document.getElementById('m-preset-select')?.value || 'oliveira';
+      const presetLabel = STAMP_PRESET_DEFAULTS[presetKey]?.label || presetKey;
+      const iniciais = document.getElementById('m-iniciais')?.value || 'A&C';
+      const formato = document.getElementById('m-formato')?.value || 'circular';
+      const diam = document.getElementById('m-diam')?.value || 32;
+      const prof = document.getElementById('m-prof')?.value || 2.0;
+      const el = document.getElementById('stamp-prompt');
+      if (el) {
+        el.value = `Atue como Engenheiro CAD e crie um Carimbo de Assinatura (Maker's Mark) modelo "${presetLabel}", formato ${formato} (${diam} mm), relevo chanfrado de ${prof} mm com sigla "${iniciais}", e cabo torneado ergonômico de 48 mm. Entregue código STL.`;
+      }
+    }
+
+    function createStampReliefCanvas(preset, initials, formato) {
+      const c = document.createElement('canvas');
+      c.width = 128;
+      c.height = 128;
+      const ctx = c.getContext('2d');
+
+      // Fundo Preto (#000000 = Base Rebaixada); Branco (#FFFFFF = Relevo Saliente)
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(0, 0, 128, 128);
+
+      ctx.strokeStyle = '#FFFFFF';
+      ctx.fillStyle = '#FFFFFF';
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+
+      // 1. Moldura Perimetral do Carimbo
+      ctx.lineWidth = 5.5;
+      if (formato === 'quadrado') {
+        ctx.strokeRect(14, 14, 100, 100);
+        ctx.lineWidth = 2.5;
+        ctx.strokeRect(21, 21, 86, 86);
+      } else if (formato === 'hexagonal') {
+        ctx.beginPath();
+        for (let k = 0; k < 6; k++) {
+          const a = (k * Math.PI) / 3;
+          const x = 64 + Math.cos(a) * 52;
+          const y = 64 + Math.sin(a) * 52;
+          if (k === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.closePath();
+        ctx.stroke();
+      } else if (formato === 'oval') {
+        ctx.beginPath();
+        ctx.ellipse(64, 64, 54, 40, 0, 0, Math.PI * 2);
+        ctx.stroke();
+      } else {
+        ctx.beginPath();
+        ctx.arc(64, 64, 52, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.arc(64, 64, 45, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      // 2. Desenho Emblemático Central de Alta Precisão
+      ctx.lineWidth = 4.2;
+      if (preset === 'oliveira') {
+        // Ramos de oliveira curvos nas laterais
+        ctx.beginPath();
+        ctx.arc(64, 66, 34, Math.PI * 0.2, Math.PI * 0.8);
+        ctx.stroke();
+        for (let a = 0.25; a <= 0.75; a += 0.16) {
+          const ang = a * Math.PI;
+          const lx = 64 + Math.cos(ang) * 34;
+          const ly = 66 + Math.sin(ang) * 34;
+          ctx.beginPath();
+          ctx.ellipse(lx, ly + 4, 5, 2.5, ang - 0.5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      } else if (preset === 'hanko') {
+        // Divisórias orientais Hanko
+        ctx.lineWidth = 4.5;
+        ctx.beginPath();
+        ctx.moveTo(64, 22); ctx.lineTo(64, 106);
+        ctx.moveTo(26, 46); ctx.lineTo(102, 46);
+        ctx.stroke();
+      } else if (preset === 'sol_lua') {
+        // Raios solares superiores e crescente lunar
+        ctx.beginPath();
+        ctx.arc(64, 42, 11, 0, Math.PI * 2);
+        ctx.fill();
+        for (let i = 0; i < 8; i++) {
+          const a = (i * Math.PI) / 4;
+          ctx.beginPath();
+          ctx.moveTo(64 + Math.cos(a) * 14, 42 + Math.sin(a) * 14);
+          ctx.lineTo(64 + Math.cos(a) * 23, 42 + Math.sin(a) * 23);
+          ctx.stroke();
+        }
+      } else if (preset === 'monstera') {
+        // Folha botânica com nervuras
+        ctx.beginPath();
+        ctx.ellipse(64, 46, 22, 18, 0, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(64, 28); ctx.lineTo(64, 66);
+        ctx.moveTo(50, 40); ctx.lineTo(64, 46); ctx.lineTo(78, 40);
+        ctx.moveTo(48, 52); ctx.lineTo(64, 56); ctx.lineTo(80, 52);
+        ctx.stroke();
+      } else if (preset === 'hamsa') {
+        // Olho místico central
+        ctx.beginPath();
+        ctx.ellipse(64, 44, 24, 12, 0, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(64, 44, 7, 0, Math.PI * 2);
+        ctx.fill();
+      } else if (preset === 'abelha') {
+        // Abelha imperial no topo
+        ctx.beginPath();
+        ctx.ellipse(64, 42, 8, 12, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.ellipse(50, 40, 12, 6, -0.4, 0, Math.PI * 2);
+        ctx.ellipse(78, 40, 12, 6, 0.4, 0, Math.PI * 2);
+        ctx.stroke();
+      } else if (preset === 'rosa_ventos') {
+        // Estrela náutica de 8 pontas
+        for (let i = 0; i < 8; i++) {
+          const a = (i * Math.PI) / 4;
+          const rOut = i % 2 === 0 ? 34 : 22;
+          ctx.beginPath();
+          ctx.moveTo(64, 46);
+          ctx.lineTo(64 + Math.cos(a) * rOut, 46 + Math.sin(a) * rOut);
+          ctx.stroke();
+        }
+      } else if (preset === 'marajoara') {
+        // Labirinto simétrico amazônico
+        ctx.strokeRect(32, 28, 64, 34);
+        ctx.beginPath();
+        ctx.moveTo(44, 45); ctx.lineTo(84, 45);
+        ctx.moveTo(64, 28); ctx.lineTo(64, 62);
+        ctx.stroke();
+      } else if (preset === 'lotus') {
+        // Pétalas de lótus superiores
+        for (let a = -1.0; a <= 1.0; a += 0.5) {
+          ctx.beginPath();
+          ctx.ellipse(64 + Math.sin(a) * 14, 42, 8, 18, a * 0.6, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+      } else if (preset === 'maos_oleiro') {
+        // Silhueta de vaso clássico no centro superior
+        ctx.beginPath();
+        ctx.arc(64, 45, 13, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.fillRect(58, 28, 12, 7);
+      } else if (preset === 'lavanda') {
+        // Espigas cruzadas
+        ctx.beginPath();
+        ctx.moveTo(42, 60); ctx.lineTo(86, 30);
+        ctx.moveTo(86, 60); ctx.lineTo(42, 30);
+        ctx.stroke();
+      } else if (preset === 'coroa') {
+        // Coroa Real de 5 pontas
+        ctx.beginPath();
+        ctx.moveTo(42, 54);
+        ctx.lineTo(38, 32);
+        ctx.lineTo(52, 44);
+        ctx.lineTo(64, 28);
+        ctx.lineTo(76, 44);
+        ctx.lineTo(90, 32);
+        ctx.lineTo(86, 54);
+        ctx.closePath();
+        ctx.fill();
+      }
+
+      // 3. Tipografia das Iniciais / Sigla do Ateliê em Alto-Relevo
+      const cleanText = (initials || 'A&C').trim().slice(0, 8).toUpperCase();
+      if (cleanText.length > 0) {
+        const fontSize = cleanText.length <= 3 ? 26 : (cleanText.length <= 5 ? 20 : 15);
+        ctx.font = `900 ${fontSize}px "Plus Jakarta Sans", sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        // Faixa limpa escura sob o texto para destaque nítido das letras
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(26, 66, 76, 26);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillText(cleanText, 64, 80);
+      }
+
+      return ctx.getImageData(0, 0, 128, 128);
+    }
+
+    function buildSingleStampAssembly(formato, diam, prof, stampImgData) {
+      const group = new THREE.Group();
+      const rHead = diam / 2;
+      const headHeight = 6.5;
+
+      const matHead = new THREE.MeshStandardMaterial({ color: 0xC8523B, roughness: 0.38, wireframe: isWireframe });
+      const matRelief = new THREE.MeshStandardMaterial({ color: 0xF5E6D8, roughness: 0.3, wireframe: isWireframe, side: THREE.DoubleSide });
+      const matHandle = new THREE.MeshStandardMaterial({ color: 0x5C4033, roughness: 0.48, wireframe: isWireframe });
+
+      // 1. Cabeça Base do Carimbo (em Y = 0..headHeight)
+      let headGeo;
+      if (formato === 'quadrado') {
+        headGeo = new THREE.BoxGeometry(diam, headHeight, diam);
+      } else if (formato === 'hexagonal') {
+        headGeo = new THREE.CylinderGeometry(rHead, rHead * 1.04, headHeight, 6);
+      } else if (formato === 'oval') {
+        headGeo = new THREE.CylinderGeometry(rHead, rHead * 1.03, headHeight, 64);
+        headGeo.scale(1.22, 1, 0.84);
+      } else {
+        headGeo = new THREE.CylinderGeometry(rHead, rHead * 1.04, headHeight, 64);
+      }
+      headGeo.translate(0, headHeight / 2, 0);
+      group.add(new THREE.Mesh(headGeo, matHead));
+
+      // 2. Malha de Alto-Relevo 3D Esculpida no Topo da Cabeça (Y = headHeight .. headHeight + prof)
+      const segs = 88;
+      const spanX = formato === 'oval' ? diam * 1.18 : diam * 0.94;
+      const spanZ = formato === 'oval' ? diam * 0.80 : diam * 0.94;
+      const relGeo = new THREE.PlaneGeometry(spanX, spanZ, segs, segs);
+      relGeo.rotateX(-Math.PI / 2);
+      relGeo.translate(0, headHeight + 0.05, 0);
+
+      const pos = relGeo.attributes.position;
+      const data = stampImgData.data;
+      for (let i = 0; i < pos.count; i++) {
+        const vx = pos.getX(i);
+        const vz = pos.getZ(i);
+        const nx = vx / (spanX / 2);
+        const nz = vz / (spanZ / 2);
+
+        let inside = false;
+        if (formato === 'quadrado') {
+          inside = Math.abs(nx) <= 0.96 && Math.abs(nz) <= 0.96;
+        } else if (formato === 'hexagonal') {
+          const ax = Math.abs(nx), az = Math.abs(nz);
+          inside = (az <= 0.86 && (ax * 0.866 + az * 0.5) <= 0.88);
+        } else {
+          inside = (nx * nx + nz * nz) <= 0.94;
+        }
+
+        if (inside) {
+          const u = Math.min(127, Math.max(0, Math.floor(((nx + 1) * 0.5) * 127)));
+          const v = Math.min(127, Math.max(0, Math.floor(((nz + 1) * 0.5) * 127)));
+          const idx = (v * 128 + u) * 4;
+          const lum = data[idx] / 255;
+          if (lum > 0.2) {
+            pos.setY(i, headHeight + 0.05 + lum * prof);
+          } else {
+            pos.setY(i, headHeight - 0.15);
+          }
+        } else {
+          pos.setY(i, headHeight - 0.35);
+        }
+      }
+      relGeo.computeVertexNormals();
+      group.add(new THREE.Mesh(relGeo, matRelief));
+
+      // 3. Cabo Torneado Ergonômico (em Y = -42 .. 0)
+      const lathePts = [
+        new THREE.Vector2(0, -42),
+        new THREE.Vector2(rHead * 0.46, -42),
+        new THREE.Vector2(rHead * 0.54, -35),
+        new THREE.Vector2(rHead * 0.42, -24),
+        new THREE.Vector2(rHead * 0.30, -12),
+        new THREE.Vector2(rHead * 0.55, 0)
+      ];
+      const handleGeo = new THREE.LatheGeometry(lathePts, 40);
+      group.add(new THREE.Mesh(handleGeo, matHandle));
+
+      return group;
     }
 
     function rebuildStamp3D() {
-      if (!scene || activeTool !== 'rolos' || subToolRolos !== 'carimbo') return;
+      if (!scene) return;
+      if (activeTool !== 'utilitarios' || subToolUtil !== 'rolos' || subToolRolos !== 'carimbo') return;
       clearActiveGroup();
 
-      const formato = document.getElementById('m-formato').value;
-      const diam = parseFloat(document.getElementById('m-diam').value) || 26;
+      const preset = document.getElementById('m-preset-select')?.value || 'oliveira';
+      const formato = document.getElementById('m-formato')?.value || 'circular';
+      const diam = parseFloat(document.getElementById('m-diam')?.value) || 32;
+      const prof = parseFloat(document.getElementById('m-prof')?.value) || 2.0;
+      const initials = document.getElementById('m-iniciais')?.value || 'A&C';
+      const viewPos = document.getElementById('m-view-pos')?.value || 'face_up';
 
-      const headGeo = formato === 'quadrado'
-        ? new THREE.BoxGeometry(diam, 8, diam)
-        : new THREE.CylinderGeometry(diam / 2, diam / 2, 8, 48);
-      headGeo.translate(0, 4, 0);
-      const matHead = new THREE.MeshStandardMaterial({ color: 0xB03428, roughness: 0.4, wireframe: isWireframe });
-      activeMeshGroup.add(new THREE.Mesh(headGeo, matHead));
+      const stampImgData = createStampReliefCanvas(preset, initials, formato);
 
-      const handleGeo = new THREE.CylinderGeometry(7, 10, 46, 32);
-      handleGeo.translate(0, 31, 0);
-      const matHandle = new THREE.MeshStandardMaterial({ color: 0x8C6D62, roughness: 0.5, wireframe: isWireframe });
-      activeMeshGroup.add(new THREE.Mesh(handleGeo, matHandle));
+      if (viewPos === 'face_up') {
+        // Posição ideal na mesa FDM: Cabo apoiado em Y=0 e Face de Relevo voltada para cima (+Y)
+        const stamp = buildSingleStampAssembly(formato, diam, prof, stampImgData);
+        stamp.position.set(0, 42, 0);
+        activeMeshGroup.add(stamp);
+      } else if (viewPos === 'stamp_down') {
+        // Posição de carimbar: Face para baixo (Y=0) e cabo ergonômico para cima
+        const stamp = buildSingleStampAssembly(formato, diam, prof, stampImgData);
+        stamp.rotation.x = Math.PI;
+        stamp.position.set(0, 6.5 + prof, 0);
+        activeMeshGroup.add(stamp);
+      } else {
+        // Par Duplo: Mostra o carimbo em pé à esquerda e a face em relevo voltada p/ cima à direita
+        const stampUp = buildSingleStampAssembly(formato, diam, prof, stampImgData);
+        stampUp.position.set(diam * 0.85, 42, 0);
+        activeMeshGroup.add(stampUp);
+
+        const stampDown = buildSingleStampAssembly(formato, diam, prof, stampImgData);
+        stampDown.rotation.x = Math.PI;
+        stampDown.position.set(-diam * 0.85, 6.5 + prof, 0);
+        activeMeshGroup.add(stampDown);
+      }
 
       updateViewportBoundingBox();
+      const estGrams = Math.round((diam / 30) ** 2 * 18);
+      const barG = document.getElementById('bar-pla-g');
+      if (barG) barG.textContent = `~${estGrams} g`;
+      const pFilG = document.getElementById('p-filament-g');
+      if (pFilG) pFilG.value = estGrams;
+      recalcPricing();
     }
 
     // =========================================================================
@@ -7699,48 +8301,162 @@ Linhas Pretas (#000000) = relevo saliente de ${rel} mm; Branco (#FFFFFF) = base 
     }
 
     // =========================================================================
-    // GERADOR DE FOTO ➔ LITOFANIA 3D (LUMINÁRIAS & PLACAS TRANSLÚCIDAS)
+    // GERADOR DE FOTO ➔ LITOFANIA 3D (10 PRESETS ARTÍSTICOS & 4 FORMATOS)
     // =========================================================================
     let lithoImageData = null;
 
     function loadLithoPreset(presetName) {
       const c = document.createElement('canvas');
-      c.width = 100;
-      c.height = 100;
+      c.width = 120;
+      c.height = 120;
       const ctx = c.getContext('2d');
-      ctx.fillStyle = '#FFFFFF';
-      ctx.fillRect(0, 0, 100, 100);
+
+      // Fundo suave iluminado
+      const bgGrad = ctx.createRadialGradient(60, 60, 8, 60, 60, 65);
+      bgGrad.addColorStop(0, '#FFFFFF');
+      bgGrad.addColorStop(1, '#CCCCCC');
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, 120, 120);
+
+      ctx.fillStyle = '#181818';
+      ctx.strokeStyle = '#181818';
+      ctx.lineWidth = 3.5;
+      ctx.lineCap = 'round';
 
       if (presetName === 'lotus') {
-        ctx.fillStyle = '#222222';
-        for (let a = 0; a < Math.PI * 2; a += Math.PI / 5) {
+        for (let a = 0; a < Math.PI * 2; a += Math.PI / 6) {
+          ctx.fillStyle = '#2A2A2A';
           ctx.beginPath();
-          ctx.ellipse(50 + Math.cos(a) * 20, 50 + Math.sin(a) * 20, 22, 10, a, 0, Math.PI * 2);
+          ctx.ellipse(60 + Math.cos(a) * 22, 60 + Math.sin(a) * 22, 24, 10, a, 0, Math.PI * 2);
           ctx.fill();
+          ctx.stroke();
         }
-        ctx.fillStyle = '#666666';
-        ctx.beginPath(); ctx.arc(50, 50, 12, 0, Math.PI * 2); ctx.fill();
-      } else if (presetName === 'vaso') {
         ctx.fillStyle = '#111111';
+        ctx.beginPath(); ctx.arc(60, 60, 13, 0, Math.PI * 2); ctx.fill();
+      } else if (presetName === 'onda') {
+        // Grande Onda de Kanagawa e Monte Fuji
+        ctx.fillStyle = '#555555';
         ctx.beginPath();
-        ctx.arc(50, 55, 30, 0, Math.PI * 2);
+        ctx.moveTo(45, 95); ctx.lineTo(68, 62); ctx.lineTo(92, 95);
         ctx.fill();
-        ctx.fillRect(40, 15, 20, 20);
-      } else {
-        // Paisagem com morros e sol
-        ctx.fillStyle = '#444444';
-        ctx.beginPath(); ctx.arc(50, 30, 18, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#FFFFFF';
+        ctx.beginPath();
+        ctx.moveTo(62, 70); ctx.lineTo(68, 62); ctx.lineTo(74, 70);
+        ctx.fill();
+        // Crista da Onda
+        ctx.fillStyle = '#151515';
+        ctx.beginPath();
+        ctx.arc(46, 54, 34, Math.PI * 0.4, Math.PI * 1.65);
+        ctx.lineTo(78, 36);
+        ctx.arc(54, 58, 20, Math.PI * 1.6, Math.PI * 0.4, true);
+        ctx.closePath();
+        ctx.fill();
+      } else if (presetName === 'estrelada') {
+        // Noite Estrelada com espiral nebulosa e cipreste
         ctx.fillStyle = '#222222';
-        ctx.beginPath(); ctx.moveTo(0, 100); ctx.lineTo(35, 60); ctx.lineTo(70, 80); ctx.lineTo(100, 50); ctx.lineTo(100, 100); ctx.fill();
+        ctx.fillRect(0, 0, 120, 120);
+        ctx.strokeStyle = '#F5F5F5';
+        ctx.lineWidth = 4;
+        for (let r = 6; r < 42; r += 7) {
+          ctx.beginPath();
+          ctx.arc(52, 46, r, 0, Math.PI * 1.5);
+          ctx.stroke();
+        }
+        ctx.fillStyle = '#FFFFFF';
+        ctx.beginPath(); ctx.arc(92, 28, 12, 0, Math.PI * 2); ctx.fill();
+        // Cipreste primeiro plano (escuro = espesso)
+        ctx.fillStyle = '#050505';
+        ctx.beginPath();
+        ctx.moveTo(14, 120); ctx.quadraticCurveTo(22, 55, 26, 14); ctx.quadraticCurveTo(34, 60, 38, 120);
+        ctx.fill();
+      } else if (presetName === 'mandala') {
+        for (let r = 48; r >= 12; r -= 12) {
+          ctx.lineWidth = 2.5;
+          ctx.beginPath(); ctx.arc(60, 60, r, 0, Math.PI * 2); ctx.stroke();
+          for (let a = 0; a < Math.PI * 2; a += Math.PI / 8) {
+            ctx.beginPath();
+            ctx.arc(60 + Math.cos(a) * r, 60 + Math.sin(a) * r, 5, 0, Math.PI * 2);
+            ctx.stroke();
+          }
+        }
+      } else if (presetName === 'bambu') {
+        // Caules de bambu e folhas zen
+        [28, 54, 86].forEach((bx, idx) => {
+          ctx.lineWidth = 5 - idx * 0.8;
+          ctx.beginPath(); ctx.moveTo(bx, 115); ctx.lineTo(bx + (idx - 1) * 6, 10); ctx.stroke();
+          for (let y = 25; y < 100; y += 22) {
+            ctx.beginPath();
+            ctx.ellipse(bx + 10, y, 12, 4, -0.4, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        });
+      } else if (presetName === 'vitral') {
+        ctx.lineWidth = 4;
+        ctx.beginPath(); ctx.arc(60, 60, 50, 0, Math.PI * 2); ctx.stroke();
+        for (let i = 0; i < 12; i++) {
+          const a = (i * Math.PI) / 6;
+          ctx.beginPath();
+          ctx.moveTo(60, 60);
+          ctx.lineTo(60 + Math.cos(a) * 50, 60 + Math.sin(a) * 50);
+          ctx.stroke();
+        }
+        ctx.beginPath(); ctx.arc(60, 60, 24, 0, Math.PI * 2); ctx.stroke();
+      } else if (presetName === 'gato_lua') {
+        ctx.fillStyle = '#333333';
+        ctx.fillRect(10, 10, 100, 100);
+        // Lua iluminada (branca = fina)
+        ctx.fillStyle = '#FFFFFF';
+        ctx.beginPath(); ctx.arc(42, 38, 18, 0, Math.PI * 2); ctx.fill();
+        // Silhueta do gato (preta = espessa)
+        ctx.fillStyle = '#080808';
+        ctx.beginPath(); ctx.ellipse(72, 82, 16, 22, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(72, 54, 12, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(62, 48); ctx.lineTo(60, 34); ctx.lineTo(69, 44);
+        ctx.moveTo(82, 48); ctx.lineTo(84, 34); ctx.lineTo(75, 44);
+        ctx.fill();
+      } else if (presetName === 'vaso') {
+        ctx.fillStyle = '#181818';
+        ctx.beginPath();
+        ctx.arc(60, 68, 32, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillRect(48, 22, 24, 24);
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.arc(32, 56, 12, Math.PI * 0.5, Math.PI * 1.5);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(88, 56, 12, -Math.PI * 0.5, Math.PI * 0.5);
+        ctx.stroke();
+      } else if (presetName === 'colibri') {
+        // Colibri voando e flor
+        ctx.beginPath();
+        ctx.ellipse(52, 54, 18, 9, -0.3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(46, 50); ctx.lineTo(24, 22); ctx.lineTo(58, 44);
+        ctx.fill();
+        ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.moveTo(68, 48); ctx.lineTo(94, 42); ctx.stroke();
+        ctx.fillStyle = '#444444';
+        ctx.beginPath(); ctx.arc(98, 42, 12, 0, Math.PI * 2); ctx.fill();
+      } else {
+        // Paisagem de montanhas e sol
+        ctx.fillStyle = '#555555';
+        ctx.beginPath(); ctx.arc(60, 34, 18, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#222222';
+        ctx.beginPath();
+        ctx.moveTo(0, 120); ctx.lineTo(38, 62); ctx.lineTo(72, 86); ctx.lineTo(98, 52); ctx.lineTo(120, 120);
+        ctx.fill();
       }
 
-      lithoImageData = ctx.getImageData(0, 0, 100, 100);
+      lithoImageData = ctx.getImageData(0, 0, 120, 120);
       generateLithophane3D();
     }
 
     function generateLithophane3D() {
       if (!lithoImageData) {
-        loadLithoPreset('lotus');
+        loadLithoPreset(document.getElementById('litho-preset-select')?.value || 'lotus');
         return;
       }
 
@@ -7748,14 +8464,14 @@ Linhas Pretas (#000000) = relevo saliente de ${rel} mm; Branco (#FFFFFF) = base 
       activeTool = 'utilitarios';
       document.getElementById('viewport-active-label').textContent = 'Litofania 3D Translúcida (Luminária)';
 
-      const shape = document.getElementById('litho-shape')?.value || 'plana';
+      const shape = document.getElementById('litho-shape')?.value || 'curva';
       const wMm = parseFloat(document.getElementById('litho-w')?.value) || 100;
       const hMm = parseFloat(document.getElementById('litho-h')?.value) || 120;
       const minThick = parseFloat(document.getElementById('litho-min-thick')?.value) || 0.8;
-      const maxThick = parseFloat(document.getElementById('litho-max-thick')?.value) || 3.0;
+      const maxThick = parseFloat(document.getElementById('litho-max-thick')?.value) || 3.2;
 
-      const segsX = 64;
-      const segsY = 64;
+      const segsX = 80;
+      const segsY = 80;
       const geo = new THREE.PlaneGeometry(wMm, hMm, segsX, segsY);
       const pos = geo.attributes.position;
       const imgData = lithoImageData.data;
@@ -7769,157 +8485,499 @@ Linhas Pretas (#000000) = relevo saliente de ${rel} mm; Branco (#FFFFFF) = base 
         const py = Math.min(imgH - 1, Math.max(0, Math.floor(v * imgH)));
         const idx = (py * imgW + px) * 4;
 
-        // Luminância (0 a 255)
         const lum = 0.299 * imgData[idx] + 0.587 * imgData[idx + 1] + 0.114 * imgData[idx + 2];
-        // Branco = fino (mais luz passa), Preto = grosso
-        const depth = minThick + (1.0 - lum / 255) * (maxThick - minThick);
+        // Moldura periférica estrutural de 3mm para estabilidade mecânica
+        const isBorder = (u < 0.04 || u > 0.96 || v < 0.04 || v > 0.96);
+        const depth = isBorder
+          ? (maxThick + 0.8)
+          : (minThick + (1.0 - lum / 255) * (maxThick - minThick));
 
         if (shape === 'plana') {
           pos.setZ(i, depth);
         } else if (shape === 'curva') {
-          // Arco 120°
           const angle = (u - 0.5) * (Math.PI * 0.67);
           const rCurve = wMm / 1.1;
           pos.setX(i, Math.sin(angle) * (rCurve + depth));
           pos.setZ(i, Math.cos(angle) * (rCurve + depth) - rCurve);
         } else if (shape === 'cilindro') {
-          // 360° tubular
           const angle = u * Math.PI * 2;
           const rCil = wMm / (2 * Math.PI);
           pos.setX(i, Math.sin(angle) * (rCil + depth));
           pos.setZ(i, Math.cos(angle) * (rCil + depth));
+        } else if (shape === 'cupula') {
+          // Domo semiesférico pendente
+          const phi = u * Math.PI * 2;
+          const theta = (0.12 + v * 0.88) * (Math.PI * 0.5);
+          const rDomo = (wMm * 0.5) + depth;
+          pos.setX(i, Math.sin(theta) * Math.cos(phi) * rDomo);
+          pos.setY(i, Math.cos(theta) * (hMm * 0.65) - hMm * 0.32);
+          pos.setZ(i, Math.sin(theta) * Math.sin(phi) * rDomo);
         }
       }
 
       geo.computeVertexNormals();
-      geo.translate(0, hMm / 2, 0);
+      geo.computeBoundingBox();
+      const minY = geo.boundingBox.min.y;
+      geo.translate(0, -minY, 0);
 
       const litMat = new THREE.MeshStandardMaterial({
         color: 0xFFFDF7,
-        roughness: 0.35,
+        roughness: 0.28,
+        metalness: 0.02,
         side: THREE.DoubleSide,
         wireframe: isWireframe
       });
       activeMeshGroup.add(new THREE.Mesh(geo, litMat));
+
+      // Se for plana, adiciona base de apoio inferior para ficar em pé na bancada
+      if (shape === 'plana') {
+        const standGeo = new THREE.BoxGeometry(wMm + 4, 3.2, 22);
+        standGeo.translate(0, 1.6, 2);
+        activeMeshGroup.add(new THREE.Mesh(standGeo, litMat));
+      }
+
       updateViewportBoundingBox();
+      const estGrams = Math.round((wMm * hMm * ((minThick + maxThick) * 0.5)) / 800);
+      const barG = document.getElementById('bar-pla-g');
+      if (barG) barG.textContent = `~${estGrams} g`;
+      const pFilG = document.getElementById('p-filament-g');
+      if (pFilG) pFilG.value = estGrams;
+      recalcPricing();
     }
 
     // =========================================================================
-    // GERADOR DE CAIXAS, CAXILHOS DE GESSO & GABARITOS DE PLACA
+    // GERADOR DE CAIXAS, CAXILHOS DE GESSO & GABARITOS DE OLARIA (12 MODELOS)
     // =========================================================================
     function updateBoxToolUI() {
-      const mode = document.getElementById('box-mode-select').value;
+      const mode = document.getElementById('box-mode-select')?.value || 'caxilho_kit4';
       const lbl1 = document.getElementById('box-dim1-lbl');
       const lbl2 = document.getElementById('box-dim2-lbl');
       const lbl3 = document.getElementById('box-dim3-lbl');
-      if (mode === 'caxilho') {
-        lbl1.textContent = 'Comprimento L (mm)';
-        lbl2.textContent = 'Largura L (mm)';
-        lbl3.textContent = 'Altura Molde (mm)';
-      } else if (mode === 'gabarito') {
-        lbl1.textContent = 'Comprimento Régua';
-        lbl2.textContent = 'Largura Régua';
-        lbl3.textContent = 'Espessura Placa (mm)';
+      const lblW = document.getElementById('box-wall-lbl');
+      const lblL = document.getElementById('box-lip-lbl');
+      if (!lbl1 || !lbl2 || !lbl3) return;
+
+      if (mode === 'caxilho_kit4' || mode === 'caxilho') {
+        lbl1.textContent = 'Comp. (mm)';
+        lbl2.textContent = 'Larg. (mm)';
+        lbl3.textContent = 'Alt. (mm)';
+        if (lblW) lblW.textContent = 'Espessura Parede (mm)';
+        if (lblL) lblL.textContent = 'Aba de Fixação (mm)';
+      } else if (mode === 'molde_bipartido') {
+        lbl1.textContent = 'Diâm. Interno (mm)';
+        lbl2.textContent = 'Folga Divisão (mm)';
+        lbl3.textContent = 'Alt. Camisa (mm)';
+        if (lblW) lblW.textContent = 'Espessura Parede (mm)';
+        if (lblL) lblL.textContent = 'Aba c/ Chaves (mm)';
+      } else if (mode === 'gabarito' || mode === 'gabarito_escada') {
+        lbl1.textContent = 'Comp. Régua (mm)';
+        lbl2.textContent = 'Larg. Base (mm)';
+        lbl3.textContent = 'Alt. / Placa (mm)';
+        if (lblW) lblW.textContent = 'Espessura Guia (mm)';
+        if (lblL) lblL.textContent = 'Aba Batente (mm)';
+      } else if (mode === 'bisel_45') {
+        lbl1.textContent = 'Comp. Guia (mm)';
+        lbl2.textContent = 'Larg. Bloco (mm)';
+        lbl3.textContent = 'Alt. Corte (mm)';
+        if (lblW) lblW.textContent = 'Parede (mm)';
+        if (lblL) lblL.textContent = 'Aba Apoio (mm)';
+      } else if (mode === 'berco_alcas') {
+        lbl1.textContent = 'Comp. Total (mm)';
+        lbl2.textContent = 'Larg. Berço (mm)';
+        lbl3.textContent = 'Alt. Arco (mm)';
+        if (lblW) lblW.textContent = 'Espessura (mm)';
+        if (lblL) lblL.textContent = 'Aba Pés (mm)';
+      } else if (mode === 'centralizador' || mode === 'bat_torno') {
+        lbl1.textContent = 'Diâmetro (mm)';
+        lbl2.textContent = 'Dist. Pinos (mm)';
+        lbl3.textContent = 'Alt. Pega (mm)';
+        if (lblW) lblW.textContent = 'Esp. Disco (mm)';
+        if (lblL) lblL.textContent = 'Alt. Nervura (mm)';
       } else {
-        lbl1.textContent = 'Comprimento Caixa';
-        lbl2.textContent = 'Largura Caixa';
-        lbl3.textContent = 'Altura Caixa (mm)';
+        lbl1.textContent = 'Comp. Caixa (mm)';
+        lbl2.textContent = 'Larg. Caixa (mm)';
+        lbl3.textContent = 'Alt. Caixa (mm)';
+        if (lblW) lblW.textContent = 'Espessura Parede (mm)';
+        if (lblL) lblL.textContent = 'Aba / Encaixe (mm)';
       }
     }
 
+    function buildSingleCoddleL(armA, armB, height, wall, lip, matMain, matAccent) {
+      const group = new THREE.Group();
+
+      // Perfil principal em L com abas externas de aperto (lip) nas 2 pontas
+      const shape = new THREE.Shape();
+      shape.moveTo(0, 0);
+      shape.lineTo(armA, 0);
+      // Aba externa de fixação (lip) na ponta X=armA
+      shape.lineTo(armA, wall + lip);
+      shape.lineTo(armA - wall, wall + lip);
+      shape.lineTo(armA - wall, wall);
+      shape.lineTo(wall, wall);
+      shape.lineTo(wall, armB - wall);
+      // Aba externa de fixação (lip) na ponta Z=armB
+      shape.lineTo(wall + lip, armB - wall);
+      shape.lineTo(wall + lip, armB);
+      shape.lineTo(0, armB);
+      shape.lineTo(0, 0);
+
+      const geo = new THREE.ExtrudeGeometry(shape, { depth: height, bevelEnabled: false });
+      geo.rotateX(-Math.PI / 2);
+      // ExtrudeGeometry rotacionado em -PI/2 deixa Y em [0..height] e Z em [-armB..0], ajustamos Z para [0..armB]
+      geo.computeBoundingBox();
+      geo.translate(-geo.boundingBox.min.x, -geo.boundingBox.min.y, -geo.boundingBox.min.z);
+      group.add(new THREE.Mesh(geo, matMain));
+
+      // Sapata inferior anti-vazamento (Aba de Base = lip * 0.7)
+      if (lip > 0) {
+        const footA = new THREE.BoxGeometry(armA, Math.max(3, wall * 0.45), lip * 0.75);
+        footA.translate(armA / 2, Math.max(1.5, wall * 0.225), -lip * 0.375);
+        group.add(new THREE.Mesh(footA, matAccent));
+
+        const footB = new THREE.BoxGeometry(lip * 0.75, Math.max(3, wall * 0.45), armB);
+        footB.translate(-lip * 0.375, Math.max(1.5, wall * 0.225), armB / 2);
+        group.add(new THREE.Mesh(footB, matAccent));
+      }
+
+      return group;
+    }
+
     function generateBoxTool3D() {
+      if (!scene) return;
       clearActiveGroup();
       activeTool = 'utilitarios';
       document.getElementById('viewport-active-label').textContent = 'Caixas & Caxilhos de Gesso para Cerâmica';
 
-      const mode = document.getElementById('box-mode-select')?.value || 'caxilho';
-      const d1 = parseFloat(document.getElementById('box-dim1')?.value) || 140;
-      const d2 = parseFloat(document.getElementById('box-dim2')?.value) || 140;
-      const d3 = parseFloat(document.getElementById('box-dim3')?.value) || 100;
-      const wall = parseFloat(document.getElementById('box-wall')?.value) || 8.0;
+      const mode = document.getElementById('box-mode-select')?.value || 'caxilho_kit4';
+      const d1 = Math.max(20, parseFloat(document.getElementById('box-dim1')?.value) || 140);
+      const d2 = Math.max(20, parseFloat(document.getElementById('box-dim2')?.value) || 140);
+      const d3 = Math.max(4, parseFloat(document.getElementById('box-dim3')?.value) || 100);
+      const wall = Math.max(2, parseFloat(document.getElementById('box-wall')?.value) || 8.0);
+      const lip = Math.max(0, parseFloat(document.getElementById('box-lip')?.value) || 12.0);
 
       const toolMat = new THREE.MeshStandardMaterial({
-        color: 0x504540,
-        roughness: 0.55,
+        color: 0xB84A39,
+        roughness: 0.42,
+        metalness: 0.08,
+        wireframe: isWireframe,
+        side: THREE.DoubleSide
+      });
+      const accentMat = new THREE.MeshStandardMaterial({
+        color: 0x524742,
+        roughness: 0.5,
+        metalness: 0.15,
+        wireframe: isWireframe,
+        side: THREE.DoubleSide
+      });
+      const plasterMat = new THREE.MeshStandardMaterial({
+        color: 0xEFECE6,
+        roughness: 0.65,
+        transparent: true,
+        opacity: 0.85,
         wireframe: isWireframe
       });
 
-      if (mode === 'caxilho') {
-        // Caxilho em L para Molde de Gesso (Coddle Board)
-        const shape = new THREE.Shape();
-        shape.moveTo(0, 0);
-        shape.lineTo(d1, 0);
-        shape.lineTo(d1, wall);
-        shape.lineTo(wall, wall);
-        shape.lineTo(wall, d2);
-        shape.lineTo(0, d2);
-        shape.lineTo(0, 0);
-        const geo = new THREE.ExtrudeGeometry(shape, { depth: d3, bevelEnabled: false });
-        geo.rotateX(-Math.PI / 2);
-        geo.center();
-        geo.translate(0, d3 / 2, 0);
-        activeMeshGroup.add(new THREE.Mesh(geo, toolMat));
+      if (mode === 'caxilho_kit4') {
+        // 1. Kit Completo de 4 Caxilhos em L Fechando a Caixa de Vazamento de Gesso
+        const assembly = new THREE.Group();
+        const halfX = d1 / 2;
+        const halfZ = d2 / 2;
+
+        for (let k = 0; k < 4; k++) {
+          const piece = buildSingleCoddleL(d1 * 0.62, d2 * 0.62, d3, wall, lip, k % 2 === 0 ? toolMat : accentMat, accentMat);
+          const angle = (k * Math.PI) / 2;
+          piece.rotation.y = angle;
+          const sx = (k === 0 || k === 3) ? -halfX : halfX;
+          const sz = (k === 0 || k === 1) ? -halfZ : halfZ;
+          piece.position.set(sx, 0, sz);
+          assembly.add(piece);
+        }
+
+        // Bloco demonstrativo de gesso líquido na base interna
+        const innerW = Math.max(10, d1 - wall * 2.2);
+        const innerD = Math.max(10, d2 - wall * 2.2);
+        const plasterH = Math.min(d3 * 0.25, 22);
+        const plasterGeo = new THREE.BoxGeometry(innerW, plasterH, innerD);
+        plasterGeo.translate(0, plasterH / 2, 0);
+        assembly.add(new THREE.Mesh(plasterGeo, plasterMat));
+
+        activeMeshGroup.add(assembly);
+
+      } else if (mode === 'caxilho') {
+        // 2. Caxilho em L Individual Reforçado c/ Aba de Sargento e Nervuras
+        const piece = buildSingleCoddleL(d1, d2, d3, wall, lip, toolMat, accentMat);
+        piece.position.set(-d1 / 2, 0, -d2 / 2);
+        activeMeshGroup.add(piece);
+
+      } else if (mode === 'molde_bipartido') {
+        // 3. Camisa Cilíndrica Bipartida p/ Gesso c/ Abas Laterais (lip) e Chaves Macho/Fêmea
+        const rIn = d1 / 2;
+        const rOut = rIn + wall;
+        const gap = Math.min(16, Math.max(3, d2 * 0.08));
+
+        [-1, 1].forEach((side) => {
+          const halfGroup = new THREE.Group();
+          const arcShape = new THREE.Shape();
+          arcShape.absarc(0, 0, rOut, 0, Math.PI, false);
+          arcShape.lineTo(-rOut - lip, 0);
+          arcShape.lineTo(-rOut - lip, wall);
+          arcShape.lineTo(-rIn, wall);
+          arcShape.absarc(0, 0, rIn, Math.PI, 0, true);
+          arcShape.lineTo(rOut + lip, 0);
+          arcShape.lineTo(rOut + lip, wall);
+          arcShape.closePath();
+
+          const geo = new THREE.ExtrudeGeometry(arcShape, { depth: d3, bevelEnabled: false, curveSegments: 48 });
+          geo.rotateX(-Math.PI / 2);
+          geo.computeBoundingBox();
+          geo.translate(0, -geo.boundingBox.min.y, 0);
+          halfGroup.add(new THREE.Mesh(geo, side < 0 ? toolMat : accentMat));
+
+          // Chaves esféricas de registro nas abas (Natch Keys)
+          if (lip >= 6) {
+            [-rOut - lip * 0.5, rOut + lip * 0.5].forEach(kx => {
+              const keyGeo = new THREE.SphereGeometry(Math.min(4.5, lip * 0.3), 16, 16);
+              keyGeo.translate(kx, d3 * 0.5, 0);
+              halfGroup.add(new THREE.Mesh(keyGeo, plasterMat));
+            });
+          }
+
+          if (side > 0) halfGroup.rotation.y = Math.PI;
+          halfGroup.position.z = side * (gap / 2);
+          activeMeshGroup.add(halfGroup);
+        });
 
       } else if (mode === 'gabarito') {
-        // Par de Réguas Calibradas para Rolar Placa de Argila
-        const guide1 = new THREE.BoxGeometry(d1, d3, d2);
-        guide1.translate(-d2, d3 / 2, 0);
-        activeMeshGroup.add(new THREE.Mesh(guide1, toolMat));
+        // 4. Par de Réguas-Guia para Rolo de Placas (Clay Slab Guides)
+        const slabThick = Math.min(30, Math.max(3, wall));
+        const barWidth = Math.max(14, Math.min(45, d2 * 0.22));
+        const spacing = Math.max(barWidth * 1.6, d2 * 0.45);
 
-        const guide2 = new THREE.BoxGeometry(d1, d3, d2);
-        guide2.translate(d2, d3 / 2, 0);
-        activeMeshGroup.add(new THREE.Mesh(guide2, toolMat));
+        [-1, 1].forEach((side) => {
+          const gGroup = new THREE.Group();
+          const railGeo = new THREE.BoxGeometry(d1, slabThick, barWidth);
+          railGeo.translate(0, slabThick / 2, 0);
+          gGroup.add(new THREE.Mesh(railGeo, toolMat));
+
+          // Batentes de extremidade (lip) para travar na mesa
+          if (lip > 0) {
+            [-d1 / 2 + 4, d1 / 2 - 4].forEach(ex => {
+              const stopGeo = new THREE.BoxGeometry(8, slabThick + lip * 0.35, barWidth + 4);
+              stopGeo.translate(ex, (slabThick + lip * 0.35) / 2, 0);
+              gGroup.add(new THREE.Mesh(stopGeo, accentMat));
+            });
+          }
+          gGroup.position.z = side * spacing;
+          activeMeshGroup.add(gGroup);
+        });
+
+      } else if (mode === 'gabarito_escada') {
+        // 5. Réguas-Guia Escalonadas Multi-Espessura (4 degraus calibrados)
+        const stepWidth = Math.max(8, lip);
+        const baseStep = Math.max(3, wall * 0.5);
+        [-1, 1].forEach((side) => {
+          const stGroup = new THREE.Group();
+          for (let s = 0; s < 4; s++) {
+            const hStep = baseStep + s * 2.0;
+            const sGeo = new THREE.BoxGeometry(d1, hStep, stepWidth);
+            sGeo.translate(0, hStep / 2, s * stepWidth);
+            stGroup.add(new THREE.Mesh(sGeo, s % 2 === 0 ? toolMat : accentMat));
+          }
+          stGroup.position.z = side * (stepWidth * 2.8);
+          activeMeshGroup.add(stGroup);
+        });
+
+      } else if (mode === 'caixa' || mode === 'damp_box') {
+        // 6 & 7. Caixa Organizadora Oca Real + Tampa Encaixável (ou Grelha Damp Box)
+        const boxGroup = new THREE.Group();
+        const w = Math.min(wall, d1 * 0.2, d2 * 0.2);
+
+        // Fundo da caixa
+        const floorGeo = new THREE.BoxGeometry(d1, w, d2);
+        floorGeo.translate(0, w / 2, 0);
+        boxGroup.add(new THREE.Mesh(floorGeo, toolMat));
+
+        // 4 Paredes formando cavidade oca real
+        const wallH = Math.max(10, d3 - w);
+        const wFront = new THREE.BoxGeometry(d1, wallH, w);
+        wFront.translate(0, w + wallH / 2, (d2 - w) / 2);
+        boxGroup.add(new THREE.Mesh(wFront, toolMat));
+
+        const wBack = new THREE.BoxGeometry(d1, wallH, w);
+        wBack.translate(0, w + wallH / 2, -(d2 - w) / 2);
+        boxGroup.add(new THREE.Mesh(wBack, toolMat));
+
+        const wLeft = new THREE.BoxGeometry(w, wallH, d2 - w * 2);
+        wLeft.translate(-(d1 - w) / 2, w + wallH / 2, 0);
+        boxGroup.add(new THREE.Mesh(wLeft, toolMat));
+
+        const wRight = new THREE.BoxGeometry(w, wallH, d2 - w * 2);
+        wRight.translate((d1 - w) / 2, w + wallH / 2, 0);
+        boxGroup.add(new THREE.Mesh(wRight, toolMat));
+
+        if (mode === 'damp_box') {
+          // Grelha interna vazada elevada por 'lip' mm acima do fundo úmido
+          const gridY = Math.min(d3 * 0.5, w + Math.max(6, lip));
+          const innerX = d1 - w * 2 - 2;
+          const innerZ = d2 - w * 2 - 2;
+          const numBars = 6;
+          for (let b = 0; b < numBars; b++) {
+            const bz = -innerZ / 2 + (b / (numBars - 1)) * innerZ;
+            const barGeo = new THREE.BoxGeometry(innerX, 3.5, Math.max(4, innerZ / 12));
+            barGeo.translate(0, gridY, bz);
+            boxGroup.add(new THREE.Mesh(barGeo, plasterMat));
+          }
+          activeMeshGroup.add(boxGroup);
+        } else {
+          // Caixa à esquerda e Tampa Snap-Fit com colarinho (lip) à direita na mesa FDM
+          boxGroup.position.x = -(d1 * 0.55);
+          activeMeshGroup.add(boxGroup);
+
+          const lidGroup = new THREE.Group();
+          const lidPlate = new THREE.BoxGeometry(d1, w, d2);
+          lidPlate.translate(0, w / 2, 0);
+          lidGroup.add(new THREE.Mesh(lidPlate, accentMat));
+
+          // Colarinho de encaixe calibrado por lip
+          const lipH = Math.max(3, lip * 0.5);
+          const inX = Math.max(8, d1 - w * 2 - 1.2);
+          const inZ = Math.max(8, d2 - w * 2 - 1.2);
+          const collarGeo = new THREE.BoxGeometry(inX, lipH, inZ);
+          collarGeo.translate(0, w + lipH / 2, 0);
+          lidGroup.add(new THREE.Mesh(collarGeo, toolMat));
+
+          lidGroup.position.x = (d1 * 0.55);
+          activeMeshGroup.add(lidGroup);
+        }
+
+      } else if (mode === 'bisel_45') {
+        // 8. Gabarito Cortador de Bisel 45° para União de Placas
+        const bH = Math.max(20, d3 * 0.45);
+        const shape = new THREE.Shape();
+        shape.moveTo(0, 0);
+        shape.lineTo(bH + lip, 0);
+        shape.lineTo(lip, bH);
+        shape.lineTo(0, bH);
+        shape.closePath();
+
+        const geo = new THREE.ExtrudeGeometry(shape, { depth: d1, bevelEnabled: false });
+        geo.center();
+        geo.computeBoundingBox();
+        geo.translate(0, -geo.boundingBox.min.y, 0);
+        activeMeshGroup.add(new THREE.Mesh(geo, toolMat));
+
+      } else if (mode === 'berco_alcas') {
+        // 9. Berço Curvo Secador de Alças de Caneca (4 Arcos Parabólicos)
+        const archCount = 4;
+        const archR = Math.max(12, (d1 / archCount) * 0.5);
+        const rackGroup = new THREE.Group();
+
+        for (let a = 0; a < archCount; a++) {
+          const cx = (a - (archCount - 1) / 2) * (archR * 2.05);
+          const archGeo = new THREE.CylinderGeometry(archR, archR, d2 * 0.65, 32, 1, false, 0, Math.PI);
+          archGeo.rotateZ(Math.PI / 2);
+          archGeo.rotateY(Math.PI / 2);
+          archGeo.translate(cx, 0, 0);
+          rackGroup.add(new THREE.Mesh(archGeo, a % 2 === 0 ? toolMat : accentMat));
+        }
+
+        // Base estabilizadora (lip)
+        const baseGeo = new THREE.BoxGeometry(archCount * archR * 2.1 + lip, wall * 0.6, d2 * 0.65 + lip);
+        baseGeo.translate(0, (wall * 0.6) / 2, 0);
+        rackGroup.add(new THREE.Mesh(baseGeo, accentMat));
+        activeMeshGroup.add(rackGroup);
+
+      } else if (mode === 'centralizador') {
+        // 10. Gabarito Centralizador Concêntrico (Rim & Foot Finder)
+        const maxR = d1 / 2;
+        const steps = 5;
+        for (let s = 0; s < steps; s++) {
+          const rStep = maxR * (1 - s * 0.16);
+          const hStep = (s + 1) * Math.max(2.5, wall * 0.35);
+          const ringGeo = new THREE.RingGeometry(Math.max(4, rStep - wall), rStep, 48);
+          ringGeo.rotateX(-Math.PI / 2);
+          ringGeo.translate(0, hStep, 0);
+          activeMeshGroup.add(new THREE.Mesh(ringGeo, s % 2 === 0 ? toolMat : accentMat));
+
+          const cylWall = new THREE.CylinderGeometry(rStep, rStep, hStep, 48, 1, true);
+          cylWall.translate(0, hStep / 2, 0);
+          activeMeshGroup.add(new THREE.Mesh(cylWall, toolMat));
+        }
+        // Pega central superior
+        const knob = new THREE.CylinderGeometry(8, 6, Math.max(18, lip * 1.8), 24);
+        knob.translate(0, steps * Math.max(2.5, wall * 0.35) + 9, 0);
+        activeMeshGroup.add(new THREE.Mesh(knob, accentMat));
+
+      } else if (mode === 'porta_estecas') {
+        // 11. Organizador Alveolar de Bancada p/ Estecas, Pincéis e Esponja
+        const caddy = new THREE.Group();
+        const rTube = Math.max(12, d1 * 0.14);
+        const coords = [
+          [-rTube * 2.1, -rTube], [0, -rTube], [rTube * 2.1, -rTube],
+          [-rTube * 1.05, rTube * 0.85], [rTube * 1.05, rTube * 0.85]
+        ];
+        coords.forEach(([tx, tz], idx) => {
+          const hTube = d3 * (idx < 3 ? 1.0 : 0.72);
+          const tube = new THREE.CylinderGeometry(rTube, rTube, hTube, 6, 1, true);
+          tube.translate(tx, hTube / 2, tz);
+          caddy.add(new THREE.Mesh(tube, idx < 3 ? toolMat : accentMat));
+        });
+        // Bandeja frontal para esponja (altura = lip * 1.8)
+        const tray = new THREE.BoxGeometry(rTube * 6.2, Math.max(12, lip * 1.5), rTube * 4.5);
+        tray.translate(0, Math.max(6, lip * 0.75), rTube * 0.4);
+        caddy.add(new THREE.Mesh(tray, accentMat));
+        activeMeshGroup.add(caddy);
 
       } else {
-        // Caixa com paredes e fundo
-        const outer = new THREE.BoxGeometry(d1, d3, d2);
-        outer.translate(0, d3 / 2, 0);
-        activeMeshGroup.add(new THREE.Mesh(outer, toolMat));
+        // 12. Disco Bat de Torno c/ Furação de Pinos e Nervuras Inferiores
+        const rBat = d1 / 2;
+        const discGeo = new THREE.CylinderGeometry(rBat, rBat, wall, 64);
+        discGeo.translate(0, lip + wall / 2, 0);
+        activeMeshGroup.add(new THREE.Mesh(discGeo, toolMat));
+
+        // 6 Nervuras radiais inferiores de rigidez (altura = lip)
+        if (lip > 0) {
+          for (let k = 0; k < 3; k++) {
+            const rib = new THREE.BoxGeometry(d1 * 0.94, lip, wall * 0.8);
+            rib.rotateY((k * Math.PI) / 3);
+            rib.translate(0, lip / 2, 0);
+            activeMeshGroup.add(new THREE.Mesh(rib, accentMat));
+          }
+        }
+        // 2 Encaixes para Pinos do Torno (Wheel Pin Holes)
+        const pinDist = Math.min(rBat * 0.75, d2 * 0.4);
+        [-pinDist, pinDist].forEach(px => {
+          const pinBoss = new THREE.CylinderGeometry(9, 9, lip + wall + 1, 24);
+          pinBoss.translate(px, (lip + wall) / 2, 0);
+          activeMeshGroup.add(new THREE.Mesh(pinBoss, plasterMat));
+        });
       }
 
       updateViewportBoundingBox();
+      const estGrams = Math.round(((d1 + d2) / 280) * (d3 / 100) * (wall / 8) * 68);
+      const barG = document.getElementById('bar-pla-g');
+      if (barG) barG.textContent = `~${estGrams} g`;
+      const pFilG = document.getElementById('p-filament-g');
+      if (pFilG) pFilG.value = estGrams;
+      recalcPricing();
     }
 
     // =========================================================================
-    // GERADOR DE PLACA COM QR CODE 3D & CARIMBO DE ASSINATURA ESPELHADO
+    // GERADOR DE PLACA COM QR CODE 3D & SELOS (10 MODELOS COM CAVALETE / FURO / CABO)
     // =========================================================================
-    function generateQrPlate3D() {
-      clearActiveGroup();
-      activeTool = 'utilitarios';
-      document.getElementById('viewport-active-label').textContent = 'Placa QR Code 3D & Selo de Ateliê';
-
-      const qrText = document.getElementById('qr-text-input')?.value || 'https://ceramicad.studio';
-      const plateType = document.getElementById('qr-plate-type')?.value || 'display';
-      const sizeMm = parseFloat(document.getElementById('qr-size-mm')?.value) || 65;
-      const baseThick = parseFloat(document.getElementById('qr-base-thick')?.value) || 2.5;
-      const reliefThick = parseFloat(document.getElementById('qr-relief-thick')?.value) || 1.6;
-
-      // Base da Placa
-      const baseGeo = new THREE.BoxGeometry(sizeMm, baseThick, sizeMm);
-      baseGeo.translate(0, baseThick / 2, 0);
-      const baseMat = new THREE.MeshStandardMaterial({ color: 0xFDF8F5, roughness: 0.5 });
-      activeMeshGroup.add(new THREE.Mesh(baseGeo, baseMat));
-
-      // Módulos do QR Code (Gera matriz procedimental limpa e segura)
-      const modulesCount = 21;
-      const modSize = (sizeMm * 0.8) / modulesCount;
-      const modGeo = new THREE.BoxGeometry(modSize * 0.92, reliefThick, modSize * 0.92);
-      const modMat = new THREE.MeshStandardMaterial({
-        color: plateType === 'carimbo' ? 0xB03428 : 0x111111,
-        roughness: 0.4
-      });
-
+    function buildQrModulesGroup(qrText, spanMm, yBase, reliefThick, modMat) {
       const qrGroup = new THREE.Group();
-      // Padrão de cantos clássicos QR Code
+      const modulesCount = 21;
+      const modSize = (spanMm * 0.78) / modulesCount;
+      const modGeo = new THREE.BoxGeometry(modSize * 0.92, reliefThick, modSize * 0.92);
+
       for (let r = 0; r < modulesCount; r++) {
         for (let c = 0; c < modulesCount; c++) {
           let isBlack = false;
-          // Finder patterns nos 3 cantos
           if ((r < 7 && c < 7) || (r < 7 && c >= modulesCount - 7) || (r >= modulesCount - 7 && c < 7)) {
             if (r === 0 || r === 6 || c === 0 || c === 6 || (r >= 2 && r <= 4 && c >= 2 && c <= 4)) isBlack = true;
             if ((r === 1 || r === 5 || c === 1 || c === 5) && !(r >= 2 && r <= 4 && c >= 2 && c <= 4)) isBlack = false;
           } else {
-            // Hash determinístico baseado no texto
             const hash = (r * 31 + c * 17 + qrText.length * 7 + (qrText.charCodeAt((r + c) % qrText.length) || 0)) % 10;
             isBlack = hash > 4;
           }
@@ -7928,23 +8986,178 @@ Linhas Pretas (#000000) = relevo saliente de ${rel} mm; Branco (#FFFFFF) = base 
             const x = (c - modulesCount / 2 + 0.5) * modSize;
             const z = (r - modulesCount / 2 + 0.5) * modSize;
             const m = new THREE.Mesh(modGeo, modMat);
-            m.position.set(x, baseThick + reliefThick / 2, z);
+            m.position.set(x, yBase + reliefThick / 2, z);
             qrGroup.add(m);
           }
         }
       }
+      return qrGroup;
+    }
 
-      // Se for Carimbo de ceramista para estampar a argila, espelha no eixo X
-      if (plateType === 'carimbo') {
-        qrGroup.scale.set(-1, 1, 1);
-        // Adiciona cabo de pega ergonômico no verso
-        const handle = new THREE.CylinderGeometry(8, 12, 35, 24);
-        handle.translate(0, -17.5, 0);
-        activeMeshGroup.add(new THREE.Mesh(handle, baseMat));
+    function generateQrPlate3D() {
+      if (!scene) return;
+      clearActiveGroup();
+      activeTool = 'utilitarios';
+      document.getElementById('viewport-active-label').textContent = 'Placa QR Code 3D & Selo de Ateliê';
+
+      const qrText = document.getElementById('qr-text-input')?.value || 'https://ceramicad.studio';
+      const plateType = document.getElementById('qr-plate-type')?.value || 'display';
+      const sizeMm = Math.max(30, parseFloat(document.getElementById('qr-size-mm')?.value) || 70);
+      const baseThick = Math.max(1.5, parseFloat(document.getElementById('qr-base-thick')?.value) || 3.0);
+      const reliefThick = Math.max(0.8, parseFloat(document.getElementById('qr-relief-thick')?.value) || 1.8);
+
+      const baseMat = new THREE.MeshStandardMaterial({ color: 0xFAF6F0, roughness: 0.42, wireframe: isWireframe });
+      const darkMat = new THREE.MeshStandardMaterial({ color: 0x1E1A18, roughness: 0.35, wireframe: isWireframe });
+      const terraMat = new THREE.MeshStandardMaterial({ color: 0xB84A39, roughness: 0.38, wireframe: isWireframe });
+
+      const qrMat = (plateType === 'carimbo') ? terraMat : darkMat;
+      const qrModules = buildQrModulesGroup(qrText, sizeMm, baseThick, reliefThick, qrMat);
+
+      if (plateType === 'display') {
+        // 1. Display de Balcão Inclinado 65° com Cavalete Traseiro Integrado
+        const standGroup = new THREE.Group();
+        const plateGeo = new THREE.BoxGeometry(sizeMm, baseThick, sizeMm);
+        plateGeo.translate(0, baseThick / 2, 0);
+        standGroup.add(new THREE.Mesh(plateGeo, baseMat));
+        standGroup.add(qrModules);
+
+        // Inclina a placa para leitura confortável no balcão
+        standGroup.rotation.x = Math.PI * 0.32;
+        standGroup.position.set(0, sizeMm * 0.42, 0);
+        activeMeshGroup.add(standGroup);
+
+        // Base horizontal e cavalete traseiro apoiados em Y=0
+        const footGeo = new THREE.BoxGeometry(sizeMm, baseThick * 1.2, sizeMm * 0.55);
+        footGeo.translate(0, (baseThick * 1.2) / 2, -sizeMm * 0.12);
+        activeMeshGroup.add(new THREE.Mesh(footGeo, terraMat));
+
+      } else if (plateType === 'placa_dupla') {
+        // 2. Placa Dupla Pix + Instagram em Base Pedestal
+        const pedGeo = new THREE.BoxGeometry(sizeMm * 1.95, baseThick * 2.2, 24);
+        pedGeo.translate(0, baseThick * 1.1, 0);
+        activeMeshGroup.add(new THREE.Mesh(pedGeo, terraMat));
+
+        [-sizeMm * 0.48, sizeMm * 0.48].forEach((ox, idx) => {
+          const pGroup = new THREE.Group();
+          const bGeo = new THREE.BoxGeometry(sizeMm * 0.88, baseThick, sizeMm * 0.88);
+          bGeo.translate(0, baseThick / 2, 0);
+          pGroup.add(new THREE.Mesh(bGeo, baseMat));
+          pGroup.add(buildQrModulesGroup(qrText + idx, sizeMm * 0.88, baseThick, reliefThick, darkMat));
+          pGroup.rotation.x = Math.PI * 0.42;
+          pGroup.position.set(ox, sizeMm * 0.46, 0);
+          activeMeshGroup.add(pGroup);
+        });
+
+      } else if (plateType === 'chaveiro') {
+        // 3. Chaveiro com Aba Superior e Furo Passante Ø4mm
+        const baseGeo = new THREE.BoxGeometry(sizeMm, baseThick, sizeMm);
+        baseGeo.translate(0, baseThick / 2, 0);
+        activeMeshGroup.add(new THREE.Mesh(baseGeo, baseMat));
+        activeMeshGroup.add(qrModules);
+
+        // Orelha furada no topo (-Z)
+        const tabShape = new THREE.Shape();
+        tabShape.absarc(0, 0, 9, 0, Math.PI * 2, false);
+        const hole = new THREE.Path();
+        hole.absarc(0, 0, 3.2, 0, Math.PI * 2, true);
+        tabShape.holes.push(hole);
+        const tabGeo = new THREE.ExtrudeGeometry(tabShape, { depth: baseThick, bevelEnabled: false });
+        tabGeo.rotateX(-Math.PI / 2);
+        tabGeo.translate(0, 0, -sizeMm / 2 - 4);
+        activeMeshGroup.add(new THREE.Mesh(tabGeo, terraMat));
+
+      } else if (plateType === 'carimbo') {
+        // 4. Carimbo Cerâmico QR Espelhado com Cabo Anatômico (Face p/ Cima p/ Inspeção/Impressão)
+        const handleH = 36;
+        const handleGeo = new THREE.CylinderGeometry(sizeMm * 0.22, sizeMm * 0.32, handleH, 32);
+        handleGeo.translate(0, handleH / 2, 0);
+        activeMeshGroup.add(new THREE.Mesh(handleGeo, terraMat));
+
+        const baseGeo = new THREE.BoxGeometry(sizeMm, baseThick * 1.5, sizeMm);
+        baseGeo.translate(0, handleH + (baseThick * 1.5) / 2, 0);
+        activeMeshGroup.add(new THREE.Mesh(baseGeo, baseMat));
+
+        qrModules.scale.set(-1, 1, 1);
+        qrModules.position.y = handleH + baseThick * 0.5;
+        activeMeshGroup.add(qrModules);
+
+      } else if (plateType === 'parede') {
+        // 5. Placa de Parede com 4 Orelhas de Fixação Furadas nos Cantos
+        const baseGeo = new THREE.BoxGeometry(sizeMm * 1.12, baseThick, sizeMm * 1.12);
+        baseGeo.translate(0, baseThick / 2, 0);
+        activeMeshGroup.add(new THREE.Mesh(baseGeo, baseMat));
+        activeMeshGroup.add(qrModules);
+
+        const cOff = sizeMm * 0.48;
+        [[-cOff, -cOff], [cOff, -cOff], [-cOff, cOff], [cOff, cOff]].forEach(([cx, cz]) => {
+          const boss = new THREE.RingGeometry(2.2, 5.0, 24);
+          boss.rotateX(-Math.PI / 2);
+          boss.translate(cx, baseThick + 0.2, cz);
+          activeMeshGroup.add(new THREE.Mesh(boss, terraMat));
+        });
+
+      } else if (plateType === 'medalhao' || plateType === 'hexagonal') {
+        // 6 & 7. Medalhão Circular ou Placa Hexagonal com Borda Chanfrada
+        const segs = plateType === 'hexagonal' ? 6 : 64;
+        const rPlate = sizeMm * 0.62;
+        const cylGeo = new THREE.CylinderGeometry(rPlate, rPlate * 1.04, baseThick, segs);
+        cylGeo.translate(0, baseThick / 2, 0);
+        activeMeshGroup.add(new THREE.Mesh(cylGeo, baseMat));
+
+        const rimGeo = new THREE.RingGeometry(rPlate * 0.90, rPlate, segs);
+        rimGeo.rotateX(-Math.PI / 2);
+        rimGeo.translate(0, baseThick + 0.8, 0);
+        activeMeshGroup.add(new THREE.Mesh(rimGeo, terraMat));
+        activeMeshGroup.add(qrModules);
+
+      } else if (plateType === 'totem') {
+        // 8. Totem Prisma Triangular de Mesa (Dupla Face)
+        const hTotem = sizeMm * 0.95;
+        const triShape = new THREE.Shape();
+        triShape.moveTo(-sizeMm * 0.45, 0);
+        triShape.lineTo(sizeMm * 0.45, 0);
+        triShape.lineTo(0, hTotem);
+        triShape.closePath();
+
+        const prismGeo = new THREE.ExtrudeGeometry(triShape, { depth: sizeMm, bevelEnabled: false });
+        prismGeo.translate(0, 0, -sizeMm / 2);
+        activeMeshGroup.add(new THREE.Mesh(prismGeo, baseMat));
+
+      } else if (plateType === 'quadro') {
+        // 9. Quadro Minimalista com Moldura Elevada Arquitetônica
+        const baseGeo = new THREE.BoxGeometry(sizeMm, baseThick, sizeMm);
+        baseGeo.translate(0, baseThick / 2, 0);
+        activeMeshGroup.add(new THREE.Mesh(baseGeo, baseMat));
+        activeMeshGroup.add(qrModules);
+
+        const fH = baseThick + reliefThick + 2.2;
+        const fW = 3.5;
+        [[-sizeMm / 2, 0, fW, sizeMm], [sizeMm / 2, 0, fW, sizeMm], [0, -sizeMm / 2, sizeMm, fW], [0, sizeMm / 2, sizeMm, fW]].forEach(([fx, fz, sx, sz]) => {
+          const bar = new THREE.BoxGeometry(sx, fH, sz);
+          bar.translate(fx, fH / 2, fz);
+          activeMeshGroup.add(new THREE.Mesh(bar, terraMat));
+        });
+
+      } else {
+        // 10. Tag de Identificação de Coleção Cerâmica (Alongada c/ Cabeçalho)
+        const baseGeo = new THREE.BoxGeometry(sizeMm, baseThick, sizeMm * 1.28);
+        baseGeo.translate(0, baseThick / 2, 0);
+        activeMeshGroup.add(new THREE.Mesh(baseGeo, baseMat));
+        qrModules.position.z = sizeMm * 0.1;
+        activeMeshGroup.add(qrModules);
+
+        const headBar = new THREE.BoxGeometry(sizeMm * 0.8, reliefThick, 8);
+        headBar.translate(0, baseThick + reliefThick / 2, -sizeMm * 0.48);
+        activeMeshGroup.add(new THREE.Mesh(headBar, terraMat));
       }
 
-      activeMeshGroup.add(qrGroup);
       updateViewportBoundingBox();
+      const estGrams = Math.round((sizeMm / 65) ** 2 * (baseThick / 3) * 24);
+      const barG = document.getElementById('bar-pla-g');
+      if (barG) barG.textContent = `~${estGrams} g`;
+      const pFilG = document.getElementById('p-filament-g');
+      if (pFilG) pFilG.value = estGrams;
+      recalcPricing();
     }
 
     // =========================================================================
