@@ -829,6 +829,36 @@
               </div>
             </div>
 
+            <!-- Cinnabar Ceramic Material System: Esmalte & Acabamento Realista -->
+            <div class="cad-section-divider space-y-2.5">
+              <div>
+                <label class="cad-label" for="v-ceramic-finish">
+                  <span>Esmalte & Acabamento Cerâmico (Cinnabar)</span>
+                  <span class="help-tip" tabindex="0" role="button" aria-label="Ajuda sobre Esmaltes Cerâmicos"
+                    data-tip-cat="Material PBR"
+                    data-tip-title="Cinnabar Ceramic Material System"
+                    data-tip-body="Renderiza esmaltes e queimas cerâmicas em tempo real com mapas PBR de normais, rugosidade e reflexos físicos fiéis aos ateliês de cerâmica."
+                    data-tip-advice="O 'Celadon Craquelado' e o 'Raku Metálico' destacam-se com a luz direcional. A 'Porcelana' simula passagem de luz por translucidez.">?</span>
+                </label>
+                <select id="v-ceramic-finish" onchange="applyCeramicFinish(this.value)" class="cad-input font-medium text-stone-800 dark:text-stone-100">
+                  <option value="terracota" selected>🏺 Terracota Natural (Queima Biscoito)</option>
+                  <option value="celadon">🌿 Celadon Craquelado (Alto Brilho Oriental)</option>
+                  <option value="raku">⚡ Raku Metálico (Iridescente por Redução)</option>
+                  <option value="gres">🌾 Grés Pintalgado (Speckled Stoneware)</option>
+                  <option value="sigillata">🏺 Terra Sigillata (Bruñido Acetinado)</option>
+                  <option value="porcelana">⚪ Porcelana Pura Translúcida (Casca de Ovo)</option>
+                </select>
+              </div>
+
+              <div class="flex items-center justify-between text-xs pt-0.5">
+                <span class="text-stone-600 dark:text-stone-300 font-medium">Anti-Pinch Polar (Triplanar 3D)</span>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" id="v-triplanar-toggle" onchange="toggleTriplanarMapping(this.checked)" checked class="sr-only peer">
+                  <div class="w-8 h-4 bg-stone-200 peer-focus:outline-none rounded-full peer dark:bg-stone-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-terracotta-500"></div>
+                </label>
+              </div>
+            </div>
+
             <!-- Texturas de Superfície & JSON -->
             <div class="cad-section-divider space-y-2.5">
               <div class="grid grid-cols-2 gap-2.5">
@@ -1067,6 +1097,24 @@
                   <option value="2.30">Porcelana (2.30)</option>
                 </select>
               </div>
+            </div>
+            <div>
+              <label class="cad-label" for="v-ceramic-finish-estagios">
+                <span>Esmalte & Acabamento Cerâmico (Cinnabar)</span>
+                <span class="help-tip" tabindex="0" role="button" aria-label="Ajuda sobre Esmaltes Cerâmicos"
+                  data-tip-cat="Material PBR"
+                  data-tip-title="Cinnabar Ceramic Material System"
+                  data-tip-body="Renderiza esmaltes e queimas cerâmicas em tempo real com mapas PBR de normais, rugosidade e reflexos físicos fiéis aos ateliês de cerâmica."
+                  data-tip-advice="O 'Celadon Craquelado' e o 'Raku Metálico' destacam-se com a luz direcional.">?</span>
+              </label>
+              <select id="v-ceramic-finish-estagios" onchange="applyCeramicFinish(this.value)" class="cad-input font-medium text-stone-800 dark:text-stone-100">
+                <option value="terracota" selected>🏺 Terracota Natural (Queima Biscoito)</option>
+                <option value="celadon">🌿 Celadon Craquelado (Alto Brilho Oriental)</option>
+                <option value="raku">⚡ Raku Metálico (Iridescente por Redução)</option>
+                <option value="gres">🌾 Grés Pintalgado (Speckled Stoneware)</option>
+                <option value="sigillata">🏺 Terra Sigillata (Bruñido Acetinado)</option>
+                <option value="porcelana">⚪ Porcelana Pura Translúcida (Casca de Ovo)</option>
+              </select>
             </div>
             <div>
               <label class="cad-label" for="v-texture-type">
@@ -2688,6 +2736,8 @@
     let reforcoMecanicoAtivo = false;
     let lastAlertedScale = 100;
     let isWireframe = false;
+    let currentCeramicFinish = 'terracota';
+    let isTriplanarEnabled = true;
 
     // Cena Three.js Unificada (Eixo Y = Vertical para Cima, Padrão CAD Natural)
     let scene, camera, renderer, controls, activeMeshGroup;
@@ -4539,14 +4589,9 @@
 
       if (floorSliceIdx === -1) floorSliceIdx = 0;
 
-      // 1. Constrói Geometria da Parede Externa
+      // 1. Constrói Geometria da Parede Externa com Material Cerâmico Cinnabar
       const extGeo = buildGridMeshGeometry(outerGrid, slices, radialSegs, false);
-      const extMat = new THREE.MeshStandardMaterial({
-        color: 0xD05840,
-        roughness: 0.42,
-        side: THREE.DoubleSide,
-        wireframe: isWireframe
-      });
+      const extMat = CinnabarMaterialSystem.getMaterial(currentCeramicFinish, isWireframe);
       activeMeshGroup.add(new THREE.Mesh(extGeo, extMat));
 
       // 2. Constrói Geometria da Parede Interna (Oca, do fundo até o topo)
@@ -4554,6 +4599,7 @@
       if (innerSlices > 0) {
         const intGeo = buildGridMeshGeometry(innerGrid, innerSlices, radialSegs, true);
         const intMat = new THREE.MeshStandardMaterial({
+          name: 'internalWall',
           color: 0x8C6D62,
           roughness: 0.65,
           side: THREE.DoubleSide,
@@ -4702,12 +4748,462 @@
       recalcCeramicPricing();
     }
 
+    // =========================================================================
+    // CINNABAR CERAMIC MATERIAL SYSTEM (5 NOVAS TEXTURAS PROCEDURAIS PBR + SSS)
+    // =========================================================================
+    const CinnabarMaterialSystem = (function() {
+      const cache = {};
+      let proceduralTextures = {};
+
+      function createNoiseCanvas(w, h, fn) {
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        const imgData = ctx.createImageData(w, h);
+        fn(imgData.data, w, h);
+        ctx.putImageData(imgData, 0, 0);
+        return canvas;
+      }
+
+      // Gera Normal Map tangencial usando filtro de Sobel sobre dados de altura
+      function createNormalCanvasFromHeight(heightData, w, h, strength = 2.2) {
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        const imgData = ctx.createImageData(w, h);
+        const data = imgData.data;
+
+        const getHeight = (x, y) => {
+          const px = ((x % w) + w) % w;
+          const py = ((y % h) + h) % h;
+          return heightData[(py * w + px) * 4] / 255;
+        };
+
+        for (let y = 0; y < h; y++) {
+          for (let x = 0; x < w; x++) {
+            const tl = getHeight(x - 1, y - 1);
+            const l  = getHeight(x - 1, y);
+            const bl = getHeight(x - 1, y + 1);
+            const t  = getHeight(x, y - 1);
+            const b  = getHeight(x, y + 1);
+            const tr = getHeight(x + 1, y - 1);
+            const r  = getHeight(x + 1, y);
+            const br = getHeight(x + 1, y + 1);
+
+            const dX = (tr + 2 * r + br) - (tl + 2 * l + bl);
+            const dY = (bl + 2 * b + br) - (tl + 2 * t + tr);
+            const dZ = 1.0 / strength;
+
+            const len = Math.hypot(dX, dY, dZ);
+            const nx = dX / len;
+            const ny = dY / len;
+            const nz = dZ / len;
+
+            const idx = (y * w + x) * 4;
+            data[idx]     = Math.round((nx * 0.5 + 0.5) * 255);
+            data[idx + 1] = Math.round((ny * 0.5 + 0.5) * 255);
+            data[idx + 2] = Math.round((nz * 0.5 + 0.5) * 255);
+            data[idx + 3] = 255;
+          }
+        }
+        ctx.putImageData(imgData, 0, 0);
+        return canvas;
+      }
+
+      // 1. Celadon Craquelado: Alto brilho, jade oriental com fendas Voronoi
+      function getCeladonTextures() {
+        if (proceduralTextures.celadon) return proceduralTextures.celadon;
+        const w = 512, h = 512;
+        const numSeeds = 110;
+        const seeds = [];
+        let seed = 42;
+        const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+        for (let i = 0; i < numSeeds; i++) seeds.push({ x: rnd() * w, y: rnd() * h });
+
+        const heightCanvas = createNoiseCanvas(w, h, (data, w, h) => {
+          for (let y = 0; y < h; y++) {
+            for (let x = 0; x < w; x++) {
+              let d1 = Infinity, d2 = Infinity;
+              for (let i = 0; i < numSeeds; i++) {
+                const dx = Math.abs(x - seeds[i].x);
+                const dy = Math.abs(y - seeds[i].y);
+                const dist = Math.hypot(Math.min(dx, w - dx), Math.min(dy, h - dy));
+                if (dist < d1) { d2 = d1; d1 = dist; }
+                else if (dist < d2) { d2 = dist; }
+              }
+              const crack = Math.min(1.0, Math.max(0, (d2 - d1) / 4.2));
+              const idx = (y * w + x) * 4;
+              const val = Math.round(crack * 255);
+              data[idx] = data[idx + 1] = data[idx + 2] = val;
+              data[idx + 3] = 255;
+            }
+          }
+        });
+
+        const albedoCanvas = document.createElement('canvas');
+        albedoCanvas.width = w; albedoCanvas.height = h;
+        const actx = albedoCanvas.getContext('2d');
+        actx.fillStyle = '#94BCAB';
+        actx.fillRect(0, 0, w, h);
+        const aImg = actx.getImageData(0, 0, w, h);
+        const hData = heightCanvas.getContext('2d').getImageData(0, 0, w, h).data;
+        for (let i = 0; i < hData.length; i += 4) {
+          const crackFactor = hData[i] / 255;
+          if (crackFactor < 0.65) {
+            const dark = 0.55 + crackFactor * 0.45;
+            aImg.data[i]     = Math.round(aImg.data[i] * dark * 0.7);
+            aImg.data[i + 1] = Math.round(aImg.data[i + 1] * dark * 0.85);
+            aImg.data[i + 2] = Math.round(aImg.data[i + 2] * dark * 0.75);
+          }
+        }
+        actx.putImageData(aImg, 0, 0);
+
+        const normalCanvas = createNormalCanvasFromHeight(hData, w, h, 2.8);
+
+        const albedoTex = new THREE.CanvasTexture(albedoCanvas);
+        albedoTex.wrapS = albedoTex.wrapT = THREE.RepeatWrapping;
+        albedoTex.repeat.set(3, 4);
+
+        const normalTex = new THREE.CanvasTexture(normalCanvas);
+        normalTex.wrapS = normalTex.wrapT = THREE.RepeatWrapping;
+        normalTex.repeat.set(3, 4);
+
+        proceduralTextures.celadon = { map: albedoTex, normalMap: normalTex };
+        return proceduralTextures.celadon;
+      }
+
+      // 2. Raku Metálico: Manchas randômicas iridescentes por queima em redução
+      function getRakuTextures() {
+        if (proceduralTextures.raku) return proceduralTextures.raku;
+        const w = 512, h = 512;
+        let seed = 123;
+        const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+
+        const albedoCanvas = createNoiseCanvas(w, h, (data, w, h) => {
+          for (let y = 0; y < h; y++) {
+            for (let x = 0; x < w; x++) {
+              const idx = (y * w + x) * 4;
+              const nx = x / w, ny = y / h;
+              const wave1 = Math.sin(nx * 14 + ny * 10 + Math.sin(ny * 8)) * 0.5 + 0.5;
+              const wave2 = Math.cos(nx * 20 - ny * 12) * 0.5 + 0.5;
+              const mottle = (wave1 * 0.6 + wave2 * 0.4);
+
+              if (mottle > 0.6) {
+                data[idx]     = Math.round(195 + rnd() * 35);
+                data[idx + 1] = Math.round(115 + rnd() * 25);
+                data[idx + 2] = Math.round(65 + rnd() * 20);
+              } else if (mottle > 0.38) {
+                data[idx]     = Math.round(45 + rnd() * 20);
+                data[idx + 1] = Math.round(95 + rnd() * 30);
+                data[idx + 2] = Math.round(110 + rnd() * 35);
+              } else {
+                data[idx]     = Math.round(28 + rnd() * 15);
+                data[idx + 1] = Math.round(26 + rnd() * 15);
+                data[idx + 2] = Math.round(25 + rnd() * 15);
+              }
+              data[idx + 3] = 255;
+            }
+          }
+        });
+
+        const roughCanvas = createNoiseCanvas(w, h, (data, w, h) => {
+          const aData = albedoCanvas.getContext('2d').getImageData(0, 0, w, h).data;
+          for (let i = 0; i < aData.length; i += 4) {
+            const isBright = aData[i] > 100 || aData[i + 2] > 90;
+            const val = isBright ? Math.round(55 + (i % 255) * 0.1) : Math.round(180 + (i % 50));
+            data[i] = data[i + 1] = data[i + 2] = val;
+            data[i + 3] = 255;
+          }
+        });
+
+        const albedoTex = new THREE.CanvasTexture(albedoCanvas);
+        albedoTex.wrapS = albedoTex.wrapT = THREE.RepeatWrapping;
+        albedoTex.repeat.set(2, 3);
+
+        const roughTex = new THREE.CanvasTexture(roughCanvas);
+        roughTex.wrapS = roughTex.wrapT = THREE.RepeatWrapping;
+        roughTex.repeat.set(2, 3);
+
+        proceduralTextures.raku = { map: albedoTex, roughnessMap: roughTex };
+        return proceduralTextures.raku;
+      }
+
+      // 3. Grés Pintalgado: Argila clara/aveia pontilhada com óxido de ferro e bump arenoso
+      function getGresTextures() {
+        if (proceduralTextures.gres) return proceduralTextures.gres;
+        const w = 512, h = 512;
+        let seed = 777;
+        const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+
+        const albedoCanvas = createNoiseCanvas(w, h, (data, w, h) => {
+          for (let y = 0; y < h; y++) {
+            for (let x = 0; x < w; x++) {
+              const idx = (y * w + x) * 4;
+              const noise = (rnd() - 0.5) * 16;
+              data[idx]     = Math.min(255, Math.max(0, Math.round(226 + noise)));
+              data[idx + 1] = Math.min(255, Math.max(0, Math.round(214 + noise)));
+              data[idx + 2] = Math.min(255, Math.max(0, Math.round(194 + noise)));
+              data[idx + 3] = 255;
+            }
+          }
+        });
+
+        const actx = albedoCanvas.getContext('2d');
+        const numSpots = 460;
+        for (let k = 0; k < numSpots; k++) {
+          const sx = rnd() * w;
+          const sy = rnd() * h;
+          const r = 0.8 + rnd() * 2.4;
+          const alpha = 0.65 + rnd() * 0.35;
+          actx.beginPath();
+          actx.arc(sx, sy, r, 0, Math.PI * 2);
+          actx.fillStyle = `rgba(58, 38, 26, ${alpha})`;
+          actx.fill();
+        }
+
+        const bumpCanvas = createNoiseCanvas(w, h, (data, w, h) => {
+          const aData = actx.getImageData(0, 0, w, h).data;
+          for (let i = 0; i < aData.length; i += 4) {
+            const isIronSpot = aData[i] < 120;
+            const val = isIronSpot ? 210 : Math.round(aData[i] * 0.45);
+            data[i] = data[i + 1] = data[i + 2] = val;
+            data[i + 3] = 255;
+          }
+        });
+
+        const albedoTex = new THREE.CanvasTexture(albedoCanvas);
+        albedoTex.wrapS = albedoTex.wrapT = THREE.RepeatWrapping;
+        albedoTex.repeat.set(3, 4);
+
+        const bumpTex = new THREE.CanvasTexture(bumpCanvas);
+        bumpTex.wrapS = bumpTex.wrapT = THREE.RepeatWrapping;
+        bumpTex.repeat.set(3, 4);
+
+        proceduralTextures.gres = { map: albedoTex, bumpMap: bumpTex };
+        return proceduralTextures.gres;
+      }
+
+      // 4. Terra Sigillata: Acabamento acetinado de argila polida com pedras
+      function getTerraSigillataTextures() {
+        if (proceduralTextures.sigillata) return proceduralTextures.sigillata;
+        const w = 512, h = 512;
+        let seed = 999;
+        const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+
+        const albedoCanvas = createNoiseCanvas(w, h, (data, w, h) => {
+          for (let y = 0; y < h; y++) {
+            for (let x = 0; x < w; x++) {
+              const idx = (y * w + x) * 4;
+              const polish = Math.sin(y * 0.8 + Math.cos(x * 0.1) * 3) * 6 + (rnd() - 0.5) * 6;
+              data[idx]     = Math.min(255, Math.max(0, Math.round(184 + polish)));
+              data[idx + 1] = Math.min(255, Math.max(0, Math.round(76 + polish * 0.6)));
+              data[idx + 2] = Math.min(255, Math.max(0, Math.round(52 + polish * 0.4)));
+              data[idx + 3] = 255;
+            }
+          }
+        });
+
+        const albedoTex = new THREE.CanvasTexture(albedoCanvas);
+        albedoTex.wrapS = albedoTex.wrapT = THREE.RepeatWrapping;
+        albedoTex.repeat.set(2, 3);
+
+        proceduralTextures.sigillata = { map: albedoTex };
+        return proceduralTextures.sigillata;
+      }
+
+      function injectTriplanarMapping(mat, scale = 0.035) {
+        if (!isTriplanarEnabled) return;
+        mat.onBeforeCompile = (shader) => {
+          shader.uniforms.uTriplanarScale = { value: scale };
+          shader.vertexShader = `
+            varying vec3 vWorldPos;
+            varying vec3 vObjNormal;
+            ${shader.vertexShader}
+          `.replace(
+            '#include <begin_vertex>',
+            `
+            #include <begin_vertex>
+            vWorldPos = (modelMatrix * vec4(transformed, 1.0)).xyz;
+            vObjNormal = normalize(normalMatrix * normal);
+            `
+          );
+
+          shader.fragmentShader = `
+            varying vec3 vWorldPos;
+            varying vec3 vObjNormal;
+            uniform float uTriplanarScale;
+            ${shader.fragmentShader}
+          `.replace(
+            '#include <map_fragment>',
+            `
+            #ifdef USE_MAP
+              vec3 blend = abs(vObjNormal);
+              blend = normalize(max(blend, 0.00001));
+              float bTotal = blend.x + blend.y + blend.z;
+              blend /= vec3(bTotal);
+
+              vec4 colX = texture2D(map, vWorldPos.yz * uTriplanarScale);
+              vec4 colY = texture2D(map, vWorldPos.xz * uTriplanarScale);
+              vec4 colZ = texture2D(map, vWorldPos.xy * uTriplanarScale);
+              vec4 sampledTriplanar = colX * blend.x + colY * blend.y + colZ * blend.z;
+              diffuseColor *= sampledTriplanar;
+            #endif
+            `
+          );
+        };
+      }
+
+      return {
+        getMaterial: function(finishKey, isWireframe = false) {
+          const cacheKey = `${finishKey}_${isWireframe ? 'wire' : 'solid'}_${isTriplanarEnabled ? 'tri' : 'uv'}`;
+          if (cache[cacheKey]) return cache[cacheKey];
+
+          let mat;
+          if (finishKey === 'celadon') {
+            const texs = getCeladonTextures();
+            mat = new THREE.MeshStandardMaterial({
+              color: 0x98BEAD,
+              roughness: 0.10,
+              metalness: 0.04,
+              map: texs.map,
+              normalMap: texs.normalMap,
+              normalScale: new THREE.Vector2(0.9, 0.9),
+              side: THREE.DoubleSide,
+              wireframe: isWireframe
+            });
+            injectTriplanarMapping(mat, 0.04);
+          } else if (finishKey === 'raku') {
+            const texs = getRakuTextures();
+            mat = new THREE.MeshStandardMaterial({
+              color: 0x624D42,
+              roughness: 0.36,
+              metalness: 0.78,
+              map: texs.map,
+              roughnessMap: texs.roughnessMap,
+              side: THREE.DoubleSide,
+              wireframe: isWireframe
+            });
+            injectTriplanarMapping(mat, 0.035);
+          } else if (finishKey === 'gres') {
+            const texs = getGresTextures();
+            mat = new THREE.MeshStandardMaterial({
+              color: 0xE4D8C4,
+              roughness: 0.88,
+              metalness: 0.02,
+              map: texs.map,
+              bumpMap: texs.bumpMap,
+              bumpScale: 0.45,
+              side: THREE.DoubleSide,
+              wireframe: isWireframe
+            });
+            injectTriplanarMapping(mat, 0.045);
+          } else if (finishKey === 'sigillata') {
+            const texs = getTerraSigillataTextures();
+            mat = new THREE.MeshStandardMaterial({
+              color: 0xB84E37,
+              roughness: 0.30,
+              metalness: 0.08,
+              map: texs.map,
+              side: THREE.DoubleSide,
+              wireframe: isWireframe
+            });
+            injectTriplanarMapping(mat, 0.035);
+          } else if (finishKey === 'porcelana') {
+            mat = new THREE.MeshStandardMaterial({
+              color: 0xFAFAFA,
+              roughness: 0.16,
+              metalness: 0.01,
+              side: THREE.DoubleSide,
+              wireframe: isWireframe
+            });
+            // Shader hook para translucidez de bordas (Backlight / SSS suave)
+            mat.onBeforeCompile = (shader) => {
+              shader.fragmentShader = shader.fragmentShader.replace(
+                '#include <dithering_fragment>',
+                `
+                float rim = 1.0 - max(0.0, dot(geometryNormal, -geometryViewDir));
+                gl_FragColor.rgb += vec3(0.18, 0.16, 0.13) * pow(rim, 3.2) * 0.45;
+                #include <dithering_fragment>
+                `
+              );
+            };
+          } else {
+            // Terracota Natural Padrão
+            mat = new THREE.MeshStandardMaterial({
+              color: 0xD05840,
+              roughness: 0.42,
+              metalness: 0.03,
+              side: THREE.DoubleSide,
+              wireframe: isWireframe
+            });
+          }
+
+          cache[cacheKey] = mat;
+          return mat;
+        },
+
+        clearCache: function() {
+          for (const k in cache) {
+            if (cache[k].dispose) cache[k].dispose();
+            delete cache[k];
+          }
+        }
+      };
+    })();
+
+    // Despachante Reativo PDCA: Atualiza acabamento cerâmico em tempo constante O(1) sem recriar malhas
+    function applyCeramicFinish(finishKey) {
+      currentCeramicFinish = finishKey;
+      const finishEl1 = document.getElementById('v-ceramic-finish');
+      if (finishEl1 && finishEl1.value !== finishKey) finishEl1.value = finishKey;
+      const finishEl2 = document.getElementById('v-ceramic-finish-estagios');
+      if (finishEl2 && finishEl2.value !== finishKey) finishEl2.value = finishKey;
+
+      const newMat = CinnabarMaterialSystem.getMaterial(finishKey, isWireframe);
+      if (activeMeshGroup && activeMeshGroup.children.length > 0) {
+        activeMeshGroup.children.forEach(child => {
+          if (child.isMesh && child.material && child.material.name !== 'internalWall') {
+            child.material = newMat;
+            child.material.needsUpdate = true;
+          }
+        });
+      }
+    }
+
+    function toggleTriplanarMapping(enabled) {
+      isTriplanarEnabled = enabled;
+      CinnabarMaterialSystem.clearCache();
+      applyCeramicFinish(currentCeramicFinish);
+    }
+
+    // =========================================================================
+    // MOTOR DE MALHA: PARAMETRIZAÇÃO UV POR COMPRIMENTO DE ARCO REAL (ARC-LENGTH)
+    // =========================================================================
     function buildGridMeshGeometry(grid, slices, radialSegs, reverseNormals = false) {
       const geo = new THREE.BufferGeometry();
       const verts = [];
+      const uvs = [];
+
+      // Pré-calcula o comprimento de arco métrico real ao longo da curva vertical
+      const arcLengths = [0];
+      let totalArc = 0;
+      for (let j = 1; j <= slices; j++) {
+        const p0 = grid[j - 1][0];
+        const p1 = grid[j][0];
+        const dist = Math.max(1e-5, p0.distanceTo(p1));
+        totalArc += dist;
+        arcLengths.push(totalArc);
+      }
+      const safeTotalArc = totalArc > 0 ? totalArc : 1.0;
 
       for (let j = 0; j < slices; j++) {
+        const vNorm0 = arcLengths[j] / safeTotalArc;
+        const vNorm1 = arcLengths[j + 1] / safeTotalArc;
+
         for (let i = 0; i < radialSegs; i++) {
+          const uNorm0 = i / radialSegs;
+          const uNorm1 = (i + 1) / radialSegs;
+
           const v00 = grid[j][i];
           const v10 = grid[j + 1][i];
           const v11 = grid[j + 1][i + 1];
@@ -4715,17 +5211,87 @@
 
           if (!reverseNormals) {
             verts.push(v00.x, v00.y, v00.z, v10.x, v10.y, v10.z, v11.x, v11.y, v11.z);
+            uvs.push(uNorm0, vNorm0, uNorm0, vNorm1, uNorm1, vNorm1);
+
             verts.push(v00.x, v00.y, v00.z, v11.x, v11.y, v11.z, v01.x, v01.y, v01.z);
+            uvs.push(uNorm0, vNorm0, uNorm1, vNorm1, uNorm1, vNorm0);
           } else {
+            // Parede interna: inverte normais e espelha U para textura não ficar invertida por dentro
             verts.push(v00.x, v00.y, v00.z, v11.x, v11.y, v11.z, v10.x, v10.y, v10.z);
+            uvs.push(1 - uNorm0, vNorm0, 1 - uNorm1, vNorm1, 1 - uNorm0, vNorm1);
+
             verts.push(v00.x, v00.y, v00.z, v01.x, v01.y, v01.z, v11.x, v11.y, v11.z);
+            uvs.push(1 - uNorm0, vNorm0, 1 - uNorm1, vNorm0, 1 - uNorm1, vNorm1);
           }
         }
       }
 
       geo.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
+      geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
       geo.computeVertexNormals();
       return geo;
+    }
+
+    // Geração de Gomos Curvos Bézier com UVs parametrizadas por Comprimento de Arco Real
+    function generateCurvedGoreWithUVs(leftBezierPoints, rightBezierPoints, goreIndex, totalGores, isContinuous3D = true) {
+      const vertices = [];
+      const uvs = [];
+      let accumulatedDistance = 0;
+
+      // 1. Calcula o comprimento total da curva (distância métrica real)
+      let totalCurveLength = 0;
+      for (let i = 1; i < leftBezierPoints.length; i++) {
+        totalCurveLength += Math.max(1e-5, leftBezierPoints[i].distanceTo(leftBezierPoints[i - 1]));
+      }
+
+      // 2. Define o range horizontal de U
+      const uStart = isContinuous3D ? (goreIndex / totalGores) : 0.0;
+      const uEnd = isContinuous3D ? ((goreIndex + 1) / totalGores) : 1.0;
+
+      // 3. Itera sobre os pontos interpolados calculando V proporcional ao arco real
+      for (let i = 0; i < leftBezierPoints.length; i++) {
+        if (i > 0) {
+          accumulatedDistance += Math.max(1e-5, leftBezierPoints[i].distanceTo(leftBezierPoints[i - 1]));
+        }
+        const v = totalCurveLength === 0 ? 0 : Math.min(1.0, accumulatedDistance / totalCurveLength);
+
+        // Vértice da esquerda
+        vertices.push(leftBezierPoints[i].x, leftBezierPoints[i].y, leftBezierPoints[i].z);
+        uvs.push(uStart, v);
+
+        // Vértice da direita
+        vertices.push(rightBezierPoints[i].x, rightBezierPoints[i].y, rightBezierPoints[i].z);
+        uvs.push(uEnd, v);
+      }
+
+      return { vertices, uvs };
+    }
+
+    // Desenvolvimento 2D de Gomos Esféricos (Gores) com Truncagem Anti-Pinch a 98%
+    function generateCurvedGorePath(radius, totalGores, truncation = 0.98, segments = 32) {
+      const pts = [];
+      const maxPhi = (Math.PI / 2) * truncation;
+      const halfGoreAngle = Math.PI / totalGores;
+
+      // Borda direita de sul a norte
+      for (let i = 0; i <= segments; i++) {
+        const t = i / segments;
+        const phi = -maxPhi + t * (2 * maxPhi);
+        const y = radius * phi;
+        const halfW = radius * Math.cos(phi) * halfGoreAngle;
+        pts.push({ x: halfW, y: y + radius * maxPhi });
+      }
+
+      // Borda esquerda de norte a sul
+      for (let i = segments; i >= 0; i--) {
+        const t = i / segments;
+        const phi = -maxPhi + t * (2 * maxPhi);
+        const y = radius * phi;
+        const halfW = radius * Math.cos(phi) * halfGoreAngle;
+        pts.push({ x: -halfW, y: y + radius * maxPhi });
+      }
+
+      return pts;
     }
 
     // Despachante Geral de Modelagem de Vasos
@@ -4807,12 +5373,7 @@
         }
 
         const extGeo = buildGridMeshGeometry(outerGrid, totalOuterSlices, radialSegs, false);
-        const extMat = new THREE.MeshStandardMaterial({
-          color: 0xD05840,
-          roughness: 0.42,
-          side: THREE.DoubleSide,
-          wireframe: isWireframe
-        });
+        const extMat = CinnabarMaterialSystem.getMaterial(currentCeramicFinish, isWireframe);
         activeMeshGroup.add(new THREE.Mesh(extGeo, extMat));
 
         // Constrói Grid de Vértices da Parede Interna (Oca, do fundo Y=espessura até o topo)
@@ -4833,6 +5394,7 @@
 
         const intGeo = buildGridMeshGeometry(innerGrid, totalInnerSlices, radialSegs, true);
         const intMat = new THREE.MeshStandardMaterial({
+          name: 'internalWall',
           color: 0x8C6D62,
           roughness: 0.65,
           side: THREE.DoubleSide,
@@ -5219,6 +5781,32 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
           angleDeg: 360,
           rBase: rings[0]?.r1 || 40,
           altura: 8
+        });
+      }
+
+      // Se houver estágio de Bojo Esférico, inclui o Disco Polar Anti-Pinch (Truncagem 98%)
+      const hasEsfera = (vaseStages || []).some(st => st.tipo === 'esfera');
+      if (hasEsfera) {
+        const rPolar = 14 * retracao;
+        const diamPolar = rPolar * 2;
+        const polarPts = [];
+        for (let i = 0; i <= 48; i++) {
+          const a = (i / 48) * Math.PI * 2;
+          polarPts.push({ x: rPolar + rPolar * Math.cos(a), y: rPolar + rPolar * Math.sin(a) });
+        }
+        items.push({
+          id: 'disco-polar-anti-pinch',
+          type: 'base',
+          label: `Disco Polar Anti-Pinch Ø${diamPolar.toFixed(0)} (Fecho 98%)`,
+          rawPoints: polarPts,
+          holes: [],
+          corteTipo: 'solido',
+          outerArcMm: Math.PI * diamPolar,
+          innerArcMm: 0,
+          slantMm: diamPolar,
+          angleDeg: 360,
+          rBase: 14,
+          altura: 6
         });
       }
 
