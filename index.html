@@ -1262,6 +1262,7 @@
                     data-tip-advice="Experimente 'Costela-de-Adão' para pingentes ou 'Selo Marajoara' para porta-copos.">?</span>
                 </label>
                 <select id="c-preset-shape" onchange="loadPresetPattern(this.value)" class="cad-input font-medium">
+                  <option value="morcego" selected>🦇 Morcego Noturno (Kit 3 Peças Real)</option>
                   <option value="gato">Gato Minimalista</option>
                   <option value="folha">Costela-de-Adão Botânica</option>
                   <option value="marajoara">Selo Geométrico Marajoara</option>
@@ -1350,10 +1351,32 @@
                   data-tip-body="Resolve o problema nº 1 dos ceramistas: a argila úmida criar vácuo e grudar nas paredes do cortador ao puxar."
                   data-tip-advice="A combinação de furos anti-vácuo com ângulo de saída permite desmoldar 20 peças por minuto sem deformar!">?</span>
               </div>
-              <label class="flex items-center gap-1 text-[11px] font-semibold text-emerald-700 dark:text-emerald-400 cursor-pointer">
-                <input type="checkbox" id="c-exploded-view" onchange="rebuildNativeCutter3D()" class="accent-emerald-600 rounded" />
-                <span>Vista explodida</span>
+              <span id="cutter-view-badge" class="text-[10px] font-mono-cad text-terracotta-500 font-semibold bg-terracotta-50 dark:bg-terracotta-950/60 px-2 py-0.5 rounded-md border border-terracotta-500/20">Mesa FDM</span>
+            </div>
+
+            <!-- Seletor de Modo de Exibição 3D Estruturado -->
+            <div class="space-y-1.5 pt-0.5">
+              <label class="cad-label">
+                <span>Disposição do Modelo no Palco 3D</span>
+                <span class="help-tip" tabindex="0" role="button" aria-label="Ajuda sobre Disposição 3D"
+                  data-tip-cat="Visualização CAD"
+                  data-tip-title="Modos de Exibição do Kit 3 Peças"
+                  data-tip-body="'Mesa FDM' exibe as 3 peças lado a lado sobre a mesa aquecida (Z=0), prontas para impressão sem suportes. 'Montado' exibe o êmbolo deslizando dentro da matriz. 'Vista Explodida' separa as 3 peças verticalmente no ar."
+                  data-tip-advice="Para inspecionar o relevo e os furos anti-vácuo, alterne para 'Vista Explodida'.">?</span>
               </label>
+              <div class="subtab-bar grid-cols-3">
+                <button type="button" id="btn-cutter-view-bed" onclick="setCutterViewMode('bed')" class="subtab-btn active text-[11px] py-1 px-1.5 flex items-center justify-center gap-1">
+                  <span>🖨️</span> Mesa FDM
+                </button>
+                <button type="button" id="btn-cutter-view-assembled" onclick="setCutterViewMode('assembled')" class="subtab-btn text-[11px] py-1 px-1.5 flex items-center justify-center gap-1">
+                  <span>⚙️</span> Montado
+                </button>
+                <button type="button" id="btn-cutter-view-exploded" onclick="setCutterViewMode('exploded')" class="subtab-btn text-[11px] py-1 px-1.5 flex items-center justify-center gap-1">
+                  <span>💥</span> Explodida
+                </button>
+              </div>
+              <input type="hidden" id="c-view-mode" value="bed" />
+              <input type="checkbox" id="c-exploded-view" class="hidden" />
             </div>
 
             <div class="grid grid-cols-2 gap-2.5">
@@ -1486,10 +1509,21 @@
         </div>
 
         <!-- Sticky Action Dock Cortadores -->
-        <div class="sticky-action-dock">
-          <button onclick="exportActiveMeshSTL('cortador_expulsor_3d.stl')" class="w-full cta-primary py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2">
-            <span>⬇️</span> Baixar Cortador Expulsor 3D (.STL)
+        <div class="sticky-action-dock space-y-2">
+          <button onclick="exportActiveMeshSTL('cortador_morcego_todos_impressao.stl')" class="w-full cta-primary py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2">
+            <span>⬇️</span> Baixar Kit Completo na Mesa (.STL)
           </button>
+          <div class="grid grid-cols-3 gap-1.5 text-[11px]">
+            <button onclick="downloadCutterPartSTL('matriz')" class="bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 text-stone-700 dark:text-stone-300 py-1.5 px-2 rounded-lg font-medium border border-stone-200 dark:border-cad-border transition flex items-center justify-center gap-1">
+              <span>🔲</span> Matriz
+            </button>
+            <button onclick="downloadCutterPartSTL('embolo')" class="bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 text-stone-700 dark:text-stone-300 py-1.5 px-2 rounded-lg font-medium border border-stone-200 dark:border-cad-border transition flex items-center justify-center gap-1">
+              <span>🦇</span> Êmbolo
+            </button>
+            <button onclick="downloadCutterPartSTL('botao')" class="bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 text-stone-700 dark:text-stone-300 py-1.5 px-2 rounded-lg font-medium border border-stone-200 dark:border-cad-border transition flex items-center justify-center gap-1">
+              <span>🔘</span> Botão
+            </button>
+          </div>
         </div>
 
       </div>
@@ -6092,7 +6126,43 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
 
-      if (presetName === 'gato') {
+      if (presetName === 'morcego') {
+        // Silhueta do Morcego Noturno (Kit 3 Peças Real)
+        // Cabeça central
+        ctx.beginPath();
+        ctx.arc(48, 48, 9, 0, Math.PI * 2);
+        ctx.fill();
+        // Orelhas pontiagudas
+        ctx.beginPath();
+        ctx.moveTo(42, 42); ctx.lineTo(38, 28); ctx.lineTo(46, 38);
+        ctx.moveTo(54, 42); ctx.lineTo(58, 28); ctx.lineTo(50, 38);
+        ctx.fill();
+        // Asa esquerda
+        ctx.beginPath();
+        ctx.moveTo(44, 45);
+        ctx.bezierCurveTo(34, 24, 16, 28, 8, 42);
+        ctx.bezierCurveTo(15, 52, 22, 60, 27, 52);
+        ctx.bezierCurveTo(33, 62, 39, 56, 44, 50);
+        ctx.closePath();
+        ctx.fill();
+        // Asa direita
+        ctx.beginPath();
+        ctx.moveTo(52, 45);
+        ctx.bezierCurveTo(62, 24, 80, 28, 88, 42);
+        ctx.bezierCurveTo(81, 52, 74, 60, 69, 52);
+        ctx.bezierCurveTo(63, 62, 57, 56, 52, 50);
+        ctx.closePath();
+        ctx.fill();
+        // Nervuras internas da asa (relevo táctil)
+        ctx.strokeStyle = '#000000';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(44, 45); ctx.lineTo(16, 36);
+        ctx.moveTo(44, 47); ctx.lineTo(24, 48);
+        ctx.moveTo(52, 45); ctx.lineTo(80, 36);
+        ctx.moveTo(52, 47); ctx.lineTo(72, 48);
+        ctx.stroke();
+      } else if (presetName === 'gato') {
         // Contorno Gato Minimalista + Detalhes Internos
         ctx.beginPath();
         ctx.arc(48, 56, 28, 0, Math.PI * 2);
@@ -6165,15 +6235,133 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
       img.src = URL.createObjectURL(file);
     });
 
+    // Controle de Modo de Visualização e Modelos Reais de Cortador (Morcego 3 Peças)
+    let currentCutterViewMode = 'bed';
+    let batCutterGeometries = null;
+    let batCutterLoading = false;
+
+    function setCutterViewMode(mode) {
+      currentCutterViewMode = mode;
+      const inputMode = document.getElementById('c-view-mode');
+      if (inputMode) inputMode.value = mode;
+
+      const chkExploded = document.getElementById('c-exploded-view');
+      if (chkExploded) chkExploded.checked = (mode === 'exploded');
+
+      ['bed', 'assembled', 'exploded'].forEach(m => {
+        const btn = document.getElementById(`btn-cutter-view-${m}`);
+        if (btn) {
+          if (m === mode) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        }
+      });
+
+      const badge = document.getElementById('cutter-view-badge');
+      if (badge) {
+        if (mode === 'bed') {
+          badge.textContent = 'Mesa FDM';
+          badge.className = 'text-[10px] font-mono-cad text-terracotta-500 font-semibold bg-terracotta-50 dark:bg-terracotta-950/60 px-2 py-0.5 rounded-md border border-terracotta-500/20';
+        } else if (mode === 'assembled') {
+          badge.textContent = 'Montado';
+          badge.className = 'text-[10px] font-mono-cad text-sage-600 dark:text-sage-400 font-semibold bg-sage-50 dark:bg-sage-950/60 px-2 py-0.5 rounded-md border border-sage-500/20';
+        } else {
+          badge.textContent = 'Vista Explodida';
+          badge.className = 'text-[10px] font-mono-cad text-amber-600 dark:text-amber-400 font-semibold bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded-md border border-amber-500/20';
+        }
+      }
+
+      rebuildNativeCutter3D();
+    }
+
+    function loadBatCutterGeometries(callback) {
+      if (batCutterGeometries) {
+        if (callback) callback(batCutterGeometries);
+        return;
+      }
+      if (batCutterLoading) {
+        setTimeout(() => loadBatCutterGeometries(callback), 100);
+        return;
+      }
+      batCutterLoading = true;
+
+      const loader = new THREE.STLLoader();
+      const files = {
+        matriz: 'assets/models/cortador_morcego/peca_a_matriz.stl',
+        embolo: 'assets/models/cortador_morcego/peca_b_embolo.stl',
+        botao: 'assets/models/cortador_morcego/peca_c_botao.stl'
+      };
+
+      const loaded = {};
+      let remaining = 3;
+
+      function checkDone() {
+        remaining--;
+        if (remaining === 0) {
+          batCutterGeometries = loaded;
+          batCutterLoading = false;
+          if (callback) callback(batCutterGeometries);
+        }
+      }
+
+      function loadPart(key, url) {
+        loader.load(
+          url,
+          (geo) => {
+            geo.computeVertexNormals();
+            // Adequar Z-up original do STL CAD para Y-up padrão do Studio Three.js
+            geo.rotateX(-Math.PI / 2);
+            geo.computeBoundingBox();
+            const minY = geo.boundingBox.min.y;
+            geo.translate(0, -minY, 0); // Assegura apoio tangencial na mesa Z=0
+            loaded[key] = geo;
+            checkDone();
+          },
+          undefined,
+          (err) => {
+            console.warn(`[CeramiCAD] Erro ao carregar STL local ${url}:`, err);
+            checkDone();
+          }
+        );
+      }
+
+      loadPart('matriz', files.matriz);
+      loadPart('embolo', files.embolo);
+      loadPart('botao', files.botao);
+    }
+
+    function downloadCutterPartSTL(part) {
+      const preset = document.getElementById('c-preset-shape')?.value || 'morcego';
+      const largura = parseFloat(document.getElementById('c-largura')?.value) || 95;
+      const retracao = parseFloat(document.getElementById('c-retracao')?.value) || 1.12;
+      const targetWidth = largura * retracao;
+      const scale = targetWidth / 131.2;
+
+      if (preset === 'morcego' && batCutterGeometries && batCutterGeometries[part]) {
+        const geo = batCutterGeometries[part].clone();
+        geo.scale(scale, scale, scale);
+        const tempMesh = new THREE.Mesh(geo, new THREE.MeshBasicMaterial());
+        const exporter = new THREE.STLExporter();
+        const stlData = exporter.parse(tempMesh, { binary: true });
+        downloadBlob(new Blob([stlData], { type: 'application/octet-stream' }), `cortador_morcego_${part}_${Math.round(targetWidth)}mm.stl`);
+        return;
+      }
+
+      exportActiveMeshSTL(`cortador_${part}.stl`);
+    }
+
     // Reconstrói o Cortador / Placa de Relevo 3D Nativo no Navegador com Engenharia Expulsora
     function rebuildNativeCutter3D() {
       if (!scene) return;
-      if (!cutterCanvasData) createPresetPatternCanvas('gato');
+      if (!cutterCanvasData) createPresetPatternCanvas('morcego');
       if (activeTool !== 'cortadores') return;
 
       clearActiveGroup();
 
       const mode = document.getElementById('c-native-mode').value;
+      const preset = document.getElementById('c-preset-shape')?.value || 'morcego';
       const largura = parseFloat(document.getElementById('c-largura').value) || 95;
       const retracao = parseFloat(document.getElementById('c-retracao').value) || 1.12;
       const relevoH = parseFloat(document.getElementById('c-relevo-h').value) || 2.2;
@@ -6181,7 +6369,6 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
       const invertBW = document.getElementById('c-invert-bw').checked;
 
       // Novos parâmetros de Engenharia Expulsora
-      const isExploded = document.getElementById('c-exploded-view')?.checked ?? false;
       const springType = document.getElementById('c-spring-type')?.value || 'flex_pla';
       const draftDeg = parseFloat(document.getElementById('c-draft-angle')?.value) || 2.0;
       const hasVentHoles = document.getElementById('c-vent-holes')?.checked ?? true;
@@ -6190,6 +6377,80 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
 
       const sizeReal = largura * retracao;
       const baseThickness = 3.2;
+
+      // =======================================================================
+      // MODO REAL: KIT CORTADOR MORCEGO NOTURNO 3 PEÇAS (STLs REAIS INTEGRADOS)
+      // =======================================================================
+      if (preset === 'morcego' && mode !== 'relevo') {
+        if (!batCutterGeometries) {
+          loadBatCutterGeometries(() => {
+            if (activeTool === 'cortadores' && (document.getElementById('c-preset-shape')?.value || 'morcego') === 'morcego') {
+              rebuildNativeCutter3D();
+            }
+          });
+          return;
+        }
+
+        const kitGroup = new THREE.Group();
+        const matMatriz = new THREE.MeshStandardMaterial({
+          color: 0xB03428,
+          roughness: 0.35,
+          metalness: 0.1,
+          wireframe: isWireframe,
+          side: THREE.DoubleSide
+        });
+        const matEmbolo = new THREE.MeshStandardMaterial({
+          color: 0xE28D75,
+          roughness: 0.45,
+          metalness: 0.05,
+          wireframe: isWireframe,
+          side: THREE.DoubleSide
+        });
+        const matBotao = new THREE.MeshStandardMaterial({
+          color: 0x2C2624,
+          roughness: 0.5,
+          metalness: 0.2,
+          wireframe: isWireframe
+        });
+
+        const meshMatriz = new THREE.Mesh(batCutterGeometries.matriz, matMatriz);
+        const meshEmbolo = new THREE.Mesh(batCutterGeometries.embolo, matEmbolo);
+        const meshBotao = new THREE.Mesh(batCutterGeometries.botao, matBotao);
+
+        if (currentCutterViewMode === 'assembled') {
+          // ⚙️ Montado: Êmbolo dentro da matriz com folga operacional, botão no topo do vástago
+          meshMatriz.position.set(0, 0, 0);
+          meshEmbolo.position.set(0, 3.5, 0);
+          meshBotao.position.set(0, 20.0, 0);
+        } else if (currentCutterViewMode === 'exploded') {
+          // 💥 Vista Explodida: Elevação vertical para inspeção interna didática
+          meshMatriz.position.set(0, 0, 0);
+          meshEmbolo.position.set(0, 38.0, 0);
+          meshBotao.position.set(0, 78.0, 0);
+        } else {
+          // 🖨️ Mesa FDM: Todas as 3 peças repousando em Y=0 lado a lado para fatiamento/impressão
+          meshMatriz.position.set(0, 0, 32);
+          meshEmbolo.position.set(0, 0, -28);
+          meshBotao.position.set(62, 0, -28);
+        }
+
+        kitGroup.add(meshMatriz);
+        kitGroup.add(meshEmbolo);
+        kitGroup.add(meshBotao);
+
+        const scale = sizeReal / 131.2;
+        kitGroup.scale.set(scale, scale, scale);
+        activeMeshGroup.add(kitGroup);
+
+        updateViewportBoundingBox();
+        const estGrams = Math.round((scale ** 3) * 52);
+        const barG = document.getElementById('bar-pla-g');
+        if (barG) barG.textContent = `~${estGrams} g`;
+        const pFilG = document.getElementById('p-filament-g');
+        if (pFilG) pFilG.value = estGrams;
+        recalcPricing();
+        return;
+      }
 
       if (mode === 'relevo') {
         // MODO 1: PLACA / CARIMBO DE RELEVO DIRETO COM DOMO ANTI-VÁCUO E MICRO-FRISOS
@@ -6229,55 +6490,74 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
         activeMeshGroup.add(new THREE.Mesh(geo, mat));
 
       } else {
-        // MODO 2: KIT CORTADOR EJETOR 3 PEÇAS COM ÂNGULO DE SAÍDA, FUROS DE RESPIRO E MOLA
+        // MODO 2: KIT CORTADOR EJETOR 3 PEÇAS PROCEDURAL COM DISPOSIÇÃO INTELIGENTE
         const raio = sizeReal / 2;
         const alturaCorte = 15;
-        // Cálculo de expansão cônica (Draft Angle) para a argila cair livremente
         const draftOffset = Math.tan((draftDeg * Math.PI) / 180) * alturaCorte;
+
+        // Posições espaciais conforme currentCutterViewMode
+        let yEmboloOffset = 4.5;
+        let yBotaoOffset = 23.5;
+        let xMatriz = 0, zMatriz = 0;
+        let xEmbolo = 0, zEmbolo = 0;
+        let xBotao = 0, zBotao = 0;
+
+        if (currentCutterViewMode === 'bed') {
+          // 🖨️ Mesa FDM: Peças dispostas lado a lado em Y=0
+          xMatriz = 0; zMatriz = raio * 0.85;
+          xEmbolo = -raio * 1.2; zEmbolo = -raio * 0.85;
+          xBotao = raio * 1.2; zBotao = -raio * 0.85;
+          yEmboloOffset = 1.7;
+          yBotaoOffset = 2.5;
+        } else if (currentCutterViewMode === 'exploded') {
+          // 💥 Vista Explodida: Elevação didática
+          yEmboloOffset = 36;
+          yBotaoOffset = 72;
+        } else {
+          // ⚙️ Montado
+          yEmboloOffset = 4.5;
+          yBotaoOffset = 23.5;
+        }
 
         // PEÇA A: Matriz Cortadora Externa com Chanfro Duplo + Ângulo de Saída Cônico
         const outerWall = new THREE.CylinderGeometry(raio, raio + draftOffset + 0.8, alturaCorte, 64, 1, true);
-        outerWall.translate(0, alturaCorte / 2, 0);
+        outerWall.translate(xMatriz, alturaCorte / 2, zMatriz);
         const matMatriz = new THREE.MeshStandardMaterial({ color: 0xB03428, roughness: 0.35, side: THREE.DoubleSide, wireframe: isWireframe });
         activeMeshGroup.add(new THREE.Mesh(outerWall, matMatriz));
 
-        // Teto estrutural e aba ergonômica de apoio em Y=0
+        // Teto estrutural e aba ergonômica de apoio
         const flangeGeo = new THREE.RingGeometry(raio - 1.2, raio + 5.5, 64);
         flangeGeo.rotateX(Math.PI / 2);
-        flangeGeo.translate(0, 0.2, 0);
+        flangeGeo.translate(xMatriz, 0.2, zMatriz);
         activeMeshGroup.add(new THREE.Mesh(flangeGeo, matMatriz));
-
-        // Deslocamento vertical para Vista Explodida Didática
-        const yEmboloOffset = isExploded ? 22 : 4.5;
-        const yBotaoOffset = isExploded ? 48 : 23.5;
 
         // PEÇA B: Êmbolo Ejetor Interno com Domo Convexo Descolador e Furos Anti-Vácuo
         const segs = 72;
         const rEmbolo = raio - 0.5; // Folga calibrada anti-travamento
         const emboloGeo = new THREE.CylinderGeometry(rEmbolo, rEmbolo, 3.4, 64, 1, false);
-        emboloGeo.translate(0, yEmboloOffset, 0);
+        emboloGeo.translate(xEmbolo, yEmboloOffset, zEmbolo);
         const matEmbolo = new THREE.MeshStandardMaterial({ color: 0xE09070, roughness: 0.45, wireframe: isWireframe });
         activeMeshGroup.add(new THREE.Mesh(emboloGeo, matEmbolo));
 
         // Superfície de Relevo + Domo + Micro-frisos no Êmbolo
         const relGeo = new THREE.PlaneGeometry(sizeReal * 0.78, sizeReal * 0.78, segs, segs);
         relGeo.rotateX(-Math.PI / 2);
-        relGeo.translate(0, yEmboloOffset + 1.8, 0);
+        relGeo.translate(xEmbolo, yEmboloOffset + 1.8, zEmbolo);
         const rPos = relGeo.attributes.position;
         for (let i = 0; i < rPos.count; i++) {
           const vx = rPos.getX(i);
           const vz = rPos.getZ(i);
-          const distCenter = Math.sqrt(vx * vx + vz * vz);
+          const distCenter = Math.sqrt((vx - xEmbolo) ** 2 + (vz - zEmbolo) ** 2);
           if (distCenter < raio * 0.82) {
-            const u = Math.min(95, Math.max(0, Math.floor(((vx / (sizeReal * 0.78)) + 0.5) * 95)));
-            const v = Math.min(95, Math.max(0, Math.floor(((vz / (sizeReal * 0.78)) + 0.5) * 95)));
+            const u = Math.min(95, Math.max(0, Math.floor((((vx - xEmbolo) / (sizeReal * 0.78)) + 0.5) * 95)));
+            const v = Math.min(95, Math.max(0, Math.floor((((vz - zEmbolo) / (sizeReal * 0.78)) + 0.5) * 95)));
             const idx = (v * 96 + u) * 4;
             const lum = cutterCanvasData.data[idx] / 255;
             const darkness = invertBW ? lum : (1.0 - lum);
 
             const distNorm = distCenter / (raio * 0.82);
             const domeLift = hasConvexDome ? (1 - distNorm * distNorm) * 0.65 : 0;
-            const microRib = hasMicroRibs ? Math.sin(vx * 1.8) * 0.16 : 0;
+            const microRib = hasMicroRibs ? Math.sin((vx - xEmbolo) * 1.8) * 0.16 : 0;
 
             if (darkness > 0.3) {
               rPos.setY(i, yEmboloOffset + 1.8 + domeLift + darkness * relevoH);
@@ -6299,7 +6579,7 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
           ];
           ventCoords.forEach(([vx, vz]) => {
             const vHole = new THREE.CylinderGeometry(1.1, 1.1, 4.2, 16);
-            vHole.translate(vx, yEmboloOffset + 0.2, vz);
+            vHole.translate(xEmbolo + vx, yEmboloOffset + 0.2, zEmbolo + vz);
             activeMeshGroup.add(new THREE.Mesh(vHole, ventMat));
           });
         }
@@ -6312,40 +6592,40 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
 
         hCoords.forEach(([hx, hz]) => {
           const hasteGeo = new THREE.CylinderGeometry(2.5, 2.5, 19, 24);
-          hasteGeo.translate(hx, yEmboloOffset + 9.5, hz);
+          hasteGeo.translate(xEmbolo + hx, yEmboloOffset + 9.5, zEmbolo + hz);
           activeMeshGroup.add(new THREE.Mesh(hasteGeo, matEmbolo));
         });
 
-        // Sistema de Mola de Retorno (Mola Flexível Impressa Compliant ou Mola Helicoidal Inox)
+        // Sistema de Mola de Retorno
         if (springType === 'flex_pla') {
           const springMat = new THREE.MeshStandardMaterial({ color: 0xD49A45, roughness: 0.35, wireframe: isWireframe });
           for (let s = 0; s < 3; s++) {
             const torusArc = new THREE.TorusGeometry(6.5, 1.1, 12, 32);
-            torusArc.translate(0, yEmboloOffset + 6 + s * 4.2, 0);
+            torusArc.translate(xEmbolo, yEmboloOffset + 6 + s * 4.2, zEmbolo);
             activeMeshGroup.add(new THREE.Mesh(torusArc, springMat));
           }
         } else if (springType === 'mola_inox') {
           const inoxMat = new THREE.MeshStandardMaterial({ color: 0xA8A29E, metalness: 0.7, roughness: 0.2 });
           const coilGeo = new THREE.CylinderGeometry(4.5, 4.5, 14, 24, 1, true);
-          coilGeo.translate(0, yEmboloOffset + 8, 0);
+          coilGeo.translate(xEmbolo, yEmboloOffset + 8, zEmbolo);
           activeMeshGroup.add(new THREE.Mesh(coilGeo, inoxMat));
         }
 
         // PEÇA C: Botão Acionador Ergonômico Superior + Pino Expulsor de Miolo
         const btnMat = new THREE.MeshStandardMaterial({ color: 0x3A2D2A, roughness: 0.5, wireframe: isWireframe });
         const btnGeo = new THREE.CylinderGeometry(raio * 0.62, raio * 0.62, 5.0, 48);
-        btnGeo.translate(0, yBotaoOffset, 0);
+        btnGeo.translate(xBotao, yBotaoOffset, zBotao);
         activeMeshGroup.add(new THREE.Mesh(btnGeo, btnMat));
 
         if (comFuro) {
           const rFuro = (10 * retracao);
           const tuboCentral = new THREE.CylinderGeometry(rFuro, rFuro + 0.5, alturaCorte, 36, 1, true);
-          tuboCentral.translate(0, alturaCorte / 2, raio * 0.22);
+          tuboCentral.translate(xMatriz, alturaCorte / 2, zMatriz + raio * 0.22);
           activeMeshGroup.add(new THREE.Mesh(tuboCentral, matMatriz));
 
-          // Pino central expulsor de miolo (empurra a rodela de argila do furo!)
+          // Pino central expulsor de miolo
           const pinoExpulsor = new THREE.CylinderGeometry(rFuro - 0.8, rFuro - 1.2, 22, 32);
-          pinoExpulsor.translate(0, yBotaoOffset - 11, raio * 0.22);
+          pinoExpulsor.translate(xBotao, yBotaoOffset - 11, zBotao + raio * 0.22);
           activeMeshGroup.add(new THREE.Mesh(pinoExpulsor, btnMat));
         }
       }
@@ -7732,7 +8012,8 @@ Linhas Pretas (#000000) = relevo saliente de ${rel} mm; Branco (#FFFFFF) = base 
     // Inicialização Geral
     window.addEventListener('DOMContentLoaded', () => {
       initUnifiedViewport();
-      createPresetPatternCanvas('gato');
+      createPresetPatternCanvas('morcego');
+      loadBatCutterGeometries();
       updatePrompts();
       updateRollerPrompt();
       updateStampPrompts();
