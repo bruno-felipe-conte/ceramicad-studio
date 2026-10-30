@@ -3491,11 +3491,18 @@
       ]
     };
 
+    function syncSplineAttachmentsFromStages() {
+      if (typeof currentSplineAttachments !== 'undefined' && Array.isArray(vaseStages)) {
+        currentSplineAttachments = vaseStages.filter(st => !isAxialStage(st)).map(st => JSON.parse(JSON.stringify(st)));
+      }
+    }
+
     function loadSlabConnectedRecipe(recipeKey) {
       const recipe = SLAB_CONNECTED_RECIPES[recipeKey];
       if (!recipe) return;
       vaseStages = JSON.parse(JSON.stringify(recipe));
       enforceStageContinuity();
+      syncSplineAttachmentsFromStages();
       renderVaseStagesUI();
       rebuildVase();
     }
@@ -3615,6 +3622,7 @@
         });
       }
       enforceStageContinuity();
+      syncSplineAttachmentsFromStages();
       renderVaseStagesUI();
       rebuildVase();
     }
@@ -3623,6 +3631,7 @@
       if (vaseStages.length <= 1) return;
       vaseStages.splice(idx, 1);
       enforceStageContinuity();
+      syncSplineAttachmentsFromStages();
       renderVaseStagesUI();
       rebuildVase();
     }
@@ -3632,6 +3641,7 @@
 
       if (field === 'corteTipo' || field === 'pos') {
         vaseStages[idx][field] = value;
+        syncSplineAttachmentsFromStages();
         renderVaseStagesUI();
         rebuildVase();
         return;
@@ -3719,6 +3729,7 @@
         }
       }
 
+      syncSplineAttachmentsFromStages();
       rebuildVase();
     }
 
@@ -4889,6 +4900,15 @@
       currentSplineAttachments = preset.attachments ? JSON.parse(JSON.stringify(preset.attachments)) : [];
       selectedSplineNodeIdx = null;
 
+      // Se existir receita correspondente de Camadas Conectadas, sincroniza vaseStages também
+      if (SLAB_CONNECTED_RECIPES[presetKey]) {
+        vaseStages = JSON.parse(JSON.stringify(SLAB_CONNECTED_RECIPES[presetKey]));
+        enforceStageContinuity();
+        renderVaseStagesUI();
+        const recipeSelect = document.getElementById('slab-recipe-select');
+        if (recipeSelect) recipeSelect.value = presetKey;
+      }
+
       if (preset.totalH) {
         const hEl = document.getElementById('v-total-height');
         if (hEl) hEl.value = preset.totalH;
@@ -4909,7 +4929,7 @@
       }
 
       drawSplineCanvas();
-      rebuildVaseFromSpline();
+      rebuildVase();
     }
 
     function loadSampleSilhouette(preset) {
@@ -5095,16 +5115,21 @@
 
       attachmentsList.forEach(att => {
         if (att.tipo === 'alca') {
-          const hAlca = Math.max(20, att.altura || 65);
-          const proj = Math.max(12, att.projecao || 34);
-          const larg = Math.max(8, att.largura || 16);
+          const proj = Math.max(8, att.projecao || 28);
+          const larg = Math.max(5, att.largTira || att.largura || 15);
+          const esp = Math.max(3, att.espTira || (larg * 0.42));
           const qtd = att.qtd === 2 ? 2 : 1;
-          const yCenter = att.yOffset !== undefined ? att.yOffset : totalH * 0.56;
-          const yBot = Math.max(8, Math.min(totalH - 18, yCenter - hAlca * 0.48));
-          const yTop = Math.max(yBot + 16, Math.min(totalH - 5, yCenter + hAlca * 0.48));
-          const rBot = Math.max(10, radiusAtYFn(yBot) - 2.5);
-          const rMid = Math.max(10, radiusAtYFn((yBot + yTop) / 2));
-          const rTop = Math.max(10, radiusAtYFn(yTop) - 2.5);
+
+          const yBot = att.yBaseFrac !== undefined
+            ? Math.max(6, Math.min(totalH - 18, att.yBaseFrac * totalH))
+            : Math.max(8, (att.yOffset || totalH * 0.56) - (att.altura || 65) * 0.48);
+          const yTop = att.yTopoFrac !== undefined
+            ? Math.max(yBot + 14, Math.min(totalH - 4, att.yTopoFrac * totalH))
+            : Math.min(totalH - 5, yBot + (att.altura || 65));
+
+          const rBot = Math.max(8, radiusAtYFn(yBot) - 2.5);
+          const rMid = Math.max(8, radiusAtYFn((yBot + yTop) / 2));
+          const rTop = Math.max(8, radiusAtYFn(yTop) - 2.5);
 
           for (let hIdx = 0; hIdx < qtd; hIdx++) {
             const sideSign = hIdx === 0 ? 1 : -1;
@@ -5115,51 +5140,82 @@
               new THREE.Vector3(sideSign * (rBot + proj * 0.68), yBot + (yTop - yBot) * 0.12, 0),
               new THREE.Vector3(sideSign * rBot, yBot, 0)
             ]);
-            const tubeRadius = Math.max(4.5, larg * 0.36);
-            const rawTube = new THREE.TubeGeometry(curve, 36, tubeRadius, 16, false);
+            const tubeRadius = Math.max(3.5, esp * 0.72);
+            const rawTube = new THREE.TubeGeometry(curve, 36, tubeRadius, 18, false);
             const tubeGeo = rawTube.index ? rawTube.toNonIndexed() : rawTube;
-            // Achata levemente em Z para seção de tira ergonômica de olaria
+            // Escala em Z proporcional à Largura da Tira (largTira) para seção de alça de olaria real
+            const zScale = Math.max(0.55, Math.min(2.4, (larg * 0.5) / tubeRadius));
             const posAttr = tubeGeo.attributes.position;
             for (let k = 0; k < posAttr.count; k++) {
-              posAttr.setZ(k, posAttr.getZ(k) * 0.62);
+              posAttr.setZ(k, posAttr.getZ(k) * zScale);
             }
             tubeGeo.computeVertexNormals();
             group.add(new THREE.Mesh(tubeGeo, extMat));
           }
         } else if (att.tipo === 'bico') {
-          const comp = Math.max(16, att.altura || 48);
-          const rBicoBase = Math.max(8, att.rBase || 18);
-          const rBicoTopo = Math.max(5, att.rTopo || 9);
-          const angDeg = Math.max(20, Math.min(75, att.angulo || 44));
-          const angRad = (angDeg * Math.PI) / 180;
-          const yStart = att.yOffset !== undefined ? att.yOffset : totalH * 0.56;
-          const rBody = Math.max(10, radiusAtYFn(yStart) - 3);
+          const reachX = Math.max(12, att.projecao || att.altura || 36);
+          const rBicoBase = Math.max(5, att.rBaseBico || att.rBase || 14);
+          const rBicoTopo = Math.max(3, att.rPontaBico || att.rTopo || 7);
+          const yBaseFrac = att.yBaseFrac !== undefined ? att.yBaseFrac : 0.38;
+          const yStart = Math.max(8, Math.min(totalH - 12, yBaseFrac * totalH));
+          const riseY = Math.max(18, reachX * 0.88);
+          const rBody = Math.max(8, radiusAtYFn(yStart) - 3.5);
 
-          // Malha tubular cônica curva no eixo -X para o bico vertedor
-          const spoutSlices = 24;
-          const spoutSegs = 28;
-          const spoutGrid = [];
+          // Malha tubular cônica curva oca (externa + interna + lábio) no eixo -X para o bico vertedor
+          const spoutSlices = 28;
+          const spoutSegs = 32;
+          const wallSpout = Math.min(3.2, rBicoTopo * 0.42);
+          const spoutOuterGrid = [];
+          const spoutInnerGrid = [];
+
           for (let j = 0; j <= spoutSlices; j++) {
             const t = j / spoutSlices;
-            const curR = rBicoBase * (1 - t) + rBicoTopo * t;
-            const cx = -(rBody + Math.sin(angRad) * comp * t);
-            const cy = yStart + Math.cos(angRad) * comp * t + Math.sin(t * Math.PI) * 3.5;
-            const row = [];
+            const curROut = rBicoBase * (1 - t) + rBicoTopo * t;
+            const curRIn = Math.max(2.0, curROut - wallSpout);
+            // Curva de cisne suave: sai da parede em -rBody e avança reachX em -X subindo riseY em +Y
+            const cx = -(rBody + reachX * Math.pow(t, 0.92));
+            const cy = yStart + riseY * Math.pow(t, 1.08) + Math.sin(t * Math.PI) * (reachX * 0.12);
+            const tiltAng = Math.atan2(riseY, reachX) * (0.45 + 0.35 * t);
+
+            const rowOut = [];
+            const rowIn = [];
             for (let i = 0; i <= spoutSegs; i++) {
               const phi = (i / spoutSegs) * Math.PI * 2;
-              const nx = Math.cos(phi) * Math.cos(angRad * 0.6);
-              const ny = Math.cos(phi) * Math.sin(angRad * 0.6);
+              const nx = Math.cos(phi) * Math.sin(tiltAng);
+              const ny = Math.cos(phi) * Math.cos(tiltAng);
               const nz = Math.sin(phi);
-              row.push(new THREE.Vector3(cx + nx * curR, cy + ny * curR, nz * curR));
+              // Chanfro corta-gotas no bico superior (t próximo de 1)
+              const lipCut = (t > 0.82 && Math.cos(phi) < 0) ? (t - 0.82) * 14 * (-Math.cos(phi)) : 0;
+              rowOut.push(new THREE.Vector3(cx + nx * curROut, cy + ny * curROut + lipCut * 0.35, nz * curROut));
+              rowIn.push(new THREE.Vector3(cx + nx * curRIn, cy + ny * curRIn + lipCut * 0.35, nz * curRIn));
             }
-            spoutGrid.push(row);
+            spoutOuterGrid.push(rowOut);
+            spoutInnerGrid.push(rowIn);
           }
-          const spoutGeo = buildGridMeshGeometry(spoutGrid, spoutSlices, spoutSegs, false);
-          group.add(new THREE.Mesh(spoutGeo, extMat));
+
+          const spoutOutGeo = buildGridMeshGeometry(spoutOuterGrid, spoutSlices, spoutSegs, false);
+          const spoutInGeo = buildGridMeshGeometry(spoutInnerGrid, spoutSlices, spoutSegs, true);
+          group.add(new THREE.Mesh(spoutOutGeo, extMat));
+          group.add(new THREE.Mesh(spoutInGeo, extMat));
+
+          // Fecha o lábio da ponta do bico conectando parede externa e interna
+          const tipVerts = [];
+          const lastOut = spoutOuterGrid[spoutSlices];
+          const lastIn = spoutInnerGrid[spoutSlices];
+          for (let i = 0; i < spoutSegs; i++) {
+            const o1 = lastOut[i], o2 = lastOut[i + 1];
+            const n1 = lastIn[i], n2 = lastIn[i + 1];
+            tipVerts.push(o1.x, o1.y, o1.z, n1.x, n1.y, n1.z, n2.x, n2.y, n2.z);
+            tipVerts.push(o1.x, o1.y, o1.z, n2.x, n2.y, n2.z, o2.x, o2.y, o2.z);
+          }
+          const tipGeo = new THREE.BufferGeometry();
+          tipGeo.setAttribute('position', new THREE.Float32BufferAttribute(tipVerts, 3));
+          tipGeo.computeVertexNormals();
+          group.add(new THREE.Mesh(tipGeo, extMat));
         } else if (att.tipo === 'tampa') {
-          const rRim = Math.max(14, att.rBase || radiusAtYFn(totalH));
-          const hDome = Math.max(10, att.altura || 24);
-          const rKnob = Math.max(6, (att.pegadorDiam || 24) / 2);
+          const rRim = Math.max(12, att.rTampa || att.rBase || radiusAtYFn(totalH));
+          const hDome = Math.max(5, att.alturaDomo || att.altura || 18);
+          const rKnob = Math.max(4, att.rPuxador || (att.pegadorDiam ? att.pegadorDiam / 2 : 11));
 
           // Domo + Aba de encaixe da tampa em Y = totalH
           const lidSlices = 18;
@@ -5194,12 +5250,15 @@
           const lidGeo = buildGridMeshGeometry(lidGrid, lidSlices, lidSegs, false);
           group.add(new THREE.Mesh(lidGeo, extMat));
         } else if (att.tipo === 'borda') {
-          const isBase = (att.posicao || 'base') === 'base';
-          const yRing = isBase ? Math.max(4, (att.altura || 12) * 0.45) : Math.max(8, totalH - (att.altura || 12) * 0.35);
-          const rBody = Math.max(12, radiusAtYFn(yRing));
-          const rTube = Math.max(3.5, (att.espessura || 7) * 0.55);
+          const isBase = (att.pos || att.posicao || 'topo') === 'base';
+          const altAnel = Math.max(4, att.altura || 9);
+          const espAnel = Math.max(3, att.espAnel || att.espessura || 6);
+          const yRing = isBase ? Math.max(3, altAnel * 0.48) : Math.max(8, totalH - altAnel * 0.38);
+          const rBody = Math.max(10, att.rAnel || radiusAtYFn(yRing));
+          const rTube = Math.max(2.5, espAnel * 0.55);
           const rawTorus = new THREE.TorusGeometry(rBody, rTube, 18, 64);
           rawTorus.rotateX(Math.PI / 2);
+          rawTorus.scale(1, Math.max(0.6, altAnel / (rTube * 2)), 1);
           rawTorus.translate(0, yRing, 0);
           const torusGeo = rawTorus.index ? rawTorus.toNonIndexed() : rawTorus;
           torusGeo.computeVertexNormals();
@@ -6725,11 +6784,13 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
       }
 
       // Planificação 2D de Alças, Bicos Vertedores, Tampas e Colarinhos/Pés (Slab Building)
+      const totalBodyH = rings.reduce((acc, rg) => acc + (rg.h || 0), 0) || 120;
       (vaseStages || []).forEach((st, idx) => {
         if (st.tipo === 'alca') {
-          const h = (st.altura || 65) * retracao;
-          const proj = (st.projecao || 34) * retracao;
-          const w = (st.largura || 16) * retracao;
+          const spanFrac = Math.max(0.2, (st.yTopoFrac !== undefined ? st.yTopoFrac : 0.84) - (st.yBaseFrac !== undefined ? st.yBaseFrac : 0.22));
+          const h = (st.altura || Math.round(totalBodyH * spanFrac)) * retracao;
+          const proj = (st.projecao || 28) * retracao;
+          const w = (st.largTira || st.largura || 15) * retracao;
           const stripLen = Math.round(Math.sqrt(h * h + Math.pow(proj * 1.65, 2)) + 16 * retracao);
           const qtd = st.qtd === 2 ? 2 : 1;
           for (let q = 0; q < qtd; q++) {
@@ -6752,15 +6813,16 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
             });
           }
         } else if (st.tipo === 'bico') {
-          const R1 = Math.max(6, (st.rBase || 18) * retracao);
-          const R2 = Math.max(4, (st.rTopo || 9) * retracao);
-          const G = Math.max(15, (st.altura || 48) * retracao);
-          const rgBico = { R1, R2, G, h: st.altura || 48, label: `Molde do Bico Vertedor` };
+          const R1 = Math.max(5, (st.rBaseBico || st.rBase || 14) * retracao);
+          const R2 = Math.max(3, (st.rPontaBico || st.rTopo || 7) * retracao);
+          const reach = st.projecao || st.altura || 36;
+          const G = Math.max(15, Math.hypot(reach, reach * 0.88) * retracao);
+          const rgBico = { R1, R2, G, h: reach, label: `Molde do Bico Vertedor` };
           const pts = frustumPatternPoints(rgBico);
           items.push({
             id: `bico-${idx}`,
             type: 'cone',
-            label: `Leque do Bico Vertedor (Base Ø${(R1 * 2).toFixed(0)} ➔ Ponta Ø${(R2 * 2).toFixed(0)})`,
+            label: `Leque do Bico Vertedor (Base Ø${(R1 * 2).toFixed(0)} ➔ Ponta Ø${(R2 * 2).toFixed(0)} • Alcance ${reach}mm)`,
             rawPoints: pts,
             outerArcMm: 2 * Math.PI * Math.max(R1, R2),
             innerArcMm: 2 * Math.PI * Math.min(R1, R2),
@@ -6769,7 +6831,8 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
             rg: rgBico
           });
         } else if (st.tipo === 'tampa') {
-          const rTampa = ((st.rBase || 45) + 3) * retracao;
+          const rRaw = st.rTampa || st.rBase || 45;
+          const rTampa = (rRaw + 2) * retracao;
           const diamTampa = rTampa * 2;
           const lidPts = [];
           for (let i = 0; i <= 56; i++) {
@@ -6779,7 +6842,7 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
           items.push({
             id: `tampa-${idx}`,
             type: 'base',
-            label: `Disco da Tampa Ø${diamTampa.toFixed(0)} mm + Galhete`,
+            label: `Disco da Tampa Ø${diamTampa.toFixed(0)} mm (Domo ${st.alturaDomo || 18}mm)`,
             rawPoints: lidPts,
             holes: [],
             corteTipo: 'solido',
@@ -6787,13 +6850,15 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
             innerArcMm: 0,
             slantMm: diamTampa,
             angleDeg: 360,
-            rBase: st.rBase || 45,
-            altura: st.altura || 24
+            rBase: rRaw,
+            altura: st.alturaDomo || st.altura || 18
           });
         } else if (st.tipo === 'borda') {
-          const rColar = (rings[0]?.R1 || 40);
+          const isBase = (st.pos || st.posicao || 'topo') === 'base';
+          const rFallback = isBase ? (rings[0]?.R1 || 40) : (rings[rings.length - 1]?.R2 || 40);
+          const rColar = st.rAnel ? (st.rAnel * retracao) : rFallback;
           const compFaixa = Math.round(2 * Math.PI * rColar);
-          const altFaixa = Math.max(8, (st.altura || 12) * retracao);
+          const altFaixa = Math.max(6, (st.altura || 9) * retracao);
           const pts = [
             { x: 0, y: 0 },
             { x: compFaixa, y: 0 },
@@ -6803,7 +6868,7 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
           items.push({
             id: `borda-${idx}`,
             type: 'cilindro',
-            label: `Faixa de Borda/Pé (${compFaixa}x${altFaixa.toFixed(0)} mm)`,
+            label: `Faixa de ${isBase ? 'Pé/Kodai' : 'Borda/Boca'} (${compFaixa}x${altFaixa.toFixed(0)} mm)`,
             rawPoints: pts,
             outerArcMm: compFaixa,
             innerArcMm: compFaixa,
