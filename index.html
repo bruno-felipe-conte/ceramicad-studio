@@ -5015,11 +5015,14 @@
         if (!isTriplanarEnabled) return;
         mat.onBeforeCompile = (shader) => {
           shader.uniforms.uTriplanarScale = { value: scale };
-          shader.vertexShader = `
+          shader.vertexShader = shader.vertexShader.replace(
+            '#include <common>',
+            `
+            #include <common>
             varying vec3 vWorldPos;
             varying vec3 vObjNormal;
-            ${shader.vertexShader}
-          `.replace(
+            `
+          ).replace(
             '#include <begin_vertex>',
             `
             #include <begin_vertex>
@@ -5028,12 +5031,15 @@
             `
           );
 
-          shader.fragmentShader = `
+          shader.fragmentShader = shader.fragmentShader.replace(
+            '#include <common>',
+            `
+            #include <common>
             varying vec3 vWorldPos;
             varying vec3 vObjNormal;
             uniform float uTriplanarScale;
-            ${shader.fragmentShader}
-          `.replace(
+            `
+          ).replace(
             '#include <map_fragment>',
             `
             #ifdef USE_MAP
@@ -5121,9 +5127,11 @@
               shader.fragmentShader = shader.fragmentShader.replace(
                 '#include <dithering_fragment>',
                 `
-                float rim = 1.0 - max(0.0, dot(geometryNormal, -geometryViewDir));
-                gl_FragColor.rgb += vec3(0.18, 0.16, 0.13) * pow(rim, 3.2) * 0.45;
                 #include <dithering_fragment>
+                vec3 viewDir = normalize(vViewPosition);
+                vec3 norm = normalize(vNormal);
+                float rim = 1.0 - abs(dot(norm, viewDir));
+                gl_FragColor.rgb += vec3(0.15, 0.14, 0.12) * pow(rim, 3.0) * 0.4;
                 `
               );
             };
