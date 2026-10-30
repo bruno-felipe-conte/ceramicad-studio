@@ -7079,6 +7079,7 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
     }
 
     function applyGaussianBlurImageData(imgData, radius = 2) {
+      if (!imgData || !imgData.data) return imgData;
       const w = imgData.width, h = imgData.height;
       const src = new Uint8ClampedArray(imgData.data);
       const dst = imgData.data;
@@ -7101,9 +7102,11 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
         }
         src.set(dst);
       }
+      return imgData;
     }
 
     function sampleBilinearLum(imgData, u, v) {
+      if (!imgData || !imgData.data) return 0.5;
       const w = imgData.width, h = imgData.height;
       const fx = Math.max(0, Math.min(w - 1.001, u * (w - 1)));
       const fy = Math.max(0, Math.min(h - 1.001, v * (h - 1)));
@@ -10017,15 +10020,19 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
       ctx.restore();
 
       const raw = ctx.getImageData(0, 0, 256, 256);
-      lithoImageData = applyGaussianBlurImageData(raw, 2);
-      generateLithophane3D();
+      lithoImageData = applyGaussianBlurImageData(raw, 2) || raw;
+      generateLithophane3D(true);
     }
 
-    function generateLithophane3D() {
+    function generateLithophane3D(fromPreset = false) {
       if (!lithoImageData) {
-        loadLithoPreset(document.getElementById('litho-preset-select')?.value || 'lotus');
+        if (!fromPreset) {
+          loadLithoPreset(document.getElementById('litho-preset-select')?.value || 'lotus');
+        }
         return;
       }
+
+      if (!scene) return;
 
       clearActiveGroup();
       activeTool = 'utilitarios';
