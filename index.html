@@ -1318,10 +1318,10 @@
                   <span class="help-tip" tabindex="0" role="button" aria-label="Ajuda sobre Altura do Relevo"
                     data-tip-cat="Estampa & Relevo"
                     data-tip-title="Profundidade da Gravação na Argila (mm)"
-                    data-tip-body="Altura em que as linhas de textura saltam em relação ao fundo do êmbolo para marcar a superfície da massa."
-                    data-tip-advice="Recomendado: 1.8 a 2.4 mm. Muito alto pode rasgar a argila se ela estiver mole; muito baixo não pega esmalte.">?</span>
+                    data-tip-body="Altura em que as linhas orgânicas de textura saltam em relação ao fundo do êmbolo para marcar a superfície da massa."
+                    data-tip-advice="Recomendado: 3.0 a 4.0 mm para relevo profundo, nítido e escultural que retém esmalte com perfeição.">?</span>
                 </label>
-                <input type="number" id="c-relevo-h" value="2.2" step="0.2" oninput="updatePrompts(); rebuildNativeCutter3D();" class="cad-input font-semibold" />
+                <input type="number" id="c-relevo-h" value="3.6" min="0.8" max="4.0" step="0.2" oninput="updatePrompts(); rebuildNativeCutter3D();" class="cad-input font-semibold" />
               </div>
             </div>
 
@@ -1629,10 +1629,10 @@
                   <span class="help-tip" tabindex="0" role="button" aria-label="Ajuda sobre Altura do Relevo no Rolo"
                     data-tip-cat="Rolos Cerâmicos"
                     data-tip-title="Profundidade da Textura no Rolo (mm)"
-                    data-tip-body="Altura em milímetros dos frisos que serão pressionados na argila."
-                    data-tip-advice="1.8 mm a 2.2 mm imprime uma textura profunda que segura esmalte sem prender a argila.">?</span>
+                    data-tip-body="Altura em milímetros dos frisos orgânicos que serão pressionados na argila."
+                    data-tip-advice="3.0 mm a 4.0 mm imprime uma textura profunda, orgânica e definida que segura esmalte sem prender a argila.">?</span>
                 </label>
-                <input type="number" id="r-relevo" value="1.8" step="0.2" oninput="rebuildRoller3D(); updateRollerPrompt()" class="cad-input font-semibold" />
+                <input type="number" id="r-relevo" value="3.5" min="0.8" max="4.0" step="0.2" oninput="rebuildRoller3D(); updateRollerPrompt()" class="cad-input font-semibold" />
               </div>
             </div>
 
@@ -1725,7 +1725,7 @@
                 <label class="cad-label" for="m-prof">
                   <span>Relevo (mm)</span>
                 </label>
-                <input type="number" id="m-prof" value="2.0" step="0.2" min="0.8" max="5.0" oninput="rebuildStamp3D(); updateStampPrompts()" class="cad-input font-semibold" />
+                <input type="number" id="m-prof" value="3.6" step="0.2" min="1.0" max="4.0" oninput="rebuildStamp3D(); updateStampPrompts()" class="cad-input font-semibold" />
               </div>
             </div>
 
@@ -1834,7 +1834,7 @@
             </div>
             <div>
               <label class="cad-label" for="litho-max-thick">Esp. Máxima (mm)</label>
-              <input type="number" id="litho-max-thick" value="3.2" step="0.2" min="1.5" max="6.0" oninput="generateLithophane3D()" class="cad-input font-semibold" />
+              <input type="number" id="litho-max-thick" value="3.8" step="0.2" min="1.5" max="4.0" oninput="generateLithophane3D()" class="cad-input font-semibold" />
             </div>
           </div>
 
@@ -1973,7 +1973,7 @@
             </div>
             <div>
               <label class="cad-label" for="qr-relief-thick">Relevo QR (mm)</label>
-              <input type="number" id="qr-relief-thick" value="1.8" step="0.2" min="0.8" max="5" oninput="generateQrPlate3D()" class="cad-input font-semibold" />
+              <input type="number" id="qr-relief-thick" value="3.4" step="0.2" min="0.8" max="4.0" oninput="generateQrPlate3D()" class="cad-input font-semibold" />
             </div>
           </div>
 
@@ -6185,194 +6185,375 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
     }
 
     // =========================================================================
-    // MÓDULO 2: GERADOR 2D ➔ 3D NATIVO NO NAVEGADOR (PRETO = RELEVO, BRANCO = BASE)
+    // MÓDULO 2: MOTOR VETORIAL ORGÂNICO & SDF SUAVIZADO (ZERO PIXELAÇÃO / ATÉ 4MM)
     // =========================================================================
-    function createPresetPatternCanvas(presetName) {
-      const c = document.createElement('canvas');
-      c.width = 96;
-      c.height = 96;
-      const ctx = c.getContext('2d');
+    let customCutterImageUploaded = false;
 
-      // Fundo Branco Puro (#FFFFFF = Base/Profundidade)
-      ctx.fillStyle = '#FFFFFF';
-      ctx.fillRect(0, 0, 96, 96);
+    function smoothStepOrganic(edge0, edge1, x) {
+      const t = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
+      return t * t * (3 - 2 * t);
+    }
 
-      // Traços Pretos (#000000 = Alto-Relevo +Y)
-      ctx.strokeStyle = '#000000';
-      ctx.fillStyle = '#000000';
-      ctx.lineWidth = 5;
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-
-      if (presetName === 'morcego') {
-        // Silhueta do Morcego Noturno (Kit 3 Peças Real)
-        // Cabeça central
-        ctx.beginPath();
-        ctx.arc(48, 48, 9, 0, Math.PI * 2);
-        ctx.fill();
-        // Orelhas pontiagudas
-        ctx.beginPath();
-        ctx.moveTo(42, 42); ctx.lineTo(38, 28); ctx.lineTo(46, 38);
-        ctx.moveTo(54, 42); ctx.lineTo(58, 28); ctx.lineTo(50, 38);
-        ctx.fill();
-        // Asa esquerda
-        ctx.beginPath();
-        ctx.moveTo(44, 45);
-        ctx.bezierCurveTo(34, 24, 16, 28, 8, 42);
-        ctx.bezierCurveTo(15, 52, 22, 60, 27, 52);
-        ctx.bezierCurveTo(33, 62, 39, 56, 44, 50);
-        ctx.closePath();
-        ctx.fill();
-        // Asa direita
-        ctx.beginPath();
-        ctx.moveTo(52, 45);
-        ctx.bezierCurveTo(62, 24, 80, 28, 88, 42);
-        ctx.bezierCurveTo(81, 52, 74, 60, 69, 52);
-        ctx.bezierCurveTo(63, 62, 57, 56, 52, 50);
-        ctx.closePath();
-        ctx.fill();
-        // Nervuras internas da asa (relevo táctil)
-        ctx.strokeStyle = '#000000';
-        ctx.lineWidth = 3;
-        ctx.beginPath();
-        ctx.moveTo(44, 45); ctx.lineTo(16, 36);
-        ctx.moveTo(44, 47); ctx.lineTo(24, 48);
-        ctx.moveTo(52, 45); ctx.lineTo(80, 36);
-        ctx.moveTo(52, 47); ctx.lineTo(72, 48);
-        ctx.stroke();
-      } else if (presetName === 'gato') {
-        // Contorno Gato Minimalista + Detalhes Internos
-        ctx.beginPath();
-        ctx.arc(48, 56, 28, 0, Math.PI * 2);
-        ctx.stroke();
-        // Orelhas
-        ctx.beginPath();
-        ctx.moveTo(24, 40); ctx.lineTo(20, 16); ctx.lineTo(38, 28);
-        ctx.moveTo(72, 40); ctx.lineTo(76, 16); ctx.lineTo(58, 28);
-        ctx.stroke();
-        // Bigodes e olhos internos (relevo)
-        ctx.lineWidth = 3.5;
-        ctx.beginPath();
-        ctx.arc(38, 46, 3, 0, Math.PI * 2);
-        ctx.arc(58, 46, 3, 0, Math.PI * 2);
-        ctx.stroke();
-      } else if (presetName === 'folha') {
-        ctx.beginPath();
-        ctx.ellipse(48, 50, 30, 36, 0, 0, Math.PI * 2);
-        ctx.stroke();
-        // Nervura central e cortes
-        ctx.lineWidth = 4;
-        ctx.beginPath();
-        ctx.moveTo(48, 18); ctx.lineTo(48, 82);
-        ctx.moveTo(48, 35); ctx.lineTo(28, 28);
-        ctx.moveTo(48, 50); ctx.lineTo(25, 46);
-        ctx.moveTo(48, 65); ctx.lineTo(30, 62);
-        ctx.moveTo(48, 35); ctx.lineTo(68, 28);
-        ctx.moveTo(48, 50); ctx.lineTo(71, 46);
-        ctx.moveTo(48, 65); ctx.lineTo(66, 62);
-        ctx.stroke();
-      } else if (presetName === 'marajoara') {
-        ctx.strokeRect(14, 14, 68, 68);
-        ctx.lineWidth = 4;
-        ctx.strokeRect(26, 26, 44, 44);
-        ctx.beginPath();
-        ctx.arc(48, 48, 12, 0, Math.PI * 2);
-        ctx.stroke();
-      } else if (presetName === 'sol_boho') {
-        // Arco boho e sol nascente radiante
-        ctx.beginPath();
-        ctx.arc(48, 52, 34, Math.PI, 0, false);
-        ctx.lineTo(82, 84);
-        ctx.lineTo(14, 84);
-        ctx.closePath();
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.arc(48, 60, 14, 0, Math.PI * 2);
-        ctx.stroke();
-        for (let a = Math.PI; a <= Math.PI * 2; a += Math.PI / 6) {
-          ctx.beginPath();
-          ctx.moveTo(48 + Math.cos(a) * 17, 60 + Math.sin(a) * 17);
-          ctx.lineTo(48 + Math.cos(a) * 28, 60 + Math.sin(a) * 28);
-          ctx.stroke();
+    function applyGaussianBlurImageData(imgData, radius = 2) {
+      const w = imgData.width, h = imgData.height;
+      const src = new Uint8ClampedArray(imgData.data);
+      const dst = imgData.data;
+      for (let pass = 0; pass < 2; pass++) {
+        for (let y = 0; y < h; y++) {
+          for (let x = 0; x < w; x++) {
+            let sum = 0, count = 0;
+            for (let ky = -radius; ky <= radius; ky++) {
+              const ny = Math.min(h - 1, Math.max(0, y + ky));
+              for (let kx = -radius; kx <= radius; kx++) {
+                const nx = Math.min(w - 1, Math.max(0, x + kx));
+                sum += src[(ny * w + nx) * 4];
+                count++;
+              }
+            }
+            const val = sum / count;
+            const idx = (y * w + x) * 4;
+            dst[idx] = dst[idx + 1] = dst[idx + 2] = val;
+          }
         }
-      } else if (presetName === 'cogumelo') {
-        // Chapéu de cogumelo Amanita com pintas e caule
-        ctx.beginPath();
-        ctx.arc(48, 46, 32, Math.PI, 0, false);
-        ctx.closePath();
-        ctx.stroke();
-        ctx.strokeRect(36, 46, 24, 36);
-        [[36, 30], [56, 28], [48, 38]].forEach(([px, py]) => {
-          ctx.beginPath(); ctx.arc(px, py, 4, 0, Math.PI * 2); ctx.fill();
-        });
-      } else if (presetName === 'concha') {
-        // Concha Vieira (Scallop) com leque de nervuras
-        ctx.beginPath();
-        ctx.arc(48, 52, 34, Math.PI, 0, false);
-        ctx.lineTo(64, 82);
-        ctx.lineTo(32, 82);
-        ctx.closePath();
-        ctx.stroke();
-        for (let i = -3; i <= 3; i++) {
-          ctx.beginPath();
-          ctx.moveTo(48, 80);
-          ctx.lineTo(48 + i * 9, 24 + Math.abs(i) * 3);
-          ctx.stroke();
+        src.set(dst);
+      }
+    }
+
+    function sampleBilinearLum(imgData, u, v) {
+      const w = imgData.width, h = imgData.height;
+      const fx = Math.max(0, Math.min(w - 1.001, u * (w - 1)));
+      const fy = Math.max(0, Math.min(h - 1.001, v * (h - 1)));
+      const x0 = Math.floor(fx), y0 = Math.floor(fy);
+      const x1 = Math.min(w - 1, x0 + 1), y1 = Math.min(h - 1, y0 + 1);
+      const dx = fx - x0, dy = fy - y0;
+      const d = imgData.data;
+      const i00 = d[(y0 * w + x0) * 4] / 255;
+      const i10 = d[(y0 * w + x1) * 4] / 255;
+      const i01 = d[(y1 * w + x0) * 4] / 255;
+      const i11 = d[(y1 * w + x1) * 4] / 255;
+      return (i00 * (1 - dx) + i10 * dx) * (1 - dy) + (i01 * (1 - dx) + i11 * dx) * dy;
+    }
+
+    // Gera contorno vetorial contínuo (THREE.Shape) sem nenhuma pixelação para cada preset
+    function getCutterOuterVectorShape(preset, r) {
+      const shape = new THREE.Shape();
+      const segs = 128;
+
+      if (preset === 'gato') {
+        for (let i = 0; i <= segs; i++) {
+          const a = (i / segs) * Math.PI * 2;
+          // Orelhas orgânicas suaves em +-55 graus
+          const ear1 = Math.exp(-(((a - 0.95) / 0.24) ** 2)) * 0.34;
+          const ear2 = Math.exp(-(((a - 2.19) / 0.24) ** 2)) * 0.34;
+          const rad = r * (0.82 + ear1 + ear2);
+          const x = Math.cos(a) * rad;
+          const y = Math.sin(a) * rad;
+          if (i === 0) shape.moveTo(x, y);
+          else shape.lineTo(x, y);
         }
-      } else if (presetName === 'coracao_sagrado') {
-        // Coração Flamejante Mexicano
-        ctx.beginPath();
-        ctx.moveTo(48, 82);
-        ctx.bezierCurveTo(14, 60, 14, 28, 34, 28);
-        ctx.bezierCurveTo(44, 28, 48, 38, 48, 38);
-        ctx.bezierCurveTo(48, 38, 52, 28, 62, 28);
-        ctx.bezierCurveTo(82, 28, 82, 60, 48, 82);
-        ctx.stroke();
-        // Chamas superiores
-        ctx.beginPath();
-        ctx.moveTo(40, 26); ctx.lineTo(48, 12); ctx.lineTo(56, 26);
-        ctx.stroke();
-      } else if (presetName === 'borboleta') {
-        // Borboleta Monarca Simétrica
-        ctx.beginPath();
-        ctx.ellipse(30, 36, 18, 14, -0.4, 0, Math.PI * 2);
-        ctx.ellipse(66, 36, 18, 14, 0.4, 0, Math.PI * 2);
-        ctx.ellipse(32, 64, 14, 12, 0.4, 0, Math.PI * 2);
-        ctx.ellipse(64, 64, 14, 12, -0.4, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.fillRect(45, 22, 6, 52);
-      } else if (presetName === 'hamsa_mao') {
-        // Mão de Hamsa Protetora & Olho Central
-        ctx.beginPath();
-        ctx.arc(48, 58, 26, 0, Math.PI, false);
-        ctx.lineTo(22, 28); ctx.lineTo(74, 28); ctx.closePath();
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.ellipse(48, 52, 14, 8, 0, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.beginPath(); ctx.arc(48, 52, 4, 0, Math.PI * 2); ctx.fill();
-      } else if (presetName === 'passaro') {
-        // Andorinha Folk Art em voo
-        ctx.beginPath();
-        ctx.ellipse(48, 52, 18, 9, -0.2, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(42, 46); ctx.lineTo(22, 18); ctx.lineTo(56, 44);
-        ctx.moveTo(48, 56); ctx.lineTo(28, 78); ctx.lineTo(58, 54);
-        ctx.stroke();
+      } else if (preset === 'folha') {
+        for (let i = 0; i <= segs; i++) {
+          const a = (i / segs) * Math.PI * 2;
+          const lobe = 0.08 * Math.cos(a * 6);
+          const taper = 0.88 + 0.15 * Math.sin(a) + lobe;
+          const x = Math.cos(a) * r * 0.84 * taper;
+          const y = Math.sin(a) * r * 1.04;
+          if (i === 0) shape.moveTo(x, y);
+          else shape.lineTo(x, y);
+        }
+      } else if (preset === 'marajoara') {
+        // Quadrado com cantos arredondados suaves (Superellipse orgânica)
+        for (let i = 0; i <= segs; i++) {
+          const a = (i / segs) * Math.PI * 2;
+          const ca = Math.cos(a), sa = Math.sin(a);
+          const n = 4.5;
+          const rad = r * 0.92 / Math.pow(Math.pow(Math.abs(ca), n) + Math.pow(Math.abs(sa), n), 1 / n);
+          const x = ca * rad, y = sa * rad;
+          if (i === 0) shape.moveTo(x, y);
+          else shape.lineTo(x, y);
+        }
+      } else if (preset === 'flor') {
+        // Flor de Lótus de 8 pétalas orgânicas
+        for (let i = 0; i <= segs; i++) {
+          const a = (i / segs) * Math.PI * 2;
+          const rad = r * (0.82 + 0.18 * Math.abs(Math.cos(a * 4)));
+          const x = Math.cos(a) * rad, y = Math.sin(a) * rad;
+          if (i === 0) shape.moveTo(x, y);
+          else shape.lineTo(x, y);
+        }
+      } else if (preset === 'sol_boho') {
+        // Arco Boho com topo semicircular e base reta chanfrada
+        shape.absarc(0, r * 0.1, r * 0.85, 0, Math.PI, false);
+        shape.lineTo(-r * 0.85, -r * 0.82);
+        shape.quadraticCurveTo(-r * 0.85, -r * 0.92, -r * 0.72, -r * 0.92);
+        shape.lineTo(r * 0.72, -r * 0.92);
+        shape.quadraticCurveTo(r * 0.85, -r * 0.92, r * 0.85, -r * 0.82);
+        shape.closePath();
+      } else if (preset === 'cogumelo') {
+        for (let i = 0; i <= segs; i++) {
+          const a = (i / segs) * Math.PI * 2;
+          const isCap = Math.sin(a) >= -0.1;
+          const rad = isCap ? r * (0.92 + 0.08 * Math.sin(a)) : r * (0.52 + 0.15 * Math.pow(Math.cos(a), 2));
+          const x = Math.cos(a) * rad;
+          const y = Math.sin(a) * r * 0.95;
+          if (i === 0) shape.moveTo(x, y);
+          else shape.lineTo(x, y);
+        }
+      } else if (preset === 'concha') {
+        for (let i = 0; i <= segs; i++) {
+          const a = (i / segs) * Math.PI * 2;
+          const scallop = Math.sin(a) > -0.2 ? 0.06 * Math.cos(a * 9) : 0;
+          const base = Math.sin(a) > -0.3 ? 0.94 : 0.62;
+          const rad = r * (base + scallop);
+          const x = Math.cos(a) * rad, y = Math.sin(a) * r * 0.92;
+          if (i === 0) shape.moveTo(x, y);
+          else shape.lineTo(x, y);
+        }
+      } else if (preset === 'coracao_sagrado') {
+        for (let i = 0; i <= segs; i++) {
+          const t = (i / segs) * Math.PI * 2;
+          const hx = 16 * Math.pow(Math.sin(t), 3);
+          const hy = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+          const x = (hx / 17) * r * 0.95;
+          const y = (hy / 17) * r * 0.95 + r * 0.08;
+          if (i === 0) shape.moveTo(x, y);
+          else shape.lineTo(x, y);
+        }
+      } else if (preset === 'borboleta') {
+        for (let i = 0; i <= segs; i++) {
+          const a = (i / segs) * Math.PI * 2;
+          const wing = 0.72 + 0.28 * Math.sin(a * 2) * Math.sin(a * 2) + 0.10 * Math.cos(a * 4);
+          const x = Math.cos(a) * r * wing * 1.05;
+          const y = Math.sin(a) * r * wing * 0.92;
+          if (i === 0) shape.moveTo(x, y);
+          else shape.lineTo(x, y);
+        }
+      } else if (preset === 'hamsa_mao') {
+        for (let i = 0; i <= segs; i++) {
+          const a = (i / segs) * Math.PI * 2;
+          const fingers = Math.sin(a) > 0.15 ? 0.12 * Math.cos(a * 5) : 0;
+          const rad = r * (0.84 + fingers);
+          const x = Math.cos(a) * rad * 0.88;
+          const y = Math.sin(a) * rad * 1.02;
+          if (i === 0) shape.moveTo(x, y);
+          else shape.lineTo(x, y);
+        }
       } else {
-        // Flor de Lótus
-        for (let a = 0; a < Math.PI * 2; a += Math.PI / 4) {
-          ctx.beginPath();
-          ctx.ellipse(48 + Math.cos(a) * 14, 48 + Math.sin(a) * 14, 18, 9, a, 0, Math.PI * 2);
-          ctx.stroke();
+        // passaro ou circular
+        for (let i = 0; i <= segs; i++) {
+          const a = (i / segs) * Math.PI * 2;
+          const rad = r * (0.86 + 0.12 * Math.cos(a * 3));
+          const x = Math.cos(a) * rad, y = Math.sin(a) * rad;
+          if (i === 0) shape.moveTo(x, y);
+          else shape.lineTo(x, y);
         }
       }
+      shape.closePath();
+      return shape;
+    }
 
-      cutterCanvasData = ctx.getImageData(0, 0, 96, 96);
+    // Cria linhas e volumes de alto-relevo 100% vetoriais (ExtrudeGeometry / Torus / Cylinder) sem pixelação
+    function buildVectorCutterReliefGroup(preset, r, relevoH, mat) {
+      const group = new THREE.Group();
+      const h = Math.max(0.8, Math.min(4.0, relevoH));
+      const bev = Math.min(0.45, h * 0.2);
+
+      // Helper para criar cápsula / linha orgânica arredondada entre (x1,z1) e (x2,z2)
+      function addOrganicLine(x1, z1, x2, z2, thick = 2.4) {
+        const dx = x2 - x1, dz = z2 - z1;
+        const len = Math.hypot(dx, dz);
+        if (len < 0.1) return;
+        const s = new THREE.Shape();
+        const hw = thick * 0.5;
+        s.absarc(-len / 2, 0, hw, Math.PI * 0.5, Math.PI * 1.5, false);
+        s.absarc(len / 2, 0, hw, -Math.PI * 0.5, Math.PI * 0.5, false);
+        s.closePath();
+        const g = new THREE.ExtrudeGeometry(s, {
+          depth: h - bev,
+          bevelEnabled: true,
+          bevelThickness: bev,
+          bevelSize: bev * 0.8,
+          bevelSegments: 4,
+          curveSegments: 24
+        });
+        g.rotateX(-Math.PI / 2);
+        const m = new THREE.Mesh(g, mat);
+        m.position.set((x1 + x2) * 0.5, 0, (z1 + z2) * 0.5);
+        m.rotation.y = -Math.atan2(dz, dx);
+        group.add(m);
+      }
+
+      // Helper para criar anel vetorial contínuo suave (64 segmentos)
+      function addOrganicRing(cx, cz, innerR, outerR, startA = 0, endA = Math.PI * 2) {
+        const s = new THREE.Shape();
+        s.absarc(0, 0, outerR, startA, endA, false);
+        if (endA - startA >= Math.PI * 1.99) {
+          const hole = new THREE.Path();
+          hole.absarc(0, 0, innerR, 0, Math.PI * 2, true);
+          s.holes.push(hole);
+        } else {
+          s.absarc(0, 0, innerR, endA, startA, true);
+          s.closePath();
+        }
+        const g = new THREE.ExtrudeGeometry(s, {
+          depth: h - bev,
+          bevelEnabled: true,
+          bevelThickness: bev,
+          bevelSize: bev * 0.7,
+          bevelSegments: 4,
+          curveSegments: 64
+        });
+        g.rotateX(-Math.PI / 2);
+        const m = new THREE.Mesh(g, mat);
+        m.position.set(cx, 0, cz);
+        group.add(m);
+      }
+
+      // Helper para criar disco/gota arredondada em relevo
+      function addOrganicDisc(cx, cz, rx, rz = rx, rotY = 0) {
+        const s = new THREE.Shape();
+        s.absellipse(0, 0, rx, rz, 0, Math.PI * 2, false, 0);
+        const g = new THREE.ExtrudeGeometry(s, {
+          depth: h - bev,
+          bevelEnabled: true,
+          bevelThickness: bev,
+          bevelSize: bev * 0.8,
+          bevelSegments: 4,
+          curveSegments: 48
+        });
+        g.rotateX(-Math.PI / 2);
+        const m = new THREE.Mesh(g, mat);
+        m.position.set(cx, 0, cz);
+        m.rotation.y = rotY;
+        group.add(m);
+      }
+
+      const sr = r * 0.68;
+
+      if (preset === 'gato') {
+        // Olhos amendoados orgânicos, focinho triangular arredondado e 6 bigodes curvos
+        addOrganicDisc(-sr * 0.36, -sr * 0.14, sr * 0.13, sr * 0.09, 0.2);
+        addOrganicDisc(sr * 0.36, -sr * 0.14, sr * 0.13, sr * 0.09, -0.2);
+        addOrganicDisc(0, sr * 0.08, sr * 0.11, sr * 0.08, 0);
+        addOrganicRing(-sr * 0.15, sr * 0.16, sr * 0.10, sr * 0.16, 0, Math.PI);
+        addOrganicRing(sr * 0.15, sr * 0.16, sr * 0.10, sr * 0.16, 0, Math.PI);
+        // Bigodes laterais suaves
+        [-1, 1].forEach(side => {
+          addOrganicLine(side * sr * 0.34, sr * 0.05, side * sr * 0.78, -sr * 0.06, 2.2);
+          addOrganicLine(side * sr * 0.34, sr * 0.16, side * sr * 0.80, sr * 0.16, 2.2);
+          addOrganicLine(side * sr * 0.34, sr * 0.27, side * sr * 0.74, sr * 0.38, 2.2);
+        });
+      } else if (preset === 'folha') {
+        // Nervura central e 6 pares de nervuras botânicas curvas
+        addOrganicLine(0, -sr * 0.82, 0, sr * 0.82, 3.0);
+        [-0.48, -0.14, 0.22, 0.52].forEach((zp, idx) => {
+          const span = sr * (0.68 - Math.abs(zp) * 0.55);
+          addOrganicLine(0, zp * sr, -span, (zp - 0.22) * sr, 2.4);
+          addOrganicLine(0, zp * sr, span, (zp - 0.22) * sr, 2.4);
+        });
+      } else if (preset === 'marajoara') {
+        // Labirinto concêntrico Marajoara com linhas retas chanfradas e anel central
+        addOrganicRing(0, 0, sr * 0.22, sr * 0.32);
+        addOrganicDisc(0, 0, sr * 0.10);
+        const b1 = sr * 0.62;
+        addOrganicLine(-b1, -b1, b1, -b1, 2.8);
+        addOrganicLine(b1, -b1, b1, b1, 2.8);
+        addOrganicLine(b1, b1, -b1, b1, 2.8);
+        addOrganicLine(-b1, b1, -b1, -b1, 2.8);
+        addOrganicLine(-b1, 0, -sr * 0.32, 0, 2.6);
+        addOrganicLine(sr * 0.32, 0, b1, 0, 2.6);
+        addOrganicLine(0, -b1, 0, -sr * 0.32, 2.6);
+        addOrganicLine(0, sr * 0.32, 0, b1, 2.6);
+      } else if (preset === 'sol_boho') {
+        // Sol nascente radiante com arcos boho e 9 raios
+        addOrganicDisc(0, sr * 0.22, sr * 0.24);
+        addOrganicRing(0, sr * 0.22, sr * 0.32, sr * 0.40, Math.PI, Math.PI * 2);
+        for (let i = 0; i <= 8; i++) {
+          const a = Math.PI + (i / 8) * Math.PI;
+          addOrganicLine(
+            Math.cos(a) * sr * 0.44, sr * 0.22 + Math.sin(a) * sr * 0.44,
+            Math.cos(a) * sr * 0.78, sr * 0.22 + Math.sin(a) * sr * 0.78,
+            2.4
+          );
+        }
+      } else if (preset === 'cogumelo') {
+        // Divisória do chapéu, lamelas e pintas orgânicas arredondadas
+        addOrganicLine(-sr * 0.72, 0, sr * 0.72, 0, 2.8);
+        addOrganicLine(-sr * 0.24, 0, -sr * 0.28, sr * 0.72, 2.5);
+        addOrganicLine(sr * 0.24, 0, sr * 0.28, sr * 0.72, 2.5);
+        [[-0.38, -0.35, 0.13], [0.36, -0.32, 0.12], [0, -0.54, 0.14], [-0.12, -0.22, 0.09], [0.18, -0.50, 0.09]].forEach(([px, pz, pr]) => {
+          addOrganicDisc(px * sr, pz * sr, pr * sr);
+        });
+      } else if (preset === 'concha') {
+        // Leque radial de nervuras da concha vieira
+        addOrganicDisc(0, sr * 0.65, sr * 0.16, sr * 0.10);
+        for (let i = -4; i <= 4; i++) {
+          const a = -Math.PI * 0.5 + i * 0.21;
+          addOrganicLine(0, sr * 0.62, Math.cos(a) * sr * 1.25, sr * 0.62 + Math.sin(a) * sr * 1.25, 2.4);
+        }
+      } else if (preset === 'coracao_sagrado') {
+        // Coração interno em relevo + chamas superiores + raios
+        addOrganicRing(0, sr * 0.08, sr * 0.30, sr * 0.42);
+        addOrganicDisc(0, sr * 0.08, sr * 0.16);
+        for (let i = -2; i <= 2; i++) {
+          addOrganicLine(i * sr * 0.12, -sr * 0.32, i * sr * 0.18, -sr * 0.74, 2.4);
+        }
+      } else if (preset === 'borboleta') {
+        // Corpo central e células orgânicas das asas da borboleta
+        addOrganicDisc(0, 0, sr * 0.09, sr * 0.65);
+        [-1, 1].forEach(side => {
+          addOrganicDisc(side * sr * 0.42, -sr * 0.24, sr * 0.26, sr * 0.18, side * 0.45);
+          addOrganicDisc(side * sr * 0.38, sr * 0.28, sr * 0.20, sr * 0.15, -side * 0.35);
+        });
+      } else if (preset === 'hamsa_mao') {
+        // Olho místico central com íris e pétalas
+        addOrganicRing(0, 0, sr * 0.28, sr * 0.38);
+        addOrganicDisc(0, 0, sr * 0.16);
+        addOrganicLine(-sr * 0.55, 0, -sr * 0.36, 0, 2.6);
+        addOrganicLine(sr * 0.36, 0, sr * 0.55, 0, 2.6);
+        addOrganicLine(0, -sr * 0.68, 0, -sr * 0.38, 2.5);
+        addOrganicLine(-sr * 0.26, -sr * 0.62, -sr * 0.26, -sr * 0.34, 2.4);
+        addOrganicLine(sr * 0.26, -sr * 0.62, sr * 0.26, -sr * 0.34, 2.4);
+      } else if (preset === 'passaro') {
+        // Andorinha com asas estilizadas
+        addOrganicDisc(0, 0, sr * 0.42, sr * 0.18, -0.2);
+        addOrganicLine(-sr * 0.1, -sr * 0.1, -sr * 0.55, -sr * 0.68, 3.0);
+        addOrganicLine(0, 0, sr * 0.55, -sr * 0.52, 2.8);
+        addOrganicLine(0, sr * 0.1, -sr * 0.48, sr * 0.65, 2.6);
+      } else {
+        // Flor de Lótus (8 pétalas radiais esculpidas + miolo)
+        for (let i = 0; i < 8; i++) {
+          const a = (i * Math.PI) / 4;
+          addOrganicDisc(Math.cos(a) * sr * 0.38, Math.sin(a) * sr * 0.38, sr * 0.26, sr * 0.12, -a);
+        }
+        addOrganicDisc(0, 0, sr * 0.18);
+      }
+
+      return group;
+    }
+
+    function createPresetPatternCanvas(presetName) {
+      customCutterImageUploaded = false;
+      const c = document.createElement('canvas');
+      c.width = 256;
+      c.height = 256;
+      const ctx = c.getContext('2d');
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, 256, 256);
+      ctx.strokeStyle = '#000000';
+      ctx.fillStyle = '#000000';
+      ctx.lineWidth = 12;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.beginPath();
+      ctx.arc(128, 128, 76, 0, Math.PI * 2);
+      ctx.stroke();
+      cutterCanvasData = ctx.getImageData(0, 0, 256, 256);
+      applyGaussianBlurImageData(cutterCanvasData, 2);
     }
 
     function loadPresetPattern(val) {
+      customCutterImageUploaded = false;
       createPresetPatternCanvas(val);
       rebuildNativeCutter3D();
     }
@@ -6383,13 +6564,16 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
       const img = new Image();
       img.onload = function() {
         const c = document.createElement('canvas');
-        c.width = 96;
-        c.height = 96;
+        c.width = 256;
+        c.height = 256;
         const ctx = c.getContext('2d');
         ctx.fillStyle = '#FFFFFF';
-        ctx.fillRect(0, 0, 96, 96);
-        ctx.drawImage(img, 0, 0, 96, 96);
-        cutterCanvasData = ctx.getImageData(0, 0, 96, 96);
+        ctx.fillRect(0, 0, 256, 256);
+        ctx.drawImage(img, 0, 0, 256, 256);
+        cutterCanvasData = ctx.getImageData(0, 0, 256, 256);
+        // Suavização SDF Gaussiana para eliminar serrilhado de pixels na imagem enviada
+        applyGaussianBlurImageData(cutterCanvasData, 2);
+        customCutterImageUploaded = true;
         rebuildNativeCutter3D();
       };
       img.src = URL.createObjectURL(file);
@@ -6613,49 +6797,64 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
       }
 
       if (mode === 'relevo') {
-        // MODO 1: PLACA / CARIMBO DE RELEVO DIRETO COM DOMO ANTI-VÁCUO E MICRO-FRISOS
-        const segs = 90;
-        const geo = new THREE.BoxGeometry(sizeReal, baseThickness, sizeReal, segs, 1, segs);
-        geo.translate(0, baseThickness / 2, 0);
-        const pos = geo.attributes.position;
+        // MODO 1: PLACA / CARIMBO DE RELEVO DIRETO COM VETORIZAÇÃO PURA OU SDF SUAVIZADO
+        const matBase = new THREE.MeshStandardMaterial({ color: 0xD05840, roughness: 0.36, wireframe: isWireframe });
+        const matRelief = new THREE.MeshStandardMaterial({ color: 0x942B21, roughness: 0.32, wireframe: isWireframe, side: THREE.DoubleSide });
 
-        for (let i = 0; i < pos.count; i++) {
-          const vy = pos.getY(i);
-          if (vy > baseThickness * 0.8) {
-            const vx = pos.getX(i);
-            const vz = pos.getZ(i);
-            const u = Math.min(95, Math.max(0, Math.floor(((vx / sizeReal) + 0.5) * 95)));
-            const v = Math.min(95, Math.max(0, Math.floor(((vz / sizeReal) + 0.5) * 95)));
-            const idx = (v * 96 + u) * 4;
-            const lum = (cutterCanvasData.data[idx] + cutterCanvasData.data[idx + 1] + cutterCanvasData.data[idx + 2]) / (3 * 255);
-            const darkness = invertBW ? lum : (1.0 - lum);
+        if (!customCutterImageUploaded && preset !== 'morcego') {
+          // Base contornada vetorialmente sem nenhuma pixelação
+          const outerShape = getCutterOuterVectorShape(preset, sizeReal * 0.5);
+          const baseGeo = new THREE.ExtrudeGeometry(outerShape, {
+            depth: baseThickness,
+            bevelEnabled: true,
+            bevelThickness: 0.6,
+            bevelSize: 0.6,
+            bevelSegments: 4,
+            curveSegments: 96
+          });
+          baseGeo.rotateX(-Math.PI / 2);
+          baseGeo.computeBoundingBox();
+          baseGeo.translate(0, -baseGeo.boundingBox.min.y, 0);
+          activeMeshGroup.add(new THREE.Mesh(baseGeo, matBase));
 
-            // Domo Convexo Descolador (+0.6 mm no centro decaindo p/ bordas)
-            const distNorm = Math.min(1, Math.sqrt(vx * vx + vz * vz) / (sizeReal * 0.5));
-            const domeLift = hasConvexDome ? (1 - distNorm * distNorm) * 0.65 : 0;
+          // Relevo 3D 100% Vetorial Contínuo (até 4.0 mm de profundidade, zero serrilhado)
+          const relGroup = buildVectorCutterReliefGroup(preset, sizeReal * 0.48, relevoH, matRelief);
+          relGroup.position.set(0, baseThickness + 0.4, 0);
+          activeMeshGroup.add(relGroup);
+        } else {
+          // Quando o usuário envia uma imagem P&B customizada: malha densa 150×150 com Interpolação Bilinear e SDF Smoothstep
+          const segs = 150;
+          const geo = new THREE.BoxGeometry(sizeReal, baseThickness, sizeReal, segs, 1, segs);
+          geo.translate(0, baseThickness / 2, 0);
+          const pos = geo.attributes.position;
 
-            // Micro-frisos anti-sucção nas áreas brancas de fundo
-            const microRib = hasMicroRibs ? Math.sin(vx * 1.8) * 0.18 : 0;
+          for (let i = 0; i < pos.count; i++) {
+            const vy = pos.getY(i);
+            if (vy > baseThickness * 0.8) {
+              const vx = pos.getX(i);
+              const vz = pos.getZ(i);
+              const u = Math.min(1, Math.max(0, (vx / sizeReal) + 0.5));
+              const v = Math.min(1, Math.max(0, (vz / sizeReal) + 0.5));
+              const lum = sampleBilinearLum(cutterCanvasData, u, v);
+              const rawDark = invertBW ? lum : (1.0 - lum);
+              const smoothDark = smoothStepOrganic(0.18, 0.78, rawDark);
 
-            if (darkness > 0.25) {
-              pos.setY(i, baseThickness + domeLift + darkness * relevoH);
-            } else {
-              pos.setY(i, baseThickness + domeLift + microRib);
+              const distNorm = Math.min(1, Math.sqrt(vx * vx + vz * vz) / (sizeReal * 0.5));
+              const domeLift = hasConvexDome ? (1 - distNorm * distNorm) * 0.65 : 0;
+              const microRib = hasMicroRibs ? Math.sin(vx * 1.4) * 0.14 : 0;
+
+              pos.setY(i, baseThickness + domeLift + smoothDark * relevoH + (1 - smoothDark) * microRib);
             }
           }
+          geo.computeVertexNormals();
+          activeMeshGroup.add(new THREE.Mesh(geo, matBase));
         }
-        geo.computeVertexNormals();
-
-        const mat = new THREE.MeshStandardMaterial({ color: 0xD05840, roughness: 0.38, wireframe: isWireframe });
-        activeMeshGroup.add(new THREE.Mesh(geo, mat));
 
       } else {
-        // MODO 2: KIT CORTADOR EJETOR 3 PEÇAS PROCEDURAL COM DISPOSIÇÃO INTELIGENTE
+        // MODO 2: KIT CORTADOR EJETOR 3 PEÇAS VETORIAL ORGÂNICO (ZERO PIXELAÇÃO / RELEVO ATÉ 4MM)
         const raio = sizeReal / 2;
-        const alturaCorte = 15;
-        const draftOffset = Math.tan((draftDeg * Math.PI) / 180) * alturaCorte;
+        const alturaCorte = 15.5;
 
-        // Posições espaciais conforme currentCutterViewMode
         let yEmboloOffset = 4.5;
         let yBotaoOffset = 23.5;
         let xMatriz = 0, zMatriz = 0;
@@ -6663,83 +6862,114 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
         let xBotao = 0, zBotao = 0;
 
         if (currentCutterViewMode === 'bed') {
-          // 🖨️ Mesa FDM: Peças dispostas lado a lado em Y=0
-          xMatriz = 0; zMatriz = raio * 0.85;
-          xEmbolo = -raio * 1.2; zEmbolo = -raio * 0.85;
-          xBotao = raio * 1.2; zBotao = -raio * 0.85;
-          yEmboloOffset = 1.7;
+          xMatriz = 0; zMatriz = raio * 0.90;
+          xEmbolo = -raio * 1.25; zEmbolo = -raio * 0.90;
+          xBotao = raio * 1.25; zBotao = -raio * 0.90;
+          yEmboloOffset = 0;
           yBotaoOffset = 2.5;
         } else if (currentCutterViewMode === 'exploded') {
-          // 💥 Vista Explodida: Elevação didática
           yEmboloOffset = 36;
           yBotaoOffset = 72;
         } else {
-          // ⚙️ Montado
-          yEmboloOffset = 4.5;
+          yEmboloOffset = 4.0;
           yBotaoOffset = 23.5;
         }
 
-        // PEÇA A: Matriz Cortadora Externa com Chanfro Duplo + Ângulo de Saída Cônico
-        const outerWall = new THREE.CylinderGeometry(raio, raio + draftOffset + 0.8, alturaCorte, 64, 1, true);
-        outerWall.translate(xMatriz, alturaCorte / 2, zMatriz);
-        const matMatriz = new THREE.MeshStandardMaterial({ color: 0xB03428, roughness: 0.35, side: THREE.DoubleSide, wireframe: isWireframe });
-        activeMeshGroup.add(new THREE.Mesh(outerWall, matMatriz));
+        const matMatriz = new THREE.MeshStandardMaterial({ color: 0xB03428, roughness: 0.34, side: THREE.DoubleSide, wireframe: isWireframe });
+        const matEmbolo = new THREE.MeshStandardMaterial({ color: 0xE09070, roughness: 0.42, wireframe: isWireframe });
+        const matRelief = new THREE.MeshStandardMaterial({ color: 0x942B21, roughness: 0.32, side: THREE.DoubleSide, wireframe: isWireframe });
 
-        // Teto estrutural e aba ergonômica de apoio
-        const flangeGeo = new THREE.RingGeometry(raio - 1.2, raio + 5.5, 64);
-        flangeGeo.rotateX(Math.PI / 2);
-        flangeGeo.translate(xMatriz, 0.2, zMatriz);
+        // PEÇA A: Matriz Cortadora Externa Seguindo a Silhueta Vetorial Exata do Preset
+        const outerWallShape = getCutterOuterVectorShape(preset, raio * 1.02);
+        const innerCutHole = getCutterOuterVectorShape(preset, raio * 0.97);
+        outerWallShape.holes.push(innerCutHole);
+
+        const wallGeo = new THREE.ExtrudeGeometry(outerWallShape, {
+          depth: alturaCorte,
+          bevelEnabled: true,
+          bevelThickness: 0.35,
+          bevelSize: 0.25,
+          bevelSegments: 3,
+          curveSegments: 96
+        });
+        wallGeo.rotateX(-Math.PI / 2);
+        wallGeo.computeBoundingBox();
+        wallGeo.translate(xMatriz, -wallGeo.boundingBox.min.y, zMatriz);
+        activeMeshGroup.add(new THREE.Mesh(wallGeo, matMatriz));
+
+        // Flange ergonômico superior da Matriz
+        const flangeShape = getCutterOuterVectorShape(preset, raio * 1.14);
+        const flangeHole = getCutterOuterVectorShape(preset, raio * 0.96);
+        flangeShape.holes.push(flangeHole);
+        const flangeGeo = new THREE.ExtrudeGeometry(flangeShape, {
+          depth: 2.8,
+          bevelEnabled: true,
+          bevelThickness: 0.4,
+          bevelSize: 0.4,
+          bevelSegments: 3,
+          curveSegments: 96
+        });
+        flangeGeo.rotateX(-Math.PI / 2);
+        flangeGeo.computeBoundingBox();
+        flangeGeo.translate(xMatriz, -flangeGeo.boundingBox.min.y, zMatriz);
         activeMeshGroup.add(new THREE.Mesh(flangeGeo, matMatriz));
 
-        // PEÇA B: Êmbolo Ejetor Interno com Domo Convexo Descolador e Furos Anti-Vácuo
-        const segs = 72;
-        const rEmbolo = raio - 0.5; // Folga calibrada anti-travamento
-        const emboloGeo = new THREE.CylinderGeometry(rEmbolo, rEmbolo, 3.4, 64, 1, false);
-        emboloGeo.translate(xEmbolo, yEmboloOffset, zEmbolo);
-        const matEmbolo = new THREE.MeshStandardMaterial({ color: 0xE09070, roughness: 0.45, wireframe: isWireframe });
+        // PEÇA B: Êmbolo Ejetor Interno no Formato Vetorial do Preset
+        const emboloShape = getCutterOuterVectorShape(preset, raio * 0.93);
+        const emboloGeo = new THREE.ExtrudeGeometry(emboloShape, {
+          depth: 3.4,
+          bevelEnabled: true,
+          bevelThickness: 0.4,
+          bevelSize: 0.35,
+          bevelSegments: 3,
+          curveSegments: 96
+        });
+        emboloGeo.rotateX(-Math.PI / 2);
+        emboloGeo.computeBoundingBox();
+        emboloGeo.translate(xEmbolo, yEmboloOffset - emboloGeo.boundingBox.min.y, zEmbolo);
         activeMeshGroup.add(new THREE.Mesh(emboloGeo, matEmbolo));
 
-        // Superfície de Relevo + Domo + Micro-frisos no Êmbolo
-        const relGeo = new THREE.PlaneGeometry(sizeReal * 0.78, sizeReal * 0.78, segs, segs);
-        relGeo.rotateX(-Math.PI / 2);
-        relGeo.translate(xEmbolo, yEmboloOffset + 1.8, zEmbolo);
-        const rPos = relGeo.attributes.position;
-        for (let i = 0; i < rPos.count; i++) {
-          const vx = rPos.getX(i);
-          const vz = rPos.getZ(i);
-          const distCenter = Math.sqrt((vx - xEmbolo) ** 2 + (vz - zEmbolo) ** 2);
-          if (distCenter < raio * 0.82) {
-            const u = Math.min(95, Math.max(0, Math.floor((((vx - xEmbolo) / (sizeReal * 0.78)) + 0.5) * 95)));
-            const v = Math.min(95, Math.max(0, Math.floor((((vz - zEmbolo) / (sizeReal * 0.78)) + 0.5) * 95)));
-            const idx = (v * 96 + u) * 4;
-            const lum = cutterCanvasData.data[idx] / 255;
-            const darkness = invertBW ? lum : (1.0 - lum);
-
-            const distNorm = distCenter / (raio * 0.82);
-            const domeLift = hasConvexDome ? (1 - distNorm * distNorm) * 0.65 : 0;
-            const microRib = hasMicroRibs ? Math.sin((vx - xEmbolo) * 1.8) * 0.16 : 0;
-
-            if (darkness > 0.3) {
-              rPos.setY(i, yEmboloOffset + 1.8 + domeLift + darkness * relevoH);
-            } else {
-              rPos.setY(i, yEmboloOffset + 1.8 + domeLift + microRib);
+        // Alto-Relevo 3D Escultural de até 4.0 mm sobre o Êmbolo
+        if (!customCutterImageUploaded) {
+          const vectorRelief = buildVectorCutterReliefGroup(preset, raio * 0.92, relevoH, matRelief);
+          vectorRelief.position.set(xEmbolo, yEmboloOffset + 3.6, zEmbolo);
+          activeMeshGroup.add(vectorRelief);
+        } else {
+          // Caso tenha imagem enviada pelo usuário, usa malha suavizada Bilinear + Smoothstep
+          const segs = 130;
+          const relGeo = new THREE.PlaneGeometry(sizeReal * 0.78, sizeReal * 0.78, segs, segs);
+          relGeo.rotateX(-Math.PI / 2);
+          relGeo.translate(xEmbolo, yEmboloOffset + 3.6, zEmbolo);
+          const rPos = relGeo.attributes.position;
+          for (let i = 0; i < rPos.count; i++) {
+            const vx = rPos.getX(i);
+            const vz = rPos.getZ(i);
+            const distCenter = Math.sqrt((vx - xEmbolo) ** 2 + (vz - zEmbolo) ** 2);
+            if (distCenter < raio * 0.82) {
+              const u = Math.min(1, Math.max(0, ((vx - xEmbolo) / (sizeReal * 0.78)) + 0.5));
+              const v = Math.min(1, Math.max(0, ((vz - zEmbolo) / (sizeReal * 0.78)) + 0.5));
+              const lum = sampleBilinearLum(cutterCanvasData, u, v);
+              const rawDark = invertBW ? lum : (1.0 - lum);
+              const smoothDark = smoothStepOrganic(0.18, 0.78, rawDark);
+              const distNorm = distCenter / (raio * 0.82);
+              const domeLift = hasConvexDome ? (1 - distNorm * distNorm) * 0.65 : 0;
+              rPos.setY(i, yEmboloOffset + 3.6 + domeLift + smoothDark * relevoH);
             }
           }
+          relGeo.computeVertexNormals();
+          activeMeshGroup.add(new THREE.Mesh(relGeo, matRelief));
         }
-        relGeo.computeVertexNormals();
-        activeMeshGroup.add(new THREE.Mesh(relGeo, new THREE.MeshStandardMaterial({ color: 0x942B21, roughness: 0.4, side: THREE.DoubleSide })));
 
         // Furos Pneumáticos Anti-Vácuo (Vent Holes) atravessando o Êmbolo
         if (hasVentHoles) {
           const ventMat = new THREE.MeshStandardMaterial({ color: 0x181413, roughness: 0.8 });
           const ventCoords = [
-            [-raio * 0.35, -raio * 0.35], [raio * 0.35, -raio * 0.35],
-            [-raio * 0.35, raio * 0.35], [raio * 0.35, raio * 0.35],
-            [0, -raio * 0.48], [0, raio * 0.48]
+            [-raio * 0.32, -raio * 0.32], [raio * 0.32, -raio * 0.32],
+            [-raio * 0.32, raio * 0.32], [raio * 0.32, raio * 0.32]
           ];
           ventCoords.forEach(([vx, vz]) => {
-            const vHole = new THREE.CylinderGeometry(1.1, 1.1, 4.2, 16);
-            vHole.translate(xEmbolo + vx, yEmboloOffset + 0.2, zEmbolo + vz);
+            const vHole = new THREE.CylinderGeometry(1.1, 1.1, 4.2, 24);
+            vHole.translate(xEmbolo + vx, yEmboloOffset + 2.0, zEmbolo + vz);
             activeMeshGroup.add(new THREE.Mesh(vHole, ventMat));
           });
         }
@@ -6747,12 +6977,12 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
         // Hastes Guia auto-limpantes
         const numHastes = (reforcoMecanicoAtivo || largura > 125) ? 4 : 2;
         const hCoords = numHastes === 4
-          ? [[-raio * 0.45, -raio * 0.25], [raio * 0.45, -raio * 0.25], [-raio * 0.45, raio * 0.25], [raio * 0.45, raio * 0.25]]
-          : [[-raio * 0.48, 0], [raio * 0.48, 0]];
+          ? [[-raio * 0.42, -raio * 0.22], [raio * 0.42, -raio * 0.22], [-raio * 0.42, raio * 0.22], [raio * 0.42, raio * 0.22]]
+          : [[-raio * 0.44, 0], [raio * 0.44, 0]];
 
         hCoords.forEach(([hx, hz]) => {
-          const hasteGeo = new THREE.CylinderGeometry(2.5, 2.5, 19, 24);
-          hasteGeo.translate(xEmbolo + hx, yEmboloOffset + 9.5, zEmbolo + hz);
+          const hasteGeo = new THREE.CylinderGeometry(2.6, 2.6, 19, 32);
+          hasteGeo.translate(xEmbolo + hx, yEmboloOffset + 11.0, zEmbolo + hz);
           activeMeshGroup.add(new THREE.Mesh(hasteGeo, matEmbolo));
         });
 
@@ -6760,32 +6990,31 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
         if (springType === 'flex_pla') {
           const springMat = new THREE.MeshStandardMaterial({ color: 0xD49A45, roughness: 0.35, wireframe: isWireframe });
           for (let s = 0; s < 3; s++) {
-            const torusArc = new THREE.TorusGeometry(6.5, 1.1, 12, 32);
-            torusArc.translate(xEmbolo, yEmboloOffset + 6 + s * 4.2, zEmbolo);
+            const torusArc = new THREE.TorusGeometry(6.5, 1.1, 16, 48);
+            torusArc.translate(xEmbolo, yEmboloOffset + 7.5 + s * 4.2, zEmbolo);
             activeMeshGroup.add(new THREE.Mesh(torusArc, springMat));
           }
         } else if (springType === 'mola_inox') {
           const inoxMat = new THREE.MeshStandardMaterial({ color: 0xA8A29E, metalness: 0.7, roughness: 0.2 });
-          const coilGeo = new THREE.CylinderGeometry(4.5, 4.5, 14, 24, 1, true);
-          coilGeo.translate(xEmbolo, yEmboloOffset + 8, zEmbolo);
+          const coilGeo = new THREE.CylinderGeometry(4.5, 4.5, 14, 32, 1, true);
+          coilGeo.translate(xEmbolo, yEmboloOffset + 9.5, zEmbolo);
           activeMeshGroup.add(new THREE.Mesh(coilGeo, inoxMat));
         }
 
         // PEÇA C: Botão Acionador Ergonômico Superior + Pino Expulsor de Miolo
         const btnMat = new THREE.MeshStandardMaterial({ color: 0x3A2D2A, roughness: 0.5, wireframe: isWireframe });
-        const btnGeo = new THREE.CylinderGeometry(raio * 0.62, raio * 0.62, 5.0, 48);
+        const btnGeo = new THREE.CylinderGeometry(raio * 0.58, raio * 0.62, 5.2, 64);
         btnGeo.translate(xBotao, yBotaoOffset, zBotao);
         activeMeshGroup.add(new THREE.Mesh(btnGeo, btnMat));
 
         if (comFuro) {
-          const rFuro = (10 * retracao);
-          const tuboCentral = new THREE.CylinderGeometry(rFuro, rFuro + 0.5, alturaCorte, 36, 1, true);
-          tuboCentral.translate(xMatriz, alturaCorte / 2, zMatriz + raio * 0.22);
+          const rFuro = (8.5 * retracao);
+          const tuboCentral = new THREE.CylinderGeometry(rFuro, rFuro + 0.5, alturaCorte, 48, 1, true);
+          tuboCentral.translate(xMatriz, alturaCorte / 2, zMatriz + raio * 0.28);
           activeMeshGroup.add(new THREE.Mesh(tuboCentral, matMatriz));
 
-          // Pino central expulsor de miolo
-          const pinoExpulsor = new THREE.CylinderGeometry(rFuro - 0.8, rFuro - 1.2, 22, 32);
-          pinoExpulsor.translate(xBotao, yBotaoOffset - 11, zBotao + raio * 0.22);
+          const pinoExpulsor = new THREE.CylinderGeometry(rFuro - 0.8, rFuro - 1.2, 22, 36);
+          pinoExpulsor.translate(xBotao, yBotaoOffset - 11, zBotao + raio * 0.28);
           activeMeshGroup.add(new THREE.Mesh(pinoExpulsor, btnMat));
         }
       }
@@ -6958,10 +7187,10 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
       const tema = document.getElementById('r-tema')?.value || 'Ondas geométricas marajoaras';
       const diam = document.getElementById('r-diam')?.value || 40;
       const alt = document.getElementById('r-altura')?.value || 100;
-      const rel = document.getElementById('r-relevo')?.value || 1.8;
+      const rel = Math.min(4.0, Math.max(0.8, parseFloat(document.getElementById('r-relevo')?.value) || 3.5));
       const el = document.getElementById('roller-prompt-text');
       if (el) {
-        el.value = `Crie um mapa de textura 2D contínuo (seamless 360°) em alto contraste P&B sobre: "${tema}". Linhas Pretas (#000000) = relevo saliente de ${rel} mm; Branco (#FFFFFF) = base cilíndrica (Ø ${diam} mm × ${alt} mm). Sem sombras ou degradês.`;
+        el.value = `Crie um mapa de altura (Heightmap SDF orgânico contínuo 360°) sobre: "${tema}". Cristas orgânicas suaves (#000000) = relevo profundo de ${rel.toFixed(1)} mm (máx 4.0 mm); Fundo (#FFFFFF) = base cilíndrica (Ø ${diam} mm × ${alt} mm). Bordas chanfradas suaves sem serrilhado.`;
       }
     }
 
@@ -6971,89 +7200,142 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
       const img = new Image();
       img.onload = function() {
         const c = document.createElement('canvas');
-        c.width = 128;
-        c.height = 128;
+        c.width = 256;
+        c.height = 256;
         const ctx = c.getContext('2d');
-        ctx.drawImage(img, 0, 0, 128, 128);
-        rollerHeightMapData = ctx.getImageData(0, 0, 128, 128);
+        ctx.drawImage(img, 0, 0, 256, 256);
+        const raw = ctx.getImageData(0, 0, 256, 256);
+        rollerHeightMapData = applyGaussianBlurImageData(raw, 2);
         rebuildRoller3D();
       };
       img.src = URL.createObjectURL(file);
     });
 
+    // Funções SDF (Signed Distance / Cosine Ridge) Contínuas e Orgânicas — Zero Degraus Binários
+    function ridgeBell(dist, halfWidth, softness) {
+      return 1.0 - smoothStepOrganic(Math.max(0, halfWidth - softness), halfWidth + softness, Math.abs(dist));
+    }
+
     function evalRollerProceduralPattern(preset, u, v) {
       const tau = Math.PI * 2;
       if (preset === 'marajoara') {
-        const zig = Math.abs(((u * 6) % 1) - 0.5) * 2;
+        const uPhase = (u * 6) % 1;
+        const triWave = 1.0 - Math.abs(uPhase - 0.5) * 2.0;
+        const zig = smoothStepOrganic(0.0, 1.0, triWave);
         const wave = ((v * 5 + zig * 0.45) % 1);
-        const step1 = (wave > 0.18 && wave < 0.38) || (wave > 0.62 && wave < 0.82) ? 1.0 : 0.0;
-        const fret = (Math.sin(u * tau * 12) > 0.3 && Math.abs(v - 0.5) < 0.12) ? 0.9 : 0.0;
-        return Math.max(step1, fret);
+        const ridge1 = ridgeBell(wave - 0.28, 0.085, 0.045);
+        const ridge2 = ridgeBell(wave - 0.72, 0.085, 0.045);
+        const fretMask = ridgeBell(v - 0.5, 0.09, 0.035) * smoothStepOrganic(-0.2, 0.45, Math.cos(u * tau * 12));
+        const spiralDots = ridgeBell(Math.hypot(((u * 12) % 1) - 0.5, ((v * 5) % 1) - 0.5), 0.14, 0.06) * 0.85;
+        return Math.min(1.0, Math.max(ridge1, ridge2, fretMask * 0.92, spiralDots));
       } else if (preset === 'seigaiha') {
         const cols = 6, rows = 8;
-        const row = Math.floor(v * rows);
-        const uShift = (u * cols + (row % 2) * 0.5) % 1;
-        const vLocal = (v * rows) % 1;
-        const d = Math.hypot(uShift - 0.5, vLocal);
-        const rings = Math.sin(d * Math.PI * 7);
-        return rings > 0.15 ? 0.95 : 0.0;
+        let best = 0;
+        for (let dr = -1; dr <= 1; dr++) {
+          const rIdx = Math.floor(v * rows) + dr;
+          const vCenter = (rIdx + 0.5) / rows;
+          const uShift = ((u * cols + (Math.abs(rIdx) % 2) * 0.5) % 1) - 0.5;
+          const vLocal = (v - vCenter) * rows;
+          const d = Math.hypot(uShift, vLocal * 0.85);
+          if (d < 0.72) {
+            const arch = 0.5 + 0.5 * Math.cos(d * Math.PI * 6.5);
+            const env = 1.0 - smoothStepOrganic(0.56, 0.72, d);
+            best = Math.max(best, Math.pow(arch, 1.35) * env);
+          }
+        }
+        return best;
       } else if (preset === 'folhagem') {
-        const stem = Math.abs(Math.sin((u * 4 + v * 2) * Math.PI)) < 0.08 ? 0.9 : 0.0;
-        const leafAngle = (u * 8 + v * 6) * Math.PI;
-        const leaves = (Math.sin(leafAngle) * Math.cos((v * 10 - u * 4) * Math.PI)) > 0.28 ? 0.85 : 0.0;
-        return Math.max(stem, leaves);
+        const vineWave = Math.sin(u * tau * 3) * 0.14;
+        const vineDist = Math.abs(((v * 3 + vineWave + 10) % 1) - 0.5);
+        const stem = ridgeBell(vineDist, 0.045, 0.03);
+        const leafU = ((u * 9) % 1) - 0.5;
+        const leafV = ((v * 6 + (Math.floor(u * 9) % 2) * 0.35) % 1) - 0.5;
+        const rotU = leafU * 0.8 + leafV * 0.6;
+        const rotV = -leafU * 0.6 + leafV * 0.8;
+        const leafDist = Math.hypot(rotU * 0.9, rotV * 1.65);
+        const leafBody = ridgeBell(leafDist, 0.24, 0.08);
+        const vein = ridgeBell(rotV, 0.025, 0.02) * ridgeBell(rotU, 0.22, 0.06);
+        return Math.min(1.0, Math.max(stem * 0.9, leafBody * 0.82 + vein * 0.28));
       } else if (preset === 'espinha') {
         const col = (u * 12) % 1;
-        const dir = Math.floor(u * 12) % 2 === 0 ? 1 : -1;
-        const stripe = ((v * 10 + dir * col * 0.8 + 10) % 1);
-        return stripe < 0.45 ? 0.92 : 0.0;
+        const zig = 1.0 - Math.abs(col - 0.5) * 2.0;
+        const zigSmooth = 0.5 - 0.5 * Math.cos(zig * Math.PI);
+        const phase = (v * 10 + zigSmooth * 0.65) % 1;
+        const rib = 0.5 + 0.5 * Math.cos((phase - 0.5) * tau);
+        return Math.pow(rib, 1.45) * 0.96;
       } else if (preset === 'favo') {
         const sx = u * 12;
         const sy = v * 10;
         const row = Math.floor(sy);
-        const hx = (sx + (row % 2) * 0.5) % 1 - 0.5;
+        const hx = ((sx + (row % 2) * 0.5) % 1) - 0.5;
         const hy = (sy % 1) - 0.5;
-        const dist = Math.max(Math.abs(hx), Math.abs(hx) * 0.5 + Math.abs(hy) * 0.866);
-        return (dist > 0.34 && dist < 0.48) ? 1.0 : 0.0;
+        const hexDist = Math.max(Math.abs(hx), Math.abs(hx) * 0.5 + Math.abs(hy) * 0.866025);
+        const wall = ridgeBell(hexDist - 0.42, 0.055, 0.035);
+        const centerDome = ridgeBell(hexDist, 0.14, 0.07) * 0.55;
+        return Math.max(wall, centerDome);
       } else if (preset === 'renda') {
         const d1 = Math.sin(u * tau * 8) * Math.sin(v * tau * 4);
         const d2 = Math.cos(u * tau * 16) * Math.cos(v * tau * 8);
-        const border = (v < 0.12 || v > 0.88) && Math.sin(u * tau * 24) > 0 ? 0.9 : 0;
-        return Math.max(border, (d1 + d2 * 0.5) > 0.25 ? 0.9 : 0.0);
+        const medallion = smoothStepOrganic(0.05, 0.55, d1 + d2 * 0.55);
+        const scallopTop = ridgeBell(v - 0.10 - 0.025 * Math.sin(u * tau * 16), 0.028, 0.02);
+        const scallopBot = ridgeBell(v - 0.90 - 0.025 * Math.sin(u * tau * 16), 0.028, 0.02);
+        return Math.min(1.0, Math.max(medallion * 0.94, scallopTop, scallopBot));
       } else if (preset === 'cestaria') {
-        const wu = Math.sin(u * tau * 14);
-        const wv = Math.sin(v * tau * 10);
-        return (wu * wv > -0.15 && (Math.abs(wu) > 0.35 || Math.abs(wv) > 0.35)) ? 0.88 : 0.1;
+        const wu = Math.sin(u * tau * 12);
+        const wv = Math.sin(v * tau * 9);
+        const strandU = Math.pow(0.5 + 0.5 * Math.cos(u * tau * 12), 1.3) * (0.65 + 0.35 * wv);
+        const strandV = Math.pow(0.5 + 0.5 * Math.cos(v * tau * 9), 1.3) * (0.65 - 0.35 * wu);
+        return Math.min(1.0, Math.max(strandU, strandV) * 0.95);
       } else if (preset === 'meandro') {
-        const gx = ((u * 8) % 1);
-        const gy = ((v * 4) % 1);
-        const inBox = (gx > 0.15 && gx < 0.85 && gy > 0.15 && gy < 0.85);
-        const ring1 = (gx > 0.12 && gx < 0.88 && (gy < 0.22 || gy > 0.78)) || (gy > 0.12 && gy < 0.88 && gx < 0.24);
-        const inner = inBox && ((gx > 0.35 && gx < 0.68 && (gy > 0.35 && gy < 0.65)));
-        return (ring1 || inner) ? 0.95 : 0.0;
+        const gx = ((u * 8) % 1) - 0.5;
+        const gy = ((v * 5) % 1) - 0.5;
+        const rMax = Math.max(Math.abs(gx), Math.abs(gy));
+        const outerRing = ridgeBell(rMax - 0.36, 0.05, 0.028);
+        const innerSpiral = ridgeBell(rMax - 0.18, 0.05, 0.028);
+        const bridge = ridgeBell(gy, 0.045, 0.025) * smoothStepOrganic(0.12, 0.38, gx);
+        return Math.min(1.0, Math.max(outerRing, innerSpiral, bridge));
       } else if (preset === 'constelacao') {
         const cx = ((u * 6) % 1) - 0.5;
         const cy = ((v * 4) % 1) - 0.5;
         const r = Math.hypot(cx, cy);
         const ang = Math.atan2(cy, cx);
-        const star = r < (0.18 + 0.14 * Math.cos(ang * 4)) ? 1.0 : 0.0;
-        const line = Math.abs(cx - cy * 0.7) < 0.03 ? 0.55 : 0.0;
-        return Math.max(star, line);
+        const starRadius = 0.17 + 0.13 * Math.cos(ang * 4);
+        const star = ridgeBell(r, starRadius, 0.055);
+        const orbit = ridgeBell(r - 0.38, 0.022, 0.018) * 0.7;
+        return Math.min(1.0, Math.max(star, orbit));
       } else if (preset === 'casca') {
-        const n = Math.sin(u * tau * 18 + Math.sin(v * tau * 3) * 2.2) * 0.5 + 0.5;
-        const n2 = Math.cos(u * tau * 9 - v * tau * 5) * 0.3;
-        return Math.max(0, Math.min(1, n + n2 > 0.52 ? 0.9 : 0.15));
+        const wave1 = 0.5 + 0.5 * Math.sin(u * tau * 16 + Math.sin(v * tau * 3) * 2.1);
+        const wave2 = 0.5 + 0.5 * Math.cos(u * tau * 8 - v * tau * 4 + Math.cos(u * tau * 4));
+        const bark = Math.pow(wave1 * 0.65 + wave2 * 0.35, 1.4);
+        return smoothStepOrganic(0.18, 0.85, bark) * 0.96;
       } else if (preset === 'azulejo') {
         const ax = Math.abs(((u * 8) % 1) - 0.5) * 2;
         const ay = Math.abs(((v * 6) % 1) - 0.5) * 2;
-        const starCross = (ax + ay > 0.55 && ax + ay < 0.85) || (Math.abs(ax - ay) < 0.16);
-        return starCross ? 0.95 : 0.0;
+        const diamond = ridgeBell((ax + ay) - 0.70, 0.08, 0.045);
+        const crossDiag = ridgeBell(ax - ay, 0.075, 0.045) * (1.0 - smoothStepOrganic(0.65, 0.92, Math.max(ax, ay)));
+        const rosette = ridgeBell(Math.hypot(ax, ay), 0.22, 0.06);
+        return Math.min(1.0, Math.max(diamond, crossDiag, rosette));
       } else {
-        // seixos
-        const px = ((u * 10) % 1) - 0.5;
-        const py = ((v * 8 + (Math.floor(u * 10) % 2) * 0.5) % 1) - 0.5;
-        const d = Math.hypot(px * 1.1, py * 0.9);
-        return d < 0.38 ? Math.sqrt(Math.max(0, 1 - (d / 0.38) ** 2)) : 0.0;
+        // seixos (Pebble Stone orgânico abobadado)
+        let bestPebble = 0;
+        const cols = 10, rows = 8;
+        for (let dx = -1; dx <= 1; dx++) {
+          for (let dy = -1; dy <= 1; dy++) {
+            const cIdx = Math.floor(u * cols) + dx;
+            const rIdx = Math.floor(v * rows) + dy;
+            const seed = Math.sin(cIdx * 12.9898 + rIdx * 78.233) * 43758.5453;
+            const jx = (seed - Math.floor(seed) - 0.5) * 0.25;
+            const jy = (Math.sin(seed) * 0.5) * 0.22;
+            const px = (u * cols) - (cIdx + 0.5 + jx + (Math.abs(rIdx) % 2) * 0.35);
+            const py = (v * rows) - (rIdx + 0.5 + jy);
+            const d = Math.hypot(px * 1.05, py * 0.95);
+            if (d < 0.44) {
+              const dome = Math.cos((d / 0.44) * (Math.PI * 0.5));
+              bestPebble = Math.max(bestPebble, Math.pow(Math.max(0, dome), 0.75));
+            }
+          }
+        }
+        return bestPebble;
       }
     }
 
@@ -7065,11 +7347,13 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
       const preset = document.getElementById('r-preset-select')?.value || 'marajoara';
       const diam = parseFloat(document.getElementById('r-diam')?.value) || 40;
       const altura = parseFloat(document.getElementById('r-altura')?.value) || 100;
-      const relevo = parseFloat(document.getElementById('r-relevo')?.value) || 1.8;
+      const relevoRaw = parseFloat(document.getElementById('r-relevo')?.value);
+      const relevo = Math.min(4.0, Math.max(0.8, isNaN(relevoRaw) ? 3.5 : relevoRaw));
       const hasAxleHole = document.getElementById('r-axle-hole')?.checked ?? true;
       const raioBase = diam / 2;
 
-      const geo = new THREE.CylinderGeometry(raioBase, raioBase, altura, 128, 96, false);
+      // Malha cilíndrica HD (220 segmentos radiais × 150 longitudinais) para curvas orgânicas perfeitas sem serrilhado
+      const geo = new THREE.CylinderGeometry(raioBase, raioBase, altura, 220, 150, false);
       geo.translate(0, altura / 2, 0);
       const pos = geo.attributes.position;
 
@@ -7079,20 +7363,19 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
         const vz = pos.getZ(i);
         const r = Math.sqrt(vx * vx + vz * vz);
 
-        if (r > raioBase * 0.85 && vy > 1.0 && vy < altura - 1.0) {
+        if (r > raioBase * 0.85 && vy > 0.8 && vy < altura - 0.8) {
           const angle = Math.atan2(vz, vx) + Math.PI;
           const u = angle / (2 * Math.PI);
           const v = vy / altura;
 
-          // Chanfro suave nas extremidades para não marcar linhas na placa de argila
-          const edgeFade = Math.min(1.0, Math.min(vy - 1.0, altura - 1.0 - vy) / 3.5);
+          // Chanfro orgânico cosseno nas extremidades para não marcar linhas na placa de argila
+          const distEdge = Math.min(vy - 0.8, altura - 0.8 - vy);
+          const edgeFade = smoothStepOrganic(0.0, 3.8, distEdge);
 
           let darkness = 0;
           if (rollerHeightMapData) {
-            const px = Math.min(127, Math.max(0, Math.floor(u * 127)));
-            const py = Math.min(127, Math.max(0, Math.floor(v * 127)));
-            const idx = (py * 128 + px) * 4;
-            darkness = 1.0 - (rollerHeightMapData.data[idx] / 255);
+            darkness = 1.0 - sampleBilinearLum(rollerHeightMapData, u, v);
+            darkness = smoothStepOrganic(0.12, 0.88, darkness);
           } else {
             darkness = evalRollerProceduralPattern(preset, u, v);
           }
@@ -7104,25 +7387,25 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
       }
       geo.computeVertexNormals();
 
-      const mat = new THREE.MeshStandardMaterial({ color: 0xD05840, roughness: 0.38, wireframe: isWireframe });
+      const mat = new THREE.MeshStandardMaterial({ color: 0xD05840, roughness: 0.34, metalness: 0.04, wireframe: isWireframe });
       activeMeshGroup.add(new THREE.Mesh(geo, mat));
 
       // Furo central passante Ø8mm para eixo rotativo e buchas de topo
       if (hasAxleHole) {
         const holeMat = new THREE.MeshStandardMaterial({ color: 0x1E1A18, roughness: 0.7 });
-        const holeGeo = new THREE.CylinderGeometry(4.2, 4.2, altura + 0.6, 32);
+        const holeGeo = new THREE.CylinderGeometry(4.2, 4.2, altura + 0.6, 64);
         holeGeo.translate(0, altura / 2, 0);
         activeMeshGroup.add(new THREE.Mesh(holeGeo, holeMat));
 
-        const collarMat = new THREE.MeshStandardMaterial({ color: 0x9E3524, roughness: 0.4, wireframe: isWireframe });
-        const collarTop = new THREE.RingGeometry(4.2, Math.min(raioBase * 0.7, 9.5), 32);
+        const collarMat = new THREE.MeshStandardMaterial({ color: 0x9E3524, roughness: 0.38, wireframe: isWireframe });
+        const collarTop = new THREE.RingGeometry(4.2, Math.min(raioBase * 0.7, 9.5), 64);
         collarTop.rotateX(-Math.PI / 2);
         collarTop.translate(0, altura + 0.15, 0);
         activeMeshGroup.add(new THREE.Mesh(collarTop, collarMat));
       }
 
       updateViewportBoundingBox();
-      const estGrams = Math.round((diam / 40) ** 2 * (altura / 100) * 46);
+      const estGrams = Math.round((diam / 40) ** 2 * (altura / 100) * 48);
       const barG = document.getElementById('bar-pla-g');
       if (barG) barG.textContent = `~${estGrams} g`;
       const pFilG = document.getElementById('p-filament-g');
@@ -7131,7 +7414,7 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
     }
 
     // =========================================================================
-    // GERADOR DE CARIMBOS DE ATELIÊ / MAKER'S MARK (12 PRESETS EM ALTO-RELEVO 3D)
+    // GERADOR DE CARIMBOS DE ATELIÊ / MAKER'S MARK (12 PRESETS VETORIAIS 3D EXTRUDADOS)
     // =========================================================================
     const STAMP_PRESET_DEFAULTS = {
       oliveira: { initials: 'A&C', formato: 'circular', label: 'Monograma Clássico & Ramo de Oliveira' },
@@ -7166,255 +7449,336 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
       const iniciais = document.getElementById('m-iniciais')?.value || 'A&C';
       const formato = document.getElementById('m-formato')?.value || 'circular';
       const diam = document.getElementById('m-diam')?.value || 32;
-      const prof = document.getElementById('m-prof')?.value || 2.0;
+      const prof = Math.min(4.0, Math.max(1.0, parseFloat(document.getElementById('m-prof')?.value) || 3.6));
       const el = document.getElementById('stamp-prompt');
       if (el) {
-        el.value = `Atue como Engenheiro CAD e crie um Carimbo de Assinatura (Maker's Mark) modelo "${presetLabel}", formato ${formato} (${diam} mm), relevo chanfrado de ${prof} mm com sigla "${iniciais}", e cabo torneado ergonômico de 48 mm. Entregue código STL.`;
+        el.value = `Atue como Engenheiro CAD e crie um Carimbo de Assinatura (Maker's Mark) modelo "${presetLabel}", formato ${formato} (${diam} mm), relevo vetorial chanfrado profundo de ${prof.toFixed(1)} mm (máx 4.0 mm) com sigla "${iniciais}", e cabo torneado ergonômico de 48 mm. Entregue código STL.`;
       }
     }
 
-    function createStampReliefCanvas(preset, initials, formato) {
-      const c = document.createElement('canvas');
-      c.width = 128;
-      c.height = 128;
-      const ctx = c.getContext('2d');
+    // Helpers vetoriais globais para traços em cápsula arredondada e anéis concêntricos
+    function createCapsuleStrokeShape(x1, y1, x2, y2, w) {
+      const dx = x2 - x1, dy = y2 - y1;
+      const len = Math.hypot(dx, dy);
+      if (len < 0.001) return null;
+      const r = Math.max(0.15, w * 0.5);
+      const ang = Math.atan2(dy, dx);
+      const sh = new THREE.Shape();
+      sh.absarc(x1, y1, r, ang + Math.PI * 0.5, ang + Math.PI * 1.5, false);
+      sh.absarc(x2, y2, r, ang - Math.PI * 0.5, ang + Math.PI * 0.5, false);
+      sh.closePath();
+      return sh;
+    }
 
-      // Fundo Preto (#000000 = Base Rebaixada); Branco (#FFFFFF = Relevo Saliente)
-      ctx.fillStyle = '#000000';
-      ctx.fillRect(0, 0, 128, 128);
+    function createAnnularRingShape(cx, cy, rOut, rIn, segs = 64) {
+      const sh = new THREE.Shape();
+      sh.absarc(cx, cy, rOut, 0, Math.PI * 2, false);
+      if (rIn > 0.05 && rIn < rOut) {
+        const hole = new THREE.Path();
+        hole.absarc(cx, cy, rIn, 0, Math.PI * 2, true);
+        sh.holes.push(hole);
+      }
+      return sh;
+    }
 
-      ctx.strokeStyle = '#FFFFFF';
-      ctx.fillStyle = '#FFFFFF';
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-
-      // 1. Moldura Perimetral do Carimbo
-      ctx.lineWidth = 5.5;
+    // Cria um THREE.Shape ou Path no formato perimetral do carimbo (com cantos boleados suaves)
+    function createStampContourPath(formato, r, isHole) {
+      const p = isHole ? new THREE.Path() : new THREE.Shape();
       if (formato === 'quadrado') {
-        ctx.strokeRect(14, 14, 100, 100);
-        ctx.lineWidth = 2.5;
-        ctx.strokeRect(21, 21, 86, 86);
+        const s = r * 0.90;
+        const cr = Math.min(s * 0.24, r * 0.22);
+        p.moveTo(-s + cr, -s);
+        p.lineTo(s - cr, -s);
+        p.quadraticCurveTo(s, -s, s, -s + cr);
+        p.lineTo(s, s - cr);
+        p.quadraticCurveTo(s, s, s - cr, s);
+        p.lineTo(-s + cr, s);
+        p.quadraticCurveTo(-s, s, -s, s - cr);
+        p.lineTo(-s, -s + cr);
+        p.quadraticCurveTo(-s, -s, -s + cr, -s);
       } else if (formato === 'hexagonal') {
-        ctx.beginPath();
+        const cr = r * 0.14;
+        const verts = [];
         for (let k = 0; k < 6; k++) {
           const a = (k * Math.PI) / 3;
-          const x = 64 + Math.cos(a) * 52;
-          const y = 64 + Math.sin(a) * 52;
-          if (k === 0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
+          verts.push({ x: Math.cos(a) * r, y: Math.sin(a) * r });
         }
-        ctx.closePath();
-        ctx.stroke();
+        for (let k = 0; k < 6; k++) {
+          const prev = verts[(k + 5) % 6];
+          const curr = verts[k];
+          const next = verts[(k + 1) % 6];
+          const p1x = curr.x + (prev.x - curr.x) * 0.18;
+          const p1y = curr.y + (prev.y - curr.y) * 0.18;
+          const p2x = curr.x + (next.x - curr.x) * 0.18;
+          const p2y = curr.y + (next.y - curr.y) * 0.18;
+          if (k === 0) p.moveTo(p1x, p1y);
+          else p.lineTo(p1x, p1y);
+          p.quadraticCurveTo(curr.x, curr.y, p2x, p2y);
+        }
+        p.closePath();
       } else if (formato === 'oval') {
-        ctx.beginPath();
-        ctx.ellipse(64, 64, 54, 40, 0, 0, Math.PI * 2);
-        ctx.stroke();
+        p.absellipse(0, 0, r * 1.18, r * 0.84, 0, Math.PI * 2, false, 0);
       } else {
-        ctx.beginPath();
-        ctx.arc(64, 64, 52, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.lineWidth = 2.5;
-        ctx.beginPath();
-        ctx.arc(64, 64, 45, 0, Math.PI * 2);
-        ctx.stroke();
+        p.absarc(0, 0, r, 0, Math.PI * 2, false);
+      }
+      return p;
+    }
+
+    // Constrói os 12 emblemas de carimbo com Geometria Vetorial 3D Pura (THREE.ExtrudeGeometry + Bevel Orgânico)
+    function buildVectorStampEmblemGroup(preset, formato, diam, prof, baseY, matRelief) {
+      const group = new THREE.Group();
+      const sc = (diam * 0.82) / 100;
+      const extCfg = {
+        depth: Math.max(0.6, prof * 0.86),
+        bevelEnabled: true,
+        bevelThickness: Math.min(0.55, prof * 0.14),
+        bevelSize: Math.min(0.42, sc * 1.25),
+        bevelSegments: 5,
+        curveSegments: 64
+      };
+
+      const addShape = (sh, hScale = 1.0) => {
+        const cfg = { ...extCfg, depth: extCfg.depth * hScale };
+        const g = new THREE.ExtrudeGeometry(sh, cfg);
+        g.rotateX(-Math.PI / 2);
+        g.translate(0, baseY, 0);
+        group.add(new THREE.Mesh(g, matRelief));
+      };
+
+      const addLine = (x1, y1, x2, y2, w, hScale = 0.95) => {
+        const sh = createCapsuleStrokeShape(x1 * sc, y1 * sc, x2 * sc, y2 * sc, w * sc);
+        if (sh) addShape(sh, hScale);
+      };
+
+      const addRing = (cx, cy, rOut, rIn, hScale = 0.95) => {
+        const sh = createAnnularRingShape(cx * sc, cy * sc, rOut * sc, rIn * sc, 64);
+        addShape(sh, hScale);
+      };
+
+      const addDome = (cx, cy, r, hScale = 1.0) => {
+        const g = new THREE.SphereGeometry(r * sc, 36, 20, 0, Math.PI * 2, 0, Math.PI * 0.55);
+        g.scale(1, (prof * hScale) / Math.max(0.2, r * sc), 1);
+        g.translate(cx * sc, baseY, -cy * sc);
+        group.add(new THREE.Mesh(g, matRelief));
+      };
+
+      const addEllipseShape = (cx, cy, rx, ry, rot = 0, hScale = 0.95) => {
+        const sh = new THREE.Shape();
+        sh.absellipse(cx * sc, cy * sc, rx * sc, ry * sc, 0, Math.PI * 2, false, rot);
+        addShape(sh, hScale);
+      };
+
+      // 1. Moldura Dupla Vetorial Perimetral (Zero Serrilhado)
+      const rOuter = (diam / 2) * 0.88;
+      const rInner = rOuter - Math.max(1.25, diam * 0.048);
+      const outerFrame = createStampContourPath(formato, rOuter, false);
+      outerFrame.holes.push(createStampContourPath(formato, rInner, true));
+      addShape(outerFrame, 1.0);
+
+      const rFilletOut = rInner - Math.max(0.9, diam * 0.032);
+      const rFilletIn = rFilletOut - Math.max(0.7, diam * 0.024);
+      if (rFilletIn > 4) {
+        const innerFillet = createStampContourPath(formato, rFilletOut, false);
+        innerFillet.holes.push(createStampContourPath(formato, rFilletIn, true));
+        addShape(innerFillet, 0.82);
       }
 
-      // 2. Desenho Emblemático Central de Alta Precisão
-      ctx.lineWidth = 4.2;
+      // 2. Emblema Vetorial Superior/Central (Y positivo no plano 2D do shape corresponde a -Z na cena)
       if (preset === 'oliveira') {
-        // Ramos de oliveira curvos nas laterais
-        ctx.beginPath();
-        ctx.arc(64, 66, 34, Math.PI * 0.2, Math.PI * 0.8);
-        ctx.stroke();
-        for (let a = 0.25; a <= 0.75; a += 0.16) {
-          const ang = a * Math.PI;
-          const lx = 64 + Math.cos(ang) * 34;
-          const ly = 66 + Math.sin(ang) * 34;
-          ctx.beginPath();
-          ctx.ellipse(lx, ly + 4, 5, 2.5, ang - 0.5, 0, Math.PI * 2);
-          ctx.fill();
+        for (const side of [-1, 1]) {
+          addEllipseShape(side * 16, 14, 7.5, 3.2, side * 0.45, 0.95);
+          addEllipseShape(side * 22, 4, 7.5, 3.2, side * 0.15, 0.95);
+          addEllipseShape(side * 18, -6, 7.0, 3.0, -side * 0.25, 0.95);
+          addLine(side * 6, 20, side * 20, 8, 2.6, 0.9);
+          addLine(side * 20, 8, side * 14, -10, 2.6, 0.9);
         }
+        addDome(0, 14, 5.5, 1.0);
       } else if (preset === 'hanko') {
-        // Divisórias orientais Hanko
-        ctx.lineWidth = 4.5;
-        ctx.beginPath();
-        ctx.moveTo(64, 22); ctx.lineTo(64, 106);
-        ctx.moveTo(26, 46); ctx.lineTo(102, 46);
-        ctx.stroke();
+        addLine(0, -28, 0, 28, 3.8, 0.96);
+        addLine(-28, 8, 28, 8, 3.6, 0.96);
+        addRing(-14, 18, 7.5, 4.0, 0.92);
+        addRing(14, 18, 7.5, 4.0, 0.92);
       } else if (preset === 'sol_lua') {
-        // Raios solares superiores e crescente lunar
-        ctx.beginPath();
-        ctx.arc(64, 42, 11, 0, Math.PI * 2);
-        ctx.fill();
-        for (let i = 0; i < 8; i++) {
-          const a = (i * Math.PI) / 4;
-          ctx.beginPath();
-          ctx.moveTo(64 + Math.cos(a) * 14, 42 + Math.sin(a) * 14);
-          ctx.lineTo(64 + Math.cos(a) * 23, 42 + Math.sin(a) * 23);
-          ctx.stroke();
+        addDome(0, 12, 10.5, 1.05);
+        for (let i = 0; i < 10; i++) {
+          const a = (i * Math.PI) / 5;
+          const r1 = 13.5, r2 = (i % 2 === 0) ? 24.5 : 19.5;
+          addLine(Math.cos(a) * r1, 12 + Math.sin(a) * r1, Math.cos(a) * r2, 12 + Math.sin(a) * r2, 2.8, 0.94);
         }
       } else if (preset === 'monstera') {
-        // Folha botânica com nervuras
-        ctx.beginPath();
-        ctx.ellipse(64, 46, 22, 18, 0, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(64, 28); ctx.lineTo(64, 66);
-        ctx.moveTo(50, 40); ctx.lineTo(64, 46); ctx.lineTo(78, 40);
-        ctx.moveTo(48, 52); ctx.lineTo(64, 56); ctx.lineTo(80, 52);
-        ctx.stroke();
+        addEllipseShape(0, 11, 18, 14, 0, 0.88);
+        addLine(0, -4, 0, 25, 3.2, 1.02);
+        for (const s of [-1, 1]) {
+          addLine(0, 8, s * 13, 15, 2.6, 1.02);
+          addLine(0, 15, s * 11, 21, 2.4, 1.02);
+        }
       } else if (preset === 'hamsa') {
-        // Olho místico central
-        ctx.beginPath();
-        ctx.ellipse(64, 44, 24, 12, 0, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.arc(64, 44, 7, 0, Math.PI * 2);
-        ctx.fill();
+        addEllipseShape(0, 12, 22, 11, 0, 0.88);
+        addRing(0, 12, 9.5, 5.2, 1.0);
+        addDome(0, 12, 4.2, 1.08);
+        for (let i = -2; i <= 2; i++) {
+          const a = Math.PI * 0.5 + i * 0.25;
+          addLine(Math.cos(a) * 14, 12 + Math.sin(a) * 10, Math.cos(a) * 21, 12 + Math.sin(a) * 17, 2.4, 0.9);
+        }
       } else if (preset === 'abelha') {
-        // Abelha imperial no topo
-        ctx.beginPath();
-        ctx.ellipse(64, 42, 8, 12, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.ellipse(50, 40, 12, 6, -0.4, 0, Math.PI * 2);
-        ctx.ellipse(78, 40, 12, 6, 0.4, 0, Math.PI * 2);
-        ctx.stroke();
+        addEllipseShape(0, 11, 7.5, 11.5, 0, 1.02);
+        addDome(0, 22, 4.8, 1.0);
+        addEllipseShape(-13, 13, 11.5, 5.5, -0.35, 0.92);
+        addEllipseShape(13, 13, 11.5, 5.5, 0.35, 0.92);
+        addLine(-5, 11, 5, 11, 2.2, 1.08);
+        addLine(-4, 6, 4, 6, 2.2, 1.08);
       } else if (preset === 'rosa_ventos') {
-        // Estrela náutica de 8 pontas
         for (let i = 0; i < 8; i++) {
           const a = (i * Math.PI) / 4;
-          const rOut = i % 2 === 0 ? 34 : 22;
-          ctx.beginPath();
-          ctx.moveTo(64, 46);
-          ctx.lineTo(64 + Math.cos(a) * rOut, 46 + Math.sin(a) * rOut);
-          ctx.stroke();
+          const rOut = (i % 2 === 0) ? 24 : 16;
+          addLine(0, 11, Math.cos(a) * rOut, 11 + Math.sin(a) * rOut, (i % 2 === 0) ? 3.4 : 2.4, (i % 2 === 0) ? 1.0 : 0.88);
         }
+        addDome(0, 11, 5.5, 1.08);
       } else if (preset === 'marajoara') {
-        // Labirinto simétrico amazônico
-        ctx.strokeRect(32, 28, 64, 34);
-        ctx.beginPath();
-        ctx.moveTo(44, 45); ctx.lineTo(84, 45);
-        ctx.moveTo(64, 28); ctx.lineTo(64, 62);
-        ctx.stroke();
+        addLine(-22, 22, 22, 22, 3.2, 0.96);
+        addLine(-22, 2, 22, 2, 3.2, 0.96);
+        addLine(-22, 2, -22, 22, 3.2, 0.96);
+        addLine(22, 2, 22, 22, 3.2, 0.96);
+        addLine(-12, 12, 12, 12, 3.0, 0.98);
+        addLine(0, 2, 0, 22, 3.0, 0.98);
       } else if (preset === 'lotus') {
-        // Pétalas de lótus superiores
-        for (let a = -1.0; a <= 1.0; a += 0.5) {
-          ctx.beginPath();
-          ctx.ellipse(64 + Math.sin(a) * 14, 42, 8, 18, a * 0.6, 0, Math.PI * 2);
-          ctx.stroke();
-        }
+        addEllipseShape(0, 13, 6.8, 14.5, 0, 1.02);
+        addEllipseShape(-10, 11, 6.2, 13.0, 0.42, 0.94);
+        addEllipseShape(10, 11, 6.2, 13.0, -0.42, 0.94);
+        addEllipseShape(-18, 8, 5.2, 10.5, 0.82, 0.86);
+        addEllipseShape(18, 8, 5.2, 10.5, -0.82, 0.86);
       } else if (preset === 'maos_oleiro') {
-        // Silhueta de vaso clássico no centro superior
-        ctx.beginPath();
-        ctx.arc(64, 45, 13, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.fillRect(58, 28, 12, 7);
+        addEllipseShape(0, 10, 11.5, 10.5, 0, 0.98);
+        addLine(-6, 21, 6, 21, 3.6, 1.0);
+        addLine(-4, 17, 4, 17, 3.2, 0.96);
+        for (const s of [-1, 1]) {
+          addLine(s * 18, 4, s * 14, 16, 3.0, 0.92);
+          addLine(s * 14, 16, s * 9, 21, 2.6, 0.92);
+        }
       } else if (preset === 'lavanda') {
-        // Espigas cruzadas
-        ctx.beginPath();
-        ctx.moveTo(42, 60); ctx.lineTo(86, 30);
-        ctx.moveTo(86, 60); ctx.lineTo(42, 30);
-        ctx.stroke();
+        addLine(-16, 2, 16, 22, 3.0, 0.95);
+        addLine(16, 2, -16, 22, 3.0, 0.95);
+        for (let t = -1; t <= 1; t++) {
+          addDome(t * 9, 12 + t * 5, 3.6, 1.0);
+          addDome(-t * 9, 12 + t * 5, 3.6, 1.0);
+        }
       } else if (preset === 'coroa') {
-        // Coroa Real de 5 pontas
-        ctx.beginPath();
-        ctx.moveTo(42, 54);
-        ctx.lineTo(38, 32);
-        ctx.lineTo(52, 44);
-        ctx.lineTo(64, 28);
-        ctx.lineTo(76, 44);
-        ctx.lineTo(90, 32);
-        ctx.lineTo(86, 54);
-        ctx.closePath();
-        ctx.fill();
+        const crown = new THREE.Shape();
+        crown.moveTo(-20 * sc, 3 * sc);
+        crown.lineTo(-24 * sc, 20 * sc);
+        crown.lineTo(-11 * sc, 11 * sc);
+        crown.lineTo(0, 24 * sc);
+        crown.lineTo(11 * sc, 11 * sc);
+        crown.lineTo(24 * sc, 20 * sc);
+        crown.lineTo(20 * sc, 3 * sc);
+        crown.closePath();
+        addShape(crown, 1.0);
+        addDome(-24, 21, 3.2, 1.05);
+        addDome(0, 25, 3.6, 1.08);
+        addDome(24, 21, 3.2, 1.05);
       }
 
-      // 3. Tipografia das Iniciais / Sigla do Ateliê em Alto-Relevo
+      return group;
+    }
+
+    // Cria mapa SDF suavizado de alta definição para a sigla tipográfica na cartela inferior do carimbo
+    function createStampInitialsSDF(initials) {
+      const c = document.createElement('canvas');
+      c.width = 256;
+      c.height = 96;
+      const ctx = c.getContext('2d');
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(0, 0, 256, 96);
+
       const cleanText = (initials || 'A&C').trim().slice(0, 8).toUpperCase();
       if (cleanText.length > 0) {
-        const fontSize = cleanText.length <= 3 ? 26 : (cleanText.length <= 5 ? 20 : 15);
+        const fontSize = cleanText.length <= 3 ? 62 : (cleanText.length <= 5 ? 48 : 36);
         ctx.font = `900 ${fontSize}px "Plus Jakarta Sans", sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        // Faixa limpa escura sob o texto para destaque nítido das letras
-        ctx.fillStyle = '#000000';
-        ctx.fillRect(26, 66, 76, 26);
         ctx.fillStyle = '#FFFFFF';
-        ctx.fillText(cleanText, 64, 80);
+        ctx.strokeStyle = '#FFFFFF';
+        ctx.lineWidth = 3.0;
+        ctx.strokeText(cleanText, 128, 50);
+        ctx.fillText(cleanText, 128, 50);
       }
-
-      return ctx.getImageData(0, 0, 128, 128);
+      const raw = ctx.getImageData(0, 0, 256, 96);
+      return applyGaussianBlurImageData(raw, 2);
     }
 
-    function buildSingleStampAssembly(formato, diam, prof, stampImgData) {
+    function buildSingleStampAssembly(formato, diam, prof, preset, initials) {
       const group = new THREE.Group();
       const rHead = diam / 2;
       const headHeight = 6.5;
+      const safeProf = Math.min(4.0, Math.max(1.0, prof));
 
-      const matHead = new THREE.MeshStandardMaterial({ color: 0xC8523B, roughness: 0.38, wireframe: isWireframe });
-      const matRelief = new THREE.MeshStandardMaterial({ color: 0xF5E6D8, roughness: 0.3, wireframe: isWireframe, side: THREE.DoubleSide });
-      const matHandle = new THREE.MeshStandardMaterial({ color: 0x5C4033, roughness: 0.48, wireframe: isWireframe });
+      const matHead = new THREE.MeshStandardMaterial({ color: 0xC8523B, roughness: 0.35, metalness: 0.04, wireframe: isWireframe });
+      const matRelief = new THREE.MeshStandardMaterial({ color: 0xF5E6D8, roughness: 0.28, metalness: 0.03, wireframe: isWireframe, side: THREE.DoubleSide });
+      const matHandle = new THREE.MeshStandardMaterial({ color: 0x5C4033, roughness: 0.45, wireframe: isWireframe });
 
-      // 1. Cabeça Base do Carimbo (em Y = 0..headHeight)
-      let headGeo;
-      if (formato === 'quadrado') {
-        headGeo = new THREE.BoxGeometry(diam, headHeight, diam);
-      } else if (formato === 'hexagonal') {
-        headGeo = new THREE.CylinderGeometry(rHead, rHead * 1.04, headHeight, 6);
-      } else if (formato === 'oval') {
-        headGeo = new THREE.CylinderGeometry(rHead, rHead * 1.03, headHeight, 64);
-        headGeo.scale(1.22, 1, 0.84);
-      } else {
-        headGeo = new THREE.CylinderGeometry(rHead, rHead * 1.04, headHeight, 64);
-      }
-      headGeo.translate(0, headHeight / 2, 0);
+      // 1. Cabeça Base Vetorial Extrudada com Bevel Orgânico (em Y = 0..headHeight)
+      const headShape = createStampContourPath(formato, rHead, false);
+      const headGeo = new THREE.ExtrudeGeometry(headShape, {
+        depth: headHeight - 0.6,
+        bevelEnabled: true,
+        bevelThickness: 0.6,
+        bevelSize: 0.5,
+        bevelSegments: 4,
+        curveSegments: 72
+      });
+      headGeo.rotateX(-Math.PI / 2);
+      headGeo.translate(0, 0.3, 0);
       group.add(new THREE.Mesh(headGeo, matHead));
 
-      // 2. Malha de Alto-Relevo 3D Esculpida no Topo da Cabeça (Y = headHeight .. headHeight + prof)
-      const segs = 88;
-      const spanX = formato === 'oval' ? diam * 1.18 : diam * 0.94;
-      const spanZ = formato === 'oval' ? diam * 0.80 : diam * 0.94;
-      const relGeo = new THREE.PlaneGeometry(spanX, spanZ, segs, segs);
-      relGeo.rotateX(-Math.PI / 2);
-      relGeo.translate(0, headHeight + 0.05, 0);
+      // 2. Moldura Dupla + Emblema Central 100% Vetorial Extrudado (Zero Pixelização)
+      const emblemGroup = buildVectorStampEmblemGroup(preset || 'oliveira', formato, diam, safeProf, headHeight - 0.1, matRelief);
+      group.add(emblemGroup);
 
-      const pos = relGeo.attributes.position;
-      const data = stampImgData.data;
-      for (let i = 0; i < pos.count; i++) {
-        const vx = pos.getX(i);
-        const vz = pos.getZ(i);
-        const nx = vx / (spanX / 2);
-        const nz = vz / (spanZ / 2);
+      // 3. Cartela Tipográfica das Iniciais com Interpolação Bilinear SDF Suavizada
+      const cleanText = (initials || 'A&C').trim().slice(0, 8).toUpperCase();
+      if (cleanText.length > 0) {
+        const textSDF = createStampInitialsSDF(cleanText);
+        const spanX = diam * 0.56;
+        const spanZ = diam * 0.21;
+        const zOffset = diam * 0.16;
 
-        let inside = false;
-        if (formato === 'quadrado') {
-          inside = Math.abs(nx) <= 0.96 && Math.abs(nz) <= 0.96;
-        } else if (formato === 'hexagonal') {
-          const ax = Math.abs(nx), az = Math.abs(nz);
-          inside = (az <= 0.86 && (ax * 0.866 + az * 0.5) <= 0.88);
-        } else {
-          inside = (nx * nx + nz * nz) <= 0.94;
+        // Filete divisório superior da cartela tipográfica
+        const sc = (diam * 0.82) / 100;
+        const barSh = createCapsuleStrokeShape(-24 * sc, -5 * sc, 24 * sc, -5 * sc, 2.2 * sc);
+        if (barSh) {
+          const barGeo = new THREE.ExtrudeGeometry(barSh, {
+            depth: safeProf * 0.78,
+            bevelEnabled: true,
+            bevelThickness: 0.35,
+            bevelSize: 0.3,
+            bevelSegments: 4,
+            curveSegments: 48
+          });
+          barGeo.rotateX(-Math.PI / 2);
+          barGeo.translate(0, headHeight - 0.1, 0);
+          group.add(new THREE.Mesh(barGeo, matRelief));
         }
 
-        if (inside) {
-          const u = Math.min(127, Math.max(0, Math.floor(((nx + 1) * 0.5) * 127)));
-          const v = Math.min(127, Math.max(0, Math.floor(((nz + 1) * 0.5) * 127)));
-          const idx = (v * 128 + u) * 4;
-          const lum = data[idx] / 255;
-          if (lum > 0.2) {
-            pos.setY(i, headHeight + 0.05 + lum * prof);
-          } else {
-            pos.setY(i, headHeight - 0.15);
-          }
-        } else {
-          pos.setY(i, headHeight - 0.35);
+        const segX = 110, segZ = 44;
+        const txtGeo = new THREE.PlaneGeometry(spanX, spanZ, segX, segZ);
+        txtGeo.rotateX(-Math.PI / 2);
+        txtGeo.translate(0, headHeight - 0.08, zOffset);
+        const pos = txtGeo.attributes.position;
+        for (let i = 0; i < pos.count; i++) {
+          const vx = pos.getX(i);
+          const vz = pos.getZ(i) - zOffset;
+          const u = (vx / spanX) + 0.5;
+          const v = (vz / spanZ) + 0.5;
+          const edgeMask = smoothStepOrganic(0.0, 0.12, Math.min(u, 1 - u, v, 1 - v));
+          const lum = sampleBilinearLum(textSDF, u, v);
+          const hFactor = smoothStepOrganic(0.18, 0.78, lum) * edgeMask;
+          pos.setY(i, headHeight - 0.12 + hFactor * (safeProf * 0.95));
         }
+        txtGeo.computeVertexNormals();
+        group.add(new THREE.Mesh(txtGeo, matRelief));
       }
-      relGeo.computeVertexNormals();
-      group.add(new THREE.Mesh(relGeo, matRelief));
 
-      // 3. Cabo Torneado Ergonômico (em Y = -42 .. 0)
+      // 4. Cabo Torneado Ergonômico de Alta Resolução (em Y = -42 .. 0)
       const lathePts = [
         new THREE.Vector2(0, -42),
         new THREE.Vector2(rHead * 0.46, -42),
@@ -7423,7 +7787,7 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
         new THREE.Vector2(rHead * 0.30, -12),
         new THREE.Vector2(rHead * 0.55, 0)
       ];
-      const handleGeo = new THREE.LatheGeometry(lathePts, 40);
+      const handleGeo = new THREE.LatheGeometry(lathePts, 64);
       group.add(new THREE.Mesh(handleGeo, matHandle));
 
       return group;
@@ -7437,30 +7801,29 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
       const preset = document.getElementById('m-preset-select')?.value || 'oliveira';
       const formato = document.getElementById('m-formato')?.value || 'circular';
       const diam = parseFloat(document.getElementById('m-diam')?.value) || 32;
-      const prof = parseFloat(document.getElementById('m-prof')?.value) || 2.0;
+      const profRaw = parseFloat(document.getElementById('m-prof')?.value);
+      const prof = Math.min(4.0, Math.max(1.0, isNaN(profRaw) ? 3.6 : profRaw));
       const initials = document.getElementById('m-iniciais')?.value || 'A&C';
       const viewPos = document.getElementById('m-view-pos')?.value || 'face_up';
 
-      const stampImgData = createStampReliefCanvas(preset, initials, formato);
-
       if (viewPos === 'face_up') {
         // Posição ideal na mesa FDM: Cabo apoiado em Y=0 e Face de Relevo voltada para cima (+Y)
-        const stamp = buildSingleStampAssembly(formato, diam, prof, stampImgData);
+        const stamp = buildSingleStampAssembly(formato, diam, prof, preset, initials);
         stamp.position.set(0, 42, 0);
         activeMeshGroup.add(stamp);
       } else if (viewPos === 'stamp_down') {
         // Posição de carimbar: Face para baixo (Y=0) e cabo ergonômico para cima
-        const stamp = buildSingleStampAssembly(formato, diam, prof, stampImgData);
+        const stamp = buildSingleStampAssembly(formato, diam, prof, preset, initials);
         stamp.rotation.x = Math.PI;
         stamp.position.set(0, 6.5 + prof, 0);
         activeMeshGroup.add(stamp);
       } else {
         // Par Duplo: Mostra o carimbo em pé à esquerda e a face em relevo voltada p/ cima à direita
-        const stampUp = buildSingleStampAssembly(formato, diam, prof, stampImgData);
+        const stampUp = buildSingleStampAssembly(formato, diam, prof, preset, initials);
         stampUp.position.set(diam * 0.85, 42, 0);
         activeMeshGroup.add(stampUp);
 
-        const stampDown = buildSingleStampAssembly(formato, diam, prof, stampImgData);
+        const stampDown = buildSingleStampAssembly(formato, diam, prof, preset, initials);
         stampDown.rotation.x = Math.PI;
         stampDown.position.set(-diam * 0.85, 6.5 + prof, 0);
         activeMeshGroup.add(stampDown);
@@ -8307,9 +8670,11 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
 
     function loadLithoPreset(presetName) {
       const c = document.createElement('canvas');
-      c.width = 120;
-      c.height = 120;
+      c.width = 256;
+      c.height = 256;
       const ctx = c.getContext('2d');
+      ctx.save();
+      ctx.scale(256 / 120, 256 / 120);
 
       // Fundo suave iluminado
       const bgGrad = ctx.createRadialGradient(60, 60, 8, 60, 60, 65);
@@ -8318,24 +8683,25 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
       ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, 120, 120);
 
-      ctx.fillStyle = '#181818';
-      ctx.strokeStyle = '#181818';
-      ctx.lineWidth = 3.5;
+      ctx.fillStyle = '#141414';
+      ctx.strokeStyle = '#141414';
+      ctx.lineWidth = 4.2;
       ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
 
       if (presetName === 'lotus') {
         for (let a = 0; a < Math.PI * 2; a += Math.PI / 6) {
-          ctx.fillStyle = '#2A2A2A';
+          ctx.fillStyle = '#242424';
           ctx.beginPath();
           ctx.ellipse(60 + Math.cos(a) * 22, 60 + Math.sin(a) * 22, 24, 10, a, 0, Math.PI * 2);
           ctx.fill();
           ctx.stroke();
         }
-        ctx.fillStyle = '#111111';
+        ctx.fillStyle = '#0D0D0D';
         ctx.beginPath(); ctx.arc(60, 60, 13, 0, Math.PI * 2); ctx.fill();
       } else if (presetName === 'onda') {
         // Grande Onda de Kanagawa e Monte Fuji
-        ctx.fillStyle = '#555555';
+        ctx.fillStyle = '#4E4E4E';
         ctx.beginPath();
         ctx.moveTo(45, 95); ctx.lineTo(68, 62); ctx.lineTo(92, 95);
         ctx.fill();
@@ -8344,7 +8710,7 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
         ctx.moveTo(62, 70); ctx.lineTo(68, 62); ctx.lineTo(74, 70);
         ctx.fill();
         // Crista da Onda
-        ctx.fillStyle = '#151515';
+        ctx.fillStyle = '#121212';
         ctx.beginPath();
         ctx.arc(46, 54, 34, Math.PI * 0.4, Math.PI * 1.65);
         ctx.lineTo(78, 36);
@@ -8356,7 +8722,7 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
         ctx.fillStyle = '#222222';
         ctx.fillRect(0, 0, 120, 120);
         ctx.strokeStyle = '#F5F5F5';
-        ctx.lineWidth = 4;
+        ctx.lineWidth = 4.2;
         for (let r = 6; r < 42; r += 7) {
           ctx.beginPath();
           ctx.arc(52, 46, r, 0, Math.PI * 1.5);
@@ -8371,7 +8737,7 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
         ctx.fill();
       } else if (presetName === 'mandala') {
         for (let r = 48; r >= 12; r -= 12) {
-          ctx.lineWidth = 2.5;
+          ctx.lineWidth = 3.0;
           ctx.beginPath(); ctx.arc(60, 60, r, 0, Math.PI * 2); ctx.stroke();
           for (let a = 0; a < Math.PI * 2; a += Math.PI / 8) {
             ctx.beginPath();
@@ -8382,16 +8748,16 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
       } else if (presetName === 'bambu') {
         // Caules de bambu e folhas zen
         [28, 54, 86].forEach((bx, idx) => {
-          ctx.lineWidth = 5 - idx * 0.8;
+          ctx.lineWidth = 5.2 - idx * 0.8;
           ctx.beginPath(); ctx.moveTo(bx, 115); ctx.lineTo(bx + (idx - 1) * 6, 10); ctx.stroke();
           for (let y = 25; y < 100; y += 22) {
             ctx.beginPath();
-            ctx.ellipse(bx + 10, y, 12, 4, -0.4, 0, Math.PI * 2);
+            ctx.ellipse(bx + 10, y, 12, 4.2, -0.4, 0, Math.PI * 2);
             ctx.fill();
           }
         });
       } else if (presetName === 'vitral') {
-        ctx.lineWidth = 4;
+        ctx.lineWidth = 4.2;
         ctx.beginPath(); ctx.arc(60, 60, 50, 0, Math.PI * 2); ctx.stroke();
         for (let i = 0; i < 12; i++) {
           const a = (i * Math.PI) / 6;
@@ -8416,12 +8782,12 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
         ctx.moveTo(82, 48); ctx.lineTo(84, 34); ctx.lineTo(75, 44);
         ctx.fill();
       } else if (presetName === 'vaso') {
-        ctx.fillStyle = '#181818';
+        ctx.fillStyle = '#141414';
         ctx.beginPath();
         ctx.arc(60, 68, 32, 0, Math.PI * 2);
         ctx.fill();
         ctx.fillRect(48, 22, 24, 24);
-        ctx.lineWidth = 4;
+        ctx.lineWidth = 4.2;
         ctx.beginPath();
         ctx.arc(32, 56, 12, Math.PI * 0.5, Math.PI * 1.5);
         ctx.stroke();
@@ -8436,21 +8802,23 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
         ctx.beginPath();
         ctx.moveTo(46, 50); ctx.lineTo(24, 22); ctx.lineTo(58, 44);
         ctx.fill();
-        ctx.lineWidth = 3;
+        ctx.lineWidth = 3.4;
         ctx.beginPath(); ctx.moveTo(68, 48); ctx.lineTo(94, 42); ctx.stroke();
-        ctx.fillStyle = '#444444';
+        ctx.fillStyle = '#383838';
         ctx.beginPath(); ctx.arc(98, 42, 12, 0, Math.PI * 2); ctx.fill();
       } else {
         // Paisagem de montanhas e sol
-        ctx.fillStyle = '#555555';
+        ctx.fillStyle = '#505050';
         ctx.beginPath(); ctx.arc(60, 34, 18, 0, Math.PI * 2); ctx.fill();
-        ctx.fillStyle = '#222222';
+        ctx.fillStyle = '#181818';
         ctx.beginPath();
         ctx.moveTo(0, 120); ctx.lineTo(38, 62); ctx.lineTo(72, 86); ctx.lineTo(98, 52); ctx.lineTo(120, 120);
         ctx.fill();
       }
+      ctx.restore();
 
-      lithoImageData = ctx.getImageData(0, 0, 120, 120);
+      const raw = ctx.getImageData(0, 0, 256, 256);
+      lithoImageData = applyGaussianBlurImageData(raw, 2);
       generateLithophane3D();
     }
 
@@ -8462,35 +8830,33 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
 
       clearActiveGroup();
       activeTool = 'utilitarios';
-      document.getElementById('viewport-active-label').textContent = 'Litofania 3D Translúcida (Luminária)';
+      document.getElementById('viewport-active-label').textContent = 'Litofania 3D Translúcida HD (Luminária)';
 
       const shape = document.getElementById('litho-shape')?.value || 'curva';
       const wMm = parseFloat(document.getElementById('litho-w')?.value) || 100;
       const hMm = parseFloat(document.getElementById('litho-h')?.value) || 120;
-      const minThick = parseFloat(document.getElementById('litho-min-thick')?.value) || 0.8;
-      const maxThick = parseFloat(document.getElementById('litho-max-thick')?.value) || 3.2;
+      const minThick = Math.max(0.5, parseFloat(document.getElementById('litho-min-thick')?.value) || 0.8);
+      const maxThickRaw = parseFloat(document.getElementById('litho-max-thick')?.value);
+      const maxThick = Math.min(4.0, Math.max(1.5, isNaN(maxThickRaw) ? 3.8 : maxThickRaw));
 
-      const segsX = 80;
-      const segsY = 80;
+      // Malha HD 150×150 com Interpolação Bilinear e Chanfro de Borda Suave (Zero Serrilhado)
+      const segsX = 150;
+      const segsY = 150;
       const geo = new THREE.PlaneGeometry(wMm, hMm, segsX, segsY);
       const pos = geo.attributes.position;
-      const imgData = lithoImageData.data;
-      const imgW = lithoImageData.width;
-      const imgH = lithoImageData.height;
 
       for (let i = 0; i < pos.count; i++) {
         const u = (pos.getX(i) + wMm / 2) / wMm;
         const v = 1 - (pos.getY(i) + hMm / 2) / hMm;
-        const px = Math.min(imgW - 1, Math.max(0, Math.floor(u * imgW)));
-        const py = Math.min(imgH - 1, Math.max(0, Math.floor(v * imgH)));
-        const idx = (py * imgW + px) * 4;
 
-        const lum = 0.299 * imgData[idx] + 0.587 * imgData[idx + 1] + 0.114 * imgData[idx + 2];
-        // Moldura periférica estrutural de 3mm para estabilidade mecânica
-        const isBorder = (u < 0.04 || u > 0.96 || v < 0.04 || v > 0.96);
-        const depth = isBorder
-          ? (maxThick + 0.8)
-          : (minThick + (1.0 - lum / 255) * (maxThick - minThick));
+        const lumNorm = sampleBilinearLum(lithoImageData, u, v);
+        const reliefDepth = minThick + (1.0 - lumNorm) * (maxThick - minThick);
+
+        // Moldura periférica com rampa cosseno orgânica (zero degrau quadrado)
+        const distFromEdge = Math.min(u, 1.0 - u, v, 1.0 - v);
+        const frameFactor = 1.0 - smoothStepOrganic(0.025, 0.055, distFromEdge);
+        const frameThick = Math.min(4.0, maxThick + 0.2);
+        const depth = reliefDepth * (1.0 - frameFactor) + frameThick * frameFactor;
 
         if (shape === 'plana') {
           pos.setZ(i, depth);
@@ -8522,7 +8888,7 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
 
       const litMat = new THREE.MeshStandardMaterial({
         color: 0xFFFDF7,
-        roughness: 0.28,
+        roughness: 0.25,
         metalness: 0.02,
         side: THREE.DoubleSide,
         wireframe: isWireframe
@@ -8969,7 +9335,19 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
       const qrGroup = new THREE.Group();
       const modulesCount = 21;
       const modSize = (spanMm * 0.78) / modulesCount;
-      const modGeo = new THREE.BoxGeometry(modSize * 0.92, reliefThick, modSize * 0.92);
+      const safeRelief = Math.min(4.0, Math.max(0.8, reliefThick));
+
+      // Módulo QR com cantos boleados orgânicos e topo chanfrado (zero aresta serrilhada)
+      const modShape = createStampContourPath('quadrado', modSize * 0.48, false);
+      const modGeo = new THREE.ExtrudeGeometry(modShape, {
+        depth: Math.max(0.4, safeRelief - 0.35),
+        bevelEnabled: true,
+        bevelThickness: Math.min(0.35, safeRelief * 0.18),
+        bevelSize: Math.min(0.22, modSize * 0.08),
+        bevelSegments: 3,
+        curveSegments: 24
+      });
+      modGeo.rotateX(-Math.PI / 2);
 
       for (let r = 0; r < modulesCount; r++) {
         for (let c = 0; c < modulesCount; c++) {
@@ -8986,7 +9364,7 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
             const x = (c - modulesCount / 2 + 0.5) * modSize;
             const z = (r - modulesCount / 2 + 0.5) * modSize;
             const m = new THREE.Mesh(modGeo, modMat);
-            m.position.set(x, yBase + reliefThick / 2, z);
+            m.position.set(x, yBase, z);
             qrGroup.add(m);
           }
         }
@@ -9004,11 +9382,12 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
       const plateType = document.getElementById('qr-plate-type')?.value || 'display';
       const sizeMm = Math.max(30, parseFloat(document.getElementById('qr-size-mm')?.value) || 70);
       const baseThick = Math.max(1.5, parseFloat(document.getElementById('qr-base-thick')?.value) || 3.0);
-      const reliefThick = Math.max(0.8, parseFloat(document.getElementById('qr-relief-thick')?.value) || 1.8);
+      const reliefRaw = parseFloat(document.getElementById('qr-relief-thick')?.value);
+      const reliefThick = Math.min(4.0, Math.max(0.8, isNaN(reliefRaw) ? 3.4 : reliefRaw));
 
-      const baseMat = new THREE.MeshStandardMaterial({ color: 0xFAF6F0, roughness: 0.42, wireframe: isWireframe });
-      const darkMat = new THREE.MeshStandardMaterial({ color: 0x1E1A18, roughness: 0.35, wireframe: isWireframe });
-      const terraMat = new THREE.MeshStandardMaterial({ color: 0xB84A39, roughness: 0.38, wireframe: isWireframe });
+      const baseMat = new THREE.MeshStandardMaterial({ color: 0xFAF6F0, roughness: 0.38, wireframe: isWireframe });
+      const darkMat = new THREE.MeshStandardMaterial({ color: 0x1E1A18, roughness: 0.32, wireframe: isWireframe });
+      const terraMat = new THREE.MeshStandardMaterial({ color: 0xB84A39, roughness: 0.35, wireframe: isWireframe });
 
       const qrMat = (plateType === 'carimbo') ? terraMat : darkMat;
       const qrModules = buildQrModulesGroup(qrText, sizeMm, baseThick, reliefThick, qrMat);
@@ -9196,7 +9575,7 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
       reader.readAsText(file.slice(0, 1024 * 512)); // lê primeiros 512KB
     }
 
-    // Event listener para uploads de litofania
+    // Event listener para uploads de litofania HD com Suavização Gaussiana SDF
     document.addEventListener('DOMContentLoaded', () => {
       const lithoInput = document.getElementById('litho-file-input');
       if (lithoInput) {
@@ -9208,11 +9587,12 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
             const img = new Image();
             img.onload = () => {
               const c = document.createElement('canvas');
-              c.width = 100;
-              c.height = 100;
+              c.width = 256;
+              c.height = 256;
               const ctx = c.getContext('2d');
-              ctx.drawImage(img, 0, 0, 100, 100);
-              lithoImageData = ctx.getImageData(0, 0, 100, 100);
+              ctx.drawImage(img, 0, 0, 256, 256);
+              const raw = ctx.getImageData(0, 0, 256, 256);
+              lithoImageData = applyGaussianBlurImageData(raw, 2);
               generateLithophane3D();
             };
             img.src = ev.target.result;
