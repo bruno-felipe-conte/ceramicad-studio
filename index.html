@@ -1610,7 +1610,7 @@
                     data-tip-body="Determina o comprimento do ciclo antes do padrão se repetir (Perímetro = π × Diâmetro)."
                     data-tip-advice="Diâmetro de 40 mm equivale a uma volta completa de ~125 mm de comprimento na argila.">?</span>
                 </label>
-                <input type="number" id="r-diam" value="40" oninput="rebuildRoller3D(); updateRollerPrompt()" class="cad-input font-semibold" />
+                <input type="number" id="r-diam" value="40" min="16" max="160" step="2" oninput="rebuildRoller3D(); updateRollerPrompt()" onchange="rebuildRoller3D(); updateRollerPrompt()" class="cad-input font-semibold" />
               </div>
               <div>
                 <label class="cad-label" for="r-altura">
@@ -1621,7 +1621,7 @@
                     data-tip-body="Comprimento útil do rolo na direção do eixo central."
                     data-tip-advice="100 mm a 140 mm é perfeito para passar em mantas e tiras de pratos e travessas.">?</span>
                 </label>
-                <input type="number" id="r-altura" value="100" oninput="rebuildRoller3D(); updateRollerPrompt()" class="cad-input font-semibold" />
+                <input type="number" id="r-altura" value="100" min="30" max="300" step="5" oninput="rebuildRoller3D(); updateRollerPrompt()" onchange="rebuildRoller3D(); updateRollerPrompt()" class="cad-input font-semibold" />
               </div>
               <div>
                 <label class="cad-label" for="r-relevo">
@@ -1632,7 +1632,7 @@
                     data-tip-body="Altura em milímetros dos frisos orgânicos que serão pressionados na argila."
                     data-tip-advice="3.0 mm a 4.0 mm imprime uma textura profunda, orgânica e definida que segura esmalte sem prender a argila.">?</span>
                 </label>
-                <input type="number" id="r-relevo" value="3.5" min="0.8" max="4.0" step="0.2" oninput="rebuildRoller3D(); updateRollerPrompt()" class="cad-input font-semibold" />
+                <input type="number" id="r-relevo" value="3.5" min="0.5" max="8.0" step="0.2" oninput="rebuildRoller3D(); updateRollerPrompt()" onchange="rebuildRoller3D(); updateRollerPrompt()" class="cad-input font-semibold" />
               </div>
             </div>
 
@@ -1645,7 +1645,7 @@
               </div>
               <div class="pt-4">
                 <label class="flex items-center gap-1.5 cursor-pointer bg-stone-50 dark:bg-terracotta-900 p-2 rounded-lg border border-stone-200 dark:border-cad-border">
-                  <input type="checkbox" id="r-axle-hole" checked onchange="rebuildRoller3D()" class="accent-terracotta-500 rounded" />
+                  <input type="checkbox" id="r-axle-hole" checked oninput="rebuildRoller3D()" onchange="rebuildRoller3D()" class="accent-terracotta-500 rounded" />
                   <span class="text-[11px] font-medium">Furo Eixo Ø8mm</span>
                 </label>
               </div>
@@ -1655,13 +1655,13 @@
               <label class="cad-label" for="r-tema">
                 <span>Tema para prompt seamless</span>
               </label>
-              <input type="text" id="r-tema" value="Ondas geométricas marajoaras e folhas tropicais" oninput="updateRollerPrompt()" class="cad-input font-medium" />
+              <input type="text" id="r-tema" value="Ondas geométricas marajoaras e folhas tropicais" oninput="onRollerThemeInput(this.value)" onchange="onRollerThemeInput(this.value)" class="cad-input font-medium" />
             </div>
 
             <div class="space-y-1">
               <div class="flex justify-between items-center">
                 <span class="text-xs font-semibold text-stone-700 dark:text-stone-300">Prompt Textura Contínua 360°</span>
-                <button onclick="copyText('roller-prompt-text')" class="bg-stone-800 text-white text-[10px] font-medium px-2 py-0.5 rounded transition hover:bg-stone-900">Copiar</button>
+                <button id="btn-copy-roller-prompt" onclick="copyText('roller-prompt-text', this)" class="bg-stone-800 text-white text-[10px] font-medium px-2 py-0.5 rounded transition hover:bg-stone-900">Copiar</button>
               </div>
               <textarea id="roller-prompt-text" readonly rows="2" class="w-full p-2 text-[11px] font-mono-cad bg-stone-100 dark:bg-stone-900 text-stone-800 dark:text-emerald-300 rounded-lg border border-stone-200 dark:border-cad-border resize-none select-all"></textarea>
             </div>
@@ -7173,8 +7173,17 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
       seixos: 'Seixos rolados de rio (Pebble Stone) em mosaico celular natural'
     };
 
+    function parseCadNum(id, fallback) {
+      const el = document.getElementById(id);
+      if (!el) return fallback;
+      const v = parseFloat(String(el.value).replace(',', '.'));
+      return isNaN(v) ? fallback : v;
+    }
+
     function loadRollerPreset(val) {
       rollerHeightMapData = null;
+      const fileInput = document.getElementById('roller-img-input');
+      if (fileInput) fileInput.value = '';
       const temaInput = document.getElementById('r-tema');
       if (temaInput && ROLLER_PRESET_THEMES[val]) {
         temaInput.value = ROLLER_PRESET_THEMES[val];
@@ -7183,14 +7192,35 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
       rebuildRoller3D();
     }
 
+    function onRollerThemeInput(val) {
+      const txt = (val || '').toLowerCase();
+      const sel = document.getElementById('r-preset-select');
+      if (sel) {
+        if (txt.includes('seigaiha') || txt.includes('japones') || txt.includes('escama')) sel.value = 'seigaiha';
+        else if (txt.includes('samambaia') || txt.includes('folha') || txt.includes('botânic')) sel.value = 'folhagem';
+        else if (txt.includes('espinha') || txt.includes('herringbone')) sel.value = 'espinha';
+        else if (txt.includes('favo') || txt.includes('colmeia') || txt.includes('mel') || txt.includes('hex')) sel.value = 'favo';
+        else if (txt.includes('renda') || txt.includes('vitorian') || txt.includes('floral')) sel.value = 'renda';
+        else if (txt.includes('cestaria') || txt.includes('trama') || txt.includes('trançad')) sel.value = 'cestaria';
+        else if (txt.includes('grego') || txt.includes('meandro') || txt.includes('labirinto')) sel.value = 'meandro';
+        else if (txt.includes('constela') || txt.includes('estrela') || txt.includes('celest')) sel.value = 'constelacao';
+        else if (txt.includes('casca') || txt.includes('madeira') || txt.includes('árvore') || txt.includes('arvore')) sel.value = 'casca';
+        else if (txt.includes('azulejo') || txt.includes('portugu') || txt.includes('mourisc')) sel.value = 'azulejo';
+        else if (txt.includes('seixo') || txt.includes('pedra') || txt.includes('rio')) sel.value = 'seixos';
+        else if (txt.includes('marajoara')) sel.value = 'marajoara';
+      }
+      updateRollerPrompt();
+      rebuildRoller3D();
+    }
+
     function updateRollerPrompt() {
       const tema = document.getElementById('r-tema')?.value || 'Ondas geométricas marajoaras';
-      const diam = document.getElementById('r-diam')?.value || 40;
-      const alt = document.getElementById('r-altura')?.value || 100;
-      const rel = Math.min(4.0, Math.max(0.8, parseFloat(document.getElementById('r-relevo')?.value) || 3.5));
+      const diam = parseCadNum('r-diam', 40);
+      const alt = parseCadNum('r-altura', 100);
+      const rel = Math.min(8.0, Math.max(0.5, parseCadNum('r-relevo', 3.5)));
       const el = document.getElementById('roller-prompt-text');
       if (el) {
-        el.value = `Crie um mapa de altura (Heightmap SDF orgânico contínuo 360°) sobre: "${tema}". Cristas orgânicas suaves (#000000) = relevo profundo de ${rel.toFixed(1)} mm (máx 4.0 mm); Fundo (#FFFFFF) = base cilíndrica (Ø ${diam} mm × ${alt} mm). Bordas chanfradas suaves sem serrilhado.`;
+        el.value = `Crie um mapa de altura (Heightmap SDF orgânico contínuo 360°) sobre: "${tema}". Cristas orgânicas suaves (#000000) = relevo profundo de ${rel.toFixed(1)} mm; Fundo (#FFFFFF) = base cilíndrica (Ø ${diam} mm × ${alt} mm). Bordas chanfradas suaves sem serrilhado.`;
       }
     }
 
@@ -7203,8 +7233,25 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
         c.width = 256;
         c.height = 256;
         const ctx = c.getContext('2d');
+        // Fundo branco puro para garantir que PNGs transparentes funcionem perfeitamente
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0, 0, 256, 256);
         ctx.drawImage(img, 0, 0, 256, 256);
         const raw = ctx.getImageData(0, 0, 256, 256);
+        const d = raw.data;
+        let minL = 255, maxL = 0;
+        for (let i = 0; i < d.length; i += 4) {
+          const lum = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+          if (lum < minL) minL = lum;
+          if (lum > maxL) maxL = lum;
+        }
+        const span = Math.max(12, maxL - minL);
+        for (let i = 0; i < d.length; i += 4) {
+          const lum = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+          const norm = Math.min(255, Math.max(0, Math.round(((lum - minL) / span) * 255)));
+          d[i] = d[i + 1] = d[i + 2] = norm;
+          d[i + 3] = 255;
+        }
         rollerHeightMapData = applyGaussianBlurImageData(raw, 2);
         rebuildRoller3D();
       };
@@ -7220,23 +7267,28 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
       return ((x % 1) + 1) % 1;
     }
 
-    // Avalia o padrão procedural em coordenadas de repetição física (u, v) onde v cresce proporcionalmente
-    // ao comprimento em milímetros (vy / 100), expandindo a malha de textura sem jamais esticar/distorcer!
-    function evalRollerProceduralPattern(preset, u, v, vyMm = 50, alturaMm = 100) {
+    // Avalia o padrão procedural em coordenadas de repetição física (u, v) onde:
+    // - as repetições circunferenciais escalam com o diâmetro (kU = diamMm / 40, arredondado a inteiros p/ emenda 360° perfeita)
+    // - as repetições longitudinais (v = vyMm / 100) escalam com o comprimento em mm, expandindo sem jamais distorcer!
+    function evalRollerProceduralPattern(preset, u, v, vyMm = 50, alturaMm = 100, diamMm = 40, themePhase = 0) {
       const tau = Math.PI * 2;
+      const kU = Math.max(0.4, diamMm / 40.0);
+      const repU = (base) => Math.max(2, Math.round(base * kU));
+
       if (preset === 'marajoara') {
-        const uPhase = fractPos(u * 6);
+        const nU = repU(6);
+        const uPhase = fractPos(u * nU + themePhase * 0.1);
         const triWave = 1.0 - Math.abs(uPhase - 0.5) * 2.0;
         const zig = smoothStepOrganic(0.0, 1.0, triWave);
         const wave = fractPos(v * 5 + zig * 0.45);
         const ridge1 = ridgeBell(wave - 0.28, 0.085, 0.045);
         const ridge2 = ridgeBell(wave - 0.72, 0.085, 0.045);
         const fretV = fractPos(v * 2.5) - 0.5;
-        const fretMask = ridgeBell(fretV, 0.14, 0.05) * smoothStepOrganic(-0.2, 0.45, Math.cos(u * tau * 12));
-        const spiralDots = ridgeBell(Math.hypot(fractPos(u * 12) - 0.5, fractPos(v * 5) - 0.5), 0.14, 0.06) * 0.85;
+        const fretMask = ridgeBell(fretV, 0.14, 0.05) * smoothStepOrganic(-0.2, 0.45, Math.cos(u * tau * (nU * 2)));
+        const spiralDots = ridgeBell(Math.hypot(fractPos(u * (nU * 2)) - 0.5, fractPos(v * 5) - 0.5), 0.14, 0.06) * 0.85;
         return Math.min(1.0, Math.max(ridge1, ridge2, fretMask * 0.92, spiralDots));
       } else if (preset === 'seigaiha') {
-        const cols = 6, rows = 8;
+        const cols = repU(6), rows = 8;
         let best = 0;
         for (let dr = -1; dr <= 1; dr++) {
           const rIdx = Math.floor(v * rows) + dr;
@@ -7252,11 +7304,13 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
         }
         return best;
       } else if (preset === 'folhagem') {
-        const vineWave = Math.sin(u * tau * 3) * 0.14;
+        const nStems = repU(3);
+        const nLeaves = repU(9);
+        const vineWave = Math.sin(u * tau * nStems) * 0.14;
         const vineDist = Math.abs(fractPos(v * 3 + vineWave) - 0.5);
         const stem = ridgeBell(vineDist, 0.045, 0.03);
-        const leafU = fractPos(u * 9) - 0.5;
-        const leafV = fractPos(v * 6 + (Math.floor(u * 9) % 2) * 0.35) - 0.5;
+        const leafU = fractPos(u * nLeaves) - 0.5;
+        const leafV = fractPos(v * 6 + (Math.floor(u * nLeaves) % 2) * 0.35) - 0.5;
         const rotU = leafU * 0.8 + leafV * 0.6;
         const rotV = -leafU * 0.6 + leafV * 0.8;
         const leafDist = Math.hypot(rotU * 0.9, rotV * 1.65);
@@ -7264,14 +7318,15 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
         const vein = ridgeBell(rotV, 0.025, 0.02) * ridgeBell(rotU, 0.22, 0.06);
         return Math.min(1.0, Math.max(stem * 0.9, leafBody * 0.82 + vein * 0.28));
       } else if (preset === 'espinha') {
-        const col = fractPos(u * 12);
+        const nCols = repU(12);
+        const col = fractPos(u * nCols);
         const zig = 1.0 - Math.abs(col - 0.5) * 2.0;
         const zigSmooth = 0.5 - 0.5 * Math.cos(zig * Math.PI);
         const phase = fractPos(v * 10 + zigSmooth * 0.65);
         const rib = 0.5 + 0.5 * Math.cos((phase - 0.5) * tau);
         return Math.pow(rib, 1.45) * 0.96;
       } else if (preset === 'favo') {
-        const sx = u * 12;
+        const sx = u * repU(12);
         const sy = v * 10;
         const row = Math.floor(sy);
         const hx = fractPos(sx + (row % 2) * 0.5) - 0.5;
@@ -7281,22 +7336,24 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
         const centerDome = ridgeBell(hexDist, 0.14, 0.07) * 0.55;
         return Math.max(wall, centerDome);
       } else if (preset === 'renda') {
-        const d1 = Math.sin(u * tau * 8) * Math.sin(v * tau * 4);
-        const d2 = Math.cos(u * tau * 16) * Math.cos(v * tau * 8);
+        const nU = repU(8);
+        const d1 = Math.sin(u * tau * nU) * Math.sin(v * tau * 4);
+        const d2 = Math.cos(u * tau * (nU * 2)) * Math.cos(v * tau * 8);
         const medallion = smoothStepOrganic(0.05, 0.55, d1 + d2 * 0.55);
-        const scallopWave = 2.2 * Math.sin(u * tau * 16);
+        const scallopWave = 2.2 * Math.sin(u * tau * (nU * 2));
         const scallopTop = ridgeBell((vyMm - 9.0) - scallopWave, 2.5, 1.6);
         const scallopBot = ridgeBell((alturaMm - 9.0 - vyMm) - scallopWave, 2.5, 1.6);
-        const periodicBand = ridgeBell((fractPos(v * 2) - 0.5) - 0.025 * Math.sin(u * tau * 16), 0.045, 0.03);
+        const periodicBand = ridgeBell((fractPos(v * 2) - 0.5) - 0.025 * Math.sin(u * tau * (nU * 2)), 0.045, 0.03);
         return Math.min(1.0, Math.max(medallion * 0.94, scallopTop, scallopBot, periodicBand * 0.88));
       } else if (preset === 'cestaria') {
-        const wu = Math.sin(u * tau * 12);
+        const nU = repU(12);
+        const wu = Math.sin(u * tau * nU);
         const wv = Math.sin(v * tau * 9);
-        const strandU = Math.pow(0.5 + 0.5 * Math.cos(u * tau * 12), 1.3) * (0.65 + 0.35 * wv);
+        const strandU = Math.pow(0.5 + 0.5 * Math.cos(u * tau * nU), 1.3) * (0.65 + 0.35 * wv);
         const strandV = Math.pow(0.5 + 0.5 * Math.cos(v * tau * 9), 1.3) * (0.65 - 0.35 * wu);
         return Math.min(1.0, Math.max(strandU, strandV) * 0.95);
       } else if (preset === 'meandro') {
-        const gx = fractPos(u * 8) - 0.5;
+        const gx = fractPos(u * repU(8)) - 0.5;
         const gy = fractPos(v * 5) - 0.5;
         const rMax = Math.max(Math.abs(gx), Math.abs(gy));
         const outerRing = ridgeBell(rMax - 0.36, 0.05, 0.028);
@@ -7304,7 +7361,7 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
         const bridge = ridgeBell(gy, 0.045, 0.025) * smoothStepOrganic(0.12, 0.38, gx);
         return Math.min(1.0, Math.max(outerRing, innerSpiral, bridge));
       } else if (preset === 'constelacao') {
-        const cx = fractPos(u * 6) - 0.5;
+        const cx = fractPos(u * repU(6)) - 0.5;
         const cy = fractPos(v * 4) - 0.5;
         const r = Math.hypot(cx, cy);
         const ang = Math.atan2(cy, cx);
@@ -7313,12 +7370,13 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
         const orbit = ridgeBell(r - 0.38, 0.022, 0.018) * 0.7;
         return Math.min(1.0, Math.max(star, orbit));
       } else if (preset === 'casca') {
-        const wave1 = 0.5 + 0.5 * Math.sin(u * tau * 16 + Math.sin(v * tau * 3) * 2.1);
-        const wave2 = 0.5 + 0.5 * Math.cos(u * tau * 8 - v * tau * 4 + Math.cos(u * tau * 4));
+        const nU = repU(8);
+        const wave1 = 0.5 + 0.5 * Math.sin(u * tau * (nU * 2) + Math.sin(v * tau * 3) * 2.1);
+        const wave2 = 0.5 + 0.5 * Math.cos(u * tau * nU - v * tau * 4 + Math.cos(u * tau * Math.max(2, Math.round(nU * 0.5))));
         const bark = Math.pow(wave1 * 0.65 + wave2 * 0.35, 1.4);
         return smoothStepOrganic(0.18, 0.85, bark) * 0.96;
       } else if (preset === 'azulejo') {
-        const ax = Math.abs(fractPos(u * 8) - 0.5) * 2;
+        const ax = Math.abs(fractPos(u * repU(8)) - 0.5) * 2;
         const ay = Math.abs(fractPos(v * 6) - 0.5) * 2;
         const diamond = ridgeBell((ax + ay) - 0.70, 0.08, 0.045);
         const crossDiag = ridgeBell(ax - ay, 0.075, 0.045) * (1.0 - smoothStepOrganic(0.65, 0.92, Math.max(ax, ay)));
@@ -7327,7 +7385,7 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
       } else {
         // seixos (Pebble Stone orgânico abobadado)
         let bestPebble = 0;
-        const cols = 10, rows = 8;
+        const cols = repU(10), rows = 8;
         for (let dx = -1; dx <= 1; dx++) {
           for (let dy = -1; dy <= 1; dy++) {
             const cIdx = Math.floor(u * cols) + dx;
@@ -7350,28 +7408,40 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
 
     function rebuildRoller3D() {
       if (!scene) return;
-      if (activeTool !== 'utilitarios' || subToolUtil !== 'rolos' || subToolRolos !== 'rolo') return;
+      activeTool = 'utilitarios';
+      subToolUtil = 'rolos';
+      subToolRolos = 'rolo';
       clearActiveGroup();
 
       const preset = document.getElementById('r-preset-select')?.value || 'marajoara';
-      const diam = parseFloat(document.getElementById('r-diam')?.value) || 40;
-      const altura = parseFloat(document.getElementById('r-altura')?.value) || 100;
-      const relevoRaw = parseFloat(document.getElementById('r-relevo')?.value);
-      const relevo = Math.min(4.0, Math.max(0.8, isNaN(relevoRaw) ? 3.5 : relevoRaw));
+      const diam = Math.max(14, parseCadNum('r-diam', 40));
+      const altura = Math.max(20, parseCadNum('r-altura', 100));
+      const relevo = Math.min(8.0, Math.max(0.5, parseCadNum('r-relevo', 3.5)));
       const hasAxleHole = document.getElementById('r-axle-hole')?.checked ?? true;
+      const temaStr = document.getElementById('r-tema')?.value || '';
       const raioBase = diam / 2;
+      const boreR = Math.min(raioBase * 0.48, 4.2); // Furo central Ø8.4mm (folga p/ eixo Ø8mm)
+
+      const lbl = document.getElementById('viewport-active-label');
+      if (lbl) lbl.textContent = `Rolo 360° (Ø${diam}×${altura}mm • Relevo ${relevo.toFixed(1)}mm)`;
+
+      // Hash leve do campo Tema para que digitar variações também module sutilmente a fase da textura
+      let themeHash = 0;
+      const defTheme = ROLLER_PRESET_THEMES[preset] || '';
+      if (temaStr && temaStr !== defTheme) {
+        for (let k = 0; k < temaStr.length; k++) {
+          themeHash = (themeHash * 31 + temaStr.charCodeAt(k)) % 1000;
+        }
+      }
+      const themePhase = (themeHash / 1000) * Math.PI * 2;
 
       // Densidade de malha adaptativa: mantém a nitidez por milímetro constante mesmo em rolos longos (ex: 200mm+)
       const radialSegs = Math.min(320, Math.max(200, Math.round((diam / 40) * 220)));
       const heightSegs = Math.min(420, Math.max(120, Math.round(altura * 1.6)));
-
-      // Escala de repetição física (Tiling em mm):
-      // - uScale usa múltiplo inteiro para garantir emenda 360° 100% invisível ao redor do cilindro
-      // - vTiled usa vy / 100.0 (escala física em mm) para que ao aumentar o comprimento (altura),
-      //   a textura se expanda adicionando novas repetições sem jamais esticar ou achatar o desenho!
       const uScale = Math.max(1, Math.round(diam / 40));
 
-      const geo = new THREE.CylinderGeometry(raioBase, raioBase, altura, radialSegs, heightSegs, false);
+      // Parede cilíndrica externa aberta nas pontas (openEnded = true) para permitir furo passante real!
+      const geo = new THREE.CylinderGeometry(raioBase, raioBase, altura, radialSegs, heightSegs, true);
       geo.translate(0, altura / 2, 0);
       const pos = geo.attributes.position;
 
@@ -7381,14 +7451,14 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
         const vz = pos.getZ(i);
         const r = Math.sqrt(vx * vx + vz * vz);
 
-        if (r > raioBase * 0.85 && vy > 0.8 && vy < altura - 0.8) {
+        if (r > 0.001 && vy > 0.6 && vy < altura - 0.6) {
           const angle = Math.atan2(vz, vx) + Math.PI;
           const u = angle / (2 * Math.PI);
           const uTiled = fractPos(u * uScale);
           const vTiled = vy / 100.0;
 
           // Chanfro orgânico cosseno nas extremidades para não marcar linhas na placa de argila
-          const distEdge = Math.min(vy - 0.8, altura - 0.8 - vy);
+          const distEdge = Math.min(vy - 0.6, altura - 0.6 - vy);
           const edgeFade = smoothStepOrganic(0.0, 3.8, distEdge);
 
           let darkness = 0;
@@ -7396,7 +7466,7 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
             darkness = 1.0 - sampleBilinearLum(rollerHeightMapData, uTiled, fractPos(vTiled));
             darkness = smoothStepOrganic(0.12, 0.88, darkness);
           } else {
-            darkness = evalRollerProceduralPattern(preset, uTiled, vTiled, vy, altura);
+            darkness = evalRollerProceduralPattern(preset, u, vTiled, vy, altura, diam, themePhase);
           }
 
           const newR = raioBase + darkness * relevo * edgeFade;
@@ -7406,25 +7476,79 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
       }
       geo.computeVertexNormals();
 
-      const mat = new THREE.MeshStandardMaterial({ color: 0xD05840, roughness: 0.34, metalness: 0.04, wireframe: isWireframe });
+      const mat = new THREE.MeshStandardMaterial({
+        color: 0xD05840,
+        roughness: 0.34,
+        metalness: 0.04,
+        side: THREE.DoubleSide,
+        wireframe: isWireframe
+      });
+      const collarMat = new THREE.MeshStandardMaterial({
+        color: 0x8F2D1E,
+        roughness: 0.38,
+        metalness: 0.06,
+        side: THREE.DoubleSide,
+        wireframe: isWireframe
+      });
+      const innerTunnelMat = new THREE.MeshStandardMaterial({
+        color: 0x2B1D19,
+        roughness: 0.55,
+        side: THREE.DoubleSide,
+        wireframe: isWireframe
+      });
+
       activeMeshGroup.add(new THREE.Mesh(geo, mat));
 
-      // Furo central passante Ø8mm para eixo rotativo e buchas de topo
       if (hasAxleHole) {
-        const holeMat = new THREE.MeshStandardMaterial({ color: 0x1E1A18, roughness: 0.7 });
-        const holeGeo = new THREE.CylinderGeometry(4.2, 4.2, altura + 0.6, 64);
-        holeGeo.translate(0, altura / 2, 0);
-        activeMeshGroup.add(new THREE.Mesh(holeGeo, holeMat));
+        // 1. Túnel Cilíndrico Oco Real Passante (Ø 8.4 mm de ponta a ponta)
+        const tunnelGeo = new THREE.CylinderGeometry(boreR, boreR, altura, 64, 1, true);
+        tunnelGeo.translate(0, altura / 2, 0);
+        activeMeshGroup.add(new THREE.Mesh(tunnelGeo, innerTunnelMat));
 
-        const collarMat = new THREE.MeshStandardMaterial({ color: 0x9E3524, roughness: 0.38, wireframe: isWireframe });
-        const collarTop = new THREE.RingGeometry(4.2, Math.min(raioBase * 0.7, 9.5), 64);
-        collarTop.rotateX(-Math.PI / 2);
-        collarTop.translate(0, altura + 0.15, 0);
-        activeMeshGroup.add(new THREE.Mesh(collarTop, collarMat));
+        // 2. Tampas Anelares Superior e Inferior (fechando a parede entre o furo e a borda externa)
+        const capTop = new THREE.RingGeometry(boreR, raioBase, radialSegs);
+        capTop.rotateX(-Math.PI / 2);
+        capTop.translate(0, altura, 0);
+        activeMeshGroup.add(new THREE.Mesh(capTop, mat));
+
+        const capBot = new THREE.RingGeometry(boreR, raioBase, radialSegs);
+        capBot.rotateX(Math.PI / 2);
+        activeMeshGroup.add(new THREE.Mesh(capBot, mat));
+
+        // 3. Buchas/Colarinhos Mecânicos de Rolamento no Topo e na Base
+        const collarOuterR = Math.min(raioBase * 0.72, boreR + 5.2);
+        const collarShape = createAnnularRingShape(0, 0, collarOuterR, boreR, 64);
+        const collarGeoTop = new THREE.ExtrudeGeometry(collarShape, {
+          depth: 1.6,
+          bevelEnabled: true,
+          bevelThickness: 0.4,
+          bevelSize: 0.4,
+          bevelSegments: 3,
+          curveSegments: 64
+        });
+        collarGeoTop.rotateX(-Math.PI / 2);
+        collarGeoTop.translate(0, altura, 0);
+        activeMeshGroup.add(new THREE.Mesh(collarGeoTop, collarMat));
+      } else {
+        // Sem Furo de Eixo: Tampas Maciças + Pinos/Manoplas Laterais Integradas para Rolamento Manual!
+        const capTop = new THREE.CircleGeometry(raioBase, radialSegs);
+        capTop.rotateX(-Math.PI / 2);
+        capTop.translate(0, altura, 0);
+        activeMeshGroup.add(new THREE.Mesh(capTop, mat));
+
+        const capBot = new THREE.CircleGeometry(raioBase, radialSegs);
+        capBot.rotateX(Math.PI / 2);
+        activeMeshGroup.add(new THREE.Mesh(capBot, mat));
+
+        // Manopla/Pega superior maciça torneada para segurar o rolo sem eixo
+        const gripR = Math.min(raioBase * 0.45, 9.0);
+        const gripGeo = new THREE.CylinderGeometry(gripR * 0.85, gripR, 8.0, 48);
+        gripGeo.translate(0, altura + 4.0, 0);
+        activeMeshGroup.add(new THREE.Mesh(gripGeo, collarMat));
       }
 
       updateViewportBoundingBox();
-      const estGrams = Math.round((diam / 40) ** 2 * (altura / 100) * 48);
+      const estGrams = Math.round((diam / 40) ** 2 * (altura / 100) * (hasAxleHole ? 46 : 54));
       const barG = document.getElementById('bar-pla-g');
       if (barG) barG.textContent = `~${estGrams} g`;
       const pFilG = document.getElementById('p-filament-g');
@@ -7814,16 +7938,20 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
 
     function rebuildStamp3D() {
       if (!scene) return;
-      if (activeTool !== 'utilitarios' || subToolUtil !== 'rolos' || subToolRolos !== 'carimbo') return;
+      activeTool = 'utilitarios';
+      subToolUtil = 'rolos';
+      subToolRolos = 'carimbo';
       clearActiveGroup();
 
       const preset = document.getElementById('m-preset-select')?.value || 'oliveira';
       const formato = document.getElementById('m-formato')?.value || 'circular';
-      const diam = parseFloat(document.getElementById('m-diam')?.value) || 32;
-      const profRaw = parseFloat(document.getElementById('m-prof')?.value);
-      const prof = Math.min(4.0, Math.max(1.0, isNaN(profRaw) ? 3.6 : profRaw));
+      const diam = Math.max(14, parseCadNum('m-diam', 32));
+      const prof = Math.min(8.0, Math.max(0.8, parseCadNum('m-prof', 3.6)));
       const initials = document.getElementById('m-iniciais')?.value || 'A&C';
       const viewPos = document.getElementById('m-view-pos')?.value || 'face_up';
+
+      const lbl = document.getElementById('viewport-active-label');
+      if (lbl) lbl.textContent = `Carimbo de Ateliê (${formato.toUpperCase()} Ø${diam}mm • Relevo ${prof.toFixed(1)}mm)`;
 
       if (viewPos === 'face_up') {
         // Posição ideal na mesa FDM: Cabo apoiado em Y=0 e Face de Relevo voltada para cima (+Y)
@@ -8258,12 +8386,24 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
       downloadBlob(new Blob([stlData], { type: 'application/octet-stream' }), filename || 'ceramicad_modelo.stl');
     }
 
-    function copyText(elementId) {
+    function copyText(elementId, btnEl) {
       const el = document.getElementById(elementId);
       if (!el) return;
       el.select();
-      navigator.clipboard.writeText(el.value);
-      alert('Copiado para a área de transferência!');
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(el.value);
+        } else {
+          document.execCommand('copy');
+        }
+      } catch (e) {
+        try { document.execCommand('copy'); } catch (_) {}
+      }
+      if (btnEl) {
+        const prev = btnEl.textContent;
+        btnEl.textContent = '✓ Copiado!';
+        setTimeout(() => { btnEl.textContent = prev; }, 1600);
+      }
     }
 
     function downloadBlob(blob, filename) {
