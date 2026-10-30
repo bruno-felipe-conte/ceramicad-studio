@@ -1010,7 +1010,7 @@
                     data-tip-body="Tamanho externo horizontal da peça. O sistema calcula a expansão e avisa se o fio de corte for alargado perigosamente."
                     data-tip-advice="Medida típica para pingentes: 45-60 mm. Para porta-copos ou pratinhos: 90-120 mm.">?</span>
                 </label>
-                <input type="number" id="c-largura" value="95.0" step="5" oninput="checkCutterExpansionInput(); updatePrompts(); rebuildNativeCutter3D();" class="cad-input font-semibold" />
+                <input type="number" id="c-largura" value="95.0" step="5" oninput="updatePrompts(); rebuildNativeCutter3D();" onchange="checkCutterExpansionInput();" class="cad-input font-semibold" />
               </div>
               <div>
                 <label class="cad-label" for="c-retracao">
@@ -2999,29 +2999,29 @@
       if (isNaN(val)) return;
 
       if (field === 'rBase') {
-        vaseStages[idx].rBase = Math.max(5, val);
+        vaseStages[idx].rBase = Math.max(1, val);
         if (vaseStages[idx].tipo === 'cilindro' || vaseStages[idx].tipo === 'disco') {
           vaseStages[idx].rTopo = vaseStages[idx].rBase;
         }
       } else if (field === 'rTopo') {
-        vaseStages[idx].rTopo = Math.max(5, val);
+        vaseStages[idx].rTopo = Math.max(1, val);
         if (vaseStages[idx].tipo === 'cilindro' || vaseStages[idx].tipo === 'disco') {
           vaseStages[idx].rBase = vaseStages[idx].rTopo;
         }
       } else if (field === 'altura') {
-        vaseStages[idx].altura = Math.max(3, val);
+        vaseStages[idx].altura = Math.max(1, val);
       } else if (field === 'rEsfera') {
-        vaseStages[idx].rEsfera = Math.max(5, val);
+        vaseStages[idx].rEsfera = Math.max(1, val);
       } else if (field === 'aneis') {
         vaseStages[idx].aneis = Math.max(2, Math.min(12, parseInt(value) || 4));
       } else if (field === 'furoDiam') {
-        vaseStages[idx].furoDiam = Math.max(2, Math.min(vaseStages[idx].rBase * 1.8, val));
+        vaseStages[idx].furoDiam = Math.max(1, val);
       } else if (field === 'furoQtd') {
         vaseStages[idx].furoQtd = Math.max(2, Math.min(16, parseInt(value) || 6));
       } else if (field === 'furoDist') {
-        vaseStages[idx].furoDist = Math.max(5, Math.min(vaseStages[idx].rBase - 4, val));
+        vaseStages[idx].furoDist = Math.max(1, val);
       } else if (field === 'setorAng') {
-        vaseStages[idx].setorAng = Math.max(10, Math.min(180, val));
+        vaseStages[idx].setorAng = Math.max(5, Math.min(180, val));
       }
 
       enforceStageContinuity();
@@ -3032,6 +3032,25 @@
         const elTopo = document.getElementById(`st-${k}-rtopo`);
         if (elBase && document.activeElement !== elBase) elBase.value = vaseStages[k].rBase;
         if (elTopo && document.activeElement !== elTopo) elTopo.value = vaseStages[k].rTopo;
+
+        // Atualiza badge de diâmetro/geratriz sem recriar DOM
+        const elDiam = document.getElementById(`st-${k}-diam-badge`);
+        if (elDiam) {
+          const st = vaseStages[k];
+          if (st.tipo === 'cone') {
+            const gSlant = Math.sqrt(st.altura * st.altura + Math.pow(st.rBase - st.rTopo, 2)).toFixed(1);
+            elDiam.textContent = `${gSlant} mm`;
+          } else {
+            elDiam.textContent = `Ø${(st.rBase * 2).toFixed(0)}`;
+          }
+        }
+
+        // Atualiza badge de área se for disco
+        const elArea = document.getElementById(`st-${k}-area-badge`);
+        if (elArea && vaseStages[k].tipo === 'disco') {
+          const area = (Math.PI * Math.pow((vaseStages[k].furoDiam || 20) / 2, 2) / 100).toFixed(1);
+          elArea.textContent = `Área dreno: ${area} cm²`;
+        }
       }
 
       rebuildVase();
@@ -3133,10 +3152,10 @@
               <div class="grid grid-cols-2 gap-1.5 p-1.5 bg-amber-100/60 dark:bg-amber-900/30 rounded border border-amber-200/60">
                 <div>
                   <label class="text-[9px] text-stone-600 dark:text-stone-300 block">Ø Furo Dreno (mm)</label>
-                  <input type="number" value="${st.furoDiam || 20}" min="4" max="${st.rBase * 1.8}" oninput="updateStageParam(${i}, 'furoDiam', this.value)" class="w-full p-1 bg-white dark:bg-stone-900 border rounded text-xs font-bold text-amber-800 dark:text-amber-300" />
+                  <input type="number" id="st-${i}-furodiam" value="${st.furoDiam || 20}" min="4" max="${st.rBase * 1.8}" oninput="updateStageParam(${i}, 'furoDiam', this.value)" class="w-full p-1 bg-white dark:bg-stone-900 border rounded text-xs font-bold text-amber-800 dark:text-amber-300" />
                 </div>
                 <div class="text-[10px] text-stone-600 dark:text-stone-300 flex items-center pt-2">
-                  <span>Área dreno: ${(Math.PI * Math.pow((st.furoDiam || 20)/2, 2) / 100).toFixed(1)} cm²</span>
+                  <span id="st-${i}-area-badge">Área dreno: ${(Math.PI * Math.pow((st.furoDiam || 20)/2, 2) / 100).toFixed(1)} cm²</span>
                 </div>
               </div>
             ` : ''}
@@ -3145,15 +3164,15 @@
               <div class="grid grid-cols-3 gap-1.5 p-1.5 bg-amber-100/60 dark:bg-amber-900/30 rounded border border-amber-200/60">
                 <div>
                   <label class="text-[9px] text-stone-600 dark:text-stone-300 block">Qtd Furos</label>
-                  <input type="number" value="${st.furoQtd || 6}" min="3" max="16" oninput="updateStageParam(${i}, 'furoQtd', this.value)" class="w-full p-1 bg-white dark:bg-stone-900 border rounded text-xs font-bold" />
+                  <input type="number" id="st-${i}-furoqtd" value="${st.furoQtd || 6}" min="3" max="16" oninput="updateStageParam(${i}, 'furoQtd', this.value)" class="w-full p-1 bg-white dark:bg-stone-900 border rounded text-xs font-bold" />
                 </div>
                 <div>
                   <label class="text-[9px] text-stone-600 dark:text-stone-300 block">Ø Cada (mm)</label>
-                  <input type="number" value="${st.furoDiam || 14}" min="3" max="25" oninput="updateStageParam(${i}, 'furoDiam', this.value)" class="w-full p-1 bg-white dark:bg-stone-900 border rounded text-xs font-bold" />
+                  <input type="number" id="st-${i}-furodiam" value="${st.furoDiam || 14}" min="3" max="25" oninput="updateStageParam(${i}, 'furoDiam', this.value)" class="w-full p-1 bg-white dark:bg-stone-900 border rounded text-xs font-bold" />
                 </div>
                 <div>
                   <label class="text-[9px] text-stone-600 dark:text-stone-300 block">Raio Anel (mm)</label>
-                  <input type="number" value="${st.furoDist || Math.round(st.rBase * 0.55)}" min="5" max="${st.rBase - 4}" oninput="updateStageParam(${i}, 'furoDist', this.value)" class="w-full p-1 bg-white dark:bg-stone-900 border rounded text-xs font-bold" />
+                  <input type="number" id="st-${i}-furodist" value="${st.furoDist || Math.round(st.rBase * 0.55)}" min="5" max="${st.rBase - 4}" oninput="updateStageParam(${i}, 'furoDist', this.value)" class="w-full p-1 bg-white dark:bg-stone-900 border rounded text-xs font-bold" />
                 </div>
               </div>
             ` : ''}
@@ -3162,11 +3181,11 @@
               <div class="grid grid-cols-2 gap-1.5 p-1.5 bg-amber-100/60 dark:bg-amber-900/30 rounded border border-amber-200/60">
                 <div>
                   <label class="text-[9px] text-stone-600 dark:text-stone-300 block">Qtd Entalhes</label>
-                  <input type="number" value="${st.furoQtd || 4}" min="2" max="12" oninput="updateStageParam(${i}, 'furoQtd', this.value)" class="w-full p-1 bg-white dark:bg-stone-900 border rounded text-xs font-bold" />
+                  <input type="number" id="st-${i}-furoqtd" value="${st.furoQtd || 4}" min="2" max="12" oninput="updateStageParam(${i}, 'furoQtd', this.value)" class="w-full p-1 bg-white dark:bg-stone-900 border rounded text-xs font-bold" />
                 </div>
                 <div>
                   <label class="text-[9px] text-stone-600 dark:text-stone-300 block">Largura Entalhe (mm)</label>
-                  <input type="number" value="${st.furoDiam || 14}" min="4" max="30" oninput="updateStageParam(${i}, 'furoDiam', this.value)" class="w-full p-1 bg-white dark:bg-stone-900 border rounded text-xs font-bold" />
+                  <input type="number" id="st-${i}-furodiam" value="${st.furoDiam || 14}" min="4" max="30" oninput="updateStageParam(${i}, 'furoDiam', this.value)" class="w-full p-1 bg-white dark:bg-stone-900 border rounded text-xs font-bold" />
                 </div>
               </div>
             ` : ''}
@@ -3175,7 +3194,7 @@
               <div class="grid grid-cols-2 gap-1.5 p-1.5 bg-amber-100/60 dark:bg-amber-900/30 rounded border border-amber-200/60">
                 <div>
                   <label class="text-[9px] text-stone-600 dark:text-stone-300 block">Ângulo do Recorte (°)</label>
-                  <input type="number" value="${st.setorAng || 45}" min="15" max="180" oninput="updateStageParam(${i}, 'setorAng', this.value)" class="w-full p-1 bg-white dark:bg-stone-900 border rounded text-xs font-bold" />
+                  <input type="number" id="st-${i}-setorang" value="${st.setorAng || 45}" min="15" max="180" oninput="updateStageParam(${i}, 'setorAng', this.value)" class="w-full p-1 bg-white dark:bg-stone-900 border rounded text-xs font-bold" />
                 </div>
                 <div class="text-[10px] text-stone-600 dark:text-stone-300 flex items-center pt-2">
                   <span>Passa-cabo / abertura angular</span>
@@ -3225,7 +3244,7 @@
                 </div>
               ` : `
                 <label class="text-[9px] text-stone-400 block">${isCone ? 'Geratriz G' : 'Diâmetro Ø'}</label>
-                <div class="p-1 bg-stone-100 dark:bg-stone-800 text-stone-500 rounded text-xs text-center font-mono-cad truncate">
+                <div id="st-${i}-diam-badge" class="p-1 bg-stone-100 dark:bg-stone-800 text-stone-500 rounded text-xs text-center font-mono-cad truncate">
                   ${isCone ? `${gSlant} mm` : `Ø${(st.rBase * 2).toFixed(0)}`}
                 </div>
               `}
@@ -3253,6 +3272,9 @@
           : 'py-1.5 px-2 rounded-lg text-xs font-bold text-stone-600 dark:text-stone-300 hover:bg-stone-200/60 dark:hover:bg-stone-800 transition flex items-center justify-center gap-1';
       }
 
+      if (mode === 'estagios') {
+        renderVaseStagesUI();
+      }
       rebuildVase();
     }
 
@@ -3963,7 +3985,6 @@
         drawSplineCanvas();
         rebuildVaseFromSpline();
       } else {
-        renderVaseStagesUI();
         updateVasePrompt();
         const rings = computeFrustumRings();
         if (!scene || activeTool !== 'vasos') return;
@@ -6353,6 +6374,7 @@ Linhas Pretas (#000000) = relevo saliente de ${rel} mm; Branco (#FFFFFF) = base 
       updatePrompts();
       updateRollerPrompt();
       updateStampPrompts();
+      renderVaseStagesUI();
       rebuildVase();
       setCameraView('iso');
       recalcCeramicPricing();
