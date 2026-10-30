@@ -4420,15 +4420,9 @@
       const bodySlices = slices - filletSlices;
       const hFilletZone = Math.max(F, floorThick, 6.0);
 
-      // Matrizes de vértices
-      const outerGrid = [];
-      const innerGrid = [];
+      // Pre-calcula alturas dos slices e determina exatamente o slice do fundo interno
       const sliceHeights = [];
-
       let floorSliceIdx = -1;
-      let volMm3 = 0;
-      let areaSurfMm2 = 0;
-
       for (let j = 0; j <= slices; j++) {
         let yPos = 0;
         if (j <= filletSlices) {
@@ -4437,11 +4431,20 @@
           yPos = hFilletZone + ((j - filletSlices) / bodySlices) * (totalH - hFilletZone);
         }
         sliceHeights.push(yPos);
-
         if (floorSliceIdx === -1 && yPos >= floorThick - 0.001) {
           floorSliceIdx = j;
         }
+      }
+      if (floorSliceIdx === -1) floorSliceIdx = Math.min(filletSlices, slices);
 
+      // Matrizes de vértices
+      const outerGrid = [];
+      const innerGrid = [];
+      let volMm3 = 0;
+      let areaSurfMm2 = 0;
+
+      for (let j = 0; j <= slices; j++) {
+        const yPos = sliceHeights[j];
         const yNorm = Math.min(1.0, yPos / totalH);
         const rSpline = evaluateSplineRadius(yNorm, vaseSplineNodes, tension, isPoly);
 
@@ -4500,7 +4503,7 @@
           const vzExt = rExt * Math.cos(phi);
           outerRow.push(new THREE.Vector3(vxExt, yPos, vzExt));
 
-          if (floorSliceIdx !== -1 && j >= floorSliceIdx) {
+          if (j >= floorSliceIdx) {
             const vxInt = rInt * Math.sin(phi);
             const vzInt = rInt * Math.cos(phi);
             innerRow.push(new THREE.Vector3(vxInt, yPos, vzInt));
@@ -4515,8 +4518,8 @@
         // Integração de volume e massa física real
         if (j > 0) {
           const dy = yPos - sliceHeights[j - 1];
-          const prevExtR = outerGrid[j - 1][0].length();
-          const curExtR = outerRow[0].length();
+          const prevExtR = Math.hypot(outerGrid[j - 1][0].x, outerGrid[j - 1][0].z);
+          const curExtR = Math.hypot(outerRow[0].x, outerRow[0].z);
           const avgExtR = (prevExtR + curExtR) / 2;
 
           if (j < floorSliceIdx) {
@@ -4525,8 +4528,8 @@
           } else {
             // Parede oca
             const innerIdx = j - floorSliceIdx;
-            const prevIntR = innerIdx > 0 ? innerGrid[innerIdx - 1][0].length() : (rHole > 0 ? rHole : 3);
-            const curIntR = innerRow[0].length();
+            const prevIntR = innerIdx > 0 ? Math.hypot(innerGrid[innerIdx - 1][0].x, innerGrid[innerIdx - 1][0].z) : (rHole > 0 ? rHole : 3);
+            const curIntR = Math.hypot(innerRow[0].x, innerRow[0].z);
             const avgIntR = (prevIntR + curIntR) / 2;
             volMm3 += Math.PI * Math.max(0, avgExtR * avgExtR - avgIntR * avgIntR) * dy;
           }
