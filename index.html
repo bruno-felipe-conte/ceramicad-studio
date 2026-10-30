@@ -654,12 +654,60 @@
                 </label>
               </div>
               <input type="file" id="v-ref-img-input" accept="image/*" onchange="handleReferenceImageUpload(event)" class="w-full text-xs file:mr-2 file:py-1.5 file:px-2.5 file:rounded-md file:border-0 file:bg-stone-800 file:text-white cursor-pointer bg-stone-50 dark:bg-terracotta-900 rounded-lg border border-stone-200 dark:border-cad-border p-1" />
-              <div class="flex items-center justify-between pt-0.5 text-xs">
-                <span class="text-stone-500">Perfis clássicos prontos:</span>
-                <div class="flex gap-1.5">
-                  <button type="button" onclick="loadSampleSilhouette('anfora')" class="px-2.5 py-1 rounded-md bg-stone-100 dark:bg-stone-800 hover:bg-terracotta-500 hover:text-white transition text-xs font-medium">Ânfora</button>
-                  <button type="button" onclick="loadSampleSilhouette('garrafa')" class="px-2.5 py-1 rounded-md bg-stone-100 dark:bg-stone-800 hover:bg-terracotta-500 hover:text-white transition text-xs font-medium">Garrafa</button>
-                  <button type="button" onclick="loadSampleSilhouette('gota')" class="px-2.5 py-1 rounded-md bg-stone-100 dark:bg-stone-800 hover:bg-terracotta-500 hover:text-white transition text-xs font-medium">Gota</button>
+              <div class="space-y-1.5 pt-1">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-semibold text-stone-700 dark:text-stone-300">Coleção de 33 Silhuetas Clássicas Prontas:</span>
+                  <span class="text-[11px] font-mono-cad text-terracotta-500 font-bold">33 Formatos</span>
+                </div>
+                <select id="classic-profile-select" onchange="loadClassicProfilePreset(this.value)" class="cad-input font-medium text-xs">
+                  <optgroup label="🏺 Clássicos Greco-Romanos & Mediterrâneos (11)">
+                    <option value="anfora">1. Ânfora Grega Clássica</option>
+                    <option value="cratera">2. Cratera Grega (Krater)</option>
+                    <option value="hidria">3. Hidria / Jarro de Água</option>
+                    <option value="lecito">4. Lécito Grego (Lekythos)</option>
+                    <option value="pithos">5. Pithos Mediterrâneo</option>
+                    <option value="kylix">6. Kylix / Taça Alta</option>
+                    <option value="enocoa">7. Enócoa (Oinochoe)</option>
+                    <option value="psicter">8. Psicter (Psykter)</option>
+                    <option value="pelike">9. Pelike</option>
+                    <option value="aribalo">10. Aríbalo (Aryballos)</option>
+                    <option value="cantaro">11. Cântaro (Kantharos)</option>
+                  </optgroup>
+                  <optgroup label="🏮 Dinastias Asiáticas — China, Coreia & Japão (11)">
+                    <option value="cabaca">12. Cabaça / Hulu (Duplo Bojo)</option>
+                    <option value="moonjar">13. Jarro Moon (Dal-hangari)</option>
+                    <option value="meiping">14. Meiping Imperial (Ameixeira)</option>
+                    <option value="baluster">15. Guanyin / Baluster Qing</option>
+                    <option value="tokkuri">16. Tokkuri (Garrafa de Saquê)</option>
+                    <option value="yuhuchun">17. Yuhuchunping (Pêra Song)</option>
+                    <option value="zun">18. Zun Imperial Ritualístico</option>
+                    <option value="cong">19. Cong (Tubo Prismático)</option>
+                    <option value="alho">20. Suanpanping (Cabeça de Alho)</option>
+                    <option value="tsubo">21. Tsubo (Jarro de Chá Japonês)</option>
+                    <option value="maebyong">22. Maebyong Coreano (Goryeo)</option>
+                  </optgroup>
+                  <optgroup label="🌍 Históricos, Pré-Colombianos & Contemporâneos (11)">
+                    <option value="garrafa">23. Garrafa Clássica</option>
+                    <option value="gota">24. Gota Minimalista</option>
+                    <option value="albarello">25. Albarello Farmacêutico</option>
+                    <option value="tulipa">26. Vaso Tulipa / Cálice</option>
+                    <option value="nordico">27. Cilindro Nórdico Minimalista</option>
+                    <option value="ampulheta">28. Vaso Ampulheta / Diabolo</option>
+                    <option value="bojobaixo">29. Bule / Jarro Bojo Baixo</option>
+                    <option value="marajoara">30. Urna Marajoara</option>
+                    <option value="inca">31. Aríbalo Inca</option>
+                    <option value="moringa">32. Moringa Brasileira (Bilha)</option>
+                    <option value="totem">33. Vaso Totem Escultural</option>
+                  </optgroup>
+                </select>
+                <div class="flex gap-1 overflow-x-auto py-1 scrollbar-none">
+                  <button type="button" onclick="loadClassicProfilePreset('anfora')" class="px-2 py-0.5 rounded bg-stone-100 dark:bg-stone-800 hover:bg-terracotta-500 hover:text-white transition text-[11px] font-medium whitespace-nowrap">Ânfora</button>
+                  <button type="button" onclick="loadClassicProfilePreset('moonjar')" class="px-2 py-0.5 rounded bg-stone-100 dark:bg-stone-800 hover:bg-terracotta-500 hover:text-white transition text-[11px] font-medium whitespace-nowrap">Moon Jar</button>
+                  <button type="button" onclick="loadClassicProfilePreset('cabaca')" class="px-2 py-0.5 rounded bg-stone-100 dark:bg-stone-800 hover:bg-terracotta-500 hover:text-white transition text-[11px] font-medium whitespace-nowrap">Cabaça</button>
+                  <button type="button" onclick="loadClassicProfilePreset('meiping')" class="px-2 py-0.5 rounded bg-stone-100 dark:bg-stone-800 hover:bg-terracotta-500 hover:text-white transition text-[11px] font-medium whitespace-nowrap">Meiping</button>
+                  <button type="button" onclick="loadClassicProfilePreset('tokkuri')" class="px-2 py-0.5 rounded bg-stone-100 dark:bg-stone-800 hover:bg-terracotta-500 hover:text-white transition text-[11px] font-medium whitespace-nowrap">Tokkuri</button>
+                  <button type="button" onclick="loadClassicProfilePreset('moringa')" class="px-2 py-0.5 rounded bg-stone-100 dark:bg-stone-800 hover:bg-terracotta-500 hover:text-white transition text-[11px] font-medium whitespace-nowrap">Moringa</button>
+                  <button type="button" onclick="loadClassicProfilePreset('totem')" class="px-2 py-0.5 rounded bg-stone-100 dark:bg-stone-800 hover:bg-terracotta-500 hover:text-white transition text-[11px] font-medium whitespace-nowrap">Totem</button>
                 </div>
               </div>
             </div>
@@ -931,7 +979,53 @@
             </div>
 
             <div id="vase-stages-list" class="space-y-2 max-h-56 overflow-y-auto pr-1 pt-1"></div>
+
+            <button type="button" onclick="convertSplineToSlabStages()" class="w-full bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 text-stone-700 dark:text-stone-200 border border-stone-200 dark:border-cad-border py-2 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition shadow-xs">
+              <span>🔄</span> Converter Silhueta 3D Atual em Estágios C⁰
+            </button>
           </div>
+
+          <!-- Caderno Técnico de Instruções de Produção em Placas (Slab Building C0) -->
+          <details class="cad-card text-xs space-y-2 py-2.5 bg-emerald-50/40 dark:bg-emerald-950/20 border-emerald-500/20">
+            <summary class="font-semibold text-emerald-800 dark:text-emerald-300 cursor-pointer flex justify-between items-center select-none">
+              <span class="flex items-center gap-1.5">
+                <span>📘</span> Caderno de Produção de Placas (Guia Passo a Passo)
+              </span>
+              <span class="text-xs text-emerald-600 dark:text-emerald-400 font-medium">Instruções Técnicas ▼</span>
+            </summary>
+            <div class="pt-2.5 space-y-2 text-stone-700 dark:text-stone-300 leading-relaxed border-t border-emerald-500/20">
+              <div class="p-2 rounded-lg bg-white/70 dark:bg-stone-900/60 border border-emerald-500/20 space-y-1">
+                <span class="font-bold text-[11.5px] text-emerald-900 dark:text-emerald-200 block">1. Ponto de Couro Flexível (Soft Leatherhard)</span>
+                <p class="text-[11px] text-stone-600 dark:text-stone-300">
+                  Abra as placas de argila com réguas-guia (ex: 6.0 mm). Deixe a argila descansar até que perca o brilho de umidade e possa ser curvada sem rachar ou amassar.
+                </p>
+              </div>
+              <div class="p-2 rounded-lg bg-white/70 dark:bg-stone-900/60 border border-emerald-500/20 space-y-1">
+                <span class="font-bold text-[11.5px] text-emerald-900 dark:text-emerald-200 block">2. Corte em Bisel a 45°</span>
+                <p class="text-[11px] text-stone-600 dark:text-stone-300">
+                  Ao recortar os leques e cilindros impressos do PDF A4, corte as extremidades laterais de fechamento em ângulo de 45° com estilete ou bisturi. Isso cria uma área de colagem 40% maior e emenda sem degrau.
+                </p>
+              </div>
+              <div class="p-2 rounded-lg bg-white/70 dark:bg-stone-900/60 border border-emerald-500/20 space-y-1">
+                <span class="font-bold text-[11.5px] text-emerald-900 dark:text-emerald-200 block">3. Texturização Pré-Curvatura</span>
+                <p class="text-[11px] text-stone-600 dark:text-stone-300">
+                  Se for aplicar rolos de textura, carimbos ou gravação de folhas, faça isso enquanto a placa de argila ainda está 100% plana na bancada para não deformar a curvatura da peça.
+                </p>
+              </div>
+              <div class="p-2 rounded-lg bg-white/70 dark:bg-stone-900/60 border border-emerald-500/20 space-y-1">
+                <span class="font-bold text-[11.5px] text-emerald-900 dark:text-emerald-200 block">4. Costura & Juntas C⁰ Contínuas</span>
+                <p class="text-[11px] text-stone-600 dark:text-stone-300">
+                  Faça ranhuras cruzadas finas (*scoring*) com agulha ou garfo, aplique barbotina cremosa da mesma massa e una as extremidades. Pressione suavemente e use um rolinho fino interno de argila para reforçar a costura interna.
+                </p>
+              </div>
+              <div class="p-2 rounded-lg bg-white/70 dark:bg-stone-900/60 border border-emerald-500/20 space-y-1">
+                <span class="font-bold text-[11.5px] text-emerald-900 dark:text-emerald-200 block">5. Montagem dos Estágios sobre o Disco de Base</span>
+                <p class="text-[11px] text-stone-600 dark:text-stone-300">
+                  Recorte o disco de base. Assente o primeiro estágio (cilindro ou cone) sobre o disco. Graças às juntas C⁰ matematicamente contínuas, cada estágio seguinte encaixa com tolerância zero no anel inferior.
+                </p>
+              </div>
+            </div>
+          </details>
 
           <!-- Parâmetros da Placa de Argila -->
           <div class="cad-card space-y-2.5">
@@ -3710,34 +3804,337 @@
       reader.readAsDataURL(file);
     }
 
-    function loadSampleSilhouette(preset) {
-      const c = document.createElement('canvas');
-      c.width = 160; c.height = 240;
-      const ctx = c.getContext('2d');
-      ctx.fillStyle = '#FFFFFF';
-      ctx.fillRect(0, 0, 160, 240);
-      ctx.fillStyle = '#000000';
+    // =========================================================================
+    // 🏺 BIBLIOTECA MATEMÁTICA DE 33 PERFIS CERÂMICOS CLÁSSICOS (SPLINE NODES)
+    // =========================================================================
+    const CLASSIC_CERAMIC_PROFILES = {
+      // 1. Clássicos Greco-Romanos & Mediterrâneos (11)
+      anfora: {
+        name: 'Ânfora Grega Clássica',
+        desc: 'Pé estreito torneado, bojo clássico alto, ombro marcado, gargalo esguio e lábio evertido',
+        nodes: [
+          { yNorm: 0.0, r: 28 }, { yNorm: 0.10, r: 24 }, { yNorm: 0.35, r: 52 },
+          { yNorm: 0.58, r: 64 }, { yNorm: 0.76, r: 52 }, { yNorm: 0.86, r: 26 },
+          { yNorm: 0.94, r: 25 }, { yNorm: 1.0, r: 35 }
+        ]
+      },
+      cratera: {
+        name: 'Cratera Grega (Krater)',
+        desc: 'Pé em cálice estruturado, corpo em taça larga e boca ampla com borda revirada',
+        nodes: [
+          { yNorm: 0.0, r: 38 }, { yNorm: 0.12, r: 22 }, { yNorm: 0.22, r: 32 },
+          { yNorm: 0.45, r: 58 }, { yNorm: 0.70, r: 65 }, { yNorm: 0.88, r: 60 },
+          { yNorm: 0.95, r: 62 }, { yNorm: 1.0, r: 68 }
+        ]
+      },
+      hidria: {
+        name: 'Hidria / Jarro de Água',
+        desc: 'Base firme, ventre bojudo pronunciado, ombro horizontalizado quase reto e gargalo médio',
+        nodes: [
+          { yNorm: 0.0, r: 32 }, { yNorm: 0.15, r: 36 }, { yNorm: 0.45, r: 66 },
+          { yNorm: 0.68, r: 65 }, { yNorm: 0.75, r: 42 }, { yNorm: 0.88, r: 26 },
+          { yNorm: 0.95, r: 28 }, { yNorm: 1.0, r: 38 }
+        ]
+      },
+      lecito: {
+        name: 'Lécito Grego (Lekythos)',
+        desc: 'Corpo cilíndrico alongado verticalmente, ombro anguloso abrupto e gargalo fino',
+        nodes: [
+          { yNorm: 0.0, r: 30 }, { yNorm: 0.08, r: 26 }, { yNorm: 0.30, r: 38 },
+          { yNorm: 0.65, r: 40 }, { yNorm: 0.78, r: 39 }, { yNorm: 0.82, r: 18 },
+          { yNorm: 0.94, r: 16 }, { yNorm: 1.0, r: 32 }
+        ]
+      },
+      pithos: {
+        name: 'Pithos Mediterrâneo',
+        desc: 'Grande jarro de armazenamento, base estreita cônica, bojo ovóide maciço e colar grosso',
+        nodes: [
+          { yNorm: 0.0, r: 22 }, { yNorm: 0.20, r: 38 }, { yNorm: 0.50, r: 65 },
+          { yNorm: 0.75, r: 62 }, { yNorm: 0.88, r: 48 }, { yNorm: 0.94, r: 42 },
+          { yNorm: 1.0, r: 48 }
+        ]
+      },
+      kylix: {
+        name: 'Kylix / Taça Alta',
+        desc: 'Pedestal estreito e alto que se abre abruptamente numa taça rasa e larga no topo',
+        nodes: [
+          { yNorm: 0.0, r: 40 }, { yNorm: 0.10, r: 28 }, { yNorm: 0.25, r: 14 },
+          { yNorm: 0.48, r: 13 }, { yNorm: 0.60, r: 24 }, { yNorm: 0.78, r: 48 },
+          { yNorm: 0.92, r: 64 }, { yNorm: 1.0, r: 68 }
+        ]
+      },
+      enocoa: {
+        name: 'Enócoa (Oinochoe)',
+        desc: 'Jarro de vinho com pé anelar, ventre gracioso em S e bocal trilobado aberto',
+        nodes: [
+          { yNorm: 0.0, r: 28 }, { yNorm: 0.10, r: 24 }, { yNorm: 0.32, r: 54 },
+          { yNorm: 0.52, r: 64 }, { yNorm: 0.72, r: 46 }, { yNorm: 0.86, r: 25 },
+          { yNorm: 0.95, r: 28 }, { yNorm: 1.0, r: 36 }
+        ]
+      },
+      psicter: {
+        name: 'Psicter (Psykter)',
+        desc: 'Corpo bulboso em formato de cogumelo sobre base cilíndrica alta e oca para resfriamento',
+        nodes: [
+          { yNorm: 0.0, r: 32 }, { yNorm: 0.25, r: 25 }, { yNorm: 0.45, r: 24 },
+          { yNorm: 0.52, r: 55 }, { yNorm: 0.72, r: 66 }, { yNorm: 0.88, r: 48 },
+          { yNorm: 0.95, r: 28 }, { yNorm: 1.0, r: 30 }
+        ]
+      },
+      pelike: {
+        name: 'Pelike',
+        desc: 'Variação da ânfora com ventre em gota contínua e centro de gravidade baixo',
+        nodes: [
+          { yNorm: 0.0, r: 38 }, { yNorm: 0.15, r: 48 }, { yNorm: 0.32, r: 66 },
+          { yNorm: 0.55, r: 58 }, { yNorm: 0.75, r: 38 }, { yNorm: 0.88, r: 28 },
+          { yNorm: 0.95, r: 30 }, { yNorm: 1.0, r: 36 }
+        ]
+      },
+      aribalo: {
+        name: 'Aríbalo (Aryballos)',
+        desc: 'Frasco de unguento quase esférico com pescoço curtíssimo e lábio plano largo em disco',
+        nodes: [
+          { yNorm: 0.0, r: 18 }, { yNorm: 0.18, r: 48 }, { yNorm: 0.45, r: 64 },
+          { yNorm: 0.72, r: 58 }, { yNorm: 0.86, r: 32 }, { yNorm: 0.90, r: 16 },
+          { yNorm: 0.96, r: 16 }, { yNorm: 1.0, r: 38 }
+        ]
+      },
+      cantaro: {
+        name: 'Cântaro (Kantharos)',
+        desc: 'Taça cerimonial com pé alto escalonado, cálice inferior carenado e parede vertical',
+        nodes: [
+          { yNorm: 0.0, r: 35 }, { yNorm: 0.12, r: 18 }, { yNorm: 0.28, r: 16 },
+          { yNorm: 0.42, r: 42 }, { yNorm: 0.55, r: 56 }, { yNorm: 0.75, r: 54 },
+          { yNorm: 0.90, r: 54 }, { yNorm: 1.0, r: 58 }
+        ]
+      },
 
-      if (preset === 'anfora') {
-        ctx.beginPath();
-        ctx.arc(80, 140, 55, 0, Math.PI * 2); ctx.fill();
-        ctx.fillRect(66, 30, 28, 70); // colo
-        ctx.beginPath(); ctx.ellipse(80, 30, 24, 8, 0, 0, Math.PI * 2); ctx.fill(); // boca
-        ctx.fillRect(60, 205, 40, 20); // base
-      } else if (preset === 'garrafa') {
-        ctx.beginPath();
-        ctx.roundRect ? ctx.roundRect(50, 100, 60, 120, 15) : ctx.fillRect(50, 100, 60, 120);
-        ctx.fill();
-        ctx.fillRect(72, 20, 16, 90); // gargalo fino
-      } else {
-        // Gota minimalista
-        ctx.beginPath();
-        ctx.arc(80, 160, 50, 0, Math.PI * 2); ctx.fill();
-        ctx.moveTo(35, 140); ctx.lineTo(76, 25); ctx.lineTo(84, 25); ctx.lineTo(125, 140);
-        ctx.fill();
+      // 2. Dinastias Asiáticas — China, Coreia & Japão (11)
+      cabaca: {
+        name: 'Cabaça / Hulu (Duplo Bojo)',
+        desc: 'Silhueta dupla com bojo inferior amplo, cintura estrangulada em 0.55 e bocal curto',
+        nodes: [
+          { yNorm: 0.0, r: 34 }, { yNorm: 0.18, r: 62 }, { yNorm: 0.36, r: 65 },
+          { yNorm: 0.54, r: 30 }, { yNorm: 0.72, r: 46 }, { yNorm: 0.86, r: 44 },
+          { yNorm: 0.94, r: 20 }, { yNorm: 1.0, r: 24 }
+        ]
+      },
+      moonjar: {
+        name: 'Jarro Moon (Dal-hangari)',
+        desc: 'Perfil coreano clássico quase esférico, pé curto recuado e equador largo no centro',
+        nodes: [
+          { yNorm: 0.0, r: 30 }, { yNorm: 0.08, r: 30 }, { yNorm: 0.28, r: 56 },
+          { yNorm: 0.50, r: 66 }, { yNorm: 0.72, r: 58 }, { yNorm: 0.90, r: 34 },
+          { yNorm: 0.95, r: 32 }, { yNorm: 1.0, r: 36 }
+        ]
+      },
+      meiping: {
+        name: 'Meiping Imperial (Ameixeira)',
+        desc: 'Vaso chinês de ameixeira com base estreita, ombro alto imponente e boca pequena',
+        nodes: [
+          { yNorm: 0.0, r: 24 }, { yNorm: 0.18, r: 28 }, { yNorm: 0.45, r: 44 },
+          { yNorm: 0.72, r: 66 }, { yNorm: 0.86, r: 58 }, { yNorm: 0.92, r: 24 },
+          { yNorm: 0.96, r: 20 }, { yNorm: 1.0, r: 22 }
+        ]
+      },
+      baluster: {
+        name: 'Guanyin / Baluster Qing',
+        desc: 'Vaso clássico da dinastia Qing com base elegante, curva em S e pescoço trompete',
+        nodes: [
+          { yNorm: 0.0, r: 32 }, { yNorm: 0.12, r: 28 }, { yNorm: 0.35, r: 42 },
+          { yNorm: 0.60, r: 62 }, { yNorm: 0.76, r: 48 }, { yNorm: 0.88, r: 32 },
+          { yNorm: 0.96, r: 36 }, { yNorm: 1.0, r: 44 }
+        ]
+      },
+      tokkuri: {
+        name: 'Tokkuri (Garrafa de Saquê)',
+        desc: 'Garrafa tradicional japonesa com base acolhedora, bojo baixo e pescoço estreito',
+        nodes: [
+          { yNorm: 0.0, r: 30 }, { yNorm: 0.18, r: 56 }, { yNorm: 0.40, r: 62 },
+          { yNorm: 0.62, r: 42 }, { yNorm: 0.78, r: 20 }, { yNorm: 0.90, r: 18 },
+          { yNorm: 0.96, r: 22 }, { yNorm: 1.0, r: 28 }
+        ]
+      },
+      yuhuchun: {
+        name: 'Yuhuchunping (Pêra Song)',
+        desc: 'Vaso chinês em forma de pêra da dinastia Song com gargalo aberto em trompete',
+        nodes: [
+          { yNorm: 0.0, r: 28 }, { yNorm: 0.12, r: 36 }, { yNorm: 0.32, r: 64 },
+          { yNorm: 0.52, r: 56 }, { yNorm: 0.72, r: 32 }, { yNorm: 0.88, r: 24 },
+          { yNorm: 0.96, r: 34 }, { yNorm: 1.0, r: 44 }
+        ]
+      },
+      zun: {
+        name: 'Zun Imperial Ritualístico',
+        desc: 'Vaso ritualístico chinês com base aberta, ventre central arredondado e boca em funil',
+        nodes: [
+          { yNorm: 0.0, r: 46 }, { yNorm: 0.16, r: 36 }, { yNorm: 0.32, r: 32 },
+          { yNorm: 0.50, r: 48 }, { yNorm: 0.65, r: 36 }, { yNorm: 0.82, r: 46 },
+          { yNorm: 0.94, r: 58 }, { yNorm: 1.0, r: 66 }
+        ]
+      },
+      cong: {
+        name: 'Cong (Tubo Prismático)',
+        desc: 'Corpo prismático/cilíndrico com base e colarinho curtos estreitados em degrau',
+        nodes: [
+          { yNorm: 0.0, r: 32 }, { yNorm: 0.06, r: 32 }, { yNorm: 0.10, r: 48 },
+          { yNorm: 0.50, r: 50 }, { yNorm: 0.90, r: 48 }, { yNorm: 0.94, r: 32 },
+          { yNorm: 1.0, r: 32 }
+        ]
+      },
+      alho: {
+        name: 'Suanpanping (Cabeça de Alho)',
+        desc: 'Pescoço longo culminando em bojo esférico pequeno junto ao bocal imitando bulbo de alho',
+        nodes: [
+          { yNorm: 0.0, r: 35 }, { yNorm: 0.18, r: 58 }, { yNorm: 0.38, r: 64 },
+          { yNorm: 0.55, r: 44 }, { yNorm: 0.75, r: 20 }, { yNorm: 0.88, r: 18 },
+          { yNorm: 0.95, r: 30 }, { yNorm: 1.0, r: 24 }
+        ]
+      },
+      tsubo: {
+        name: 'Tsubo (Jarro de Chá Japonês)',
+        desc: 'Armazenamento de chá japonês com base estreita, ombros largos e colarinho curto',
+        nodes: [
+          { yNorm: 0.0, r: 26 }, { yNorm: 0.20, r: 38 }, { yNorm: 0.52, r: 58 },
+          { yNorm: 0.78, r: 65 }, { yNorm: 0.88, r: 54 }, { yNorm: 0.94, r: 30 },
+          { yNorm: 1.0, r: 32 }
+        ]
+      },
+      maebyong: {
+        name: 'Maebyong Coreano (Goryeo)',
+        desc: 'Variante coreana do Meiping com curva em S pronunciada na base e boca em taça invertida',
+        nodes: [
+          { yNorm: 0.0, r: 22 }, { yNorm: 0.12, r: 20 }, { yNorm: 0.30, r: 32 },
+          { yNorm: 0.55, r: 52 }, { yNorm: 0.76, r: 66 }, { yNorm: 0.88, r: 52 },
+          { yNorm: 0.94, r: 20 }, { yNorm: 1.0, r: 25 }
+        ]
+      },
+
+      // 3. Históricos, Pré-Colombianos & Contemporâneos (11)
+      garrafa: {
+        name: 'Garrafa Clássica',
+        desc: 'Corpo cilíndrico-ovalado encorpado, ombro suave e pescoço longo',
+        nodes: [
+          { yNorm: 0.0, r: 34 }, { yNorm: 0.15, r: 42 }, { yNorm: 0.40, r: 45 },
+          { yNorm: 0.62, r: 42 }, { yNorm: 0.72, r: 20 }, { yNorm: 0.88, r: 18 },
+          { yNorm: 1.0, r: 20 }
+        ]
+      },
+      gota: {
+        name: 'Gota Minimalista',
+        desc: 'Base estável com bojo inferior baixo e afunilamento orgânico até a boca delicada',
+        nodes: [
+          { yNorm: 0.0, r: 44 }, { yNorm: 0.15, r: 58 }, { yNorm: 0.32, r: 64 },
+          { yNorm: 0.55, r: 46 }, { yNorm: 0.78, r: 28 }, { yNorm: 0.92, r: 18 },
+          { yNorm: 1.0, r: 16 }
+        ]
+      },
+      albarello: {
+        name: 'Albarello Farmacêutico',
+        desc: 'Jarro renascentista cilíndrico acinturado côncavo no meio para pega ergonômica',
+        nodes: [
+          { yNorm: 0.0, r: 40 }, { yNorm: 0.10, r: 44 }, { yNorm: 0.30, r: 36 },
+          { yNorm: 0.50, r: 32 }, { yNorm: 0.70, r: 36 }, { yNorm: 0.90, r: 44 },
+          { yNorm: 1.0, r: 42 }
+        ]
+      },
+      tulipa: {
+        name: 'Vaso Tulipa / Cálice',
+        desc: 'Pé alargado em cálice, haste acinturada, bojo arredondado e corola aberta no topo',
+        nodes: [
+          { yNorm: 0.0, r: 42 }, { yNorm: 0.15, r: 22 }, { yNorm: 0.32, r: 18 },
+          { yNorm: 0.52, r: 46 }, { yNorm: 0.72, r: 58 }, { yNorm: 0.88, r: 52 },
+          { yNorm: 1.0, r: 64 }
+        ]
+      },
+      nordico: {
+        name: 'Cilindro Nórdico Minimalista',
+        desc: 'Paredes retas verticais minimalistas com leve chanfro de base e topo suave',
+        nodes: [
+          { yNorm: 0.0, r: 36 }, { yNorm: 0.06, r: 42 }, { yNorm: 0.30, r: 42 },
+          { yNorm: 0.60, r: 42 }, { yNorm: 0.88, r: 42 }, { yNorm: 0.96, r: 40 },
+          { yNorm: 1.0, r: 38 }
+        ]
+      },
+      ampulheta: {
+        name: 'Vaso Ampulheta / Diabolo',
+        desc: 'Geometria arquitetônica com base larga, cintura central e abertura simétrica no topo',
+        nodes: [
+          { yNorm: 0.0, r: 56 }, { yNorm: 0.18, r: 46 }, { yNorm: 0.35, r: 32 },
+          { yNorm: 0.50, r: 22 }, { yNorm: 0.65, r: 32 }, { yNorm: 0.82, r: 46 },
+          { yNorm: 1.0, r: 56 }
+        ]
+      },
+      bojobaixo: {
+        name: 'Bule / Jarro Bojo Baixo',
+        desc: 'Centro de gravidade ultra-baixo estilo cerâmica de estúdio com colarinho reto',
+        nodes: [
+          { yNorm: 0.0, r: 38 }, { yNorm: 0.12, r: 60 }, { yNorm: 0.25, r: 66 },
+          { yNorm: 0.48, r: 44 }, { yNorm: 0.75, r: 26 }, { yNorm: 0.90, r: 22 },
+          { yNorm: 1.0, r: 22 }
+        ]
+      },
+      marajoara: {
+        name: 'Urna Marajoara',
+        desc: 'Silhueta globular amazônica com pé troncocônico, bojo amplo e colar cilíndrico',
+        nodes: [
+          { yNorm: 0.0, r: 28 }, { yNorm: 0.12, r: 34 }, { yNorm: 0.28, r: 52 },
+          { yNorm: 0.50, r: 66 }, { yNorm: 0.72, r: 54 }, { yNorm: 0.82, r: 38 },
+          { yNorm: 0.92, r: 38 }, { yNorm: 1.0, r: 42 }
+        ]
+      },
+      inca: {
+        name: 'Aríbalo Inca',
+        desc: 'Base cônica pontiaguda, ventre baixo largo, pescoço alto alongado e boca muito evertida',
+        nodes: [
+          { yNorm: 0.0, r: 16 }, { yNorm: 0.15, r: 32 }, { yNorm: 0.35, r: 64 },
+          { yNorm: 0.55, r: 56 }, { yNorm: 0.70, r: 36 }, { yNorm: 0.82, r: 20 },
+          { yNorm: 0.92, r: 20 }, { yNorm: 1.0, r: 44 }
+        ]
+      },
+      moringa: {
+        name: 'Moringa Brasileira (Bilha)',
+        desc: 'Bojo esférico generoso sobre base anelar, pescoço cilíndrico estreito e bocal bojado',
+        nodes: [
+          { yNorm: 0.0, r: 26 }, { yNorm: 0.10, r: 24 }, { yNorm: 0.30, r: 58 },
+          { yNorm: 0.50, r: 66 }, { yNorm: 0.68, r: 52 }, { yNorm: 0.76, r: 22 },
+          { yNorm: 0.90, r: 20 }, { yNorm: 0.96, r: 24 }, { yNorm: 1.0, r: 22 }
+        ]
+      },
+      totem: {
+        name: 'Vaso Totem Escultural',
+        desc: 'Perfil modernista com três ondulações rítmicas (triplo bojo harmônico)',
+        nodes: [
+          { yNorm: 0.0, r: 32 }, { yNorm: 0.14, r: 48 }, { yNorm: 0.28, r: 34 },
+          { yNorm: 0.46, r: 56 }, { yNorm: 0.62, r: 36 }, { yNorm: 0.80, r: 50 },
+          { yNorm: 0.92, r: 38 }, { yNorm: 1.0, r: 42 }
+        ]
+      }
+    };
+
+    function loadClassicProfilePreset(presetKey) {
+      const preset = CLASSIC_CERAMIC_PROFILES[presetKey];
+      if (!preset) return;
+
+      vaseSplineNodes = JSON.parse(JSON.stringify(preset.nodes));
+      selectedSplineNodeIdx = null;
+
+      const nodesCountEl = document.getElementById('spline-nodes-count');
+      if (nodesCountEl) {
+        nodesCountEl.textContent = `${vaseSplineNodes.length} nós (${preset.name})`;
       }
 
-      processReferenceImageToSpline(c);
+      const selectEl = document.getElementById('classic-profile-select');
+      if (selectEl && selectEl.value !== presetKey) {
+        selectEl.value = presetKey;
+      }
+
+      drawSplineCanvas();
+      rebuildVaseFromSpline();
+    }
+
+    function loadSampleSilhouette(preset) {
+      loadClassicProfilePreset(preset);
     }
 
     function processReferenceImageToSpline(imgSource) {
@@ -3855,7 +4252,8 @@
       const isPoly = document.getElementById('v-spline-type')?.value === 'polilinha';
       const tension = (parseFloat(document.getElementById('v-spline-tension')?.value) || 50) / 100;
 
-      const numStages = 4;
+      // Amostra 5 estágios calibrados para capturar a curva com fidelidade
+      const numStages = 5;
       const hStage = Math.round(totalH / numStages);
       const sampledJoints = [];
       for (let i = 0; i <= numStages; i++) {
@@ -3864,10 +4262,29 @@
       }
 
       const newStages = [];
+      // 1. Disco de base com furo de drenagem se configurado
+      newStages.push({
+        tipo: 'disco',
+        rBase: sampledJoints[0],
+        rTopo: sampledJoints[0],
+        altura: 6,
+        aneis: 1,
+        corteTipo: 'furo_central',
+        furoDiam: parseFloat(document.getElementById('v-drainage-hole')?.value) || 0
+      });
+
+      // 2. Anéis conectados C0 (Cilindros, Cones e Bojos Esféricos)
       for (let i = 0; i < numStages; i++) {
         const r1 = sampledJoints[i];
         const r2 = sampledJoints[i + 1];
-        if (r1 === r2) {
+        const tMid = (i + 0.5) / numStages;
+        const rMid = Math.round(evaluateSplineRadius(tMid, vaseSplineNodes, tension, isPoly));
+        const chordMid = (r1 + r2) / 2;
+
+        if (Math.abs(rMid - chordMid) >= 3.5) {
+          // Bojo esférico se houver curvatura expressiva no meio do estágio
+          newStages.push({ tipo: 'esfera', rBase: r1, rTopo: r2, rEsfera: rMid, altura: hStage, aneis: 3 });
+        } else if (Math.abs(r1 - r2) <= 1) {
           newStages.push({ tipo: 'cilindro', rBase: r1, rTopo: r1, altura: hStage, aneis: 1 });
         } else {
           newStages.push({ tipo: 'cone', rBase: r1, rTopo: r2, altura: hStage, aneis: 1 });
