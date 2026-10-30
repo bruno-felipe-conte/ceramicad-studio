@@ -56,28 +56,58 @@
 
   <style>
     :root {
-      --bg-app: #FAF8F5;
+      /* Nível 0: Fundo Recessivo (Canvas / Base) */
+      --bg-app: #F4F1EC;
+      /* Nível 1: Superfície Estrutural (Painéis e Headers) */
+      --bg-panel: #FAF8F5;
+      /* Nível 2: Cards de Parâmetros (Amazon Cloudscape) */
       --bg-surface: #FFFFFF;
-      --bg-subtle: #F4F1EC;
-      --border-hairline: #E7E3DC;
+      /* Nível rebaixado para Inputs e Trilhos Táteis */
+      --bg-subtle: #F2EFE9;
+      --bg-subtle-hover: #EBE7DF;
+      /* Bordas de Alta Definição */
+      --border-hairline: rgba(28, 25, 23, 0.08);
+      --border-card: rgba(28, 25, 23, 0.07);
+      /* Tipografia Hierarquizada */
       --text-primary: #1C1917;
       --text-secondary: #57534E;
       --text-muted: #78716C;
+      /* Acentos Cerâmica e Sálvia */
       --accent-clay: #B84A39;
-      --accent-clay-soft: rgba(184, 74, 57, 0.10);
+      --accent-clay-hover: #9A3B2C;
+      --accent-clay-soft: rgba(184, 74, 57, 0.12);
       --accent-sage: #2E6F54;
+      /* Elevações e Sombras Apple & Cloudscape */
+      --shadow-card: 0 4px 12px -2px rgba(28, 25, 23, 0.06), 0 1px 3px -1px rgba(28, 25, 23, 0.04);
+      --shadow-card-hover: 0 6px 18px -3px rgba(28, 25, 23, 0.09), 0 2px 5px -1px rgba(28, 25, 23, 0.05);
+      --shadow-hud: 0 8px 30px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.05);
     }
     .dark {
-      --bg-app: #161514;
+      /* Nível 0: Fundo Recessivo Escuro */
+      --bg-app: #121110;
+      /* Nível 1: Superfície Estrutural Escura */
+      --bg-panel: #161514;
+      /* Nível 2: Cards de Parâmetros Escuros */
       --bg-surface: #1E1C1A;
-      --bg-subtle: #252220;
-      --border-hairline: #2E2A27;
+      /* Nível rebaixado para Inputs Escuros */
+      --bg-subtle: #141312;
+      --bg-subtle-hover: #191817;
+      /* Bordas */
+      --border-hairline: rgba(255, 255, 255, 0.08);
+      --border-card: rgba(255, 255, 255, 0.07);
+      /* Tipografia */
       --text-primary: #F5F5F4;
       --text-secondary: #A8A29E;
       --text-muted: #78716C;
+      /* Acentos */
       --accent-clay: #D46552;
-      --accent-clay-soft: rgba(212, 101, 82, 0.16);
+      --accent-clay-hover: #E07B69;
+      --accent-clay-soft: rgba(212, 101, 82, 0.18);
       --accent-sage: #34D399;
+      /* Elevações */
+      --shadow-card: 0 4px 16px -2px rgba(0, 0, 0, 0.45), 0 1px 4px -1px rgba(0, 0, 0, 0.35);
+      --shadow-card-hover: 0 8px 24px -3px rgba(0, 0, 0, 0.60), 0 3px 8px -1px rgba(0, 0, 0, 0.40);
+      --shadow-hud: 0 10px 32px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.40);
     }
 
     body {
@@ -89,7 +119,7 @@
     }
 
     ::selection {
-      background-color: rgba(184, 74, 57, 0.18);
+      background-color: var(--accent-clay-soft);
       color: var(--text-primary);
     }
 
@@ -103,7 +133,7 @@
     ::-webkit-scrollbar { width: 5px; height: 5px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: rgba(120, 113, 108, 0.28); border-radius: 9999px; }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(184, 74, 57, 0.55); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent-clay); }
 
     /* Palco 3D estilo Ateliê Nórdico Contemporâneo */
     .viewport-bg {
@@ -113,86 +143,195 @@
       background: radial-gradient(circle at 50% 35%, #F6F2EB 0%, #E5DDD0 100%);
     }
 
-    /* Navegação Superior Clean */
+    /* Navegação Primária em Abas */
     .nav-pill-active {
       background-color: #FFFFFF !important;
-      color: #B84A39 !important;
-      box-shadow: 0 1px 3px rgba(28, 25, 23, 0.08), 0 0 0 1px rgba(184, 74, 57, 0.18);
+      color: var(--accent-clay) !important;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.06) !important;
+      font-weight: 700 !important;
     }
     .dark .nav-pill-active {
-      background-color: #282422 !important;
+      background-color: #2C2826 !important;
       color: #F08C7B !important;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(212, 101, 82, 0.28);
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.50), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+      font-weight: 700 !important;
     }
 
     details > summary { list-style: none; }
     details > summary::-webkit-details-marker { display: none; }
 
-    /* Componentes Clean de Formulário CAD */
+    /* Componentes de Formulário CAD e Rótulos */
     .cad-label {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 12px;
-      font-weight: 500;
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: -0.005em;
       color: var(--text-secondary);
       margin-bottom: 5px;
       line-height: 1.3;
     }
     .cad-input {
       width: 100%;
-      height: 34px;
-      padding: 0 10px;
+      height: 36px;
+      padding: 0 11px;
       font-size: 12.5px;
       border-radius: 8px;
       border: 1px solid var(--border-hairline);
-      background-color: var(--bg-surface);
+      background-color: var(--bg-subtle);
       color: var(--text-primary);
-      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+      transition: border-color 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
+    }
+    .dark .cad-input {
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+    }
+    .cad-input:hover {
+      border-color: rgba(184, 74, 57, 0.35);
     }
     .cad-input:focus {
       outline: none;
+      background-color: var(--bg-surface);
       border-color: var(--accent-clay);
-      box-shadow: 0 0 0 3px var(--accent-clay-soft);
+      box-shadow: 0 0 0 3px var(--accent-clay-soft), inset 0 1px 2px rgba(0, 0, 0, 0.02);
     }
+
+    /* Cards de Parâmetros Padrão Amazon Cloudscape (Nível 2) */
     .cad-card {
       background-color: var(--bg-surface);
-      border: 1px solid var(--border-hairline);
-      border-radius: 12px;
-      padding: 14px;
+      border: 1px solid var(--border-card);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: var(--shadow-card);
+      transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .cad-card:hover {
+      box-shadow: var(--shadow-card-hover);
+    }
+    .cad-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border-hairline);
+    }
+    .cad-card-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
     }
     .cad-section-divider {
       border-top: 1px solid var(--border-hairline);
-      padding-top: 12px;
-      margin-top: 12px;
+      padding-top: 14px;
+      margin-top: 14px;
     }
 
-    /* Sub-abas Horizontais Clean */
+    /* Apple Segmented Control Unificado (Nível 3 Vibrancy) */
     .subtab-bar {
       display: grid;
-      gap: 4px;
+      gap: 3px;
       padding: 3px;
-      background-color: var(--bg-subtle);
-      border: 1px solid var(--border-hairline);
+      background: rgba(120, 113, 108, 0.10);
+      border: 1px solid rgba(120, 113, 108, 0.12);
       border-radius: 10px;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06);
+    }
+    .dark .subtab-bar {
+      background: rgba(0, 0, 0, 0.30);
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.40);
     }
     .subtab-btn {
-      padding: 6px 8px;
-      border-radius: 7px;
+      padding: 6px 10px;
+      border-radius: 8px;
       font-size: 11.5px;
       font-weight: 600;
       color: var(--text-secondary);
-      transition: all 0.15s ease;
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
       text-align: center;
       white-space: nowrap;
+      user-select: none;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
     }
     .subtab-btn:hover {
       color: var(--text-primary);
     }
-    .subtab-btn.active {
+    .subtab-btn.active,
+    .subtab-btn.bg-terracotta-500,
+    .subtab-btn.bg-emerald-600 {
+      background: #FFFFFF !important;
+      color: var(--accent-clay) !important;
+      font-weight: 700;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.06) !important;
+    }
+    .dark .subtab-btn.active,
+    .dark .subtab-btn.bg-terracotta-500,
+    .dark .subtab-btn.bg-emerald-600 {
+      background: #2C2826 !important;
+      color: #F08C7B !important;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.50), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+    }
+
+    /* Barra de Ação Fixa (Sticky Action Dock) */
+    .sticky-action-dock {
+      position: sticky;
+      bottom: 0;
+      margin-left: -1rem;
+      margin-right: -1rem;
+      margin-bottom: -1rem;
+      padding: 12px 16px;
+      background: rgba(250, 248, 245, 0.88);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-top: 1px solid var(--border-hairline);
+      box-shadow: 0 -4px 16px rgba(28, 25, 23, 0.05);
+      z-index: 25;
+    }
+    .dark .sticky-action-dock {
+      background: rgba(30, 28, 26, 0.88);
+      border-top-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.35);
+    }
+    .cta-primary {
+      background-color: var(--accent-clay);
+      color: #FFFFFF;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(184, 74, 57, 0.28), 0 1px 2px rgba(0, 0, 0, 0.08);
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+    .cta-primary:hover {
+      background-color: var(--accent-clay-hover);
+      box-shadow: 0 4px 14px rgba(184, 74, 57, 0.38);
+      transform: translateY(-1px);
+    }
+    .cta-primary:active {
+      transform: translateY(0);
+    }
+    .cta-secondary {
       background-color: var(--bg-surface);
-      color: var(--accent-clay);
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-hairline);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+    .cta-secondary:hover {
+      color: var(--text-primary);
+      background-color: var(--bg-subtle);
+      border-color: rgba(184, 74, 57, 0.25);
     }
 
     /* Botão Circular Didático (?) */
@@ -224,9 +363,9 @@
     .help-tip:hover,
     .help-tip:focus-visible,
     .help-tip.active-tip {
-      background-color: #B84A39;
+      background-color: var(--accent-clay);
       color: #FFFFFF;
-      border-color: #B84A39;
+      border-color: var(--accent-clay);
       transform: scale(1.1);
       box-shadow: 0 2px 8px rgba(184, 74, 57, 0.32);
       outline: none;
@@ -239,12 +378,13 @@
       width: 305px;
       max-width: calc(100vw - 24px);
       padding: 13px 15px;
-      border-radius: 12px;
-      background-color: rgba(28, 25, 23, 0.97);
+      border-radius: 14px;
+      background-color: rgba(28, 25, 23, 0.96);
       color: #F5F5F4;
       border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 18px 38px -8px rgba(0, 0, 0, 0.48), 0 4px 12px rgba(0, 0, 0, 0.25);
-      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.50), 0 4px 12px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       pointer-events: auto;
       opacity: 0;
       visibility: hidden;
@@ -297,49 +437,49 @@
     }
   </style>
 </head>
-<body class="bg-terracotta-50 dark:bg-terracotta-900 text-stone-800 dark:text-stone-100 h-screen flex flex-col select-none">
+<body class="bg-[var(--bg-app)] text-stone-800 dark:text-stone-100 h-screen flex flex-col select-none antialiased">
 
   <!-- =========================================================================
-       BARRA SUPERIOR CLEAN — ESTÚDIO CERÂMICO NÓRDICO
+       BARRA SUPERIOR APPLE HIG / macOS VIBRANCY — CERAMICAD STUDIO PRO
        ========================================================================= -->
-  <header class="h-14 bg-white/95 dark:bg-terracotta-800/95 backdrop-blur-md border-b border-stone-200/80 dark:border-cad-border px-3 md:px-5 flex items-center justify-between shrink-0 z-30">
+  <header class="h-14 bg-white/85 dark:bg-[#161514]/85 backdrop-blur-xl border-b border-stone-200/80 dark:border-white/10 px-3 md:px-5 flex items-center justify-between shrink-0 z-30 shadow-xs">
     <!-- Identidade da Marca -->
     <div class="flex items-center gap-2.5">
-      <div class="w-8 h-8 rounded-lg bg-terracotta-500 text-white flex items-center justify-center font-bold text-base shadow-xs">
+      <div class="w-8 h-8 rounded-xl bg-terracotta-500 text-white flex items-center justify-center font-bold text-base shadow-md shadow-terracotta-500/25">
         🏺
       </div>
       <div class="flex items-baseline gap-2">
-        <span class="font-bold text-sm md:text-base tracking-tight text-stone-900 dark:text-white">CeramiCAD</span>
-        <span class="text-[11px] text-stone-400 dark:text-stone-500 font-medium hidden sm:inline">Atelier Studio</span>
+        <span class="font-extrabold text-sm md:text-base tracking-tight text-stone-900 dark:text-white">CeramiCAD</span>
+        <span class="text-[9.5px] font-bold font-mono-cad text-terracotta-500 bg-terracotta-500/10 dark:bg-terracotta-500/20 px-1.5 py-0.5 rounded-md border border-terracotta-500/30 hidden sm:inline tracking-wider">STUDIO PRO</span>
       </div>
     </div>
 
-    <!-- Navegação Central Segmentada -->
-    <nav class="flex items-center gap-1 bg-stone-100/90 dark:bg-terracotta-900 p-1 rounded-xl border border-stone-200/80 dark:border-cad-border overflow-x-auto max-w-full">
+    <!-- Navegação Central Segmentada (Apple Segmented Control Nível 3) -->
+    <nav class="flex items-center gap-1 bg-stone-200/50 dark:bg-black/35 p-1 rounded-xl border border-stone-200/80 dark:border-white/10 overflow-x-auto max-w-full shadow-inner">
       <button onclick="switchTool('vasos')" id="tab-btn-vasos" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 nav-pill-active whitespace-nowrap">
-        <span>🏺</span> Olaria & Moldes 2D
+        <span>🏺</span> Olaria & Vasos
       </button>
       <button onclick="switchTool('cortadores')" id="tab-btn-cortadores" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white transition flex items-center gap-1.5 whitespace-nowrap">
-        <span>✂️</span> Cortadores & Relevo
+        <span>✂️</span> Cortadores 3D
       </button>
       <button onclick="switchTool('utilitarios')" id="tab-btn-utilitarios" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white transition flex items-center gap-1.5 whitespace-nowrap">
         <span>🌀</span> Texturas & Utilitários
       </button>
       <button onclick="switchTool('biblioteca')" id="tab-btn-biblioteca" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white transition flex items-center gap-1.5 whitespace-nowrap">
-        <span>📦</span> Biblioteca & Inspetor
+        <span>📦</span> Biblioteca 3D
       </button>
       <button onclick="switchTool('precificacao')" id="tab-btn-precificacao" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white transition flex items-center gap-1.5 whitespace-nowrap">
-        <span>💰</span> Precificador
+        <span>💰</span> Custos & Preço
       </button>
     </nav>
 
     <!-- Ações Rápidas Direita -->
     <div class="flex items-center gap-2">
-      <button onclick="openToolHubModal()" class="px-2.5 py-1.5 rounded-lg border border-stone-200 dark:border-cad-border bg-stone-50 dark:bg-terracotta-900 text-stone-700 dark:text-stone-200 text-xs font-medium flex items-center gap-1.5 hover:border-terracotta-400 transition" title="Ver catálogo completo de ferramentas">
+      <button onclick="openToolHubModal()" class="px-2.5 py-1.5 rounded-xl border border-stone-200/90 dark:border-white/10 bg-white/70 dark:bg-stone-800/70 text-stone-700 dark:text-stone-200 text-xs font-medium flex items-center gap-1.5 hover:border-terracotta-400 hover:text-terracotta-600 transition shadow-xs" title="Ver catálogo completo de ferramentas">
         <span>⚡</span>
-        <span class="hidden md:inline">Ferramentas</span>
+        <span class="hidden md:inline">Hub</span>
       </button>
-      <button onclick="toggleTheme()" class="p-1.5 px-2.5 rounded-lg border border-stone-200 dark:border-cad-border bg-stone-50 dark:bg-terracotta-900 text-xs font-medium flex items-center gap-1.5 hover:bg-stone-100 dark:hover:bg-stone-800 transition" title="Alternar entre tema claro e escuro">
+      <button onclick="toggleTheme()" class="p-1.5 px-2.5 rounded-xl border border-stone-200/90 dark:border-white/10 bg-white/70 dark:bg-stone-800/70 text-xs font-medium flex items-center gap-1.5 hover:bg-stone-100 dark:hover:bg-stone-800 transition shadow-xs" title="Alternar entre tema claro e escuro">
         <span id="theme-icon">🌙</span>
         <span id="theme-text" class="hidden xl:inline text-[11px] text-stone-600 dark:text-stone-300">Escuro</span>
       </button>
@@ -352,7 +492,7 @@
   <div class="flex-1 flex flex-col lg:flex-row overflow-hidden relative">
 
     <!-- COLUNA ESQUERDA: PAINEL DE PARÂMETROS CONTEXTUAL -->
-    <aside id="left-control-panel" class="w-full lg:w-[440px] xl:w-[460px] bg-terracotta-50 dark:bg-terracotta-800 border-r border-stone-200/90 dark:border-cad-border flex flex-col h-full overflow-y-auto shrink-0 z-20 select-text">
+    <aside id="left-control-panel" class="w-full lg:w-[440px] xl:w-[460px] bg-[var(--bg-panel)] border-r border-[var(--border-hairline)] flex flex-col h-full overflow-y-auto shrink-0 z-20 select-text">
 
       <!-- =====================================================================
            PAINEL 1: MODELAGEM DE VASOS 3D & MOLDES PLANIFICADOS 2D
@@ -762,30 +902,7 @@
             </div>
           </div>
 
-          <!-- Barra de Exportações Diretas do Vaso Spline -->
-          <div class="cad-card space-y-2 bg-stone-100/70 dark:bg-terracotta-900/60">
-            <div class="grid grid-cols-2 gap-2">
-              <button onclick="exportActiveMeshSTL('vaso_escultural_3d.stl')" class="bg-terracotta-500 hover:bg-terracotta-600 text-white font-semibold py-2.5 px-3 rounded-lg text-xs transition shadow-xs flex items-center justify-center gap-1.5">
-                <span>⬇️</span> Baixar Vaso (.STL)
-              </button>
-              <button onclick="exportVaseRibSTL()" class="bg-stone-800 hover:bg-stone-900 text-white font-semibold py-2.5 px-3 rounded-lg text-xs transition flex items-center justify-center gap-1.5">
-                <span>📐</span> Costela Oleiro (.STL)
-                <span class="help-tip !bg-white/20 !text-white !border-white/30" tabindex="0" role="button" aria-label="Ajuda sobre Costela de Oleiro STL"
-                  data-tip-cat="Ferramenta de Torno"
-                  data-tip-title="Exportar Costela de Oleiro (Potter's Rib)"
-                  data-tip-body="Gera automaticamente uma lâmina rígida em 3D com a curva exata da silhueta deste vaso, chanfro de alisamento de 45° e furo ergonômico para o polegar."
-                  data-tip-advice="Imprima em PLA com 4 perímetros e use no torno elétrico para reproduzir vasos idênticos em série!">?</span>
-              </button>
-            </div>
-            <div class="grid grid-cols-2 gap-2">
-              <button onclick="convertSplineToSlabStages()" class="bg-white dark:bg-stone-800 hover:bg-stone-50 text-stone-700 dark:text-stone-200 border border-stone-200 dark:border-cad-border font-medium py-2 px-2.5 rounded-lg text-xs transition flex items-center justify-center gap-1">
-                <span>📄</span> Moldes 2D (PDF A4)
-              </button>
-              <button onclick="sendVaseToPricing()" class="bg-emerald-600/10 hover:bg-emerald-600/20 text-emerald-800 dark:text-emerald-300 border border-emerald-600/30 font-semibold py-2 px-2.5 rounded-lg text-xs transition flex items-center justify-center gap-1">
-                <span>💰</span> Precificar Vaso ➔
-              </button>
-            </div>
-          </div>
+
 
         </div>
 
@@ -890,22 +1007,6 @@
             </div>
             <canvas id="pdf-preview-canvas" width="420" height="125" class="w-full border border-stone-200 dark:border-cad-border bg-stone-50 dark:bg-stone-900 rounded-lg"></canvas>
 
-            <button onclick="generateVasePDF()" class="w-full bg-terracotta-500 hover:bg-terracotta-600 text-white font-semibold py-2.5 px-4 rounded-lg text-xs shadow-xs transition flex items-center justify-center gap-2">
-              📄 Baixar Moldes PDF A4 (Escala 1:1 · Encaixe Otimizado · Folga 2 cm)
-            </button>
-          </div>
-
-          <!-- Exportações Secundárias dos Estágios -->
-          <div class="grid grid-cols-3 gap-2">
-            <button onclick="exportActiveMeshSTL('vaso_estagios_3d.stl')" class="bg-stone-800 hover:bg-stone-900 text-white font-medium py-2 px-2 rounded-lg text-xs transition flex items-center justify-center gap-1">
-              ⬇️ Vaso .STL
-            </button>
-            <button onclick="exportVaseRibSTL()" class="bg-stone-800 hover:bg-stone-900 text-white font-medium py-2 px-2 rounded-lg text-xs transition flex items-center justify-center gap-1">
-              📐 Costela .STL
-            </button>
-            <button onclick="sendVaseToPricing()" class="bg-emerald-600/10 hover:bg-emerald-600/20 text-emerald-800 dark:text-emerald-300 border border-emerald-600/30 font-semibold py-2 px-2 rounded-lg text-xs transition flex items-center justify-center gap-1">
-              💰 Precificar
-            </button>
           </div>
 
           <details class="cad-card text-xs space-y-2 py-2.5">
@@ -920,6 +1021,44 @@
               </button>
             </div>
           </details>
+        </div>
+
+        <!-- Sticky Action Dock do Módulo Vasos (Apple Elevated Action Footer) -->
+        <div class="sticky-action-dock">
+          <!-- Ações do Modo Spline -->
+          <div id="vase-dock-spline" class="space-y-2">
+            <button onclick="exportActiveMeshSTL('vaso_escultural_3d.stl')" class="w-full cta-primary py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2">
+              <span>⬇️</span> Baixar Vaso 3D (.STL)
+            </button>
+            <div class="grid grid-cols-3 gap-1.5">
+              <button onclick="exportVaseRibSTL()" class="cta-secondary py-1.5 px-2 rounded-lg text-[11px] flex items-center justify-center gap-1" title="Costela de Oleiro para modelagem no torno">
+                <span>📐</span> Costela .STL
+              </button>
+              <button onclick="convertSplineToSlabStages()" class="cta-secondary py-1.5 px-2 rounded-lg text-[11px] flex items-center justify-center gap-1" title="Converter silhueta em moldes de anéis A4">
+                <span>📄</span> Moldes A4
+              </button>
+              <button onclick="sendVaseToPricing()" class="cta-secondary !text-emerald-700 dark:!text-emerald-400 !border-emerald-500/30 py-1.5 px-2 rounded-lg text-[11px] flex items-center justify-center gap-1" title="Calcular preço da peça">
+                <span>💰</span> Precificar
+              </button>
+            </div>
+          </div>
+          <!-- Ações do Modo Estágios -->
+          <div id="vase-dock-estagios" class="hidden space-y-2">
+            <button onclick="generateVasePDF()" class="w-full cta-primary py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2">
+              <span>📄</span> Baixar Moldes PDF A4 (Escala 1:1 · Folga 2 cm)
+            </button>
+            <div class="grid grid-cols-3 gap-1.5">
+              <button onclick="exportActiveMeshSTL('vaso_estagios_3d.stl')" class="cta-secondary py-1.5 px-2 rounded-lg text-[11px] flex items-center justify-center gap-1">
+                <span>⬇️</span> Vaso .STL
+              </button>
+              <button onclick="exportVaseRibSTL()" class="cta-secondary py-1.5 px-2 rounded-lg text-[11px] flex items-center justify-center gap-1">
+                <span>📐</span> Costela .STL
+              </button>
+              <button onclick="sendVaseToPricing()" class="cta-secondary !text-emerald-700 dark:!text-emerald-400 !border-emerald-500/30 py-1.5 px-2 rounded-lg text-[11px] flex items-center justify-center gap-1">
+                <span>💰</span> Precificar
+              </button>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -1143,9 +1282,6 @@
           <input type="hidden" id="c-furo-dist" value="7.0" />
           <input type="hidden" id="c-relevo-ativo" value="true" />
 
-          <button onclick="exportActiveMeshSTL('cortador_expulsor_3d.stl')" class="w-full bg-terracotta-500 hover:bg-terracotta-600 text-white font-semibold py-2.5 px-4 rounded-lg text-xs shadow-xs transition flex items-center justify-center gap-2">
-            <span>⬇️</span> Baixar Cortador Expulsor 3D (.STL)
-          </button>
         </div>
 
         <!-- SUB-ABA 2: PROMPTS IA (ETAPAS 1 & 2) -->
@@ -1205,6 +1341,13 @@
               </button>
             </div>
           </div>
+        </div>
+
+        <!-- Sticky Action Dock Cortadores -->
+        <div class="sticky-action-dock">
+          <button onclick="exportActiveMeshSTL('cortador_expulsor_3d.stl')" class="w-full cta-primary py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2">
+            <span>⬇️</span> Baixar Cortador Expulsor 3D (.STL)
+          </button>
         </div>
 
       </div>
@@ -2192,43 +2335,48 @@
       <!-- Canvas 3D Principal -->
       <div id="main-viewport-container" class="flex-1 viewport-bg relative overflow-hidden">
 
-        <!-- Badge Topo Esquerda: Objeto Ativo & Coordenadas -->
-        <div class="absolute top-3 left-3 z-10 flex flex-wrap items-center gap-2 pointer-events-none">
-          <div class="bg-black/60 backdrop-blur-md text-stone-100 px-3 py-1.5 rounded-lg border border-white/10 text-xs font-mono-cad flex items-center gap-2 shadow-sm">
-            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-            <span id="viewport-active-label">Vaso Oco Paramétrico (Eixo Y Vertical)</span>
-          </div>
-          <div id="viewport-dims-pill" class="bg-terracotta-500/90 backdrop-blur-md text-white px-2.5 py-1.5 rounded-lg text-[11px] font-mono-cad font-bold shadow-sm">
-            132 × 160 × 132 mm
-          </div>
-        </div>
-
-        <!-- Controles de Câmera & Visualização (Topo Direita) -->
-        <div class="absolute top-3 right-3 z-10 flex flex-col items-end gap-2">
-          <div class="bg-black/60 backdrop-blur-md p-1 rounded-lg border border-white/10 flex items-center gap-1 shadow-sm">
-            <button onclick="setCameraView('iso')" class="px-2.5 py-1 rounded-md text-[11px] font-mono-cad font-bold bg-terracotta-500 text-white hover:bg-terracotta-600 transition" title="Enquadrar Visão Isométrica">
-              🏠 Iso
-            </button>
-            <button onclick="setCameraView('front')" class="px-2 py-1 rounded-md text-[11px] font-mono-cad font-medium text-stone-200 hover:bg-white/10 transition">
-              Frente
-            </button>
-            <button onclick="setCameraView('side')" class="px-2 py-1 rounded-md text-[11px] font-mono-cad font-medium text-stone-200 hover:bg-white/10 transition">
-              Lado
-            </button>
-            <button onclick="setCameraView('top')" class="px-2 py-1 rounded-md text-[11px] font-mono-cad font-medium text-stone-200 hover:bg-white/10 transition">
-              Topo
-            </button>
+        <!-- macOS Floating Glass Dock Unificada (Topo do Palco 3D) -->
+        <div id="floating-glass-dock" class="absolute top-3 left-3 right-3 z-10 flex flex-wrap items-center justify-between gap-2.5 p-1.5 px-3 rounded-2xl bg-black/60 dark:bg-black/75 backdrop-blur-xl border border-white/15 text-stone-100 shadow-xl shadow-black/25">
+          <!-- Lado Esquerdo: Objeto Ativo & Dimensões -->
+          <div class="flex items-center gap-2 min-w-0">
+            <div class="flex items-center gap-2 px-2.5 py-1 rounded-xl bg-white/10 text-xs font-mono-cad truncate">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0 animate-pulse"></span>
+              <span id="viewport-active-label" class="truncate font-medium">Vaso Oco Paramétrico (Eixo Y Vertical)</span>
+            </div>
+            <div id="viewport-dims-pill" class="bg-terracotta-500/90 text-white px-2.5 py-1 rounded-xl text-[11px] font-mono-cad font-bold shrink-0 shadow-xs">
+              132 × 160 × 132 mm
+            </div>
           </div>
 
-          <div class="bg-black/60 backdrop-blur-md px-2.5 py-1.5 rounded-lg border border-white/10 flex items-center gap-3 text-[11px] text-stone-200 font-mono-cad shadow-sm">
-            <label class="flex items-center gap-1.5 cursor-pointer">
-              <input type="checkbox" id="vp-wireframe" onchange="toggleWireframe(this.checked)" class="accent-terracotta-500 rounded" />
-              <span>Aramado</span>
-            </label>
-            <label class="flex items-center gap-1.5 cursor-pointer">
-              <input type="checkbox" id="vp-autorotate" onchange="toggleAutoRotate(this.checked)" class="accent-terracotta-500 rounded" />
-              <span>Girar</span>
-            </label>
+          <!-- Lado Direito: Câmeras e Visualização -->
+          <div class="flex items-center gap-2 shrink-0">
+            <div class="flex items-center p-0.5 rounded-xl bg-white/10 border border-white/10 text-[11px] font-mono-cad">
+              <button onclick="setCameraView('iso')" class="px-2.5 py-1 rounded-lg font-bold bg-terracotta-500 text-white shadow-xs transition" title="Enquadrar Visão Isométrica">
+                🏠 Iso
+              </button>
+              <button onclick="setCameraView('front')" class="px-2 py-1 rounded-lg text-stone-200 hover:text-white hover:bg-white/10 transition">
+                Frente
+              </button>
+              <button onclick="setCameraView('side')" class="px-2 py-1 rounded-lg text-stone-200 hover:text-white hover:bg-white/10 transition">
+                Lado
+              </button>
+              <button onclick="setCameraView('top')" class="px-2 py-1 rounded-lg text-stone-200 hover:text-white hover:bg-white/10 transition">
+                Topo
+              </button>
+            </div>
+
+            <div class="h-4 w-px bg-white/20"></div>
+
+            <div class="flex items-center gap-2.5 text-[11px] font-mono-cad text-stone-200 px-1">
+              <label class="flex items-center gap-1.5 cursor-pointer hover:text-white transition">
+                <input type="checkbox" id="vp-wireframe" onchange="toggleWireframe(this.checked)" class="accent-terracotta-500 rounded" />
+                <span>Aramado</span>
+              </label>
+              <label class="flex items-center gap-1.5 cursor-pointer hover:text-white transition">
+                <input type="checkbox" id="vp-autorotate" onchange="toggleAutoRotate(this.checked)" class="accent-terracotta-500 rounded" />
+                <span>Girar</span>
+              </label>
+            </div>
           </div>
         </div>
 
@@ -2238,27 +2386,30 @@
         </div>
       </div>
 
-      <!-- BARRA DE STATUS & CUSTOS EM TEMPO REAL NO RODAPÉ DO VIEWPORT -->
-      <footer class="h-12 bg-white dark:bg-terracotta-800 border-t border-stone-200/80 dark:border-cad-border px-4 flex items-center justify-between text-xs font-mono-cad shrink-0 z-20">
-        <div class="flex items-center gap-4 overflow-x-auto">
-          <div class="flex items-center">
-            <span class="text-stone-400">Argila:</span>&nbsp;<strong id="bar-clay-kg" class="text-terracotta-600 dark:text-terracotta-300">0.00 kg</strong>
+      <!-- BARRA DE TELEMETRIA AMAZON CLOUDSCAPE NO RODAPÉ DO VIEWPORT -->
+      <footer class="h-13 bg-white/95 dark:bg-terracotta-800/95 backdrop-blur-md border-t border-stone-200/80 dark:border-cad-border px-4 flex items-center justify-between text-xs font-mono-cad shrink-0 z-20 shadow-xs">
+        <div class="flex items-center gap-2.5 md:gap-4 overflow-x-auto py-1">
+          <div class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-stone-100/80 dark:bg-stone-900/60 border border-stone-200/60 dark:border-stone-800">
+            <span class="text-stone-400 font-sans text-[11px]">Argila:</span>
+            <strong id="bar-clay-kg" class="text-terracotta-600 dark:text-terracotta-300 font-bold tabular-nums">0.00 kg</strong>
             <span class="help-tip" tabindex="0" role="button" aria-label="Ajuda sobre Argila Úmida"
               data-tip-cat="Massa Cerâmica"
               data-tip-title="Argila Úmida Necessária"
               data-tip-body="Peso de barro cru a separar para a produção da peça, considerando o volume real da parede e a densidade da massa."
               data-tip-advice="Pese a bolacha de argila na balança antes de começar!">?</span>
           </div>
-          <div class="hidden sm:flex items-center">
-            <span class="text-stone-400">Capacidade:</span>&nbsp;<strong id="bar-volume-ml" class="text-sky-600 dark:text-sky-400">0 mL</strong>
+          <div class="hidden sm:flex items-center gap-1 px-2.5 py-1 rounded-lg bg-stone-100/80 dark:bg-stone-900/60 border border-stone-200/60 dark:border-stone-800">
+            <span class="text-stone-400 font-sans text-[11px]">Capacidade:</span>
+            <strong id="bar-volume-ml" class="text-sky-600 dark:text-sky-400 font-bold tabular-nums">0 mL</strong>
             <span class="help-tip" tabindex="0" role="button" aria-label="Ajuda sobre Capacidade em mL"
               data-tip-cat="Volume Útil"
               data-tip-title="Capacidade Interna Oca (mL)"
               data-tip-body="Volume líquido de água que o vaso comporta até o gargalo."
               data-tip-advice="Útil para canecas, garrafas e jarras.">?</span>
           </div>
-          <div class="flex items-center">
-            <span class="text-stone-400">PLA:</span>&nbsp;<strong id="bar-pla-g" class="text-stone-700 dark:text-stone-200">~42 g</strong>
+          <div class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-stone-100/80 dark:bg-stone-900/60 border border-stone-200/60 dark:border-stone-800">
+            <span class="text-stone-400 font-sans text-[11px]">PLA:</span>
+            <strong id="bar-pla-g" class="text-stone-700 dark:text-stone-200 font-bold tabular-nums">~42 g</strong>
             <span class="help-tip" tabindex="0" role="button" aria-label="Ajuda sobre Peso PLA"
               data-tip-cat="Impressão 3D"
               data-tip-title="Filamento PLA para Ferramenta/Molde"
@@ -2267,13 +2418,19 @@
           </div>
         </div>
 
-        <div class="flex items-center gap-3">
-          <div class="bg-stone-100 dark:bg-terracotta-900 border border-stone-200 dark:border-cad-border px-3 py-1 rounded-lg flex items-center gap-3">
-            <span>Custo: <strong id="bar-cost" class="text-stone-800 dark:text-stone-100">R$ 0,00</strong></span>
-            <span>Venda: <strong id="bar-price" class="text-emerald-600 dark:text-emerald-400 font-extrabold">R$ 0,00</strong></span>
+        <!-- Célula Financeira de Alto Contraste -->
+        <div class="flex items-center gap-2.5">
+          <div class="flex items-center gap-2 p-1 px-2.5 rounded-xl bg-stone-100 dark:bg-terracotta-900 border border-stone-200 dark:border-cad-border shadow-xs">
+            <div class="text-[11px] text-stone-500 font-sans">
+              Custo: <strong id="bar-cost" class="text-stone-900 dark:text-stone-100 font-bold font-mono-cad tabular-nums">R$ 0,00</strong>
+            </div>
+            <div class="h-3.5 w-px bg-stone-300 dark:bg-stone-700"></div>
+            <div class="text-[11px] text-stone-500 font-sans">
+              Venda: <strong id="bar-price" class="text-emerald-600 dark:text-emerald-400 font-extrabold font-mono-cad text-xs tabular-nums">R$ 0,00</strong>
+            </div>
           </div>
-          <button onclick="switchTool('precificacao')" class="text-xs font-semibold text-terracotta-500 hover:underline hidden md:inline">
-            Detalhar Custos ➔
+          <button onclick="switchTool('precificacao')" class="px-2.5 py-1.5 rounded-lg bg-terracotta-500/10 hover:bg-terracotta-500/20 text-terracotta-600 dark:text-terracotta-400 text-xs font-bold transition hidden md:flex items-center gap-1">
+            <span>Precificar</span> ➔
           </button>
         </div>
       </footer>
@@ -2803,11 +2960,7 @@
         const p = document.getElementById('subpanel-util-' + s);
         if (p) p.classList.add('hidden');
         const b = document.getElementById('subbtn-util-' + s);
-        if (b) {
-          b.className = s === sub
-            ? 'py-1.5 px-2 rounded-lg text-xs font-bold bg-terracotta-500 text-white transition flex items-center justify-center gap-1 shadow-sm'
-            : 'py-1.5 px-2 rounded-lg text-xs font-bold text-stone-600 dark:text-stone-300 hover:bg-stone-200/60 dark:hover:bg-stone-800 transition flex items-center justify-center gap-1';
-        }
+        if (b) b.classList.toggle('active', s === sub);
       });
       document.getElementById('subpanel-util-' + sub)?.classList.remove('hidden');
 
@@ -2837,11 +2990,7 @@
         const p = document.getElementById('subpanel-bib-' + s);
         if (p) p.classList.add('hidden');
         const b = document.getElementById('subbtn-bib-' + s);
-        if (b) {
-          b.className = s === sub
-            ? 'py-1.5 rounded-lg text-xs font-bold bg-terracotta-500 text-white transition flex items-center justify-center gap-1.5 shadow-sm'
-            : 'py-1.5 rounded-lg text-xs font-bold text-stone-600 dark:text-stone-300 hover:bg-stone-200/60 dark:hover:bg-stone-800 transition flex items-center justify-center gap-1.5';
-        }
+        if (b) b.classList.toggle('active', s === sub);
       });
       document.getElementById('subpanel-bib-' + sub)?.classList.remove('hidden');
       if (sub === 'presets') {
@@ -2857,16 +3006,8 @@
       document.getElementById('subpanel-preco-3d')?.classList.toggle('hidden', sub !== '3d');
       const btnA = document.getElementById('subbtn-preco-argila');
       const btn3 = document.getElementById('subbtn-preco-3d');
-      if (btnA) {
-        btnA.className = sub === 'argila'
-          ? 'py-2 rounded-lg text-xs font-bold bg-emerald-600 text-white transition flex items-center justify-center gap-1.5 shadow-sm'
-          : 'py-2 rounded-lg text-xs font-bold text-stone-600 dark:text-stone-300 hover:bg-stone-200/60 dark:hover:bg-stone-800 transition flex items-center justify-center gap-1.5';
-      }
-      if (btn3) {
-        btn3.className = sub === '3d'
-          ? 'py-2 rounded-lg text-xs font-bold bg-emerald-600 text-white transition flex items-center justify-center gap-1.5 shadow-sm'
-          : 'py-2 rounded-lg text-xs font-bold text-stone-600 dark:text-stone-300 hover:bg-stone-200/60 dark:hover:bg-stone-800 transition flex items-center justify-center gap-1.5';
-      }
+      if (btnA) btnA.classList.toggle('active', sub === 'argila');
+      if (btn3) btn3.classList.toggle('active', sub === '3d');
       if (sub === 'argila') recalcCeramicPricing();
       else recalcPricing();
     }
@@ -2891,12 +3032,8 @@
       subToolRolos = sub;
       document.getElementById('subpanel-rolo').classList.toggle('hidden', sub !== 'rolo');
       document.getElementById('subpanel-carimbo').classList.toggle('hidden', sub !== 'carimbo');
-      document.getElementById('subbtn-rolo').className = sub === 'rolo'
-        ? 'py-1.5 rounded-lg text-xs font-bold bg-terracotta-500 text-white'
-        : 'py-1.5 rounded-lg text-xs font-bold text-stone-600 dark:text-stone-300';
-      document.getElementById('subbtn-carimbo').className = sub === 'carimbo'
-        ? 'py-1.5 rounded-lg text-xs font-bold bg-terracotta-500 text-white'
-        : 'py-1.5 rounded-lg text-xs font-bold text-stone-600 dark:text-stone-300';
+      document.getElementById('subbtn-rolo')?.classList.toggle('active', sub === 'rolo');
+      document.getElementById('subbtn-carimbo')?.classList.toggle('active', sub === 'carimbo');
 
       if (sub === 'rolo') rebuildRoller3D();
       else rebuildStamp3D();
@@ -3260,16 +3397,14 @@
       vaseDesignMode = mode;
       document.getElementById('subpanel-vase-spline')?.classList.toggle('hidden', mode !== 'spline');
       document.getElementById('subpanel-vase-estagios')?.classList.toggle('hidden', mode !== 'estagios');
+      document.getElementById('vase-dock-spline')?.classList.toggle('hidden', mode !== 'spline');
+      document.getElementById('vase-dock-estagios')?.classList.toggle('hidden', mode !== 'estagios');
 
       const btnS = document.getElementById('btn-vmode-spline');
       const btnE = document.getElementById('btn-vmode-estagios');
       if (btnS && btnE) {
-        btnS.className = mode === 'spline'
-          ? 'py-1.5 px-2 rounded-lg text-xs font-bold bg-terracotta-500 text-white transition flex items-center justify-center gap-1 shadow-sm'
-          : 'py-1.5 px-2 rounded-lg text-xs font-bold text-stone-600 dark:text-stone-300 hover:bg-stone-200/60 dark:hover:bg-stone-800 transition flex items-center justify-center gap-1';
-        btnE.className = mode === 'estagios'
-          ? 'py-1.5 px-2 rounded-lg text-xs font-bold bg-terracotta-500 text-white transition flex items-center justify-center gap-1 shadow-sm'
-          : 'py-1.5 px-2 rounded-lg text-xs font-bold text-stone-600 dark:text-stone-300 hover:bg-stone-200/60 dark:hover:bg-stone-800 transition flex items-center justify-center gap-1';
+        btnS.classList.toggle('active', mode === 'spline');
+        btnE.classList.toggle('active', mode === 'estagios');
       }
 
       if (mode === 'estagios') {
