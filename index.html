@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <title>CeramiCAD Studio Pro — CAD 3D, Ferramentas & Precificação para Ceramistas</title>
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -9935,7 +9938,7 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
     // =========================================================================
     let lithoImageData = null;
 
-    function loadLithoPreset(presetName) {
+    function buildLithoPresetImageData(presetName) {
       const c = document.createElement('canvas');
       c.width = 256;
       c.height = 256;
@@ -10085,19 +10088,21 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
       ctx.restore();
 
       const raw = ctx.getImageData(0, 0, 256, 256);
-      lithoImageData = applyGaussianBlurImageData(raw, 2) || raw;
-      generateLithophane3D(true);
+      applyGaussianBlurImageData(raw, 2);
+      return raw;
     }
 
-    function generateLithophane3D(fromPreset = false) {
+    function loadLithoPreset(presetName) {
+      lithoImageData = buildLithoPresetImageData(presetName || 'lotus');
+      generateLithophane3D();
+    }
+
+    function generateLithophane3D() {
       if (!lithoImageData) {
-        if (!fromPreset) {
-          loadLithoPreset(document.getElementById('litho-preset-select')?.value || 'lotus');
-        }
-        return;
+        lithoImageData = buildLithoPresetImageData(document.getElementById('litho-preset-select')?.value || 'lotus');
       }
 
-      if (!scene) return;
+      if (!scene || !lithoImageData) return;
 
       clearActiveGroup();
       activeTool = 'utilitarios';
