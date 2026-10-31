@@ -1,0 +1,3182 @@
+{
+  "timestamp": "2026-10-31T00:00:51.786Z",
+  "summary": {
+    "total": 89,
+    "passed": 89,
+    "failed": 0,
+    "passRate": "100.0%",
+    "durationSeconds": "13.63",
+    "byStation": {
+      "Station 1": {
+        "total": 44,
+        "passed": 44,
+        "failed": 0
+      },
+      "Station 2": {
+        "total": 45,
+        "passed": 45,
+        "failed": 0
+      },
+      "Station 3": {
+        "total": 0,
+        "passed": 0,
+        "failed": 0
+      },
+      "Station 4": {
+        "total": 0,
+        "passed": 0,
+        "failed": 0
+      },
+      "Station 5": {
+        "total": 0,
+        "passed": 0,
+        "failed": 0
+      }
+    },
+    "consoleErrorsCount": 0
+  },
+  "results": [
+    {
+      "id": "adv_s1_spline_dim_altura_tiny__1_mm_",
+      "station": 1,
+      "subsystem": "Spline Dimensions & Thickness Guards",
+      "item": "Altura Tiny (1 mm)",
+      "expected": "Valid 3D geometry without NaN or infinite bounds despite extreme input",
+      "actual": "Meshes: 9, Verts: 147,888, Bounds: [122.03 x 25.95 x 94.8 mm], NaN: false, Finite: true",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 9,
+        "totalVertices": 147888,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -61.012630462646484,
+            0,
+            -56.972721099853516
+          ],
+          "max": [
+            61.012630462646484,
+            25.946104049682617,
+            37.82444763183594
+          ],
+          "size": [
+            122.03,
+            25.95,
+            94.8
+          ]
+        }
+      },
+      "durationMs": 201
+    },
+    {
+      "id": "adv_s1_spline_dim_altura_huge__2500_mm_",
+      "station": 1,
+      "subsystem": "Spline Dimensions & Thickness Guards",
+      "item": "Altura Huge (2500 mm)",
+      "expected": "Valid 3D geometry without NaN or infinite bounds despite extreme input",
+      "actual": "Meshes: 9, Verts: 138,528, Bounds: [169.22 x 2500 x 107.13 mm], NaN: false, Finite: true",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 9,
+        "totalVertices": 138528,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -84.60769653320312,
+            0,
+            -64.10124206542969
+          ],
+          "max": [
+            84.60769653320312,
+            2500,
+            43.028785705566406
+          ],
+          "size": [
+            169.22,
+            2500,
+            107.13
+          ]
+        }
+      },
+      "durationMs": 170
+    },
+    {
+      "id": "adv_s1_spline_dim_altura_zero__0_mm_guard_",
+      "station": 1,
+      "subsystem": "Spline Dimensions & Thickness Guards",
+      "item": "Altura Zero (0 mm Guard)",
+      "expected": "Valid 3D geometry without NaN or infinite bounds despite extreme input",
+      "actual": "Meshes: 9, Verts: 138,528, Bounds: [165.79 x 165 x 107.13 mm], NaN: false, Finite: true",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 9,
+        "totalVertices": 138528,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -82.89645385742188,
+            0,
+            -64.10213470458984
+          ],
+          "max": [
+            82.89645385742188,
+            165,
+            43.023441314697266
+          ],
+          "size": [
+            165.79,
+            165,
+            107.13
+          ]
+        }
+      },
+      "durationMs": 104
+    },
+    {
+      "id": "adv_s1_spline_dim_altura_negativa___50_mm_guard_",
+      "station": 1,
+      "subsystem": "Spline Dimensions & Thickness Guards",
+      "item": "Altura Negativa (-50 mm Guard)",
+      "expected": "Valid 3D geometry without NaN or infinite bounds despite extreme input",
+      "actual": "Meshes: 9, Verts: 148,608, Bounds: [128.19 x 75.95 x 107.11 mm], NaN: false, Finite: true",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 9,
+        "totalVertices": 148608,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -64.09738159179688,
+            -50,
+            -64.09738159179688
+          ],
+          "max": [
+            64.09738159179688,
+            25.946104049682617,
+            43.016845703125
+          ],
+          "size": [
+            128.19,
+            75.95,
+            107.11
+          ]
+        }
+      },
+      "durationMs": 153
+    },
+    {
+      "id": "adv_s1_spline_dim_raio_tiny__1_mm_",
+      "station": 1,
+      "subsystem": "Spline Dimensions & Thickness Guards",
+      "item": "Raio Tiny (1 mm)",
+      "expected": "Valid 3D geometry without NaN or infinite bounds despite extreme input",
+      "actual": "Meshes: 9, Verts: 148,608, Bounds: [128.19 x 75.95 x 107.11 mm], NaN: false, Finite: true",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 9,
+        "totalVertices": 148608,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -64.09738159179688,
+            -50,
+            -64.09738159179688
+          ],
+          "max": [
+            64.09738159179688,
+            25.946104049682617,
+            43.016845703125
+          ],
+          "size": [
+            128.19,
+            75.95,
+            107.11
+          ]
+        }
+      },
+      "durationMs": 133
+    },
+    {
+      "id": "adv_s1_spline_dim_raio_huge__1500_mm_",
+      "station": 1,
+      "subsystem": "Spline Dimensions & Thickness Guards",
+      "item": "Raio Huge (1500 mm)",
+      "expected": "Valid 3D geometry without NaN or infinite bounds despite extreme input",
+      "actual": "Meshes: 9, Verts: 148,608, Bounds: [128.19 x 75.95 x 107.11 mm], NaN: false, Finite: true",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 9,
+        "totalVertices": 148608,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -64.09738159179688,
+            -50,
+            -64.09738159179688
+          ],
+          "max": [
+            64.09738159179688,
+            25.946104049682617,
+            43.016845703125
+          ],
+          "size": [
+            128.19,
+            75.95,
+            107.11
+          ]
+        }
+      },
+      "durationMs": 117
+    },
+    {
+      "id": "adv_s1_spline_dim_raio_zero__0_mm_guard_",
+      "station": 1,
+      "subsystem": "Spline Dimensions & Thickness Guards",
+      "item": "Raio Zero (0 mm Guard)",
+      "expected": "Valid 3D geometry without NaN or infinite bounds despite extreme input",
+      "actual": "Meshes: 9, Verts: 148,608, Bounds: [128.19 x 75.95 x 107.11 mm], NaN: false, Finite: true",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 9,
+        "totalVertices": 148608,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -64.09738159179688,
+            -50,
+            -64.09738159179688
+          ],
+          "max": [
+            64.09738159179688,
+            25.946104049682617,
+            43.016845703125
+          ],
+          "size": [
+            128.19,
+            75.95,
+            107.11
+          ]
+        }
+      },
+      "durationMs": 116
+    },
+    {
+      "id": "adv_s1_spline_dim_espessura_zero_parede__0_mm_guard_",
+      "station": 1,
+      "subsystem": "Spline Dimensions & Thickness Guards",
+      "item": "Espessura Zero Parede (0 mm Guard)",
+      "expected": "Valid 3D geometry without NaN or infinite bounds despite extreme input",
+      "actual": "Meshes: 9, Verts: 148,608, Bounds: [128.19 x 75.95 x 107.11 mm], NaN: false, Finite: true",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 9,
+        "totalVertices": 148608,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -64.09738159179688,
+            -50,
+            -64.09738159179688
+          ],
+          "max": [
+            64.09738159179688,
+            25.946104049682617,
+            43.016845703125
+          ],
+          "size": [
+            128.19,
+            75.95,
+            107.11
+          ]
+        }
+      },
+      "durationMs": 99
+    },
+    {
+      "id": "adv_s1_spline_dim_espessura_sub_milim_trica_parede__0_001_mm_guard_",
+      "station": 1,
+      "subsystem": "Spline Dimensions & Thickness Guards",
+      "item": "Espessura Sub-milimétrica Parede (0.001 mm Guard)",
+      "expected": "Valid 3D geometry without NaN or infinite bounds despite extreme input",
+      "actual": "Meshes: 9, Verts: 148,608, Bounds: [128.19 x 75.95 x 107.11 mm], NaN: false, Finite: true",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 9,
+        "totalVertices": 148608,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -64.09738159179688,
+            -50,
+            -64.09738159179688
+          ],
+          "max": [
+            64.09738159179688,
+            25.946104049682617,
+            43.016845703125
+          ],
+          "size": [
+            128.19,
+            75.95,
+            107.11
+          ]
+        }
+      },
+      "durationMs": 96
+    },
+    {
+      "id": "adv_s1_spline_dim_espessura_negativa_parede___5_mm_guard_",
+      "station": 1,
+      "subsystem": "Spline Dimensions & Thickness Guards",
+      "item": "Espessura Negativa Parede (-5 mm Guard)",
+      "expected": "Valid 3D geometry without NaN or infinite bounds despite extreme input",
+      "actual": "Meshes: 9, Verts: 148,608, Bounds: [128.19 x 75.95 x 107.11 mm], NaN: false, Finite: true",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 9,
+        "totalVertices": 148608,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -64.09738159179688,
+            -50,
+            -64.09738159179688
+          ],
+          "max": [
+            64.09738159179688,
+            25.946104049682617,
+            43.016845703125
+          ],
+          "size": [
+            128.19,
+            75.95,
+            107.11
+          ]
+        }
+      },
+      "durationMs": 93
+    },
+    {
+      "id": "adv_s1_spline_dim_espessura_parede_gigante__80_mm_",
+      "station": 1,
+      "subsystem": "Spline Dimensions & Thickness Guards",
+      "item": "Espessura Parede Gigante (80 mm)",
+      "expected": "Valid 3D geometry without NaN or infinite bounds despite extreme input",
+      "actual": "Meshes: 9, Verts: 148,608, Bounds: [128.19 x 75.95 x 107.11 mm], NaN: false, Finite: true",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 9,
+        "totalVertices": 148608,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -64.09738159179688,
+            -50,
+            -64.09738159179688
+          ],
+          "max": [
+            64.09738159179688,
+            25.946104049682617,
+            43.016845703125
+          ],
+          "size": [
+            128.19,
+            75.95,
+            107.11
+          ]
+        }
+      },
+      "durationMs": 93
+    },
+    {
+      "id": "adv_s1_morph_tor__o_helicoidal_extrema___720__",
+      "station": 1,
+      "subsystem": "Morphology, Twist & Lofting Stress",
+      "item": "Torção Helicoidal Extrema (+720°)",
+      "expected": "Valid deformed 3D mesh with zero NaN vertices",
+      "actual": "Meshes: 9, Verts: 138,528, Bounds: [165.79 x 165 x 112.45 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 9,
+        "totalVertices": 138528,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -82.89645385742188,
+            0,
+            -66.08040618896484
+          ],
+          "max": [
+            82.89645385742188,
+            165,
+            46.374061584472656
+          ],
+          "size": [
+            165.79,
+            165,
+            112.45
+          ]
+        }
+      },
+      "durationMs": 108
+    },
+    {
+      "id": "adv_s1_morph_tor__o_helicoidal_extrema___720__",
+      "station": 1,
+      "subsystem": "Morphology, Twist & Lofting Stress",
+      "item": "Torção Helicoidal Extrema (-720°)",
+      "expected": "Valid deformed 3D mesh with zero NaN vertices",
+      "actual": "Meshes: 9, Verts: 138,528, Bounds: [165.79 x 165 x 112.45 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 9,
+        "totalVertices": 138528,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -82.89645385742188,
+            0,
+            -66.08040618896484
+          ],
+          "max": [
+            82.89645385742188,
+            165,
+            46.374061584472656
+          ],
+          "size": [
+            165.79,
+            165,
+            112.45
+          ]
+        }
+      },
+      "durationMs": 99
+    },
+    {
+      "id": "adv_s1_morph_tor__o_helicoidal_gigante__3600__",
+      "station": 1,
+      "subsystem": "Morphology, Twist & Lofting Stress",
+      "item": "Torção Helicoidal Gigante (3600°)",
+      "expected": "Valid deformed 3D mesh with zero NaN vertices",
+      "actual": "Meshes: 9, Verts: 138,528, Bounds: [165.79 x 165 x 112.45 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 9,
+        "totalVertices": 138528,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -82.89645385742188,
+            0,
+            -66.08040618896484
+          ],
+          "max": [
+            82.89645385742188,
+            165,
+            46.374061584472656
+          ],
+          "size": [
+            165.79,
+            165,
+            112.45
+          ]
+        }
+      },
+      "durationMs": 107
+    },
+    {
+      "id": "adv_s1_morph_tens_o_de_spline_extrema__0__",
+      "station": 1,
+      "subsystem": "Morphology, Twist & Lofting Stress",
+      "item": "Tensão de Spline Extrema (0%)",
+      "expected": "Valid deformed 3D mesh with zero NaN vertices",
+      "actual": "Meshes: 9, Verts: 138,528, Bounds: [165.79 x 165 x 112.45 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 9,
+        "totalVertices": 138528,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -82.89645385742188,
+            0,
+            -66.08040618896484
+          ],
+          "max": [
+            82.89645385742188,
+            165,
+            46.374061584472656
+          ],
+          "size": [
+            165.79,
+            165,
+            112.45
+          ]
+        }
+      },
+      "durationMs": 107
+    },
+    {
+      "id": "adv_s1_morph_tens_o_de_spline_extrema__100__",
+      "station": 1,
+      "subsystem": "Morphology, Twist & Lofting Stress",
+      "item": "Tensão de Spline Extrema (100%)",
+      "expected": "Valid deformed 3D mesh with zero NaN vertices",
+      "actual": "Meshes: 9, Verts: 138,528, Bounds: [165.01 x 165 x 112 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 9,
+        "totalVertices": 138528,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -82.50524139404297,
+            0,
+            -65.93153381347656
+          ],
+          "max": [
+            82.50524139404297,
+            165,
+            46.07140350341797
+          ],
+          "size": [
+            165.01,
+            165,
+            112
+          ]
+        }
+      },
+      "durationMs": 100
+    },
+    {
+      "id": "adv_s1_morph_p_talas_com_qtd_1__limite_inferior_",
+      "station": 1,
+      "subsystem": "Morphology, Twist & Lofting Stress",
+      "item": "Pétalas com Qtd 1 (Limite Inferior)",
+      "expected": "Valid deformed 3D mesh with zero NaN vertices",
+      "actual": "Meshes: 9, Verts: 138,528, Bounds: [165.01 x 165 x 110.24 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 9,
+        "totalVertices": 138528,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -82.50524139404297,
+            0,
+            -66.61629486083984
+          ],
+          "max": [
+            82.50524139404297,
+            165,
+            43.627933502197266
+          ],
+          "size": [
+            165.01,
+            165,
+            110.24
+          ]
+        }
+      },
+      "durationMs": 104
+    },
+    {
+      "id": "adv_s1_morph_p_talas_com_qtd_64__alta_frequ_ncia_",
+      "station": 1,
+      "subsystem": "Morphology, Twist & Lofting Stress",
+      "item": "Pétalas com Qtd 64 (Alta Frequência)",
+      "expected": "Valid deformed 3D mesh with zero NaN vertices",
+      "actual": "Meshes: 9, Verts: 138,528, Bounds: [165.01 x 165 x 113.84 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 9,
+        "totalVertices": 138528,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -82.50524139404297,
+            0,
+            -66.86506652832031
+          ],
+          "max": [
+            82.50524139404297,
+            165,
+            46.97899627685547
+          ],
+          "size": [
+            165.01,
+            165,
+            113.84
+          ]
+        }
+      },
+      "durationMs": 104
+    },
+    {
+      "id": "adv_s1_morph_pol_gono_com_3_lados__tri_ngulo_",
+      "station": 1,
+      "subsystem": "Morphology, Twist & Lofting Stress",
+      "item": "Polígono com 3 lados (Triângulo)",
+      "expected": "Valid deformed 3D mesh with zero NaN vertices",
+      "actual": "Meshes: 9, Verts: 138,528, Bounds: [165.01 x 165 x 112.57 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 9,
+        "totalVertices": 138528,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -82.50524139404297,
+            0,
+            -65.36918640136719
+          ],
+          "max": [
+            82.50524139404297,
+            165,
+            47.19806671142578
+          ],
+          "size": [
+            165.01,
+            165,
+            112.57
+          ]
+        }
+      },
+      "durationMs": 98
+    },
+    {
+      "id": "adv_s1_morph_pol_gono_com_64_lados",
+      "station": 1,
+      "subsystem": "Morphology, Twist & Lofting Stress",
+      "item": "Polígono com 64 lados",
+      "expected": "Valid deformed 3D mesh with zero NaN vertices",
+      "actual": "Meshes: 9, Verts: 138,528, Bounds: [165.01 x 165 x 113.84 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 9,
+        "totalVertices": 138528,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -82.50524139404297,
+            0,
+            -66.86506652832031
+          ],
+          "max": [
+            82.50524139404297,
+            165,
+            46.97899627685547
+          ],
+          "size": [
+            165.01,
+            165,
+            113.84
+          ]
+        }
+      },
+      "durationMs": 131
+    },
+    {
+      "id": "adv_s1_morph_profundidade_lobular_negativa___10_mm_",
+      "station": 1,
+      "subsystem": "Morphology, Twist & Lofting Stress",
+      "item": "Profundidade Lobular Negativa (-10 mm)",
+      "expected": "Valid deformed 3D mesh with zero NaN vertices",
+      "actual": "Meshes: 9, Verts: 138,528, Bounds: [165.01 x 165 x 109.24 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 9,
+        "totalVertices": 138528,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -82.50524139404297,
+            0,
+            -63.99368667602539
+          ],
+          "max": [
+            82.50524139404297,
+            165,
+            45.250370025634766
+          ],
+          "size": [
+            165.01,
+            165,
+            109.24
+          ]
+        }
+      },
+      "durationMs": 111
+    },
+    {
+      "id": "adv_s1_morph_profundidade_lobular_excessiva__40_mm_",
+      "station": 1,
+      "subsystem": "Morphology, Twist & Lofting Stress",
+      "item": "Profundidade Lobular Excessiva (40 mm)",
+      "expected": "Valid deformed 3D mesh with zero NaN vertices",
+      "actual": "Meshes: 9, Verts: 138,528, Bounds: [202.96 x 165 x 170.41 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 9,
+        "totalVertices": 138528,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -101.47779083251953,
+            0,
+            -101.47779083251953
+          ],
+          "max": [
+            101.47779083251953,
+            165,
+            68.93634796142578
+          ],
+          "size": [
+            202.96,
+            165,
+            170.41
+          ]
+        }
+      },
+      "durationMs": 95
+    },
+    {
+      "id": "adv_s1_morph_lofting_hermite__tri_poligonal__polygon__polygon__polygon_",
+      "station": 1,
+      "subsystem": "Morphology, Twist & Lofting Stress",
+      "item": "Lofting Hermite: Tri-Poligonal (polygon->polygon->polygon)",
+      "expected": "Valid deformed 3D mesh with zero NaN vertices",
+      "actual": "Meshes: 9, Verts: 138,528, Bounds: [165.01 x 165 x 109.35 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 9,
+        "totalVertices": 138528,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -82.50524139404297,
+            0,
+            -64.05692291259766
+          ],
+          "max": [
+            82.50524139404297,
+            165,
+            45.29508590698242
+          ],
+          "size": [
+            165.01,
+            165,
+            109.35
+          ]
+        }
+      },
+      "durationMs": 102
+    },
+    {
+      "id": "adv_s1_morph_lofting_hermite__p_talas_para_pol_gono__petals__circle__polygon_",
+      "station": 1,
+      "subsystem": "Morphology, Twist & Lofting Stress",
+      "item": "Lofting Hermite: Pétalas para Polígono (petals->circle->polygon)",
+      "expected": "Valid deformed 3D mesh with zero NaN vertices",
+      "actual": "Meshes: 9, Verts: 138,528, Bounds: [165.01 x 165 x 115.37 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 9,
+        "totalVertices": 138528,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -82.50524139404297,
+            0,
+            -67.5813217163086
+          ],
+          "max": [
+            82.50524139404297,
+            165,
+            47.78721237182617
+          ],
+          "size": [
+            165.01,
+            165,
+            115.37
+          ]
+        }
+      },
+      "durationMs": 106
+    },
+    {
+      "id": "adv_s1_hole_fillet_furo_central__0_mm__desativado_",
+      "station": 1,
+      "subsystem": "Drainage & Fillet Overlap Stress",
+      "item": "Furo Central Ø0 mm (Desativado)",
+      "expected": "Valid bounded mesh without degeneracies or NaNs",
+      "actual": "Meshes: 9, Verts: 138,528, Bounds: [165.01 x 165 x 109.24 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 9,
+        "totalVertices": 138528,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -82.50524139404297,
+            0,
+            -63.99368667602539
+          ],
+          "max": [
+            82.50524139404297,
+            165,
+            45.250370025634766
+          ],
+          "size": [
+            165.01,
+            165,
+            109.24
+          ]
+        }
+      },
+      "durationMs": 112
+    },
+    {
+      "id": "adv_s1_hole_fillet_furo_central__50_mm__padr_o_largo_",
+      "station": 1,
+      "subsystem": "Drainage & Fillet Overlap Stress",
+      "item": "Furo Central Ø50 mm (Padrão Largo)",
+      "expected": "Valid bounded mesh without degeneracies or NaNs",
+      "actual": "Meshes: 10, Verts: 139,968, Bounds: [165.01 x 165 x 109.24 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 10,
+        "totalVertices": 139968,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -82.50524139404297,
+            0,
+            -63.99368667602539
+          ],
+          "max": [
+            82.50524139404297,
+            165,
+            45.250370025634766
+          ],
+          "size": [
+            165.01,
+            165,
+            109.24
+          ]
+        }
+      },
+      "durationMs": 108
+    },
+    {
+      "id": "adv_s1_hole_fillet_furo_central__180_mm__maior_que_o_raio_da_base_",
+      "station": 1,
+      "subsystem": "Drainage & Fillet Overlap Stress",
+      "item": "Furo Central Ø180 mm (Maior que o Raio da Base)",
+      "expected": "Valid bounded mesh without degeneracies or NaNs",
+      "actual": "Meshes: 10, Verts: 139,968, Bounds: [188 x 165 x 160.47 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 10,
+        "totalVertices": 139968,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -94,
+            0,
+            -94
+          ],
+          "max": [
+            94,
+            165,
+            66.4680404663086
+          ],
+          "size": [
+            188,
+            165,
+            160.47
+          ]
+        }
+      },
+      "durationMs": 112
+    },
+    {
+      "id": "adv_s1_hole_fillet_filete_base_0_mm",
+      "station": 1,
+      "subsystem": "Drainage & Fillet Overlap Stress",
+      "item": "Filete Base 0 mm",
+      "expected": "Valid bounded mesh without degeneracies or NaNs",
+      "actual": "Meshes: 10, Verts: 139,968, Bounds: [188 x 165 x 160.47 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 10,
+        "totalVertices": 139968,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -94,
+            0,
+            -94
+          ],
+          "max": [
+            94,
+            165,
+            66.4680404663086
+          ],
+          "size": [
+            188,
+            165,
+            160.47
+          ]
+        }
+      },
+      "durationMs": 105
+    },
+    {
+      "id": "adv_s1_hole_fillet_filete_base_15_mm",
+      "station": 1,
+      "subsystem": "Drainage & Fillet Overlap Stress",
+      "item": "Filete Base 15 mm",
+      "expected": "Valid bounded mesh without degeneracies or NaNs",
+      "actual": "Meshes: 10, Verts: 145,008, Bounds: [188 x 165 x 160.47 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 10,
+        "totalVertices": 145008,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -94,
+            0,
+            -94
+          ],
+          "max": [
+            94,
+            165,
+            66.4680404663086
+          ],
+          "size": [
+            188,
+            165,
+            160.47
+          ]
+        }
+      },
+      "durationMs": 137
+    },
+    {
+      "id": "adv_s1_hole_fillet_filete_base_120_mm__maior_que_altura_",
+      "station": 1,
+      "subsystem": "Drainage & Fillet Overlap Stress",
+      "item": "Filete Base 120 mm (Maior que Altura)",
+      "expected": "Valid bounded mesh without degeneracies or NaNs",
+      "actual": "Meshes: 10, Verts: 145,008, Bounds: [188 x 165 x 160.47 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 10,
+        "totalVertices": 145008,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -94,
+            0,
+            -94
+          ],
+          "max": [
+            94,
+            165,
+            66.4680404663086
+          ],
+          "size": [
+            188,
+            165,
+            160.47
+          ]
+        }
+      },
+      "durationMs": 121
+    },
+    {
+      "id": "adv_s1_hole_fillet_corte_270__ativo_com_furo__40_e_filete_10mm",
+      "station": 1,
+      "subsystem": "Drainage & Fillet Overlap Stress",
+      "item": "Corte 270° Ativo com Furo Ø40 e Filete 10mm",
+      "expected": "Valid bounded mesh without degeneracies or NaNs",
+      "actual": "Meshes: 10, Verts: 143,568, Bounds: [165.01 x 165 x 109.24 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 10,
+        "totalVertices": 143568,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -82.50524139404297,
+            0,
+            -63.989906311035156
+          ],
+          "max": [
+            82.50524139404297,
+            165,
+            45.24769592285156
+          ],
+          "size": [
+            165.01,
+            165,
+            109.24
+          ]
+        }
+      },
+      "durationMs": 104
+    },
+    {
+      "id": "adv_s1_hole_fillet_corte_270__desativado__360__s_lido_",
+      "station": 1,
+      "subsystem": "Drainage & Fillet Overlap Stress",
+      "item": "Corte 270° Desativado (360° Sólido)",
+      "expected": "Valid bounded mesh without degeneracies or NaNs",
+      "actual": "Meshes: 8, Verts: 142,416, Bounds: [165.01 x 165 x 127.98 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 8,
+        "totalVertices": 142416,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -82.50524139404297,
+            0,
+            -63.989906311035156
+          ],
+          "max": [
+            82.50524139404297,
+            165,
+            63.989906311035156
+          ],
+          "size": [
+            165.01,
+            165,
+            127.98
+          ]
+        }
+      },
+      "durationMs": 110
+    },
+    {
+      "id": "adv_s1_rapid_switching",
+      "station": 1,
+      "subsystem": "Rapid Preset & Mode Switching",
+      "item": "10 Presets Rápidos + 8 Alternâncias Spline/Estágios em <150ms",
+      "expected": "0 exceptions and valid activeMeshGroup remaining in vasos mode",
+      "actual": "Errors: 0, FinalMode: spline, Meshes: 7, Verts: 137,376",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "rapidResult": {
+          "errors": [],
+          "finalActiveTool": "vasos",
+          "finalMode": "spline"
+        },
+        "rapidHealth": {
+          "exists": true,
+          "meshCount": 7,
+          "totalVertices": 137376,
+          "hasNaN": false,
+          "hasInfinity": false,
+          "nanPositions": [],
+          "isEmpty": false,
+          "isFiniteBox": true,
+          "bounds": {
+            "min": [
+              -81.75699615478516,
+              0,
+              -63.991302490234375
+            ],
+            "max": [
+              81.75699615478516,
+              98,
+              63.991302490234375
+            ],
+            "size": [
+              163.51,
+              98,
+              127.98
+            ]
+          }
+        }
+      },
+      "durationMs": 563
+    },
+    {
+      "id": "adv_s1_slab_espessura_slabs_zero__0_mm_guard_",
+      "station": 1,
+      "subsystem": "Complex Connected Slabs Combinations",
+      "item": "Espessura Slabs Zero (0 mm Guard)",
+      "expected": "Valid 3D mesh, finite bounds, zero vertex NaN, and valid 2D pattern unrolling",
+      "actual": "Meshes: 9, Verts: 38,016, Bounds: [223.7 x 110 x 168 mm], 2D Items: 11, 2D NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "health": {
+          "exists": true,
+          "meshCount": 9,
+          "totalVertices": 38016,
+          "hasNaN": false,
+          "hasInfinity": false,
+          "nanPositions": [],
+          "isEmpty": false,
+          "isFiniteBox": true,
+          "bounds": {
+            "min": [
+              -111.85140991210938,
+              0,
+              -84
+            ],
+            "max": [
+              111.85140991210938,
+              110,
+              84
+            ],
+            "size": [
+              223.7,
+              110,
+              168
+            ]
+          }
+        },
+        "patternItems": {
+          "count": 11,
+          "hasNaN": false
+        }
+      },
+      "durationMs": 118
+    },
+    {
+      "id": "adv_s1_slab_espessura_slabs_negativa___5_mm_guard_",
+      "station": 1,
+      "subsystem": "Complex Connected Slabs Combinations",
+      "item": "Espessura Slabs Negativa (-5 mm Guard)",
+      "expected": "Valid 3D mesh, finite bounds, zero vertex NaN, and valid 2D pattern unrolling",
+      "actual": "Meshes: 9, Verts: 38,016, Bounds: [223.7 x 110 x 178 mm], 2D Items: 11, 2D NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "health": {
+          "exists": true,
+          "meshCount": 9,
+          "totalVertices": 38016,
+          "hasNaN": false,
+          "hasInfinity": false,
+          "nanPositions": [],
+          "isEmpty": false,
+          "isFiniteBox": true,
+          "bounds": {
+            "min": [
+              -111.85140991210938,
+              0,
+              -89
+            ],
+            "max": [
+              111.85140991210938,
+              110,
+              89
+            ],
+            "size": [
+              223.7,
+              110,
+              178
+            ]
+          }
+        },
+        "patternItems": {
+          "count": 11,
+          "hasNaN": false
+        }
+      },
+      "durationMs": 130
+    },
+    {
+      "id": "adv_s1_slab_espessura_slabs_excessiva__80_mm_",
+      "station": 1,
+      "subsystem": "Complex Connected Slabs Combinations",
+      "item": "Espessura Slabs Excessiva (80 mm)",
+      "expected": "Valid 3D mesh, finite bounds, zero vertex NaN, and valid 2D pattern unrolling",
+      "actual": "Meshes: 9, Verts: 31,536, Bounds: [223.7 x 110 x 168 mm], 2D Items: 11, 2D NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "health": {
+          "exists": true,
+          "meshCount": 9,
+          "totalVertices": 31536,
+          "hasNaN": false,
+          "hasInfinity": false,
+          "nanPositions": [],
+          "isEmpty": false,
+          "isFiniteBox": true,
+          "bounds": {
+            "min": [
+              -111.85140991210938,
+              0,
+              -84
+            ],
+            "max": [
+              111.85140991210938,
+              110,
+              84
+            ],
+            "size": [
+              223.7,
+              110,
+              168
+            ]
+          }
+        },
+        "patternItems": {
+          "count": 11,
+          "hasNaN": false
+        }
+      },
+      "durationMs": 92
+    },
+    {
+      "id": "adv_s1_slab_est_gio__nico__somente_1_tronco_de_cone",
+      "station": 1,
+      "subsystem": "Complex Connected Slabs Combinations",
+      "item": "Estágio Único: Somente 1 Tronco de Cone",
+      "expected": "Valid 3D mesh, finite bounds, zero vertex NaN, and valid 2D pattern unrolling",
+      "actual": "Meshes: 5, Verts: 16,416, Bounds: [160 x 90 x 160 mm], 2D Items: 2, 2D NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "health": {
+          "exists": true,
+          "meshCount": 5,
+          "totalVertices": 16416,
+          "hasNaN": false,
+          "hasInfinity": false,
+          "nanPositions": [],
+          "isEmpty": false,
+          "isFiniteBox": true,
+          "bounds": {
+            "min": [
+              -80,
+              0,
+              -80
+            ],
+            "max": [
+              80,
+              90,
+              80
+            ],
+            "size": [
+              160,
+              90,
+              160
+            ]
+          }
+        },
+        "patternItems": {
+          "count": 2,
+          "hasNaN": false
+        }
+      },
+      "durationMs": 151
+    },
+    {
+      "id": "adv_s1_slab_est_gio_com_altura_zero__h_0_guard_",
+      "station": 1,
+      "subsystem": "Complex Connected Slabs Combinations",
+      "item": "Estágio com Altura Zero (h=0 Guard)",
+      "expected": "Valid 3D mesh, finite bounds, zero vertex NaN, and valid 2D pattern unrolling",
+      "actual": "Meshes: 5, Verts: 15,552, Bounds: [140 x 80 x 140 mm], 2D Items: 3, 2D NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "health": {
+          "exists": true,
+          "meshCount": 5,
+          "totalVertices": 15552,
+          "hasNaN": false,
+          "hasInfinity": false,
+          "nanPositions": [],
+          "isEmpty": false,
+          "isFiniteBox": true,
+          "bounds": {
+            "min": [
+              -70,
+              0,
+              -70
+            ],
+            "max": [
+              70,
+              80,
+              70
+            ],
+            "size": [
+              140,
+              80,
+              140
+            ]
+          }
+        },
+        "patternItems": {
+          "count": 3,
+          "hasNaN": false
+        }
+      },
+      "durationMs": 98
+    },
+    {
+      "id": "adv_s1_slab_est_gio_com_raio_base_zero__rbase_0_",
+      "station": 1,
+      "subsystem": "Complex Connected Slabs Combinations",
+      "item": "Estágio com Raio Base Zero (rBase=0)",
+      "expected": "Valid 3D mesh, finite bounds, zero vertex NaN, and valid 2D pattern unrolling",
+      "actual": "Meshes: 5, Verts: 21,600, Bounds: [120 x 120 x 120 mm], 2D Items: 3, 2D NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "health": {
+          "exists": true,
+          "meshCount": 5,
+          "totalVertices": 21600,
+          "hasNaN": false,
+          "hasInfinity": false,
+          "nanPositions": [],
+          "isEmpty": false,
+          "isFiniteBox": true,
+          "bounds": {
+            "min": [
+              -60,
+              0,
+              -60
+            ],
+            "max": [
+              60,
+              120,
+              60
+            ],
+            "size": [
+              120,
+              120,
+              120
+            ]
+          }
+        },
+        "patternItems": {
+          "count": 3,
+          "hasNaN": false
+        }
+      },
+      "durationMs": 89
+    },
+    {
+      "id": "adv_s1_slab_20_est_gios_consecutivos_alternados",
+      "station": 1,
+      "subsystem": "Complex Connected Slabs Combinations",
+      "item": "20 Estágios Consecutivos Alternados",
+      "expected": "Valid 3D mesh, finite bounds, zero vertex NaN, and valid 2D pattern unrolling",
+      "actual": "Meshes: 5, Verts: 52,704, Bounds: [156 x 300 x 156 mm], 2D Items: 21, 2D NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "health": {
+          "exists": true,
+          "meshCount": 5,
+          "totalVertices": 52704,
+          "hasNaN": false,
+          "hasInfinity": false,
+          "nanPositions": [],
+          "isEmpty": false,
+          "isFiniteBox": true,
+          "bounds": {
+            "min": [
+              -78,
+              0,
+              -78
+            ],
+            "max": [
+              78,
+              300,
+              78
+            ],
+            "size": [
+              156,
+              300,
+              156
+            ]
+          }
+        },
+        "patternItems": {
+          "count": 21,
+          "hasNaN": false
+        }
+      },
+      "durationMs": 102
+    },
+    {
+      "id": "adv_s1_slab_multi_acess_rios__2_al_as___2_bicos___tampa___borda_p____disco_crivo",
+      "station": 1,
+      "subsystem": "Complex Connected Slabs Combinations",
+      "item": "Multi-Acessórios: 2 Alças + 2 Bicos + Tampa + Borda/Pé + Disco Crivo",
+      "expected": "Valid 3D mesh, finite bounds, zero vertex NaN, and valid 2D pattern unrolling",
+      "actual": "Meshes: 11, Verts: 83,088, Bounds: [196.41 x 326 x 162.6 mm], 2D Items: 26, 2D NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "health": {
+          "exists": true,
+          "meshCount": 11,
+          "totalVertices": 83088,
+          "hasNaN": false,
+          "hasInfinity": false,
+          "nanPositions": [],
+          "isEmpty": false,
+          "isFiniteBox": true,
+          "bounds": {
+            "min": [
+              -85.58448791503906,
+              0,
+              -81.30000305175781
+            ],
+            "max": [
+              110.82661437988281,
+              326,
+              81.30000305175781
+            ],
+            "size": [
+              196.41,
+              326,
+              162.6
+            ]
+          }
+        },
+        "patternItems": {
+          "count": 26,
+          "hasNaN": false
+        }
+      },
+      "durationMs": 233
+    },
+    {
+      "id": "adv_s1_slab_disco_de_fundo_com_setor_vazado_extremo__180__",
+      "station": 1,
+      "subsystem": "Complex Connected Slabs Combinations",
+      "item": "Disco de Fundo com Setor Vazado Extremo (180°)",
+      "expected": "Valid 3D mesh, finite bounds, zero vertex NaN, and valid 2D pattern unrolling",
+      "actual": "Meshes: 11, Verts: 83,088, Bounds: [196.41 x 326 x 162.6 mm], 2D Items: 26, 2D NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "health": {
+          "exists": true,
+          "meshCount": 11,
+          "totalVertices": 83088,
+          "hasNaN": false,
+          "hasInfinity": false,
+          "nanPositions": [],
+          "isEmpty": false,
+          "isFiniteBox": true,
+          "bounds": {
+            "min": [
+              -85.58448791503906,
+              0,
+              -81.30000305175781
+            ],
+            "max": [
+              110.82661437988281,
+              326,
+              81.30000305175781
+            ],
+            "size": [
+              196.41,
+              326,
+              162.6
+            ]
+          }
+        },
+        "patternItems": {
+          "count": 26,
+          "hasNaN": false
+        }
+      },
+      "durationMs": 123
+    },
+    {
+      "id": "adv_s1_slab_disco_de_fundo_com_entalhes_de_borda__12_entalhes_",
+      "station": 1,
+      "subsystem": "Complex Connected Slabs Combinations",
+      "item": "Disco de Fundo com Entalhes de Borda (12 Entalhes)",
+      "expected": "Valid 3D mesh, finite bounds, zero vertex NaN, and valid 2D pattern unrolling",
+      "actual": "Meshes: 11, Verts: 83,088, Bounds: [196.41 x 326 x 162.6 mm], 2D Items: 26, 2D NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "health": {
+          "exists": true,
+          "meshCount": 11,
+          "totalVertices": 83088,
+          "hasNaN": false,
+          "hasInfinity": false,
+          "nanPositions": [],
+          "isEmpty": false,
+          "isFiniteBox": true,
+          "bounds": {
+            "min": [
+              -85.58448791503906,
+              0,
+              -81.30000305175781
+            ],
+            "max": [
+              110.82661437988281,
+              326,
+              81.30000305175781
+            ],
+            "size": [
+              196.41,
+              326,
+              162.6
+            ]
+          }
+        },
+        "patternItems": {
+          "count": 26,
+          "hasNaN": false
+        }
+      },
+      "durationMs": 106
+    },
+    {
+      "id": "adv_s1_stress_exports",
+      "station": 1,
+      "subsystem": "Stress Exports (PDF A4 & STL 360°)",
+      "item": "Geração de PDF A4 Complexo e Exportação STL Binário com Corte 270° Ativo",
+      "expected": "PDF generation succeeds and binary STL byteLength > 50,000 bytes",
+      "actual": "PDF: true, STL Bytes: 1,397,484, Error: none",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "pdfOk": true,
+        "stlBytes": 1397484,
+        "error": null
+      },
+      "durationMs": 0
+    },
+    {
+      "id": "adv_s2_mode_kit_3_pecas_preset_morcego",
+      "station": 2,
+      "subsystem": "Construction Mode: kit_3_pecas",
+      "item": "Preset: morcego",
+      "expected": "Generates valid 3D cutter mesh without NaN or empty bounds",
+      "actual": "Meshes: 3, Verts: 140,934, Bounds: [128.53 x 15.98 x 85.07 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 3,
+        "totalVertices": 140934,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -53.190105345191036,
+            0,
+            -40.1064305770688
+          ],
+          "max": [
+            75.34258360979035,
+            15.976220130920414,
+            44.96112243140617
+          ],
+          "size": [
+            128.53,
+            15.98,
+            85.07
+          ]
+        }
+      },
+      "durationMs": 78
+    },
+    {
+      "id": "adv_s2_mode_kit_3_pecas_preset_gato",
+      "station": 2,
+      "subsystem": "Construction Mode: kit_3_pecas",
+      "item": "Preset: gato",
+      "expected": "Generates valid 3D cutter mesh without NaN or empty bounds",
+      "actual": "Meshes: 26, Verts: 118,705, Bounds: [206.9 x 43 x 193.98 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 26,
+        "totalVertices": 118705,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -107.42042541503906,
+            -19.5,
+            -95.96965026855469
+          ],
+          "max": [
+            99.48400115966797,
+            23.5,
+            98.01148223876953
+          ],
+          "size": [
+            206.9,
+            43,
+            193.98
+          ]
+        }
+      },
+      "durationMs": 142
+    },
+    {
+      "id": "adv_s2_mode_kit_3_pecas_preset_marajoara",
+      "station": 2,
+      "subsystem": "Construction Mode: kit_3_pecas",
+      "item": "Preset: marajoara",
+      "expected": "Generates valid 3D cutter mesh without NaN or empty bounds",
+      "actual": "Meshes: 25, Verts: 103,369, Bounds: [211.85 x 43 x 197.82 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 25,
+        "totalVertices": 103369,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -112.367919921875,
+            -19.5,
+            -93.74791717529297
+          ],
+          "max": [
+            99.48400115966797,
+            23.5,
+            104.07615661621094
+          ],
+          "size": [
+            211.85,
+            43,
+            197.82
+          ]
+        }
+      },
+      "durationMs": 118
+    },
+    {
+      "id": "adv_s2_mode_kit_3_pecas_preset_borboleta",
+      "station": 2,
+      "subsystem": "Construction Mode: kit_3_pecas",
+      "item": "Preset: borboleta",
+      "expected": "Generates valid 3D cutter mesh without NaN or empty bounds",
+      "actual": "Meshes: 20, Verts: 64,177, Bounds: [208.93 x 43 x 179.59 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 20,
+        "totalVertices": 64177,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -109.44883728027344,
+            -19.5,
+            -85.55469512939453
+          ],
+          "max": [
+            99.48400115966797,
+            23.5,
+            94.03285217285156
+          ],
+          "size": [
+            208.93,
+            43,
+            179.59
+          ]
+        }
+      },
+      "durationMs": 99
+    },
+    {
+      "id": "adv_s2_mode_cortador_estampa_preset_morcego",
+      "station": 2,
+      "subsystem": "Construction Mode: cortador_estampa",
+      "item": "Preset: morcego",
+      "expected": "Generates valid 3D cutter mesh without NaN or empty bounds",
+      "actual": "Meshes: 3, Verts: 137,460, Bounds: [106.38 x 18.81 x 40.95 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 3,
+        "totalVertices": 137460,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -53.19010543823242,
+            0,
+            -21.940576553344727
+          ],
+          "max": [
+            53.19010543823242,
+            18.814634323120117,
+            19.009902954101562
+          ],
+          "size": [
+            106.38,
+            18.81,
+            40.95
+          ]
+        }
+      },
+      "durationMs": 91
+    },
+    {
+      "id": "adv_s2_mode_cortador_estampa_preset_gato",
+      "station": 2,
+      "subsystem": "Construction Mode: cortador_estampa",
+      "item": "Preset: gato",
+      "expected": "Generates valid 3D cutter mesh without NaN or empty bounds",
+      "actual": "Meshes: 15, Verts: 114,540, Bounds: [101.14 x 18.85 x 110 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 15,
+        "totalVertices": 114540,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -50.56772232055664,
+            0,
+            -59.4326171875
+          ],
+          "max": [
+            50.572479248046875,
+            18.850000381469727,
+            50.56772232055664
+          ],
+          "size": [
+            101.14,
+            18.85,
+            110
+          ]
+        }
+      },
+      "durationMs": 104
+    },
+    {
+      "id": "adv_s2_mode_cortador_estampa_preset_marajoara",
+      "station": 2,
+      "subsystem": "Construction Mode: cortador_estampa",
+      "item": "Preset: marajoara",
+      "expected": "Generates valid 3D cutter mesh without NaN or empty bounds",
+      "actual": "Meshes: 14, Verts: 99,204, Bounds: [113.37 x 18.85 x 113.37 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 14,
+        "totalVertices": 99204,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -56.68560028076172,
+            0,
+            -56.68560028076172
+          ],
+          "max": [
+            56.68560028076172,
+            18.850000381469727,
+            56.68560028076172
+          ],
+          "size": [
+            113.37,
+            18.85,
+            113.37
+          ]
+        }
+      },
+      "durationMs": 105
+    },
+    {
+      "id": "adv_s2_mode_cortador_estampa_preset_borboleta",
+      "station": 2,
+      "subsystem": "Construction Mode: cortador_estampa",
+      "item": "Preset: borboleta",
+      "expected": "Generates valid 3D cutter mesh without NaN or empty bounds",
+      "actual": "Meshes: 9, Verts: 60,012, Bounds: [106.15 x 18.85 x 93.11 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 9,
+        "totalVertices": 60012,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -53.07598876953125,
+            0,
+            -46.554195404052734
+          ],
+          "max": [
+            53.07598114013672,
+            18.850000381469727,
+            46.554195404052734
+          ],
+          "size": [
+            106.15,
+            18.85,
+            93.11
+          ]
+        }
+      },
+      "durationMs": 88
+    },
+    {
+      "id": "adv_s2_mode_cortador_simples_preset_morcego",
+      "station": 2,
+      "subsystem": "Construction Mode: cortador_simples",
+      "item": "Preset: morcego",
+      "expected": "Generates valid 3D cutter mesh without NaN or empty bounds",
+      "actual": "Meshes: 1, Verts: 123,912, Bounds: [106.38 x 13.79 x 40.95 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 1,
+        "totalVertices": 123912,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -53.19010543823242,
+            0,
+            -21.940576553344727
+          ],
+          "max": [
+            53.19010543823242,
+            13.786585807800293,
+            19.009902954101562
+          ],
+          "size": [
+            106.38,
+            13.79,
+            40.95
+          ]
+        }
+      },
+      "durationMs": 82
+    },
+    {
+      "id": "adv_s2_mode_cortador_simples_preset_gato",
+      "station": 2,
+      "subsystem": "Construction Mode: cortador_simples",
+      "item": "Preset: gato",
+      "expected": "Generates valid 3D cutter mesh without NaN or empty bounds",
+      "actual": "Meshes: 2, Verts: 24,768, Bounds: [101.14 x 16.2 x 110 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 2,
+        "totalVertices": 24768,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -50.56772232055664,
+            0,
+            -59.4326171875
+          ],
+          "max": [
+            50.572479248046875,
+            16.200000762939453,
+            50.56772232055664
+          ],
+          "size": [
+            101.14,
+            16.2,
+            110
+          ]
+        }
+      },
+      "durationMs": 75
+    },
+    {
+      "id": "adv_s2_mode_cortador_simples_preset_marajoara",
+      "station": 2,
+      "subsystem": "Construction Mode: cortador_simples",
+      "item": "Preset: marajoara",
+      "expected": "Generates valid 3D cutter mesh without NaN or empty bounds",
+      "actual": "Meshes: 2, Verts: 24,768, Bounds: [113.37 x 16.2 x 113.37 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 2,
+        "totalVertices": 24768,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -56.68560028076172,
+            0,
+            -56.68560028076172
+          ],
+          "max": [
+            56.68560028076172,
+            16.200000762939453,
+            56.68560028076172
+          ],
+          "size": [
+            113.37,
+            16.2,
+            113.37
+          ]
+        }
+      },
+      "durationMs": 73
+    },
+    {
+      "id": "adv_s2_mode_cortador_simples_preset_borboleta",
+      "station": 2,
+      "subsystem": "Construction Mode: cortador_simples",
+      "item": "Preset: borboleta",
+      "expected": "Generates valid 3D cutter mesh without NaN or empty bounds",
+      "actual": "Meshes: 2, Verts: 24,768, Bounds: [106.15 x 16.2 x 93.11 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 2,
+        "totalVertices": 24768,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -53.07598876953125,
+            0,
+            -46.554195404052734
+          ],
+          "max": [
+            53.07598114013672,
+            16.200000762939453,
+            46.554195404052734
+          ],
+          "size": [
+            106.15,
+            16.2,
+            93.11
+          ]
+        }
+      },
+      "durationMs": 73
+    },
+    {
+      "id": "adv_s2_mode_carimbo_placa_preset_morcego",
+      "station": 2,
+      "subsystem": "Construction Mode: carimbo_placa",
+      "item": "Preset: morcego",
+      "expected": "Generates valid 3D cutter mesh without NaN or empty bounds",
+      "actual": "Meshes: 2, Verts: 13,867, Bounds: [97.3 x 30.1 x 31.87 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 2,
+        "totalVertices": 13867,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -48.65076446533203,
+            0,
+            -17.399112701416016
+          ],
+          "max": [
+            48.65076446533203,
+            30.100000381469727,
+            14.468439102172852
+          ],
+          "size": [
+            97.3,
+            30.1,
+            31.87
+          ]
+        }
+      },
+      "durationMs": 73
+    },
+    {
+      "id": "adv_s2_mode_carimbo_placa_preset_gato",
+      "station": 2,
+      "subsystem": "Construction Mode: carimbo_placa",
+      "item": "Preset: gato",
+      "expected": "Generates valid 3D cutter mesh without NaN or empty bounds",
+      "actual": "Meshes: 13, Verts: 91,639, Bounds: [88.46 x 29.8 x 96.16 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 13,
+        "totalVertices": 91639,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -44.22418212890625,
+            0,
+            -51.93487548828125
+          ],
+          "max": [
+            44.231319427490234,
+            29.80000114440918,
+            44.22418212890625
+          ],
+          "size": [
+            88.46,
+            29.8,
+            96.16
+          ]
+        }
+      },
+      "durationMs": 105
+    },
+    {
+      "id": "adv_s2_mode_carimbo_placa_preset_marajoara",
+      "station": 2,
+      "subsystem": "Construction Mode: carimbo_placa",
+      "item": "Preset: marajoara",
+      "expected": "Generates valid 3D cutter mesh without NaN or empty bounds",
+      "actual": "Meshes: 12, Verts: 76,303, Bounds: [99.09 x 29.8 x 99.09 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 12,
+        "totalVertices": 76303,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -49.54399871826172,
+            0,
+            -49.54399871826172
+          ],
+          "max": [
+            49.54399871826172,
+            29.80000114440918,
+            49.54399871826172
+          ],
+          "size": [
+            99.09,
+            29.8,
+            99.09
+          ]
+        }
+      },
+      "durationMs": 84
+    },
+    {
+      "id": "adv_s2_mode_carimbo_placa_preset_borboleta",
+      "station": 2,
+      "subsystem": "Construction Mode: carimbo_placa",
+      "item": "Preset: borboleta",
+      "expected": "Generates valid 3D cutter mesh without NaN or empty bounds",
+      "actual": "Meshes: 7, Verts: 37,111, Bounds: [92.81 x 29.8 x 81.47 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 7,
+        "totalVertices": 37111,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -46.40521240234375,
+            0,
+            -40.73408508300781
+          ],
+          "max": [
+            46.40520095825195,
+            29.80000114440918,
+            40.73408508300781
+          ],
+          "size": [
+            92.81,
+            29.8,
+            81.47
+          ]
+        }
+      },
+      "durationMs": 82
+    },
+    {
+      "id": "adv_s2_dim_largura_tiny__1_mm_",
+      "station": 2,
+      "subsystem": "Dimensions, Relief & Retraction Stress",
+      "item": "Largura Tiny (1 mm)",
+      "expected": "Valid 3D geometry without NaN or infinite bounds",
+      "actual": "Meshes: 7, Verts: 37,111, Bounds: [15.3 x 25.2 x 15.3 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 7,
+        "totalVertices": 37111,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -7.650000095367432,
+            0,
+            -7.650000095367432
+          ],
+          "max": [
+            7.650000095367432,
+            25.200000762939453,
+            7.650000095367432
+          ],
+          "size": [
+            15.3,
+            25.2,
+            15.3
+          ]
+        }
+      },
+      "durationMs": 77
+    },
+    {
+      "id": "adv_s2_dim_largura_huge__500_mm_",
+      "station": 2,
+      "subsystem": "Dimensions, Relief & Retraction Stress",
+      "item": "Largura Huge (500 mm)",
+      "expected": "Valid 3D geometry without NaN or infinite bounds",
+      "actual": "Meshes: 7, Verts: 37,111, Bounds: [483.36 x 41.2 x 423.66 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 7,
+        "totalVertices": 37111,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -241.6800079345703,
+            0,
+            -211.83200073242188
+          ],
+          "max": [
+            241.67999267578125,
+            41.20000076293945,
+            211.83200073242188
+          ],
+          "size": [
+            483.36,
+            41.2,
+            423.66
+          ]
+        }
+      },
+      "durationMs": 78
+    },
+    {
+      "id": "adv_s2_dim_largura_zero__0_mm_guard_",
+      "station": 2,
+      "subsystem": "Dimensions, Relief & Retraction Stress",
+      "item": "Largura Zero (0 mm Guard)",
+      "expected": "Valid 3D geometry without NaN or infinite bounds",
+      "actual": "Meshes: 7, Verts: 37,111, Bounds: [92.81 x 29.8 x 81.47 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 7,
+        "totalVertices": 37111,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -46.40521240234375,
+            0,
+            -40.73408508300781
+          ],
+          "max": [
+            46.40520095825195,
+            29.80000114440918,
+            40.73408508300781
+          ],
+          "size": [
+            92.81,
+            29.8,
+            81.47
+          ]
+        }
+      },
+      "durationMs": 78
+    },
+    {
+      "id": "adv_s2_dim_largura_negativa___50_mm_guard_",
+      "station": 2,
+      "subsystem": "Dimensions, Relief & Retraction Stress",
+      "item": "Largura Negativa (-50 mm Guard)",
+      "expected": "Valid 3D geometry without NaN or infinite bounds",
+      "actual": "Meshes: 7, Verts: 37,111, Bounds: [49.42 x 25.2 x 43.45 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 7,
+        "totalVertices": 37111,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -24.70800018310547,
+            0,
+            -21.723207473754883
+          ],
+          "max": [
+            24.708011627197266,
+            25.200000762939453,
+            21.723207473754883
+          ],
+          "size": [
+            49.42,
+            25.2,
+            43.45
+          ]
+        }
+      },
+      "durationMs": 73
+    },
+    {
+      "id": "adv_s2_dim_retra__o_argila_m_nima__0_1_",
+      "station": 2,
+      "subsystem": "Dimensions, Relief & Retraction Stress",
+      "item": "Retração Argila Mínima (0.1)",
+      "expected": "Valid 3D geometry without NaN or infinite bounds",
+      "actual": "Meshes: 7, Verts: 37,111, Bounds: [15.3 x 25.2 x 15.3 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 7,
+        "totalVertices": 37111,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -7.650000095367432,
+            0,
+            -7.650000095367432
+          ],
+          "max": [
+            7.650000095367432,
+            25.200000762939453,
+            7.650000095367432
+          ],
+          "size": [
+            15.3,
+            25.2,
+            15.3
+          ]
+        }
+      },
+      "durationMs": 74
+    },
+    {
+      "id": "adv_s2_dim_retra__o_argila_enorme__2_5_",
+      "station": 2,
+      "subsystem": "Dimensions, Relief & Retraction Stress",
+      "item": "Retração Argila Enorme (2.5)",
+      "expected": "Valid 3D geometry without NaN or infinite bounds",
+      "actual": "Meshes: 7, Verts: 37,111, Bounds: [108.83 x 25.2 x 95.5 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 7,
+        "totalVertices": 37111,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -54.412498474121094,
+            0,
+            -47.75000762939453
+          ],
+          "max": [
+            54.41250991821289,
+            25.200000762939453,
+            47.75000762939453
+          ],
+          "size": [
+            108.83,
+            25.2,
+            95.5
+          ]
+        }
+      },
+      "durationMs": 76
+    },
+    {
+      "id": "adv_s2_dim_relevo_sub_milim_trico__0_01_mm_",
+      "station": 2,
+      "subsystem": "Dimensions, Relief & Retraction Stress",
+      "item": "Relevo Sub-milimétrico (0.01 mm)",
+      "expected": "Valid 3D geometry without NaN or infinite bounds",
+      "actual": "Meshes: 7, Verts: 37,111, Bounds: [108.83 x 25.2 x 95.5 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 7,
+        "totalVertices": 37111,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -54.412498474121094,
+            0,
+            -47.75000762939453
+          ],
+          "max": [
+            54.41250991821289,
+            25.200000762939453,
+            47.75000762939453
+          ],
+          "size": [
+            108.83,
+            25.2,
+            95.5
+          ]
+        }
+      },
+      "durationMs": 75
+    },
+    {
+      "id": "adv_s2_dim_relevo_zero__0_mm_guard_",
+      "station": 2,
+      "subsystem": "Dimensions, Relief & Retraction Stress",
+      "item": "Relevo Zero (0 mm Guard)",
+      "expected": "Valid 3D geometry without NaN or infinite bounds",
+      "actual": "Meshes: 7, Verts: 37,111, Bounds: [108.83 x 25.2 x 95.5 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 7,
+        "totalVertices": 37111,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -54.412498474121094,
+            0,
+            -47.75000762939453
+          ],
+          "max": [
+            54.41250991821289,
+            25.200000762939453,
+            47.75000762939453
+          ],
+          "size": [
+            108.83,
+            25.2,
+            95.5
+          ]
+        }
+      },
+      "durationMs": 72
+    },
+    {
+      "id": "adv_s2_dim_relevo_alto__15_mm_",
+      "station": 2,
+      "subsystem": "Dimensions, Relief & Retraction Stress",
+      "item": "Relevo Alto (15 mm)",
+      "expected": "Valid 3D geometry without NaN or infinite bounds",
+      "actual": "Meshes: 7, Verts: 37,111, Bounds: [108.83 x 25.2 x 95.5 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 7,
+        "totalVertices": 37111,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -54.412498474121094,
+            0,
+            -47.75000762939453
+          ],
+          "max": [
+            54.41250991821289,
+            25.200000762939453,
+            47.75000762939453
+          ],
+          "size": [
+            108.83,
+            25.2,
+            95.5
+          ]
+        }
+      },
+      "durationMs": 76
+    },
+    {
+      "id": "adv_s2_dim_relevo_negativo___2_mm_",
+      "station": 2,
+      "subsystem": "Dimensions, Relief & Retraction Stress",
+      "item": "Relevo Negativo (-2 mm)",
+      "expected": "Valid 3D geometry without NaN or infinite bounds",
+      "actual": "Meshes: 7, Verts: 37,111, Bounds: [108.83 x 25.2 x 95.5 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 7,
+        "totalVertices": 37111,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -54.412498474121094,
+            0,
+            -47.75000762939453
+          ],
+          "max": [
+            54.41250991821289,
+            25.200000762939453,
+            47.75000762939453
+          ],
+          "size": [
+            108.83,
+            25.2,
+            95.5
+          ]
+        }
+      },
+      "durationMs": 76
+    },
+    {
+      "id": "adv_s2_spring__ngulo_desmolde__0_0___reto___sem_conicidade_",
+      "station": 2,
+      "subsystem": "Draft Angle & Spring Type Boundaries",
+      "item": "Ângulo Desmolde: 0.0° (Reto / Sem Conicidade)",
+      "expected": "Valid 3D geometry with correct spring geometry or graceful fallback",
+      "actual": "Meshes: 7, Verts: 37,111, Bounds: [92.81 x 29.8 x 81.47 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 7,
+        "totalVertices": 37111,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -46.40521240234375,
+            0,
+            -40.73408508300781
+          ],
+          "max": [
+            46.40520095825195,
+            29.80000114440918,
+            40.73408508300781
+          ],
+          "size": [
+            92.81,
+            29.8,
+            81.47
+          ]
+        }
+      },
+      "durationMs": 75
+    },
+    {
+      "id": "adv_s2_spring__ngulo_desmolde__5_0___conicidade_acentuada_",
+      "station": 2,
+      "subsystem": "Draft Angle & Spring Type Boundaries",
+      "item": "Ângulo Desmolde: 5.0° (Conicidade Acentuada)",
+      "expected": "Valid 3D geometry with correct spring geometry or graceful fallback",
+      "actual": "Meshes: 7, Verts: 37,111, Bounds: [92.81 x 29.8 x 81.47 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 7,
+        "totalVertices": 37111,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -46.40521240234375,
+            0,
+            -40.73408508300781
+          ],
+          "max": [
+            46.40520095825195,
+            29.80000114440918,
+            40.73408508300781
+          ],
+          "size": [
+            92.81,
+            29.8,
+            81.47
+          ]
+        }
+      },
+      "durationMs": 77
+    },
+    {
+      "id": "adv_s2_spring__ngulo_desmolde__15_0___extremo_",
+      "station": 2,
+      "subsystem": "Draft Angle & Spring Type Boundaries",
+      "item": "Ângulo Desmolde: 15.0° (Extremo)",
+      "expected": "Valid 3D geometry with correct spring geometry or graceful fallback",
+      "actual": "Meshes: 7, Verts: 37,111, Bounds: [92.81 x 29.8 x 81.47 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 7,
+        "totalVertices": 37111,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -46.40521240234375,
+            0,
+            -40.73408508300781
+          ],
+          "max": [
+            46.40520095825195,
+            29.80000114440918,
+            40.73408508300781
+          ],
+          "size": [
+            92.81,
+            29.8,
+            81.47
+          ]
+        }
+      },
+      "durationMs": 80
+    },
+    {
+      "id": "adv_s2_spring__ngulo_desmolde_negativo___2_0___contra_sa_da_",
+      "station": 2,
+      "subsystem": "Draft Angle & Spring Type Boundaries",
+      "item": "Ângulo Desmolde Negativo: -2.0° (Contra-Saída)",
+      "expected": "Valid 3D geometry with correct spring geometry or graceful fallback",
+      "actual": "Meshes: 7, Verts: 37,111, Bounds: [92.81 x 29.8 x 81.47 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 7,
+        "totalVertices": 37111,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -46.40521240234375,
+            0,
+            -40.73408508300781
+          ],
+          "max": [
+            46.40520095825195,
+            29.80000114440918,
+            40.73408508300781
+          ],
+          "size": [
+            92.81,
+            29.8,
+            81.47
+          ]
+        }
+      },
+      "durationMs": 77
+    },
+    {
+      "id": "adv_s2_spring_mola__flex_pla__molde_espiral_pla_",
+      "station": 2,
+      "subsystem": "Draft Angle & Spring Type Boundaries",
+      "item": "Mola: flex_pla (Molde Espiral PLA)",
+      "expected": "Valid 3D geometry with correct spring geometry or graceful fallback",
+      "actual": "Meshes: 7, Verts: 37,111, Bounds: [92.81 x 29.8 x 81.47 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 7,
+        "totalVertices": 37111,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -46.40521240234375,
+            0,
+            -40.73408508300781
+          ],
+          "max": [
+            46.40520095825195,
+            29.80000114440918,
+            40.73408508300781
+          ],
+          "size": [
+            92.81,
+            29.8,
+            81.47
+          ]
+        }
+      },
+      "durationMs": 78
+    },
+    {
+      "id": "adv_s2_spring_mola__mola_inox__mola_met_lica_cil_ndrica_",
+      "station": 2,
+      "subsystem": "Draft Angle & Spring Type Boundaries",
+      "item": "Mola: mola_inox (Mola Metálica Cilíndrica)",
+      "expected": "Valid 3D geometry with correct spring geometry or graceful fallback",
+      "actual": "Meshes: 7, Verts: 37,111, Bounds: [92.81 x 29.8 x 81.47 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 7,
+        "totalVertices": 37111,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -46.40521240234375,
+            0,
+            -40.73408508300781
+          ],
+          "max": [
+            46.40520095825195,
+            29.80000114440918,
+            40.73408508300781
+          ],
+          "size": [
+            92.81,
+            29.8,
+            81.47
+          ]
+        }
+      },
+      "durationMs": 75
+    },
+    {
+      "id": "adv_s2_spring_mola__gravidade__sem_mola_",
+      "station": 2,
+      "subsystem": "Draft Angle & Spring Type Boundaries",
+      "item": "Mola: gravidade (Sem Mola)",
+      "expected": "Valid 3D geometry with correct spring geometry or graceful fallback",
+      "actual": "Meshes: 7, Verts: 37,111, Bounds: [92.81 x 29.8 x 81.47 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 7,
+        "totalVertices": 37111,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -46.40521240234375,
+            0,
+            -40.73408508300781
+          ],
+          "max": [
+            46.40520095825195,
+            29.80000114440918,
+            40.73408508300781
+          ],
+          "size": [
+            92.81,
+            29.8,
+            81.47
+          ]
+        }
+      },
+      "durationMs": 77
+    },
+    {
+      "id": "adv_s2_spring_mola__tipo_desconhecido___fallback",
+      "station": 2,
+      "subsystem": "Draft Angle & Spring Type Boundaries",
+      "item": "Mola: tipo desconhecido / fallback",
+      "expected": "Valid 3D geometry with correct spring geometry or graceful fallback",
+      "actual": "Meshes: 7, Verts: 37,111, Bounds: [92.81 x 29.8 x 81.47 mm], NaN: false",
+      "status": "PASS",
+      "error": null,
+      "details": {
+        "exists": true,
+        "meshCount": 7,
+        "totalVertices": 37111,
+        "hasNaN": false,
+        "hasInfinity": false,
+        "nanPositions": [],
+        "isEmpty": false,
+        "isFiniteBox": true,
+        "bounds": {
+          "min": [
+            -46.40521240234375,
+            0,
+            -40.73408508300781
+          ],
+          "max": [
+            46.40520095825195,
+            29.80000114440918,
+            40.73408508300781
+          ],
+          "size": [
+            92.81,
+            29.8,
+            81.47
+          ]
+        }
+      },
+      "durationMs": 73
+    },
+    {
+      "id": "adv_s2_dl_kit_3_pecas_matriz",
+      "station": 2,
+      "subsystem": "Part STL Export Robustness",
+      "item": "Mode: kit_3_pecas | Part: matriz",
+      "expected": "Triggers STL blob generation and download without exception",
+      "actual": "Downloaded: true, Filename: cortador_folha_matriz_106mm.stl",
+      "status": "PASS",
+      "error": null,
+      "details": {},
+      "durationMs": 28
+    },
+    {
+      "id": "adv_s2_dl_kit_3_pecas_embolo",
+      "station": 2,
+      "subsystem": "Part STL Export Robustness",
+      "item": "Mode: kit_3_pecas | Part: embolo",
+      "expected": "Triggers STL blob generation and download without exception",
+      "actual": "Downloaded: true, Filename: cortador_folha_embolo_106mm.stl",
+      "status": "PASS",
+      "error": null,
+      "details": {},
+      "durationMs": 43
+    },
+    {
+      "id": "adv_s2_dl_kit_3_pecas_botao",
+      "station": 2,
+      "subsystem": "Part STL Export Robustness",
+      "item": "Mode: kit_3_pecas | Part: botao",
+      "expected": "Triggers STL blob generation and download without exception",
+      "actual": "Downloaded: true, Filename: cortador_folha_botao_106mm.stl",
+      "status": "PASS",
+      "error": null,
+      "details": {},
+      "durationMs": 30
+    },
+    {
+      "id": "adv_s2_dl_cortador_simples_matriz",
+      "station": 2,
+      "subsystem": "Part STL Export Robustness",
+      "item": "Mode: cortador_simples | Part: matriz",
+      "expected": "Triggers STL blob generation and download without exception",
+      "actual": "Downloaded: true, Filename: cortador_folha_matriz_106mm.stl",
+      "status": "PASS",
+      "error": null,
+      "details": {},
+      "durationMs": 20
+    },
+    {
+      "id": "adv_s2_dl_cortador_simples_embolo",
+      "station": 2,
+      "subsystem": "Part STL Export Robustness",
+      "item": "Mode: cortador_simples | Part: embolo",
+      "expected": "Triggers STL blob generation and download without exception",
+      "actual": "Downloaded: true, Filename: cortador_folha_embolo_106mm.stl",
+      "status": "PASS",
+      "error": null,
+      "details": {},
+      "durationMs": 27
+    },
+    {
+      "id": "adv_s2_dl_carimbo_placa_carimbo",
+      "station": 2,
+      "subsystem": "Part STL Export Robustness",
+      "item": "Mode: carimbo_placa | Part: carimbo",
+      "expected": "Triggers STL blob generation and download without exception",
+      "actual": "Downloaded: true, Filename: cortador_folha_carimbo_106mm.stl",
+      "status": "PASS",
+      "error": null,
+      "details": {},
+      "durationMs": 22
+    },
+    {
+      "id": "adv_s2_dl_cortador_estampa_cortador_estampa",
+      "station": 2,
+      "subsystem": "Part STL Export Robustness",
+      "item": "Mode: cortador_estampa | Part: cortador_estampa",
+      "expected": "Triggers STL blob generation and download without exception",
+      "actual": "Downloaded: true, Filename: cortador_folha_cortador_estampa_106mm.stl",
+      "status": "PASS",
+      "error": null,
+      "details": {},
+      "durationMs": 37
+    },
+    {
+      "id": "adv_s2_preview_stl_ascii_vazio",
+      "station": 2,
+      "subsystem": "Live STL Preview Robustness",
+      "item": "STL ASCII Vazio",
+      "expected": "Handles input without uncaught unhandled crash",
+      "actual": "Executed: true, Catch: none",
+      "status": "PASS",
+      "error": null,
+      "details": {},
+      "durationMs": 35
+    },
+    {
+      "id": "adv_s2_preview_stl_ascii_v_lido__tri_ngulo_",
+      "station": 2,
+      "subsystem": "Live STL Preview Robustness",
+      "item": "STL ASCII Válido (Triângulo)",
+      "expected": "Handles input without uncaught unhandled crash",
+      "actual": "Executed: true, Catch: none",
+      "status": "PASS",
+      "error": null,
+      "details": {},
+      "durationMs": 8
+    },
+    {
+      "id": "adv_s2_preview_stl_ascii_malformado___truncado",
+      "station": 2,
+      "subsystem": "Live STL Preview Robustness",
+      "item": "STL ASCII Malformado / Truncado",
+      "expected": "Handles input without uncaught unhandled crash",
+      "actual": "Executed: true, Catch: none",
+      "status": "PASS",
+      "error": null,
+      "details": {},
+      "durationMs": 4
+    },
+    {
+      "id": "adv_s2_preview_texto_aleat_rio___lixo_bin_rio",
+      "station": 2,
+      "subsystem": "Live STL Preview Robustness",
+      "item": "Texto Aleatório / Lixo Binário",
+      "expected": "Handles input without uncaught unhandled crash",
+      "actual": "Executed: true, Catch: none",
+      "status": "PASS",
+      "error": null,
+      "details": {},
+      "durationMs": 3
+    }
+  ],
+  "consoleErrors": []
+}

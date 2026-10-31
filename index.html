@@ -1288,8 +1288,12 @@
                   data-tip-advice="Para cortar biscoitos e placas cerâmicas sem deformar a silhueta, o 'Kit 3 Peças' é o padrão ouro da indústria.">?</span>
               </label>
               <select id="c-native-mode" onchange="rebuildNativeCutter3D()" class="cad-input font-medium text-xs">
-                <option value="kit3pecas">Kit Cortador Ejetor 3 Peças (Matriz + Êmbolo + Botão)</option>
-                <option value="relevo">Placa / Carimbo Direto (Linhas Pretas = Relevo Alto)</option>
+                <option value="kit_3_pecas" selected>Kit 3 Peças: Ejetor com mola + Lâmina Cortador + Base Estampa</option>
+                <option value="cortador_estampa">Cortador com Estampa Integrada (Peça Única)</option>
+                <option value="cortador_simples">Apenas Lâmina Cortadora de Contorno com Aba</option>
+                <option value="carimbo_placa">Apenas Marcador / Carimbo de Placa com Pega</option>
+                <option value="kit3pecas" class="hidden">Kit Cortador Ejetor 3 Peças (Legado)</option>
+                <option value="relevo" class="hidden">Placa / Carimbo Direto (Legado)</option>
               </select>
             </div>
 
@@ -1496,8 +1500,8 @@
 
         <!-- Sticky Action Dock Cortadores -->
         <div class="sticky-action-dock space-y-2">
-          <button onclick="exportActiveMeshSTL('cortador_morcego_todos_impressao.stl')" class="w-full cta-primary py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2">
-            <span>⬇️</span> Baixar Kit Completo na Mesa (.STL)
+          <button onclick="downloadCutterFullKitSTL()" class="w-full cta-primary py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2">
+            <span>⬇️</span> Baixar Modelo / Kit Completo (.STL)
           </button>
           <div class="grid grid-cols-3 gap-1.5 text-[11px]">
             <button onclick="downloadCutterPartSTL('matriz')" class="bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 text-stone-700 dark:text-stone-300 py-1.5 px-2 rounded-lg font-medium border border-stone-200 dark:border-cad-border transition flex items-center justify-center gap-1">
@@ -4892,6 +4896,7 @@
         const studioKey = presetKey.replace('bib_', '');
         if (typeof loadStudioPreset3D === 'function') {
           loadStudioPreset3D(studioKey);
+          activeTool = 'vasos'; // Preserva o estado de Station 1 para que edições nos controles não sejam ignoradas
         }
         return;
       }
@@ -5530,7 +5535,9 @@
       // 1. Constrói Geometria da Parede Externa com Material Cerâmico Cinnabar
       const extGeo = buildGridMeshGeometry(outerGrid, slices, radialSegs, false);
       const extMat = CinnabarMaterialSystem.getMaterial(currentCeramicFinish, isWireframe);
-      activeMeshGroup.add(new THREE.Mesh(extGeo, extMat));
+      const extMesh = new THREE.Mesh(extGeo, extMat);
+      extMesh.name = 'outerWall';
+      activeMeshGroup.add(extMesh);
 
       // 2. Constrói Geometria da Parede Interna (Oca, do fundo até o topo)
       const innerSlices = innerGrid.length - 1;
@@ -6331,7 +6338,9 @@
 
         const extGeo = buildGridMeshGeometry(outerGrid, totalOuterSlices, radialSegs, false);
         const extMat = CinnabarMaterialSystem.getMaterial(currentCeramicFinish, isWireframe);
-        activeMeshGroup.add(new THREE.Mesh(extGeo, extMat));
+        const extMesh = new THREE.Mesh(extGeo, extMat);
+        extMesh.name = 'outerWall';
+        activeMeshGroup.add(extMesh);
 
         // Constrói Grid de Vértices da Parede Interna (Oca, do fundo Y=espessura até o topo)
         const innerRows = outerRows.slice(floorIdx);
@@ -7293,6 +7302,17 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
           if (i === 0) shape.moveTo(x, y);
           else shape.lineTo(x, y);
         }
+      } else if (preset === 'morcego') {
+        for (let i = 0; i <= segs; i++) {
+          const a = (i / segs) * Math.PI * 2;
+          const wing = 0.78 + 0.22 * Math.cos(a * 2) + 0.12 * Math.sin(a * 4);
+          const ears = Math.exp(-(((a - Math.PI / 2) / 0.3) ** 2)) * 0.25;
+          const rad = r * (wing + ears);
+          const x = Math.cos(a) * rad * 1.15;
+          const y = Math.sin(a) * rad * 0.75;
+          if (i === 0) shape.moveTo(x, y);
+          else shape.lineTo(x, y);
+        }
       } else {
         // passaro ou circular
         for (let i = 0; i <= segs; i++) {
@@ -7475,6 +7495,17 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
         addOrganicLine(-sr * 0.1, -sr * 0.1, -sr * 0.55, -sr * 0.68, 3.0);
         addOrganicLine(0, 0, sr * 0.55, -sr * 0.52, 2.8);
         addOrganicLine(0, sr * 0.1, -sr * 0.48, sr * 0.65, 2.6);
+      } else if (preset === 'morcego') {
+        // Corpo e asas do morcego estilizado
+        addOrganicDisc(0, 0, sr * 0.16, sr * 0.38);
+        addOrganicDisc(0, -sr * 0.30, sr * 0.14, sr * 0.14);
+        addOrganicLine(-sr * 0.10, -sr * 0.40, -sr * 0.06, -sr * 0.28, 2.5);
+        addOrganicLine(sr * 0.10, -sr * 0.40, sr * 0.06, -sr * 0.28, 2.5);
+        [-1, 1].forEach(side => {
+          addOrganicLine(side * sr * 0.1, -sr * 0.08, side * sr * 0.75, -sr * 0.22, 3.0);
+          addOrganicLine(side * sr * 0.75, -sr * 0.22, side * sr * 0.60, sr * 0.20, 2.8);
+          addOrganicLine(side * sr * 0.60, sr * 0.20, side * sr * 0.1, sr * 0.15, 2.5);
+        });
       } else {
         // Flor de Lótus (8 pétalas radiais esculpidas + miolo)
         for (let i = 0; i < 8; i++) {
@@ -7633,10 +7664,15 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
 
     function downloadCutterPartSTL(part) {
       const preset = document.getElementById('c-preset-shape')?.value || 'morcego';
+      let mode = document.getElementById('c-native-mode')?.value || 'kit_3_pecas';
+      if (mode === 'kit3pecas') mode = 'kit_3_pecas';
+      if (mode === 'relevo') mode = 'carimbo_placa';
       const largura = parseFloat(document.getElementById('c-largura')?.value) || 95;
       const retracao = parseFloat(document.getElementById('c-retracao')?.value) || 1.12;
-      const targetWidth = largura * retracao;
-      const scale = targetWidth / 131.2;
+      const targetWidth = Math.round(largura * retracao);
+      const scale = (largura * retracao) / 131.2;
+
+      const dynamicFilename = `cortador_${preset}_${part}_${targetWidth}mm.stl`;
 
       if (preset === 'morcego' && batCutterGeometries && batCutterGeometries[part]) {
         const geo = batCutterGeometries[part].clone();
@@ -7644,30 +7680,66 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
         const tempMesh = new THREE.Mesh(geo, new THREE.MeshBasicMaterial());
         const exporter = new THREE.STLExporter();
         const stlData = exporter.parse(tempMesh, { binary: true });
-        downloadBlob(new Blob([stlData], { type: 'application/octet-stream' }), `cortador_morcego_${part}_${Math.round(targetWidth)}mm.stl`);
+        downloadBlob(new Blob([stlData], { type: 'application/octet-stream' }), dynamicFilename);
         return;
       }
 
-      exportActiveMeshSTL(`cortador_${part}.stl`);
+      // Procura sub-objeto ou malha correspondente à parte específica
+      let targetObj = null;
+      if (activeMeshGroup) {
+        activeMeshGroup.traverse(child => {
+          if (!targetObj && child.name && child.name.toLowerCase().includes(part.toLowerCase())) {
+            targetObj = child;
+          }
+        });
+      }
+
+      if (targetObj) {
+        const exporter = new THREE.STLExporter();
+        const stlData = exporter.parse(targetObj, { binary: true });
+        downloadBlob(new Blob([stlData], { type: 'application/octet-stream' }), dynamicFilename);
+        return;
+      }
+
+      exportActiveMeshSTL(dynamicFilename);
     }
 
-    // Reconstrói o Cortador / Placa de Relevo 3D Nativo no Navegador com Engenharia Expulsora
-    function rebuildNativeCutter3D() {
+    function downloadCutterFullKitSTL() {
+      const preset = document.getElementById('c-preset-shape')?.value || 'morcego';
+      let mode = document.getElementById('c-native-mode')?.value || 'kit_3_pecas';
+      if (mode === 'kit3pecas') mode = 'kit_3_pecas';
+      if (mode === 'relevo') mode = 'carimbo_placa';
+      const largura = parseFloat(document.getElementById('c-largura')?.value) || 95;
+      const retracao = parseFloat(document.getElementById('c-retracao')?.value) || 1.12;
+      const targetWidth = Math.round(largura * retracao);
+
+      const filename = `cortador_${preset}_${mode}_${targetWidth}mm.stl`;
+      exportActiveMeshSTL(filename);
+    }
+    window.downloadCutterFullKitSTL = downloadCutterFullKitSTL;
+    window.downloadCutterAllSTL = downloadCutterFullKitSTL;
+
+    // Gerador de Geometria de Cortadores & Carimbos Paramétricos para todos os 4 Modos
+    function rebuildCutterGeometry() {
       if (!scene) return;
-      if (!cutterCanvasData) createPresetPatternCanvas('morcego');
+      const preset = document.getElementById('c-preset-shape')?.value || 'morcego';
+      if (!cutterCanvasData) createPresetPatternCanvas(preset);
       if (activeTool !== 'cortadores') return;
 
       clearActiveGroup();
 
-      const mode = document.getElementById('c-native-mode').value;
-      const preset = document.getElementById('c-preset-shape')?.value || 'morcego';
-      const largura = parseFloat(document.getElementById('c-largura').value) || 95;
-      const retracao = parseFloat(document.getElementById('c-retracao').value) || 1.12;
-      const relevoH = parseFloat(document.getElementById('c-relevo-h').value) || 2.2;
-      const comFuro = document.getElementById('c-furo-ativo').checked;
-      const invertBW = document.getElementById('c-invert-bw').checked;
+      const modeRaw = document.getElementById('c-native-mode')?.value || 'kit_3_pecas';
+      let mode = modeRaw;
+      if (mode === 'kit3pecas') mode = 'kit_3_pecas';
+      if (mode === 'relevo') mode = 'carimbo_placa';
 
-      // Novos parâmetros de Engenharia Expulsora
+      const largura = parseFloat(document.getElementById('c-largura')?.value) || 95;
+      const retracao = parseFloat(document.getElementById('c-retracao')?.value) || 1.12;
+      const relevoH = parseFloat(document.getElementById('c-relevo-h')?.value) || 2.2;
+      const comFuro = document.getElementById('c-furo-ativo')?.checked ?? true;
+      const invertBW = document.getElementById('c-invert-bw')?.checked ?? false;
+
+      // Parâmetros de Engenharia Expulsora
       const springType = document.getElementById('c-spring-type')?.value || 'flex_pla';
       const draftDeg = parseFloat(document.getElementById('c-draft-angle')?.value) || 2.0;
       const hasVentHoles = document.getElementById('c-vent-holes')?.checked ?? true;
@@ -7675,74 +7747,141 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
       const hasMicroRibs = document.getElementById('c-micro-ribs')?.checked ?? true;
 
       const sizeReal = largura * retracao;
+      const raio = sizeReal / 2;
       const baseThickness = 3.2;
+      const alturaCorte = 15.5;
 
-      // =======================================================================
-      // MODO REAL: KIT CORTADOR MORCEGO NOTURNO 3 PEÇAS (STLs REAIS INTEGRADOS)
-      // =======================================================================
-      if (preset === 'morcego' && mode !== 'relevo') {
-        if (!batCutterGeometries) {
-          loadBatCutterGeometries(() => {
-            if (activeTool === 'cortadores' && (document.getElementById('c-preset-shape')?.value || 'morcego') === 'morcego') {
-              rebuildNativeCutter3D();
-            }
-          });
-          return;
-        }
+      const matMatriz = new THREE.MeshStandardMaterial({
+        color: 0xB03428,
+        roughness: 0.35,
+        metalness: 0.1,
+        wireframe: isWireframe,
+        side: THREE.DoubleSide
+      });
+      const matEmbolo = new THREE.MeshStandardMaterial({
+        color: 0xE28D75,
+        roughness: 0.45,
+        metalness: 0.05,
+        wireframe: isWireframe,
+        side: THREE.DoubleSide
+      });
+      const matBotao = new THREE.MeshStandardMaterial({
+        color: 0x2C2624,
+        roughness: 0.5,
+        metalness: 0.2,
+        wireframe: isWireframe
+      });
+      const matRelief = new THREE.MeshStandardMaterial({
+        color: 0x942B21,
+        roughness: 0.32,
+        wireframe: isWireframe,
+        side: THREE.DoubleSide
+      });
+      const matBase = new THREE.MeshStandardMaterial({
+        color: 0xD05840,
+        roughness: 0.36,
+        wireframe: isWireframe
+      });
+      const matHandle = new THREE.MeshStandardMaterial({
+        color: 0x3A2D2A,
+        roughness: 0.45,
+        wireframe: isWireframe
+      });
 
-        const kitGroup = new THREE.Group();
-        const matMatriz = new THREE.MeshStandardMaterial({
-          color: 0xB03428,
-          roughness: 0.35,
-          metalness: 0.1,
-          wireframe: isWireframe,
-          side: THREE.DoubleSide
-        });
-        const matEmbolo = new THREE.MeshStandardMaterial({
-          color: 0xE28D75,
-          roughness: 0.45,
-          metalness: 0.05,
-          wireframe: isWireframe,
-          side: THREE.DoubleSide
-        });
-        const matBotao = new THREE.MeshStandardMaterial({
-          color: 0x2C2624,
-          roughness: 0.5,
-          metalness: 0.2,
-          wireframe: isWireframe
-        });
-
-        const meshMatriz = new THREE.Mesh(batCutterGeometries.matriz, matMatriz);
-        const meshEmbolo = new THREE.Mesh(batCutterGeometries.embolo, matEmbolo);
-        const meshBotao = new THREE.Mesh(batCutterGeometries.botao, matBotao);
-
-        if (currentCutterViewMode === 'assembled') {
-          // ⚙️ Montado: Êmbolo dentro da matriz com folga operacional, botão no topo do vástago
-          meshMatriz.position.set(0, 0, 0);
-          meshEmbolo.position.set(0, 3.5, 0);
-          meshBotao.position.set(0, 20.0, 0);
-        } else if (currentCutterViewMode === 'exploded') {
-          // 💥 Vista Explodida: Elevação vertical para inspeção interna didática
-          meshMatriz.position.set(0, 0, 0);
-          meshEmbolo.position.set(0, 38.0, 0);
-          meshBotao.position.set(0, 78.0, 0);
-        } else {
-          // 🖨️ Mesa FDM: Todas as 3 peças repousando em Y=0 lado a lado para fatiamento/impressão
-          meshMatriz.position.set(0, 0, 32);
-          meshEmbolo.position.set(0, 0, -28);
-          meshBotao.position.set(62, 0, -28);
-        }
-
-        kitGroup.add(meshMatriz);
-        kitGroup.add(meshEmbolo);
-        kitGroup.add(meshBotao);
-
+      // 1. Tratamento específico do Preset Morcego Noturno quando STL real estiver carregado
+      if (preset === 'morcego' && batCutterGeometries && batCutterGeometries.matriz && batCutterGeometries.embolo && batCutterGeometries.botao) {
         const scale = sizeReal / 131.2;
-        kitGroup.scale.set(scale, scale, scale);
-        activeMeshGroup.add(kitGroup);
+
+        if (mode === 'cortador_simples') {
+          // Apenas a lâmina de corte com aba
+          const geoMatriz = batCutterGeometries.matriz.clone();
+          geoMatriz.scale(scale, scale, scale);
+          const meshMatriz = new THREE.Mesh(geoMatriz, matMatriz);
+          meshMatriz.name = 'cutter_part_matriz';
+          activeMeshGroup.add(meshMatriz);
+        } else if (mode === 'carimbo_placa') {
+          // Apenas o êmbolo (estampa) com pega / manopla superior
+          const carimboBatGroup = new THREE.Group();
+          carimboBatGroup.name = 'cutter_part_carimbo';
+          const geoEmbolo = batCutterGeometries.embolo.clone();
+          geoEmbolo.scale(scale, scale, scale);
+          const meshEmbolo = new THREE.Mesh(geoEmbolo, matEmbolo);
+          meshEmbolo.name = 'cutter_part_embolo';
+          carimboBatGroup.add(meshEmbolo);
+
+          const rHandle = Math.min(18, Math.max(9, raio * 0.28));
+          const hHandle = Math.min(38, Math.max(22, raio * 0.5));
+          const handlePts = [
+            new THREE.Vector2(0, 0),
+            new THREE.Vector2(rHandle * 0.75, 0),
+            new THREE.Vector2(rHandle * 0.45, hHandle * 0.35),
+            new THREE.Vector2(rHandle * 0.35, hHandle * 0.65),
+            new THREE.Vector2(rHandle * 0.85, hHandle * 0.90),
+            new THREE.Vector2(rHandle * 0.75, hHandle),
+            new THREE.Vector2(0, hHandle)
+          ];
+          const handleGeo = new THREE.LatheGeometry(handlePts, 48);
+          handleGeo.translate(0, 3.5, 0);
+          const meshHandle = new THREE.Mesh(handleGeo, matHandle);
+          meshHandle.name = 'cutter_part_botao';
+          carimboBatGroup.add(meshHandle);
+          activeMeshGroup.add(carimboBatGroup);
+        } else if (mode === 'cortador_estampa') {
+          // Cortador com Estampa Integrada / Peça Única: Lâmina e estampa unificados
+          const unifiedGroup = new THREE.Group();
+          unifiedGroup.name = 'cutter_part_cortador_estampa';
+          const geoMatriz = batCutterGeometries.matriz.clone();
+          geoMatriz.scale(scale, scale, scale);
+          const meshMatriz = new THREE.Mesh(geoMatriz, matMatriz);
+          meshMatriz.name = 'cutter_part_matriz';
+          unifiedGroup.add(meshMatriz);
+
+          const geoEmbolo = batCutterGeometries.embolo.clone();
+          geoEmbolo.scale(scale, scale, scale);
+          geoEmbolo.translate(0, 3.5 * scale, 0);
+          const meshEmbolo = new THREE.Mesh(geoEmbolo, matEmbolo);
+          meshEmbolo.name = 'cutter_part_embolo';
+          unifiedGroup.add(meshEmbolo);
+
+          const bridgeGeo = new THREE.BoxGeometry(raio * 1.1, 4.0, raio * 0.22);
+          bridgeGeo.translate(0, 16.0 * scale, 0);
+          unifiedGroup.add(new THREE.Mesh(bridgeGeo, matMatriz));
+
+          activeMeshGroup.add(unifiedGroup);
+        } else {
+          // Kit 3 Peças: Matriz + Êmbolo + Botão
+          const kitGroup = new THREE.Group();
+          const meshMatriz = new THREE.Mesh(batCutterGeometries.matriz.clone(), matMatriz);
+          const meshEmbolo = new THREE.Mesh(batCutterGeometries.embolo.clone(), matEmbolo);
+          const meshBotao = new THREE.Mesh(batCutterGeometries.botao.clone(), matBotao);
+          meshMatriz.name = 'cutter_part_matriz';
+          meshEmbolo.name = 'cutter_part_embolo';
+          meshBotao.name = 'cutter_part_botao';
+
+          if (currentCutterViewMode === 'assembled') {
+            meshMatriz.position.set(0, 0, 0);
+            meshEmbolo.position.set(0, 3.5, 0);
+            meshBotao.position.set(0, 20.0, 0);
+          } else if (currentCutterViewMode === 'exploded') {
+            meshMatriz.position.set(0, 0, 0);
+            meshEmbolo.position.set(0, 38.0, 0);
+            meshBotao.position.set(0, 78.0, 0);
+          } else {
+            meshMatriz.position.set(0, 0, 32);
+            meshEmbolo.position.set(0, 0, -28);
+            meshBotao.position.set(62, 0, -28);
+          }
+
+          kitGroup.add(meshMatriz);
+          kitGroup.add(meshEmbolo);
+          kitGroup.add(meshBotao);
+          kitGroup.scale.set(scale, scale, scale);
+          activeMeshGroup.add(kitGroup);
+        }
 
         updateViewportBoundingBox();
-        const estGrams = Math.round((scale ** 3) * 52);
+        const factor = (mode === 'cortador_simples' ? 18 : mode === 'carimbo_placa' ? 26 : mode === 'cortador_estampa' ? 36 : 52);
+        const estGrams = Math.round((scale ** 3) * factor);
         const barG = document.getElementById('bar-pla-g');
         if (barG) barG.textContent = `~${estGrams} g`;
         const pFilG = document.getElementById('p-filament-g');
@@ -7751,13 +7890,65 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
         return;
       }
 
-      if (mode === 'relevo') {
-        // MODO 1: PLACA / CARIMBO DE RELEVO DIRETO COM VETORIZAÇÃO PURA OU SDF SUAVIZADO
-        const matBase = new THREE.MeshStandardMaterial({ color: 0xD05840, roughness: 0.36, wireframe: isWireframe });
-        const matRelief = new THREE.MeshStandardMaterial({ color: 0x942B21, roughness: 0.32, wireframe: isWireframe, side: THREE.DoubleSide });
+      // Se for morcego e STLs ainda não carregaram, dispara carregamento assíncrono em segundo plano
+      if (preset === 'morcego' && !batCutterGeometries && !batCutterLoading) {
+        loadBatCutterGeometries(() => {
+          if (activeTool === 'cortadores' && (document.getElementById('c-preset-shape')?.value || 'morcego') === 'morcego') {
+            rebuildCutterGeometry();
+          }
+        });
+      }
 
-        if (!customCutterImageUploaded && preset !== 'morcego') {
-          // Base contornada vetorialmente sem nenhuma pixelação
+      // =======================================================================
+      // MODELAGEM VETORIAL PROCEDURAL 3D (TODOS OS 12 PRESETS & OS 4 MODOS)
+      // =======================================================================
+      if (mode === 'cortador_simples') {
+        // MODO 1: APENAS LÂMINA CORTADORA DE CONTORNO COM ABA (SEM ÊMBOLO/ESTAMPADORES)
+        const simplesGroup = new THREE.Group();
+        simplesGroup.name = 'cutter_part_matriz';
+
+        const outerWallShape = getCutterOuterVectorShape(preset, raio * 1.02);
+        const innerCutHole = getCutterOuterVectorShape(preset, raio * 0.97);
+        outerWallShape.holes.push(innerCutHole);
+
+        const wallGeo = new THREE.ExtrudeGeometry(outerWallShape, {
+          depth: alturaCorte,
+          bevelEnabled: true,
+          bevelThickness: 0.35,
+          bevelSize: 0.25,
+          bevelSegments: 3,
+          curveSegments: 96
+        });
+        wallGeo.rotateX(-Math.PI / 2);
+        wallGeo.computeBoundingBox();
+        wallGeo.translate(0, -wallGeo.boundingBox.min.y, 0);
+        simplesGroup.add(new THREE.Mesh(wallGeo, matMatriz));
+
+        // Flange ergonômico superior (Aba de apoio nos dedos)
+        const flangeShape = getCutterOuterVectorShape(preset, raio * 1.15);
+        const flangeHole = getCutterOuterVectorShape(preset, raio * 0.96);
+        flangeShape.holes.push(flangeHole);
+        const flangeGeo = new THREE.ExtrudeGeometry(flangeShape, {
+          depth: 2.8,
+          bevelEnabled: true,
+          bevelThickness: 0.4,
+          bevelSize: 0.4,
+          bevelSegments: 3,
+          curveSegments: 96
+        });
+        flangeGeo.rotateX(-Math.PI / 2);
+        flangeGeo.computeBoundingBox();
+        flangeGeo.translate(0, alturaCorte - 2.8, 0);
+        simplesGroup.add(new THREE.Mesh(flangeGeo, matMatriz));
+
+        activeMeshGroup.add(simplesGroup);
+
+      } else if (mode === 'carimbo_placa') {
+        // MODO 2: APENAS MARCADOR / CARIMBO DE PLACA COM PEGA
+        const carimboGroup = new THREE.Group();
+        carimboGroup.name = 'cutter_part_carimbo';
+
+        if (!customCutterImageUploaded) {
           const outerShape = getCutterOuterVectorShape(preset, sizeReal * 0.5);
           const baseGeo = new THREE.ExtrudeGeometry(outerShape, {
             depth: baseThickness,
@@ -7770,19 +7961,18 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
           baseGeo.rotateX(-Math.PI / 2);
           baseGeo.computeBoundingBox();
           baseGeo.translate(0, -baseGeo.boundingBox.min.y, 0);
-          activeMeshGroup.add(new THREE.Mesh(baseGeo, matBase));
+          carimboGroup.add(new THREE.Mesh(baseGeo, matBase));
 
-          // Relevo 3D 100% Vetorial Contínuo (até 4.0 mm de profundidade, zero serrilhado)
           const relGroup = buildVectorCutterReliefGroup(preset, sizeReal * 0.48, relevoH, matRelief);
-          relGroup.position.set(0, baseThickness + 0.4, 0);
-          activeMeshGroup.add(relGroup);
+          relGroup.name = 'cutter_part_embolo';
+          relGroup.position.set(0, baseThickness + 0.3, 0);
+          carimboGroup.add(relGroup);
         } else {
-          // Quando o usuário envia uma imagem P&B customizada: malha densa 150×150 com Interpolação Bilinear e SDF Smoothstep
+          // Imagem customizada via malha com interpolação bilinear e SDF
           const segs = 150;
           const geo = new THREE.BoxGeometry(sizeReal, baseThickness, sizeReal, segs, 1, segs);
           geo.translate(0, baseThickness / 2, 0);
           const pos = geo.attributes.position;
-
           for (let i = 0; i < pos.count; i++) {
             const vy = pos.getY(i);
             if (vy > baseThickness * 0.8) {
@@ -7793,23 +7983,105 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
               const lum = sampleBilinearLum(cutterCanvasData, u, v);
               const rawDark = invertBW ? lum : (1.0 - lum);
               const smoothDark = smoothStepOrganic(0.18, 0.78, rawDark);
-
               const distNorm = Math.min(1, Math.sqrt(vx * vx + vz * vz) / (sizeReal * 0.5));
               const domeLift = hasConvexDome ? (1 - distNorm * distNorm) * 0.65 : 0;
               const microRib = hasMicroRibs ? Math.sin(vx * 1.4) * 0.14 : 0;
-
               pos.setY(i, baseThickness + domeLift + smoothDark * relevoH + (1 - smoothDark) * microRib);
             }
           }
           geo.computeVertexNormals();
-          activeMeshGroup.add(new THREE.Mesh(geo, matBase));
+          carimboGroup.add(new THREE.Mesh(geo, matBase));
         }
 
-      } else {
-        // MODO 2: KIT CORTADOR EJETOR 3 PEÇAS VETORIAL ORGÂNICO (ZERO PIXELAÇÃO / RELEVO ATÉ 4MM)
-        const raio = sizeReal / 2;
-        const alturaCorte = 15.5;
+        // Pega / manopla superior torneada de carimbo
+        const rHandle = Math.min(18, Math.max(9, raio * 0.28));
+        const hHandle = Math.min(38, Math.max(22, raio * 0.5));
+        const handlePts = [
+          new THREE.Vector2(0, 0),
+          new THREE.Vector2(rHandle * 0.75, 0),
+          new THREE.Vector2(rHandle * 0.45, hHandle * 0.35),
+          new THREE.Vector2(rHandle * 0.35, hHandle * 0.65),
+          new THREE.Vector2(rHandle * 0.85, hHandle * 0.90),
+          new THREE.Vector2(rHandle * 0.75, hHandle),
+          new THREE.Vector2(0, hHandle)
+        ];
+        const handleGeo = new THREE.LatheGeometry(handlePts, 48);
+        handleGeo.translate(0, baseThickness, 0);
+        const handleMesh = new THREE.Mesh(handleGeo, matHandle);
+        handleMesh.name = 'cutter_part_botao';
+        carimboGroup.add(handleMesh);
 
+        activeMeshGroup.add(carimboGroup);
+
+      } else if (mode === 'cortador_estampa') {
+        // MODO 3: CORTADOR COM ESTAMPA INTEGRADA / PEÇA ÚNICA
+        const estampaGroup = new THREE.Group();
+        estampaGroup.name = 'cutter_part_cortador_estampa';
+
+        // Lâmina cortadora de contorno
+        const outerWallShape = getCutterOuterVectorShape(preset, raio * 1.02);
+        const innerCutHole = getCutterOuterVectorShape(preset, raio * 0.97);
+        outerWallShape.holes.push(innerCutHole);
+        const wallGeo = new THREE.ExtrudeGeometry(outerWallShape, {
+          depth: alturaCorte,
+          bevelEnabled: true,
+          bevelThickness: 0.35,
+          bevelSize: 0.25,
+          bevelSegments: 3,
+          curveSegments: 96
+        });
+        wallGeo.rotateX(-Math.PI / 2);
+        wallGeo.computeBoundingBox();
+        wallGeo.translate(0, -wallGeo.boundingBox.min.y, 0);
+        estampaGroup.add(new THREE.Mesh(wallGeo, matMatriz));
+
+        // Aba ergonômica perimetral
+        const flangeShape = getCutterOuterVectorShape(preset, raio * 1.15);
+        const flangeHole = getCutterOuterVectorShape(preset, raio * 0.96);
+        flangeShape.holes.push(flangeHole);
+        const flangeGeo = new THREE.ExtrudeGeometry(flangeShape, {
+          depth: 2.8,
+          bevelEnabled: true,
+          bevelThickness: 0.4,
+          bevelSize: 0.4,
+          bevelSegments: 3,
+          curveSegments: 96
+        });
+        flangeGeo.rotateX(-Math.PI / 2);
+        flangeGeo.computeBoundingBox();
+        flangeGeo.translate(0, alturaCorte - 2.8, 0);
+        estampaGroup.add(new THREE.Mesh(flangeGeo, matMatriz));
+
+        // Placa estrutural conectora interna (Teto integrado)
+        const roofShape = getCutterOuterVectorShape(preset, raio * 0.98);
+        const roofGeo = new THREE.ExtrudeGeometry(roofShape, {
+          depth: 2.8,
+          bevelEnabled: true,
+          bevelThickness: 0.3,
+          bevelSize: 0.3,
+          bevelSegments: 3,
+          curveSegments: 96
+        });
+        roofGeo.rotateX(-Math.PI / 2);
+        roofGeo.computeBoundingBox();
+        roofGeo.translate(0, alturaCorte - 3.2, 0);
+        estampaGroup.add(new THREE.Mesh(roofGeo, matBase));
+
+        // Relevo interno unificado
+        const relGroup = buildVectorCutterReliefGroup(preset, raio * 0.92, relevoH, matRelief);
+        relGroup.name = 'cutter_part_embolo';
+        relGroup.position.set(0, alturaCorte - 3.2 - relevoH, 0);
+        estampaGroup.add(relGroup);
+
+        // Barra de reforço superior para apoio manual
+        const bridgeGeo = new THREE.BoxGeometry(raio * 1.1, 3.5, raio * 0.24);
+        bridgeGeo.translate(0, alturaCorte + 1.6, 0);
+        estampaGroup.add(new THREE.Mesh(bridgeGeo, matMatriz));
+
+        activeMeshGroup.add(estampaGroup);
+
+      } else {
+        // MODO 4: KIT 3 PEÇAS (MATRIZ + ÊMBOLO + BOTÃO)
         let yEmboloOffset = 4.5;
         let yBotaoOffset = 23.5;
         let xMatriz = 0, zMatriz = 0;
@@ -7830,11 +8102,10 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
           yBotaoOffset = 23.5;
         }
 
-        const matMatriz = new THREE.MeshStandardMaterial({ color: 0xB03428, roughness: 0.34, side: THREE.DoubleSide, wireframe: isWireframe });
-        const matEmbolo = new THREE.MeshStandardMaterial({ color: 0xE09070, roughness: 0.42, wireframe: isWireframe });
-        const matRelief = new THREE.MeshStandardMaterial({ color: 0x942B21, roughness: 0.32, side: THREE.DoubleSide, wireframe: isWireframe });
+        // PEÇA A: Matriz Cortadora Externa
+        const matrizGroup = new THREE.Group();
+        matrizGroup.name = 'cutter_part_matriz';
 
-        // PEÇA A: Matriz Cortadora Externa Seguindo a Silhueta Vetorial Exata do Preset
         const outerWallShape = getCutterOuterVectorShape(preset, raio * 1.02);
         const innerCutHole = getCutterOuterVectorShape(preset, raio * 0.97);
         outerWallShape.holes.push(innerCutHole);
@@ -7850,9 +8121,8 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
         wallGeo.rotateX(-Math.PI / 2);
         wallGeo.computeBoundingBox();
         wallGeo.translate(xMatriz, -wallGeo.boundingBox.min.y, zMatriz);
-        activeMeshGroup.add(new THREE.Mesh(wallGeo, matMatriz));
+        matrizGroup.add(new THREE.Mesh(wallGeo, matMatriz));
 
-        // Flange ergonômico superior da Matriz
         const flangeShape = getCutterOuterVectorShape(preset, raio * 1.14);
         const flangeHole = getCutterOuterVectorShape(preset, raio * 0.96);
         flangeShape.holes.push(flangeHole);
@@ -7867,9 +8137,20 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
         flangeGeo.rotateX(-Math.PI / 2);
         flangeGeo.computeBoundingBox();
         flangeGeo.translate(xMatriz, -flangeGeo.boundingBox.min.y, zMatriz);
-        activeMeshGroup.add(new THREE.Mesh(flangeGeo, matMatriz));
+        matrizGroup.add(new THREE.Mesh(flangeGeo, matMatriz));
 
-        // PEÇA B: Êmbolo Ejetor Interno no Formato Vetorial do Preset
+        if (comFuro) {
+          const rFuro = (8.5 * retracao);
+          const tuboCentral = new THREE.CylinderGeometry(rFuro, rFuro + 0.5, alturaCorte, 48, 1, true);
+          tuboCentral.translate(xMatriz, alturaCorte / 2, zMatriz + raio * 0.28);
+          matrizGroup.add(new THREE.Mesh(tuboCentral, matMatriz));
+        }
+        activeMeshGroup.add(matrizGroup);
+
+        // PEÇA B: Êmbolo Ejetor Interno
+        const emboloGroup = new THREE.Group();
+        emboloGroup.name = 'cutter_part_embolo';
+
         const emboloShape = getCutterOuterVectorShape(preset, raio * 0.93);
         const emboloGeo = new THREE.ExtrudeGeometry(emboloShape, {
           depth: 3.4,
@@ -7882,15 +8163,14 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
         emboloGeo.rotateX(-Math.PI / 2);
         emboloGeo.computeBoundingBox();
         emboloGeo.translate(xEmbolo, yEmboloOffset - emboloGeo.boundingBox.min.y, zEmbolo);
-        activeMeshGroup.add(new THREE.Mesh(emboloGeo, matEmbolo));
+        emboloGroup.add(new THREE.Mesh(emboloGeo, matEmbolo));
 
-        // Alto-Relevo 3D Escultural de até 4.0 mm sobre o Êmbolo
+        // Relevo sobre o Êmbolo
         if (!customCutterImageUploaded) {
           const vectorRelief = buildVectorCutterReliefGroup(preset, raio * 0.92, relevoH, matRelief);
           vectorRelief.position.set(xEmbolo, yEmboloOffset + 3.6, zEmbolo);
-          activeMeshGroup.add(vectorRelief);
+          emboloGroup.add(vectorRelief);
         } else {
-          // Caso tenha imagem enviada pelo usuário, usa malha suavizada Bilinear + Smoothstep
           const segs = 130;
           const relGeo = new THREE.PlaneGeometry(sizeReal * 0.78, sizeReal * 0.78, segs, segs);
           relGeo.rotateX(-Math.PI / 2);
@@ -7912,10 +8192,10 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
             }
           }
           relGeo.computeVertexNormals();
-          activeMeshGroup.add(new THREE.Mesh(relGeo, matRelief));
+          emboloGroup.add(new THREE.Mesh(relGeo, matRelief));
         }
 
-        // Furos Pneumáticos Anti-Vácuo (Vent Holes) atravessando o Êmbolo
+        // Furos Pneumáticos Anti-Vácuo
         if (hasVentHoles) {
           const ventMat = new THREE.MeshStandardMaterial({ color: 0x181413, roughness: 0.8 });
           const ventCoords = [
@@ -7925,11 +8205,11 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
           ventCoords.forEach(([vx, vz]) => {
             const vHole = new THREE.CylinderGeometry(1.1, 1.1, 4.2, 24);
             vHole.translate(xEmbolo + vx, yEmboloOffset + 2.0, zEmbolo + vz);
-            activeMeshGroup.add(new THREE.Mesh(vHole, ventMat));
+            emboloGroup.add(new THREE.Mesh(vHole, ventMat));
           });
         }
 
-        // Hastes Guia auto-limpantes
+        // Hastes Guia
         const numHastes = (reforcoMecanicoAtivo || largura > 125) ? 4 : 2;
         const hCoords = numHastes === 4
           ? [[-raio * 0.42, -raio * 0.22], [raio * 0.42, -raio * 0.22], [-raio * 0.42, raio * 0.22], [raio * 0.42, raio * 0.22]]
@@ -7938,48 +8218,56 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
         hCoords.forEach(([hx, hz]) => {
           const hasteGeo = new THREE.CylinderGeometry(2.6, 2.6, 19, 32);
           hasteGeo.translate(xEmbolo + hx, yEmboloOffset + 11.0, zEmbolo + hz);
-          activeMeshGroup.add(new THREE.Mesh(hasteGeo, matEmbolo));
+          emboloGroup.add(new THREE.Mesh(hasteGeo, matEmbolo));
         });
 
-        // Sistema de Mola de Retorno
+        // Mola de Retorno
         if (springType === 'flex_pla') {
           const springMat = new THREE.MeshStandardMaterial({ color: 0xD49A45, roughness: 0.35, wireframe: isWireframe });
           for (let s = 0; s < 3; s++) {
             const torusArc = new THREE.TorusGeometry(6.5, 1.1, 16, 48);
             torusArc.translate(xEmbolo, yEmboloOffset + 7.5 + s * 4.2, zEmbolo);
-            activeMeshGroup.add(new THREE.Mesh(torusArc, springMat));
+            emboloGroup.add(new THREE.Mesh(torusArc, springMat));
           }
         } else if (springType === 'mola_inox') {
           const inoxMat = new THREE.MeshStandardMaterial({ color: 0xA8A29E, metalness: 0.7, roughness: 0.2 });
           const coilGeo = new THREE.CylinderGeometry(4.5, 4.5, 14, 32, 1, true);
           coilGeo.translate(xEmbolo, yEmboloOffset + 9.5, zEmbolo);
-          activeMeshGroup.add(new THREE.Mesh(coilGeo, inoxMat));
+          emboloGroup.add(new THREE.Mesh(coilGeo, inoxMat));
         }
+        activeMeshGroup.add(emboloGroup);
 
-        // PEÇA C: Botão Acionador Ergonômico Superior + Pino Expulsor de Miolo
-        const btnMat = new THREE.MeshStandardMaterial({ color: 0x3A2D2A, roughness: 0.5, wireframe: isWireframe });
+        // PEÇA C: Botão Acionador Ergonômico
+        const botaoGroup = new THREE.Group();
+        botaoGroup.name = 'cutter_part_botao';
         const btnGeo = new THREE.CylinderGeometry(raio * 0.58, raio * 0.62, 5.2, 64);
         btnGeo.translate(xBotao, yBotaoOffset, zBotao);
-        activeMeshGroup.add(new THREE.Mesh(btnGeo, btnMat));
+        botaoGroup.add(new THREE.Mesh(btnGeo, matBotao));
 
         if (comFuro) {
           const rFuro = (8.5 * retracao);
-          const tuboCentral = new THREE.CylinderGeometry(rFuro, rFuro + 0.5, alturaCorte, 48, 1, true);
-          tuboCentral.translate(xMatriz, alturaCorte / 2, zMatriz + raio * 0.28);
-          activeMeshGroup.add(new THREE.Mesh(tuboCentral, matMatriz));
-
           const pinoExpulsor = new THREE.CylinderGeometry(rFuro - 0.8, rFuro - 1.2, 22, 36);
           pinoExpulsor.translate(xBotao, yBotaoOffset - 11, zBotao + raio * 0.28);
-          activeMeshGroup.add(new THREE.Mesh(pinoExpulsor, btnMat));
+          botaoGroup.add(new THREE.Mesh(pinoExpulsor, matBotao));
         }
+        activeMeshGroup.add(botaoGroup);
       }
 
       updateViewportBoundingBox();
-      const estGrams = Math.round((sizeReal / 85) ** 2 * 38);
-      document.getElementById('bar-pla-g').textContent = `~${estGrams} g`;
-      document.getElementById('p-filament-g').value = estGrams;
+      const factor = (mode === 'cortador_simples' ? 16 : mode === 'carimbo_placa' ? 24 : mode === 'cortador_estampa' ? 32 : 45);
+      const estGrams = Math.round(((sizeReal / 85) ** 2) * factor);
+      const barG = document.getElementById('bar-pla-g');
+      if (barG) barG.textContent = `~${estGrams} g`;
+      const pFilG = document.getElementById('p-filament-g');
+      if (pFilG) pFilG.value = estGrams;
       recalcPricing();
     }
+
+    function rebuildNativeCutter3D() {
+      return rebuildCutterGeometry();
+    }
+    window.rebuildCutterGeometry = rebuildCutterGeometry;
+    window.rebuildNativeCutter3D = rebuildNativeCutter3D;
 
     // =========================================================================
     // PROMPTS HIPER-DETALHADOS (ETAPA 1 E ETAPA 2) & LIVE PREVIEW STL ASCII
@@ -9445,6 +9733,9 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
       }
     }
 
+    // Alias global para compatibilidade com os requisitos e automação
+    window.exportVase2DPatternsPDF = generateVasePDF;
+
     function exportVaseRibSTL() {
       const shape = new THREE.Shape();
       shape.moveTo(0, 0);
@@ -9488,13 +9779,45 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
     }
 
     function exportActiveMeshSTL(filename) {
-      if (!activeMeshGroup || activeMeshGroup.children.length === 0) {
-        alert('Nenhum modelo 3D carregado para exportar.');
-        return;
+      const sectionCutEl = document.getElementById('v-section-cut');
+      const wasSectionCutChecked = (activeTool === 'vasos') && sectionCutEl && sectionCutEl.checked;
+
+      if (wasSectionCutChecked) {
+        sectionCutEl.checked = false;
+        rebuildVase();
       }
-      const exporter = new THREE.STLExporter();
-      const stlData = exporter.parse(activeMeshGroup, { binary: true });
-      downloadBlob(new Blob([stlData], { type: 'application/octet-stream' }), filename || 'ceramicad_modelo.stl');
+
+      try {
+        if (!activeMeshGroup || activeMeshGroup.children.length === 0) {
+          alert('Nenhum modelo 3D carregado para exportar.');
+          return;
+        }
+
+        let outFilename = filename;
+        if (!outFilename || outFilename === 'cortador_morcego_todos_impressao.stl') {
+          if (activeTool === 'cortadores') {
+            const preset = document.getElementById('c-preset-shape')?.value || 'morcego';
+            let mode = document.getElementById('c-native-mode')?.value || 'kit_3_pecas';
+            if (mode === 'kit3pecas') mode = 'kit_3_pecas';
+            if (mode === 'relevo') mode = 'carimbo_placa';
+            const largura = parseFloat(document.getElementById('c-largura')?.value) || 95;
+            const retracao = parseFloat(document.getElementById('c-retracao')?.value) || 1.12;
+            const targetWidth = Math.round(largura * retracao);
+            outFilename = `cortador_${preset}_${mode}_${targetWidth}mm.stl`;
+          } else {
+            outFilename = outFilename || 'ceramicad_modelo.stl';
+          }
+        }
+
+        const exporter = new THREE.STLExporter();
+        const stlData = exporter.parse(activeMeshGroup, { binary: true });
+        downloadBlob(new Blob([stlData], { type: 'application/octet-stream' }), outFilename);
+      } finally {
+        if (wasSectionCutChecked) {
+          sectionCutEl.checked = true;
+          rebuildVase();
+        }
+      }
     }
 
     function copyText(elementId, btnEl) {
@@ -9834,11 +10157,13 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
         const pos = geo.attributes.position;
         for (let i = 0; i < pos.count; i++) {
           const vx = pos.getX(i), vz = pos.getZ(i);
-          const a = Math.atan2(vz, vx);
           const r = Math.sqrt(vx * vx + vz * vz);
-          const delta = Math.cos(a * 24) * 3.5;
-          pos.setX(i, (vx / r) * (r + delta));
-          pos.setZ(i, (vz / r) * (r + delta));
+          if (r > 0.001) {
+            const a = Math.atan2(vz, vx);
+            const delta = Math.cos(a * 24) * 3.5;
+            pos.setX(i, (vx / r) * (r + delta));
+            pos.setZ(i, (vz / r) * (r + delta));
+          }
         }
         geo.computeVertexNormals();
         geo.translate(0, height / 2, 0);
