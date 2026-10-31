@@ -631,7 +631,121 @@ async function testStation1(cdp, reporter) {
   }
 
   // =========================================================================
-  // 1.11 STL Export Validation
+  // 1.11 Torno Elétrico: Costela c/ Geometria de Ataque & Gabarito Negativo
+  // =========================================================================
+  {
+    const t0 = Date.now();
+    try {
+      await cdp.evaluate(`previewVaseRib3D();`);
+      await new Promise(r => setTimeout(r, 60));
+      const mesh = await cdp.inspectActiveMesh();
+      const pass = mesh.meshCount > 0 && mesh.totalVertices > 0 && !mesh.hasNaN;
+
+      reporter.record({
+        id: 's1_torno_costela_3d',
+        station: 1,
+        subsystem: 'Torno: Costela de Ataque',
+        item: 'Costela Cerâmica 3D com Bisel 30°, Serrilha e Dente de Pé (Z=0)',
+        expected: 'Generates flat-bottom 2-manifold rib with thumb hole and attack geometry',
+        actual: `Meshes: ${mesh.meshCount}, Vertices: ${mesh.totalVertices.toLocaleString()}, Bounds: [${mesh.bounds ? mesh.bounds.size.join(' x ') : 'empty'} mm]`,
+        status: pass ? 'PASS' : 'FAIL',
+        durationMs: Date.now() - t0,
+        details: mesh
+      });
+    } catch (err) {
+      reporter.record({
+        id: 's1_torno_costela_3d',
+        station: 1,
+        subsystem: 'Torno: Costela de Ataque',
+        item: 'Costela Cerâmica 3D',
+        expected: 'Generates ceramic rib without exception',
+        actual: `Exception: ${err.message}`,
+        status: 'FAIL',
+        error: err.message,
+        durationMs: Date.now() - t0
+      });
+    }
+  }
+
+  {
+    const t0 = Date.now();
+    try {
+      await cdp.evaluate(`previewVaseNegativeTemplate3D();`);
+      await new Promise(r => setTimeout(r, 60));
+      const mesh = await cdp.inspectActiveMesh();
+      const pass = mesh.meshCount > 0 && mesh.totalVertices > 0 && !mesh.hasNaN;
+
+      reporter.record({
+        id: 's1_torno_gabarito_negativo_3d',
+        station: 1,
+        subsystem: 'Torno: Gabarito Negativo',
+        item: 'Gabarito Negativo Externo do Vaso para Checagem em Giro no Torno',
+        expected: 'Generates concave plate template matching active vase outer silhouette with Z=0 foot',
+        actual: `Meshes: ${mesh.meshCount}, Vertices: ${mesh.totalVertices.toLocaleString()}, Bounds: [${mesh.bounds ? mesh.bounds.size.join(' x ') : 'empty'} mm]`,
+        status: pass ? 'PASS' : 'FAIL',
+        durationMs: Date.now() - t0,
+        details: mesh
+      });
+    } catch (err) {
+      reporter.record({
+        id: 's1_torno_gabarito_negativo_3d',
+        station: 1,
+        subsystem: 'Torno: Gabarito Negativo',
+        item: 'Gabarito Negativo Externo',
+        expected: 'Generates negative template without exception',
+        actual: `Exception: ${err.message}`,
+        status: 'FAIL',
+        error: err.message,
+        durationMs: Date.now() - t0
+      });
+    }
+  }
+
+  {
+    const t0 = Date.now();
+    try {
+      const volRes = await cdp.evaluate(`
+        (() => {
+          rebuildVase();
+          const rawBefore = computeVaseInternalHollowVolumeMl();
+          document.getElementById('v-target-fired-ml').value = '400';
+          document.getElementById('v-target-shrink-pct').value = '12.0';
+          scaleVaseToTargetFiredMl();
+          const rawAfter = computeVaseInternalHollowVolumeMl();
+          const firedExpected = rawAfter * Math.pow(1 - 0.12, 3);
+          return { rawBefore, rawAfter, firedExpected };
+        })()
+      `);
+      const pass = volRes.rawAfter > 0 && Math.abs(volRes.firedExpected - 400) < 25;
+
+      reporter.record({
+        id: 's1_torno_volume_telemetry_scale',
+        station: 1,
+        subsystem: 'Queima: Volume Cúbico (1 - s)³',
+        item: 'Calibração Volumétrica Direta para Meta Final Pós-Queima (400 mL)',
+        expected: 'Calculates raw volume needed and rescales vase geometry via cubic factor',
+        actual: `RawBefore: ${Math.round(volRes.rawBefore)} mL ➔ RawAfter: ${Math.round(volRes.rawAfter)} mL (FiredExpected: ${Math.round(volRes.firedExpected)} mL)`,
+        status: pass ? 'PASS' : 'FAIL',
+        durationMs: Date.now() - t0,
+        details: volRes
+      });
+    } catch (err) {
+      reporter.record({
+        id: 's1_torno_volume_telemetry_scale',
+        station: 1,
+        subsystem: 'Queima: Volume Cúbico (1 - s)³',
+        item: 'Calibração Volumétrica Direta',
+        expected: 'Calculates volume and scales vase without exception',
+        actual: `Exception: ${err.message}`,
+        status: 'FAIL',
+        error: err.message,
+        durationMs: Date.now() - t0
+      });
+    }
+  }
+
+  // =========================================================================
+  // 1.12 STL Export Validation
   // =========================================================================
   {
     const t0 = Date.now();

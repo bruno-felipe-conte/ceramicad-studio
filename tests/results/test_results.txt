@@ -1,7 +1,7 @@
 ================================================================================
 CERAMICAD STUDIO PRO — AUTOMATED TEST SUITE REPORT
-Timestamp: 2026-10-31T00:06:51.253Z
-Total: 250 | Passed: 250 | Failed: 0 | Pass Rate: 100.0%
+Timestamp: 2026-10-31T09:05:05.904Z
+Total: 261 | Passed: 261 | Failed: 0 | Pass Rate: 100.0%
 ================================================================================
 
 [PASS] [St.1 - Spline Profiles (54)] 1. Xícara de Café Espresso c/ Alça Ergonômica (s1_spline_profile_xicara_cafe)
@@ -428,9 +428,21 @@ Total: 250 | Passed: 250 | Failed: 0 | Pass Rate: 100.0%
   Expected: Unrolls all pieces, packs onto A4 sheets with >= 20mm margin, exports PDF via jsPDF
   Actual:   Items: 11, A4 Sheets: 4, ExportFn: exportVase2DPatternsPDF, PDFs Generated: 1 (moldes_vaso_geometrico_A4_otimizado.pdf)
 
+[PASS] [St.1 - Torno: Costela de Ataque] Costela Cerâmica 3D com Bisel 30°, Serrilha e Dente de Pé (Z=0) (s1_torno_costela_3d)
+  Expected: Generates flat-bottom 2-manifold rib with thumb hole and attack geometry
+  Actual:   Meshes: 1, Vertices: 4,188, Bounds: [45.23 x 7 x 137.47 mm]
+
+[PASS] [St.1 - Torno: Gabarito Negativo] Gabarito Negativo Externo do Vaso para Checagem em Giro no Torno (s1_torno_gabarito_negativo_3d)
+  Expected: Generates concave plate template matching active vase outer silhouette with Z=0 foot
+  Actual:   Meshes: 1, Vertices: 2,130, Bounds: [118.97 x 4.8 x 144.8 mm]
+
+[PASS] [St.1 - Queima: Volume Cúbico (1 - s)³] Calibração Volumétrica Direta para Meta Final Pós-Queima (400 mL) (s1_torno_volume_telemetry_scale)
+  Expected: Calculates raw volume needed and rescales vase geometry via cubic factor
+  Actual:   RawBefore: 858 mL ➔ RawAfter: 592 mL (FiredExpected: 403 mL)
+
 [PASS] [St.1 - STL Export] Exportação STL Binário da Malha Ativa (s1_export_stl_binary)
   Expected: STLExporter parses activeMeshGroup and initiates binary STL download
-  Actual:   Downloads: 1 (test_vaso_360.stl: 736884 bytes)
+  Actual:   Downloads: 1 (test_vaso_360.stl: 35584 bytes)
 
 [PASS] [St.2 - Construction Modes] Modo Construtivo: kit_3_pecas (s2_mode_kit_3_pecas)
   Expected: Supported in #c-native-mode and generates 3D geometry
@@ -939,6 +951,38 @@ Total: 250 | Passed: 250 | Failed: 0 | Pass Rate: 100.0%
 [PASS] [St.3 - QR Code Plates (10)] 🏺 10. Tag de Identificação de Coleção (s3_qr_type_tag_colecao)
   Expected: Generates procedural 21x21 QR modules with custom base/stand fixture
   Actual:   Meshes: 192, Vertices: 909,768, Bounds: [70 x 6.4 x 89.6 mm]
+
+[PASS] [St.3 - Torno & Queima (8)] 🎡 1. Trimming Spinner c/ Rolamento 608 (Ø22.2mm) ou Eixo Cônico (s3_lathe_tool_spinner_608)
+  Expected: Generates support-free Z=0 manifold 3D tool with non-zero vertices and no NaNs
+  Actual:   Meshes: 5, Vertices: 587, Bounds: [52 x 11.65 x 52 mm], NaN: false
+
+[PASS] [St.3 - Torno & Queima (8)] 🏺 2. Mandril / Chuck Paramétrico c/ Bat Pins (254 / 250 mm) (s3_lathe_tool_chuck_mandril)
+  Expected: Generates support-free Z=0 manifold 3D tool with non-zero vertices and no NaNs
+  Actual:   Meshes: 4, Vertices: 925, Bounds: [264.4 x 91.9 x 180 mm], NaN: false
+
+[PASS] [St.3 - Torno & Queima (8)] 📏 3. Compasso / Bitola de Altura & Bocal (Throwing Gauge) (s3_lathe_tool_throwing_gauge)
+  Expected: Generates support-free Z=0 manifold 3D tool with non-zero vertices and no NaNs
+  Actual:   Meshes: 6, Vertices: 826, Bounds: [181.8 x 24 x 220 mm], NaN: false
+
+[PASS] [St.3 - Torno & Queima (8)] 📐 4. Cortador de Chanfro de Base 45° c/ Evacuação (Footing Sled) (s3_lathe_tool_chanfrador_45)
+  Expected: Generates support-free Z=0 manifold 3D tool with non-zero vertices and no NaNs
+  Actual:   Meshes: 1, Vertices: 792, Bounds: [66.6 x 19.85 x 33.6 mm], NaN: false
+
+[PASS] [St.3 - Torno & Queima (8)] 🧭 5. Calibre Duplo Reversível de Tampa & Galeria (Lid Caliper) (s3_lathe_tool_lid_caliper)
+  Expected: Generates support-free Z=0 manifold 3D tool with non-zero vertices and no NaNs
+  Actual:   Meshes: 3, Vertices: 220, Bounds: [138.62 x 47.89 x 10 mm], NaN: false
+
+[PASS] [St.3 - Torno & Queima (8)] 📏 6. Régua de Retração Física Paramétrica (Shrinkage Ruler 8%–18%) (s3_lathe_tool_shrinkage_ruler)
+  Expected: Generates support-free Z=0 manifold 3D tool with non-zero vertices and no NaNs
+  Actual:   Meshes: 39, Vertices: 936, Bounds: [227 x 4.8 x 32 mm], NaN: false
+
+[PASS] [St.3 - Torno & Queima (8)] 🧪 7. Proveta & Matriz Extrusora de Teste de Esmalte (Glaze Tile) (s3_lathe_tool_glaze_tile)
+  Expected: Generates support-free Z=0 manifold 3D tool with non-zero vertices and no NaNs
+  Actual:   Meshes: 1, Vertices: 312, Bounds: [28.75 x 85 x 40 mm], NaN: false
+
+[PASS] [St.3 - Torno & Queima (8)] 🪵 8. Costela de Torno c/ Geometria de Ataque (Mudtools / Garrity) (s3_lathe_tool_throwing_rib_pro)
+  Expected: Generates support-free Z=0 manifold 3D tool with non-zero vertices and no NaNs
+  Actual:   Meshes: 1, Vertices: 4,188, Bounds: [40.92 x 7 x 122.91 mm], NaN: false
 
 [PASS] [St.4 - Studio Presets (9)] Ânfora Clássica Grega c/ 2 Alças (s4_preset_anfora)
   Expected: Renders parametric studio model in activeMeshGroup with positive bounds

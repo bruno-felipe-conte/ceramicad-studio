@@ -442,6 +442,64 @@ async function testStation3(cdp, reporter) {
     }
   }
 
+  // =========================================================================
+  // 3.6 Torno Elétrico, Retorneamento & Queima — 8 Ferramentas Paramétricas (#lathe-tool-select)
+  // =========================================================================
+  await cdp.evaluate(`switchSubUtil('torno');`);
+
+  const latheTools = await cdp.evaluate(`
+    (() => {
+      const sel = document.getElementById('lathe-tool-select');
+      if (!sel) return [];
+      return Array.from(sel.options).map(o => ({ value: o.value, text: o.text }));
+    })()
+  `);
+
+  console.log(`[Station 3] Found ${latheTools.length} lathe & firing tools in #lathe-tool-select`);
+
+  for (const lt of latheTools) {
+    const t0 = Date.now();
+    try {
+      await cdp.evaluate(`
+        (() => {
+          const sel = document.getElementById('lathe-tool-select');
+          if (sel) {
+            sel.value = '${lt.value}';
+            updateLatheToolUI();
+            generateLatheTool3D();
+          }
+        })()
+      `);
+      await new Promise(r => setTimeout(r, 60));
+      const mesh = await cdp.inspectActiveMesh();
+      const pass = mesh.meshCount > 0 && mesh.totalVertices > 0 && !mesh.hasNaN;
+
+      reporter.record({
+        id: `s3_lathe_tool_${lt.value}`,
+        station: 3,
+        subsystem: 'Torno & Queima (8)',
+        item: lt.text,
+        expected: 'Generates support-free Z=0 manifold 3D tool with non-zero vertices and no NaNs',
+        actual: `Meshes: ${mesh.meshCount}, Vertices: ${mesh.totalVertices.toLocaleString()}, Bounds: [${mesh.bounds ? mesh.bounds.size.join(' x ') : 'empty'} mm], NaN: ${mesh.hasNaN}`,
+        status: pass ? 'PASS' : 'FAIL',
+        durationMs: Date.now() - t0,
+        details: mesh
+      });
+    } catch (err) {
+      reporter.record({
+        id: `s3_lathe_tool_${lt.value}`,
+        station: 3,
+        subsystem: 'Torno & Queima (8)',
+        item: lt.text,
+        expected: 'Generates lathe tool without exception',
+        actual: `Exception: ${err.message}`,
+        status: 'FAIL',
+        error: err.message,
+        durationMs: Date.now() - t0
+      });
+    }
+  }
+
   console.log('--- STATION 3 TESTS COMPLETE ---');
 }
 

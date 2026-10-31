@@ -4,3 +4,4 @@ Thumbs.db
 *.log
 graphify-out/
 .system_generated/
+.agents/

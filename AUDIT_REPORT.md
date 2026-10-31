@@ -15,26 +15,26 @@ A auditoria técnica exaustiva e interativa ("click-everything") do **CeramiCAD 
 
 | Métrica | Valor Auditado | Status de Conformidade |
 |---|:---:|:---:|
-| **Total de Controles e Componentes Auditados** | **250** | ✅ 100% dos Itens Mapeados |
-| **Casos de Teste Aprovados** | **250 (100.0%)** | ✅ Nenhuma Falha Registrada |
+| **Total de Controles e Componentes Auditados** | **261** | ✅ 100% dos Itens Mapeados |
+| **Casos de Teste Aprovados** | **261 (100.0%)** | ✅ Nenhuma Falha Registrada |
 | **Falhas Funcionais ou de Renderização** | **0** | ✅ Zero Regressões |
 | **Erros de Console (`console.error` / `pageerror`)** | **0** | ✅ Console Totalmente Limpo |
 | **Erros de Compilação de Shaders WebGL** | **0** | ✅ PBR Cinnabar 100% Estável |
 | **Vértices ou Coordenadas Degeneradas (`NaN` / `Infinity`)** | **0** | ✅ Topologia Manifold Contínua |
-| **Caixas Delimitadoras (`THREE.Box3`) Não-Vazias** | **250/250 (100%)** | ✅ Bounds Finitos e Positivos |
+| **Caixas Delimitadoras (`THREE.Box3`) Não-Vazias** | **261/261 (100%)** | ✅ Bounds Finitos e Positivos |
 | **Tempo Médio de Resposta por Operação 3D** | **< 120 ms** | ✅ Altíssima Responsividade Interativa |
-| **Duração Total da Suíte de Testes (250 Casos)** | **30.40 segundos** | ✅ Execução Fluida em Hardware Comum |
+| **Duração Total da Suíte de Testes (261 Casos)** | **33.01 segundos** | ✅ Execução Fluida em Hardware Comum |
 
 ### Resumo Estruturado por Estação de Trabalho
 
 | Estação | Descrição do Subsistema | Casos | Aprovados | Falhas | Taxa de Sucesso |
 |---|---|:---:|:---:|:---:|:---:|
-| **Estação 1: Olaria & Vasos 3D** | 54 perfis spline, 11 texturas 3D, morfologia Hermite/twist, 6 acabamentos Cinnabar, corte 270°, filete de base, furo de drenagem, conversor spline->slabs, 14 receitas de placas conectadas, 8 botões de adição de estágio, inputs reativos, unrolling 2D e exportações PDF/STL | 107 | 107 | 0 | 100.0% |
+| **Estação 1: Olaria & Vasos 3D** | 54 perfis spline, 11 texturas 3D, morfologia Hermite/twist, 6 acabamentos Cinnabar, corte 270°, filete de base, furo de drenagem, conversor spline->slabs, 14 receitas de placas conectadas, 8 botões de adição de estágio, inputs reativos, unrolling 2D, exportações PDF/STL, Costelas Cerâmicas Mudtools/Garrity c/ bisel 30°, Gabarito Negativo de Torno (.STL + PDF A4 1:1) e Telemetria de Queima Volumétrica Cúbica $(1 - s)^3$ | 110 | 110 | 0 | 100.0% |
 | **Estação 2: Cortadores & Ejetores 3D** | 4 modos construtivos (kit 3 peças, cortador+estampa, cortador simples, carimbo), 12 presets vetoriais, sliders de largura/relevo/retração, 5 checkboxes anti-vácuo/sucção, 3 modos de visualização (mesa, montado, explodido), 3 tipos de mola, ângulo de desmolde, live preview ASCII e downloads individuais/kit | 37 | 37 | 0 | 100.0% |
-| **Estação 3: Texturas & Utilitários** | 20 rolos 360° sem emenda, furo de eixo Ø8mm, 24 carimbos maker's mark com SDF em 4 formatos e 3 posições FDM, 10 litofanias 3D em 4 formatos estruturais, 12 caixas/caxilhos de gesso com labels reativos, 10 placas QR Code 3D com matriz procedural 21x21 | 90 | 90 | 0 | 100.0% |
+| **Estação 3: Texturas & Utilitários** | 20 rolos 360° sem emenda, furo de eixo Ø8mm, 24 carimbos maker's mark com SDF em 4 formatos e 3 posições FDM, 10 litofanias 3D em 4 formatos estruturais, 12 caixas/caxilhos de gesso com labels reativos, 10 placas QR Code 3D com matriz procedural 21x21, e 8 Ferramentas Paramétricas de Torno & Queima (Spinner, Chuck de Pinos, Bitola de Altura, Chanfrador 45°, Calibre Duplo de Tampa, Régua de Retração 8%-18%, Proveta de Esmalte, Costelas) | 98 | 98 | 0 | 100.0% |
 | **Estação 4: Biblioteca & Inspetor** | 9 modelos de estúdio paramétricos, slider de escala STL 100%->130% com disparo de modal de risco paramétrico e reforço de corte, analisador regex de cabeçalhos G-Code para PrusaSlicer, Cura e Bambu Studio | 11 | 11 | 0 | 100.0% |
 | **Estação 5: Precificador Ateliê** | Sincronização automática 3D (volume e área envidrada) ➔ argila/esmalte, fórmulas completas de custeio cerâmico artesanal (2 queimas com rateio, risco de quebra 8%, mão de obra), ficha técnica PDF A4, custeio de manufatura aditiva FDM e orçamento 3D em PDF | 5 | 5 | 0 | 100.0% |
-| **TOTAL CONSOLIDADO** | **Todas as Estações do CeramiCAD Studio Pro** | **250** | **250** | **0** | **100.0%** |
+| **TOTAL CONSOLIDADO** | **Todas as Estações do CeramiCAD Studio Pro** | **261** | **261** | **0** | **100.0%** |
 
 ---
 

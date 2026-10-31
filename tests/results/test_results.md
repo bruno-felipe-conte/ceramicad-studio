@@ -1,16 +1,16 @@
 # Relatório de Auditoria Automatizada — CeramiCAD Studio Pro
 
-**Data**: 2026-10-31T00:06:51.245Z
-**Total de Testes**: 250 | **Aprovados**: 250 | **Falhas**: 0 | **Taxa de Sucesso**: 100.0%
-**Tempo de Execução**: 30.41s | **Erros de Console**: 0
+**Data**: 2026-10-31T09:05:05.890Z
+**Total de Testes**: 261 | **Aprovados**: 261 | **Falhas**: 0 | **Taxa de Sucesso**: 100.0%
+**Tempo de Execução**: 33.03s | **Erros de Console**: 0
 
 ## Resumo por Estação
 
 | Estação | Total | Aprovados | Falhas | Taxa |
 |---|---|---|---|---|
-| **Station 1** | 107 | 107 | 0 | 100.0% |
+| **Station 1** | 110 | 110 | 0 | 100.0% |
 | **Station 2** | 37 | 37 | 0 | 100.0% |
-| **Station 3** | 90 | 90 | 0 | 100.0% |
+| **Station 3** | 98 | 98 | 0 | 100.0% |
 | **Station 4** | 11 | 11 | 0 | 100.0% |
 | **Station 5** | 5 | 5 | 0 | 100.0% |
 
@@ -126,7 +126,10 @@
 | `s1_btn_add_borda`<br>**+ Borda/Pé (Anel Reforçado de Boca ou Pé Kodai)** | Stage Buttons (8) | Adds component stage to vaseStages, refreshes cards, builds 3D and 2D unrolling | Stage Count: 11 -> 12, 3D Meshes: 13, 2D Patterns: 18 | ✅ Atingiu o Esperado |
 | `s1_card_inputs_reactive`<br>**Atualização Reativa de Parâmetros (Disco Crivo Múltiplo + Alça 35mm)** | Stage Card Inputs | Modifies 3D geometry vertices and updates 2D pattern unrolling accordingly | Meshes: 6, Vertices: 15,984, Patterns: 5 | ✅ Atingiu o Esperado |
 | `s1_2d_patterns_pdf_export`<br>**Planificação 2D A4 c/ Nesting >= 20mm & Exportação PDF A4 1:1** | 2D Patterns & PDF | Unrolls all pieces, packs onto A4 sheets with >= 20mm margin, exports PDF via jsPDF | Items: 11, A4 Sheets: 4, ExportFn: exportVase2DPatternsPDF, PDFs Generated: 1 (moldes_vaso_geometrico_A4_otimizado.pdf) | ✅ Atingiu o Esperado |
-| `s1_export_stl_binary`<br>**Exportação STL Binário da Malha Ativa** | STL Export | STLExporter parses activeMeshGroup and initiates binary STL download | Downloads: 1 (test_vaso_360.stl: 736884 bytes) | ✅ Atingiu o Esperado |
+| `s1_torno_costela_3d`<br>**Costela Cerâmica 3D com Bisel 30°, Serrilha e Dente de Pé (Z=0)** | Torno: Costela de Ataque | Generates flat-bottom 2-manifold rib with thumb hole and attack geometry | Meshes: 1, Vertices: 4,188, Bounds: [45.23 x 7 x 137.47 mm] | ✅ Atingiu o Esperado |
+| `s1_torno_gabarito_negativo_3d`<br>**Gabarito Negativo Externo do Vaso para Checagem em Giro no Torno** | Torno: Gabarito Negativo | Generates concave plate template matching active vase outer silhouette with Z=0 foot | Meshes: 1, Vertices: 2,130, Bounds: [118.97 x 4.8 x 144.8 mm] | ✅ Atingiu o Esperado |
+| `s1_torno_volume_telemetry_scale`<br>**Calibração Volumétrica Direta para Meta Final Pós-Queima (400 mL)** | Queima: Volume Cúbico (1 - s)³ | Calculates raw volume needed and rescales vase geometry via cubic factor | RawBefore: 858 mL ➔ RawAfter: 592 mL (FiredExpected: 403 mL) | ✅ Atingiu o Esperado |
+| `s1_export_stl_binary`<br>**Exportação STL Binário da Malha Ativa** | STL Export | STLExporter parses activeMeshGroup and initiates binary STL download | Downloads: 1 (test_vaso_360.stl: 35584 bytes) | ✅ Atingiu o Esperado |
 
 ## Estação 2: Cortadores & Ejetores 3D (#panel-cortadores)
 
@@ -264,6 +267,14 @@
 | `s3_qr_type_totem`<br>**⛺ 8. Totem Prisma Triangular (Dupla Face)** | QR Code Plates (10) | Generates procedural 21x21 QR modules with custom base/stand fixture | Meshes: 1, Vertices: 24, Bounds: [63 x 66.5 x 70 mm] | ✅ Atingiu o Esperado |
 | `s3_qr_type_quadro`<br>**🖼️ 9. Quadro Minimalista c/ Moldura Alta** | QR Code Plates (10) | Generates procedural 21x21 QR modules with custom base/stand fixture | Meshes: 195, Vertices: 909,840, Bounds: [73.5 x 8.6 x 73.5 mm] | ✅ Atingiu o Esperado |
 | `s3_qr_type_tag_colecao`<br>**🏺 10. Tag de Identificação de Coleção** | QR Code Plates (10) | Generates procedural 21x21 QR modules with custom base/stand fixture | Meshes: 192, Vertices: 909,768, Bounds: [70 x 6.4 x 89.6 mm] | ✅ Atingiu o Esperado |
+| `s3_lathe_tool_spinner_608`<br>**🎡 1. Trimming Spinner c/ Rolamento 608 (Ø22.2mm) ou Eixo Cônico** | Torno & Queima (8) | Generates support-free Z=0 manifold 3D tool with non-zero vertices and no NaNs | Meshes: 5, Vertices: 587, Bounds: [52 x 11.65 x 52 mm], NaN: false | ✅ Atingiu o Esperado |
+| `s3_lathe_tool_chuck_mandril`<br>**🏺 2. Mandril / Chuck Paramétrico c/ Bat Pins (254 / 250 mm)** | Torno & Queima (8) | Generates support-free Z=0 manifold 3D tool with non-zero vertices and no NaNs | Meshes: 4, Vertices: 925, Bounds: [264.4 x 91.9 x 180 mm], NaN: false | ✅ Atingiu o Esperado |
+| `s3_lathe_tool_throwing_gauge`<br>**📏 3. Compasso / Bitola de Altura & Bocal (Throwing Gauge)** | Torno & Queima (8) | Generates support-free Z=0 manifold 3D tool with non-zero vertices and no NaNs | Meshes: 6, Vertices: 826, Bounds: [181.8 x 24 x 220 mm], NaN: false | ✅ Atingiu o Esperado |
+| `s3_lathe_tool_chanfrador_45`<br>**📐 4. Cortador de Chanfro de Base 45° c/ Evacuação (Footing Sled)** | Torno & Queima (8) | Generates support-free Z=0 manifold 3D tool with non-zero vertices and no NaNs | Meshes: 1, Vertices: 792, Bounds: [66.6 x 19.85 x 33.6 mm], NaN: false | ✅ Atingiu o Esperado |
+| `s3_lathe_tool_lid_caliper`<br>**🧭 5. Calibre Duplo Reversível de Tampa & Galeria (Lid Caliper)** | Torno & Queima (8) | Generates support-free Z=0 manifold 3D tool with non-zero vertices and no NaNs | Meshes: 3, Vertices: 220, Bounds: [138.62 x 47.89 x 10 mm], NaN: false | ✅ Atingiu o Esperado |
+| `s3_lathe_tool_shrinkage_ruler`<br>**📏 6. Régua de Retração Física Paramétrica (Shrinkage Ruler 8%–18%)** | Torno & Queima (8) | Generates support-free Z=0 manifold 3D tool with non-zero vertices and no NaNs | Meshes: 39, Vertices: 936, Bounds: [227 x 4.8 x 32 mm], NaN: false | ✅ Atingiu o Esperado |
+| `s3_lathe_tool_glaze_tile`<br>**🧪 7. Proveta & Matriz Extrusora de Teste de Esmalte (Glaze Tile)** | Torno & Queima (8) | Generates support-free Z=0 manifold 3D tool with non-zero vertices and no NaNs | Meshes: 1, Vertices: 312, Bounds: [28.75 x 85 x 40 mm], NaN: false | ✅ Atingiu o Esperado |
+| `s3_lathe_tool_throwing_rib_pro`<br>**🪵 8. Costela de Torno c/ Geometria de Ataque (Mudtools / Garrity)** | Torno & Queima (8) | Generates support-free Z=0 manifold 3D tool with non-zero vertices and no NaNs | Meshes: 1, Vertices: 4,188, Bounds: [40.92 x 7 x 122.91 mm], NaN: false | ✅ Atingiu o Esperado |
 
 ## Estação 4: Biblioteca & Inspetor (#panel-biblioteca)
 

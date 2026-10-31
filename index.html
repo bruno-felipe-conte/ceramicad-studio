@@ -1207,6 +1207,134 @@
           </details>
         </div>
 
+        <!-- GAVETA GLOBAL DE TORNO ELÉTRICO: COSTELAS DE ATAQUE, GABARITO NEGATIVO & VOLUME PÓS-QUEIMA -->
+        <details class="adv-drawer" id="vase-lathe-tools-drawer">
+          <summary>
+            <span class="flex items-center gap-1.5">
+              <span>🎡</span> Torno & Queima: Costela de Ataque, Gabarito Externo & Volume (mL)
+            </span>
+            <span class="adv-chevron text-stone-400">▼</span>
+          </summary>
+          <div class="adv-drawer-body space-y-3">
+            <!-- 1. Calculadora Volumétrica Cúbica Pós-Queima (1 - s)³ -->
+            <fieldset class="p-2.5 rounded-xl bg-sky-50/60 dark:bg-sky-950/25 border border-sky-500/25 space-y-2">
+              <legend class="text-[11px] font-bold text-sky-800 dark:text-sky-300 px-1 flex items-center gap-1">
+                <span>💧</span> Volume Líquido Pós-Queima: $V_{\text{final}} = V_{\text{cru}} \cdot (1 - s)^3$
+              </legend>
+              <div class="grid grid-cols-4 gap-1.5 text-center font-mono-cad">
+                <div class="p-1.5 rounded-lg bg-white/90 dark:bg-stone-900/80 border border-stone-200/70 dark:border-stone-800">
+                  <span class="text-[9px] text-stone-500 block font-sans">Cru (Torno)</span>
+                  <strong id="v-vol-raw-ml" class="text-xs font-bold text-stone-800 dark:text-stone-100">0 mL</strong>
+                </div>
+                <div class="p-1.5 rounded-lg bg-white/90 dark:bg-stone-900/80 border border-stone-200/70 dark:border-stone-800">
+                  <span class="text-[9px] text-amber-600 block font-sans">Cone 04 (-9%)</span>
+                  <strong id="v-vol-cone04-ml" class="text-xs font-bold text-amber-600 dark:text-amber-400">0 mL</strong>
+                </div>
+                <div class="p-1.5 rounded-lg bg-white/90 dark:bg-stone-900/80 border border-stone-200/70 dark:border-stone-800">
+                  <span class="text-[9px] text-emerald-600 block font-sans">Cone 6 (-12%)</span>
+                  <strong id="v-vol-cone6-ml" class="text-xs font-bold text-emerald-600 dark:text-emerald-400">0 mL</strong>
+                </div>
+                <div class="p-1.5 rounded-lg bg-white/90 dark:bg-stone-900/80 border border-stone-200/70 dark:border-stone-800">
+                  <span class="text-[9px] text-sky-600 block font-sans">Cone 10 (-15%)</span>
+                  <strong id="v-vol-cone10-ml" class="text-xs font-bold text-sky-600 dark:text-sky-400">0 mL</strong>
+                </div>
+              </div>
+              <div class="grid grid-cols-3 gap-1.5 items-end pt-1">
+                <div>
+                  <label class="cad-label" for="v-target-fired-ml"><span>Meta Final (mL)</span></label>
+                  <input type="number" id="v-target-fired-ml" value="350" min="30" max="5000" step="10" oninput="updateVaseVolumeTelemetry()" class="cad-input font-semibold text-xs" />
+                </div>
+                <div>
+                  <label class="cad-label" for="v-target-shrink-pct"><span>Retração (%)</span></label>
+                  <input type="number" id="v-target-shrink-pct" value="12.0" min="5.0" max="22.0" step="0.5" oninput="updateVaseVolumeTelemetry()" class="cad-input font-semibold text-xs" />
+                </div>
+                <button type="button" onclick="scaleVaseToTargetFiredMl()" class="bg-sky-600 hover:bg-sky-700 text-white font-semibold py-1.5 px-2 rounded-lg text-[11px] transition shadow-xs" title="Redimensiona o vaso para atingir o volume queimado exato">
+                  🎯 Calibrar Vaso
+                </button>
+              </div>
+              <div id="v-target-raw-needed" class="text-[10px] font-mono-cad text-sky-800 dark:text-sky-300 text-center">
+                Para 350 mL pós-queima (12%): tornear com 514 mL no torno (-31.9% vol.)
+              </div>
+            </fieldset>
+
+            <!-- 2. Costelas de Torno com Geometria de Ataque (Mudtools / Garrity) -->
+            <fieldset class="p-2.5 rounded-xl bg-stone-50 dark:bg-stone-900/60 border border-stone-200/80 dark:border-cad-border space-y-2">
+              <legend class="text-[11px] font-bold text-stone-800 dark:text-stone-200 px-1 flex items-center gap-1">
+                <span>🪵</span> Costela de Torno c/ Geometria de Ataque (Z=0)
+              </legend>
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label class="cad-label" for="v-rib-profile-preset"><span>Formato da Costela</span></label>
+                  <select id="v-rib-profile-preset" onchange="onVaseRibOptionChange()" class="cad-input text-xs font-medium">
+                    <option value="vaso_ativo" selected>🏺 Curva do Vaso Ativo</option>
+                    <option value="shape1">🫘 Shape 1 (Rim & Kidney Curve)</option>
+                    <option value="shape2">📐 Shape 2 (Cylinder & Straight Back)</option>
+                    <option value="shape4">🥣 Shape 4 (Wide Bowl Sweep)</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="cad-label" for="v-rib-edge-type"><span>Fio de Ataque (Borda)</span></label>
+                  <select id="v-rib-edge-type" onchange="onVaseRibOptionChange()" class="cad-input text-xs font-medium">
+                    <option value="bisel_30" selected>🔪 Cunha Raspadora 30° (Z=0)</option>
+                    <option value="bisel_45">📐 Chanfro Duplo 45°</option>
+                    <option value="boleada">🌊 Boleada Suave (Alisador)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-2 text-[11px]">
+                <label class="flex items-center gap-1.5 cursor-pointer bg-white dark:bg-stone-800 p-1.5 rounded-lg border border-stone-200 dark:border-cad-border">
+                  <input type="checkbox" id="v-rib-serrated" checked onchange="onVaseRibOptionChange()" class="accent-terracotta-500 rounded" />
+                  <span>Micro-Serrilha (Scoring 2mm)</span>
+                </label>
+                <label class="flex items-center gap-1.5 cursor-pointer bg-white dark:bg-stone-800 p-1.5 rounded-lg border border-stone-200 dark:border-cad-border">
+                  <input type="checkbox" id="v-rib-foot-notch" checked onchange="onVaseRibOptionChange()" class="accent-terracotta-500 rounded" />
+                  <span>Dente de Pé / Galeria (6×8mm)</span>
+                </label>
+              </div>
+              <div class="grid grid-cols-2 gap-1.5">
+                <button type="button" onclick="previewVaseRib3D()" class="bg-stone-200 dark:bg-stone-700 hover:bg-stone-300 text-stone-800 dark:text-stone-100 font-semibold py-1.5 px-2 rounded-lg text-[11px] transition">
+                  👁️ Visualizar Costela 3D
+                </button>
+                <button type="button" onclick="exportVaseRibSTL()" class="bg-terracotta-500 hover:bg-terracotta-600 text-white font-semibold py-1.5 px-2 rounded-lg text-[11px] transition">
+                  ⬇️ Baixar Costela (.STL)
+                </button>
+              </div>
+            </fieldset>
+
+            <!-- 3. Gabarito Negativo de Perfil Externo (Negative Profile Bat / Template) -->
+            <fieldset class="p-2.5 rounded-xl bg-stone-50 dark:bg-stone-900/60 border border-stone-200/80 dark:border-cad-border space-y-2">
+              <legend class="text-[11px] font-bold text-stone-800 dark:text-stone-200 px-1 flex items-center gap-1">
+                <span>📏</span> Gabarito Negativo Externo de Roda (STL & PDF 1:1)
+              </legend>
+              <div class="grid grid-cols-3 gap-1.5 items-center">
+                <div>
+                  <label class="cad-label" for="v-template-margin"><span>Larg. Aba (mm)</span></label>
+                  <input type="number" id="v-template-margin" value="45" min="25" max="90" step="5" class="cad-input font-semibold text-xs" />
+                </div>
+                <div>
+                  <label class="cad-label" for="v-template-thick"><span>Espessura (mm)</span></label>
+                  <input type="number" id="v-template-thick" value="4.0" min="2.5" max="8.0" step="0.5" class="cad-input font-semibold text-xs" />
+                </div>
+                <label class="flex items-center gap-1 cursor-pointer pt-3 text-[10px] font-medium">
+                  <input type="checkbox" id="v-template-foot" checked class="accent-terracotta-500 rounded" />
+                  <span>Sapata Z=0</span>
+                </label>
+              </div>
+              <div class="grid grid-cols-3 gap-1.5">
+                <button type="button" onclick="previewVaseNegativeTemplate3D()" class="bg-stone-200 dark:bg-stone-700 hover:bg-stone-300 text-stone-800 dark:text-stone-100 font-semibold py-1.5 px-2 rounded-lg text-[10px] transition">
+                  👁️ Ver 3D
+                </button>
+                <button type="button" onclick="exportVaseNegativeTemplateSTL()" class="bg-stone-800 hover:bg-stone-900 text-white font-semibold py-1.5 px-2 rounded-lg text-[10px] transition">
+                  ⬇️ Gabarito .STL
+                </button>
+                <button type="button" onclick="exportVaseNegativeTemplatePDF()" class="bg-amber-600 hover:bg-amber-700 text-white font-semibold py-1.5 px-2 rounded-lg text-[10px] transition">
+                  📄 PDF A4 1:1
+                </button>
+              </div>
+            </fieldset>
+          </div>
+        </details>
+
         <!-- Sticky Action Dock do Módulo Vasos (Apple Elevated Action Footer) -->
         <div class="sticky-action-dock">
           <!-- Ações do Modo Spline -->
@@ -1214,15 +1342,18 @@
             <button onclick="exportActiveMeshSTL('vaso_escultural_3d.stl')" class="w-full cta-primary py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2">
               <span>⬇️</span> Baixar Vaso 3D (.STL)
             </button>
-            <div class="grid grid-cols-3 gap-1.5">
-              <button onclick="exportVaseRibSTL()" class="cta-secondary py-1.5 px-2 rounded-lg text-[11px] flex items-center justify-center gap-1" title="Costela de Oleiro para modelagem no torno">
-                <span>📐</span> Costela .STL
+            <div class="grid grid-cols-4 gap-1.5">
+              <button onclick="exportVaseRibSTL()" class="cta-secondary py-1.5 px-1.5 rounded-lg text-[11px] flex items-center justify-center gap-1" title="Costela de Oleiro com geometria de ataque">
+                <span>📐</span> Costela
               </button>
-              <button onclick="convertSplineToSlabStages()" class="cta-secondary py-1.5 px-2 rounded-lg text-[11px] flex items-center justify-center gap-1" title="Converter silhueta em moldes de anéis A4">
+              <button onclick="exportVaseNegativeTemplatePDF()" class="cta-secondary py-1.5 px-1.5 rounded-lg text-[11px] flex items-center justify-center gap-1" title="Gabarito negativo externo em PDF A4 1:1">
+                <span>📏</span> Gabarito
+              </button>
+              <button onclick="convertSplineToSlabStages()" class="cta-secondary py-1.5 px-1.5 rounded-lg text-[11px] flex items-center justify-center gap-1" title="Converter silhueta em moldes de anéis A4">
                 <span>📄</span> Moldes A4
               </button>
-              <button onclick="sendVaseToPricing()" class="cta-secondary !text-emerald-700 dark:!text-emerald-400 !border-emerald-500/30 py-1.5 px-2 rounded-lg text-[11px] flex items-center justify-center gap-1" title="Calcular preço da peça">
-                <span>💰</span> Precificar
+              <button onclick="sendVaseToPricing()" class="cta-secondary !text-emerald-700 dark:!text-emerald-400 !border-emerald-500/30 py-1.5 px-1.5 rounded-lg text-[11px] flex items-center justify-center gap-1" title="Calcular preço da peça">
+                <span>💰</span> Preço
               </button>
             </div>
           </div>
@@ -1231,15 +1362,18 @@
             <button onclick="generateVasePDF()" class="w-full cta-primary py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2">
               <span>📄</span> Baixar Moldes PDF A4 (Escala 1:1 · Folga 2 cm)
             </button>
-            <div class="grid grid-cols-3 gap-1.5">
-              <button onclick="exportActiveMeshSTL('vaso_estagios_3d.stl')" class="cta-secondary py-1.5 px-2 rounded-lg text-[11px] flex items-center justify-center gap-1">
+            <div class="grid grid-cols-4 gap-1.5">
+              <button onclick="exportActiveMeshSTL('vaso_estagios_3d.stl')" class="cta-secondary py-1.5 px-1.5 rounded-lg text-[11px] flex items-center justify-center gap-1">
                 <span>⬇️</span> Vaso .STL
               </button>
-              <button onclick="exportVaseRibSTL()" class="cta-secondary py-1.5 px-2 rounded-lg text-[11px] flex items-center justify-center gap-1">
-                <span>📐</span> Costela .STL
+              <button onclick="exportVaseRibSTL()" class="cta-secondary py-1.5 px-1.5 rounded-lg text-[11px] flex items-center justify-center gap-1">
+                <span>📐</span> Costela
               </button>
-              <button onclick="sendVaseToPricing()" class="cta-secondary !text-emerald-700 dark:!text-emerald-400 !border-emerald-500/30 py-1.5 px-2 rounded-lg text-[11px] flex items-center justify-center gap-1">
-                <span>💰</span> Precificar
+              <button onclick="exportVaseNegativeTemplatePDF()" class="cta-secondary py-1.5 px-1.5 rounded-lg text-[11px] flex items-center justify-center gap-1">
+                <span>📏</span> Gabarito
+              </button>
+              <button onclick="sendVaseToPricing()" class="cta-secondary !text-emerald-700 dark:!text-emerald-400 !border-emerald-500/30 py-1.5 px-1.5 rounded-lg text-[11px] flex items-center justify-center gap-1">
+                <span>💰</span> Preço
               </button>
             </div>
           </div>
@@ -1534,7 +1668,7 @@
         </div>
 
         <!-- Sub-navegação interna segmentada -->
-        <div class="subtab-bar grid-cols-4">
+        <div class="subtab-bar grid-cols-5">
           <button onclick="switchSubUtil('rolos')" id="subbtn-util-rolos" class="subtab-btn active">
             <span>📜</span> Rolos
           </button>
@@ -1546,6 +1680,9 @@
           </button>
           <button onclick="switchSubUtil('qrcode')" id="subbtn-util-qrcode" class="subtab-btn">
             <span>📱</span> QR Code
+          </button>
+          <button onclick="switchSubUtil('torno')" id="subbtn-util-torno" class="subtab-btn">
+            <span>🎡</span> Torno
           </button>
         </div>
 
@@ -2010,6 +2147,94 @@
             </button>
           </div>
         </div>
+
+        <!-- Sub-painel 5: Torno Elétrico, Retorneamento (Ponto de Couro) & Controle de Queima -->
+        <div id="subpanel-util-torno" class="hidden cad-card space-y-3">
+          <div class="pb-1 border-b border-stone-200/80 dark:border-cad-border">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <h3 class="text-xs font-bold text-stone-900 dark:text-white uppercase">Torno, Retorneamento & Queima</h3>
+                <span class="help-tip" tabindex="0" role="button" aria-label="Ajuda sobre Ferramentas de Torno e Queima"
+                  data-tip-cat="Mestre Oleiro & FDM"
+                  data-tip-title="8 Ferramentas Paramétricas Z=0 Sem Suportes"
+                  data-tip-body="Gera Spinners para rolamento 608 (Ø22.2mm), Mandris/Chucks com furos para Bat Pins (254/250mm), Bitola de Altura, Chanfrador 45°, Calibre Duplo de Tampa, Régua de Retração e Provetas de Esmalte."
+                  data-tip-advice="Todas as geometrias possuem base plana em Z=0 e ângulos <= 45° para impressão direta em PLA ou PETG sem suportes!">?</span>
+              </div>
+              <span class="text-[10px] font-mono-cad font-bold bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 px-2 py-0.5 rounded border border-emerald-500/30">Z=0 Manifold</span>
+            </div>
+            <p class="text-[11px] text-stone-500 mt-0.5">Ferramentas de roda, ponto de couro e calibração de contração/esmalte.</p>
+          </div>
+
+          <fieldset class="space-y-2.5">
+            <legend class="sr-only">Configuração da Ferramenta de Torno e Queima</legend>
+            <div>
+              <label class="cad-label" for="lathe-tool-select">
+                <span>Ferramenta de Torno / Laboratório (8 Geradores)</span>
+              </label>
+              <select id="lathe-tool-select" onchange="updateLatheToolUI(); generateLatheTool3D()" class="cad-input font-medium text-xs">
+                <option value="spinner_608" selected>🎡 1. Trimming Spinner c/ Rolamento 608 (Ø22.2mm) ou Eixo Cônico</option>
+                <option value="chuck_mandril">🏺 2. Mandril / Chuck Paramétrico c/ Bat Pins (254 / 250 mm)</option>
+                <option value="throwing_gauge">📏 3. Compasso / Bitola de Altura & Bocal (Throwing Gauge)</option>
+                <option value="chanfrador_45">📐 4. Cortador de Chanfro de Base 45° c/ Evacuação (Footing Sled)</option>
+                <option value="lid_caliper">🧭 5. Calibre Duplo Reversível de Tampa & Galeria (Lid Caliper)</option>
+                <option value="shrinkage_ruler">📏 6. Régua de Retração Física Paramétrica (Shrinkage Ruler 8%–18%)</option>
+                <option value="glaze_tile">🧪 7. Proveta & Matriz Extrusora de Teste de Esmalte (Glaze Tile)</option>
+                <option value="throwing_rib_pro">🪵 8. Costela de Torno c/ Geometria de Ataque (Mudtools / Garrity)</option>
+              </select>
+            </div>
+
+            <div>
+              <label id="lathe-submode-lbl" class="cad-label" for="lathe-submode-select">
+                <span>Modo Construtivo / Padrão Técnico</span>
+              </label>
+              <select id="lathe-submode-select" onchange="generateLatheTool3D()" class="cad-input font-medium text-xs">
+                <option value="bearing_608" selected>⚙️ Alojamento Rolamento 608 (Ø22.20 × 7.15 mm + 3 Crush Ribs)</option>
+                <option value="printed_cone">🔩 Eixo Cônico Impresso Zero-Hardware (Ponta R=0.6mm Baixo Atrito)</option>
+              </select>
+            </div>
+
+            <div class="grid grid-cols-3 gap-2">
+              <div>
+                <label id="lathe-param1-lbl" class="cad-label" for="lathe-param1">Diâmetro (mm)</label>
+                <input type="number" id="lathe-param1" value="52" min="5" max="320" step="0.5" oninput="generateLatheTool3D()" class="cad-input font-semibold text-xs" />
+              </div>
+              <div>
+                <label id="lathe-param2-lbl" class="cad-label" for="lathe-param2">Prof. Cavidade (mm)</label>
+                <input type="number" id="lathe-param2" value="7.15" min="1" max="320" step="0.25" oninput="generateLatheTool3D()" class="cad-input font-semibold text-xs" />
+              </div>
+              <div>
+                <label id="lathe-param3-lbl" class="cad-label" for="lathe-param3">Raio Dedo (mm)</label>
+                <input type="number" id="lathe-param3" value="15.0" min="0.5" max="100" step="0.5" oninput="generateLatheTool3D()" class="cad-input font-semibold text-xs" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 text-[11px]">
+              <label class="flex items-center gap-1.5 cursor-pointer bg-stone-50 dark:bg-terracotta-900 p-2 rounded-lg border border-stone-200 dark:border-cad-border">
+                <input type="checkbox" id="lathe-opt1" checked onchange="generateLatheTool3D()" class="accent-terracotta-500 rounded" />
+                <span id="lathe-opt1-lbl">3 Crush Ribs + Canal E.V.A.</span>
+              </label>
+              <label class="flex items-center gap-1.5 cursor-pointer bg-stone-50 dark:bg-terracotta-900 p-2 rounded-lg border border-stone-200 dark:border-cad-border">
+                <input type="checkbox" id="lathe-opt2" checked onchange="generateLatheTool3D()" class="accent-terracotta-500 rounded" />
+                <span id="lathe-opt2-lbl">Frisos Anti-Deslizantes</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Banner de Telemetria de Engenharia FDM & Física Cerâmica -->
+          <div id="lathe-tech-spec-banner" class="p-2.5 rounded-xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-500/30 text-[11px] font-mono-cad text-stone-700 dark:text-amber-200 space-y-1">
+            <div class="font-bold text-terracotta-600 dark:text-terracotta-300" id="lathe-spec-title">Trimming Spinner 608 • Z=0 Sem Suportes</div>
+            <div id="lathe-spec-details">Cavidade FDM: Ø22.20 mm × 7.15 mm • Alívio Central: Ø13.00 mm (Anel interno livre) • 3 Crush Ribs de 0.15 mm</div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 pt-1">
+            <button type="button" onclick="generateLatheTool3D()" class="bg-stone-800 hover:bg-stone-900 text-white font-medium py-2 px-3 rounded-lg text-xs transition">
+              🔄 Gerar no Palco 3D
+            </button>
+            <button type="button" onclick="exportLatheToolSTL()" class="bg-terracotta-500 hover:bg-terracotta-600 text-white font-semibold py-2 px-3 rounded-lg text-xs transition shadow-xs">
+              ⬇️ Baixar Ferramenta (.STL)
+            </button>
+          </div>
+        </div>
       </div>
 
       <!-- =====================================================================
@@ -2270,12 +2495,40 @@
           <div class="cad-card p-3 bg-stone-100/70 dark:bg-terracotta-900/60 flex items-center justify-between">
             <div>
               <span class="text-xs font-semibold text-stone-800 dark:text-stone-100 block">Sincronizar com Palco 3D</span>
-              <p class="text-[11px] text-stone-500">Puxa peso úmido e área externa do vaso ativo.</p>
+              <p class="text-[11px] text-stone-500">Puxa peso úmido, área externa e volume líquido oco do vaso ativo.</p>
             </div>
             <button onclick="syncVaseWithCeramicPricing()" class="bg-terracotta-500 hover:bg-terracotta-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition shadow-xs">
               ⚡ Sincronizar
             </button>
           </div>
+
+          <!-- Calculadora Volumétrica Cúbica Pós-Queima (1 - s)³ integrada ao Precificador -->
+          <fieldset class="cad-card p-3 space-y-2 border border-sky-500/30 bg-sky-50/40 dark:bg-sky-950/20">
+            <legend class="text-xs font-bold text-sky-800 dark:text-sky-300 px-1 flex items-center gap-1.5">
+              <span>💧</span> Capacidade Líquida Pós-Queima $(1 - s)^3$
+            </legend>
+            <div class="grid grid-cols-3 gap-2">
+              <div>
+                <label class="cad-label" for="cp-raw-vol-ml">Volume Cru (mL)</label>
+                <input type="number" id="cp-raw-vol-ml" value="514" min="10" max="10000" step="5" oninput="recalcCeramicPricing()" class="cad-input font-semibold text-xs" />
+              </div>
+              <div>
+                <label class="cad-label" for="cp-shrinkage-pct">Retração (%)</label>
+                <input type="number" id="cp-shrinkage-pct" value="12.0" min="5.0" max="22.0" step="0.5" oninput="recalcCeramicPricing()" class="cad-input font-semibold text-xs" />
+              </div>
+              <div>
+                <label class="cad-label" for="cp-cone-select">Queima Alvo</label>
+                <select id="cp-cone-select" onchange="onPricingConeChange(this.value)" class="cad-input text-xs font-medium">
+                  <option value="9.0">Cone 04 (9%)</option>
+                  <option value="12.0" selected>Cone 6 (12%)</option>
+                  <option value="15.0">Cone 10 (15%)</option>
+                </select>
+              </div>
+            </div>
+            <div id="cp-vol-summary" class="text-[11px] font-mono-cad text-sky-900 dark:text-sky-200 bg-white/80 dark:bg-stone-900/70 p-2 rounded-lg border border-sky-500/20 text-center font-semibold">
+              Cru: 514 mL ➔ Queimado: 350 mL (-31.9% contração volumétrica)
+            </div>
+          </fieldset>
 
           <!-- Sanfonas Organizadas com Subtotais nos Títulos -->
           <div class="space-y-2">
@@ -2802,14 +3055,19 @@
               <strong class="text-xs font-bold text-stone-900 dark:text-white block">Caxilhos & Caixas</strong>
               <p class="text-[10px] text-stone-500 mt-0.5">Moldes de gesso e guias de placa.</p>
             </button>
-            <button onclick="selectToolFromHub('utilitarios', 'qrcode')" class="text-left p-3 rounded-xl border border-stone-200 dark:border-cad-border bg-stone-50 dark:bg-terracotta-900/60 hover:border-terracotta-500 hover:bg-terracotta-50/50 dark:hover:bg-terracotta-900 transition md:col-span-3">
+            <button onclick="selectToolFromHub('utilitarios', 'torno')" class="text-left p-3 rounded-xl border border-stone-200 dark:border-cad-border bg-stone-50 dark:bg-terracotta-900/60 hover:border-terracotta-500 hover:bg-terracotta-50/50 dark:hover:bg-terracotta-900 transition md:col-span-2">
               <div class="flex items-center gap-3">
-                <span class="text-xl">📱</span>
+                <span class="text-xl">🎡</span>
                 <div>
-                  <strong class="text-xs font-bold text-stone-900 dark:text-white block">Placa QR Code 3D & Carimbo Invertido de Assinatura</strong>
-                  <p class="text-[10px] text-stone-500 mt-0.5">Placas de Pix/Instagram ou carimbos espelhados para carimbar o fundo das peças de argila.</p>
+                  <strong class="text-xs font-bold text-stone-900 dark:text-white block">Torno Elétrico, Retorneamento & Queima</strong>
+                  <p class="text-[10px] text-stone-500 mt-0.5">Trimming Spinner 608, Mandris Bat Pins, Calibre de Tampa, Bitola de Altura e Réguas de Retração STL.</p>
                 </div>
               </div>
+            </button>
+            <button onclick="selectToolFromHub('utilitarios', 'qrcode')" class="text-left p-3 rounded-xl border border-stone-200 dark:border-cad-border bg-stone-50 dark:bg-terracotta-900/60 hover:border-terracotta-500 hover:bg-terracotta-50/50 dark:hover:bg-terracotta-900 transition">
+              <span class="text-xl block mb-1">📱</span>
+              <strong class="text-xs font-bold text-stone-900 dark:text-white block">Placas QR Code & Selos</strong>
+              <p class="text-[10px] text-stone-500 mt-0.5">Displays balcão e carimbos espelhados.</p>
             </button>
           </div>
         </div>
@@ -3283,7 +3541,7 @@
 
     function switchSubUtil(sub) {
       subToolUtil = sub;
-      ['rolos', 'litofania', 'caixas', 'qrcode'].forEach(s => {
+      ['rolos', 'litofania', 'caixas', 'qrcode', 'torno'].forEach(s => {
         const p = document.getElementById('subpanel-util-' + s);
         if (p) p.classList.add('hidden');
         const b = document.getElementById('subbtn-util-' + s);
@@ -3308,6 +3566,9 @@
       } else if (sub === 'qrcode') {
         document.getElementById('viewport-active-label').textContent = 'Placa QR Code 3D & Selo de Ateliê';
         generateQrPlate3D();
+      } else if (sub === 'torno') {
+        document.getElementById('viewport-active-label').textContent = 'Ferramenta de Torno, Retorneamento & Queima (Z=0)';
+        generateLatheTool3D();
       }
     }
 
@@ -5702,6 +5963,7 @@
       if (cpAreaInput) cpAreaInput.value = Math.max(100, Math.round(areaSurfMm2 / 100));
 
       recalcCeramicPricing();
+      updateVaseVolumeTelemetry(volInternoMl);
     }
 
     // =========================================================================
@@ -6515,6 +6777,11 @@
 
         updateViewportBoundingBox();
         draw2DPatternPreview(rings);
+        const stageVolMl = computeVaseInternalHollowVolumeMl();
+        const stageVolFmt = stageVolMl >= 1000 ? `${(stageVolMl / 1000).toFixed(2)} L` : `${Math.round(stageVolMl)} mL`;
+        const barVolEl = document.getElementById('bar-volume-ml');
+        if (barVolEl) barVolEl.textContent = stageVolFmt;
+        updateVaseVolumeTelemetry(stageVolMl);
       }
     }
 
@@ -9736,46 +10003,478 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
     // Alias global para compatibilidade com os requisitos e automação
     window.exportVase2DPatternsPDF = generateVasePDF;
 
-    function exportVaseRibSTL() {
-      const shape = new THREE.Shape();
-      shape.moveTo(0, 0);
-
-      let totalHeight = 160;
+    // =========================================================================
+    // MÓDULO TORNO & QUEIMA: COSTELAS DE ATAQUE, GABARITOS & VOLUME PÓS-QUEIMA
+    // =========================================================================
+    function computeVaseInternalHollowVolumeMl() {
       if (vaseDesignMode === 'spline') {
-        totalHeight = parseFloat(document.getElementById('v-total-height')?.value) || 165;
+        const totalH = parseFloat(document.getElementById('v-total-height')?.value) || 165;
         const isPoly = document.getElementById('v-spline-type')?.value === 'polilinha';
         const tension = (parseFloat(document.getElementById('v-spline-tension')?.value) || 50) / 100;
-        const steps = 48;
-        for (let i = 0; i <= steps; i++) {
-          const t = i / steps;
-          const y = t * totalHeight;
-          const r = evaluateSplineRadius(t, vaseSplineNodes, tension, isPoly) * 0.55;
-          shape.lineTo(r, y);
+        const wall = parseFloat(document.getElementById('v-spline-wall')?.value) || 5.5;
+        const floorThick = Math.max(3, wall * 1.3);
+        const steps = 60;
+        const dy = Math.max(0.1, (totalH - floorThick) / steps);
+        let volMm3 = 0;
+        for (let i = 0; i < steps; i++) {
+          const y1 = floorThick + i * dy;
+          const y2 = floorThick + (i + 1) * dy;
+          const t1 = Math.min(1, y1 / totalH);
+          const t2 = Math.min(1, y2 / totalH);
+          const r1 = Math.max(0.5, evaluateSplineRadius(t1, vaseSplineNodes, tension, isPoly) - wall);
+          const r2 = Math.max(0.5, evaluateSplineRadius(t2, vaseSplineNodes, tension, isPoly) - wall);
+          volMm3 += (Math.PI * dy / 3) * (r1 * r1 + r1 * r2 + r2 * r2);
         }
-        shape.lineTo(0, totalHeight);
-        shape.lineTo(0, 0);
+        return Math.max(0, volMm3 / 1000);
       } else {
         const rings = computeFrustumRings();
-        let yCursor = 0;
-        rings.forEach((rg, i) => {
-          if (i === 0) shape.lineTo(rg.R1 * 0.6, 0);
-          yCursor += rg.H;
-          shape.lineTo(rg.R2 * 0.6, yCursor);
+        const espessura = parseFloat(document.getElementById('v-espessura')?.value) || 6.0;
+        let volMm3 = 0;
+        rings.forEach(rg => {
+          if (rg.tipo === 'disco') return;
+          const r1 = Math.max(0.5, rg.r1 - espessura);
+          const r2 = Math.max(0.5, rg.r2 - espessura);
+          volMm3 += (Math.PI * rg.h / 3) * (r1 * r1 + r1 * r2 + r2 * r2);
         });
-        shape.lineTo(0, yCursor);
-        shape.lineTo(0, 0);
-        totalHeight = yCursor;
+        return Math.max(0, volMm3 / 1000);
+      }
+    }
+
+    function updateVaseVolumeTelemetry(customVolMl) {
+      const volRaw = customVolMl !== undefined ? customVolMl : computeVaseInternalHollowVolumeMl();
+      const volCone04 = volRaw * Math.pow(1 - 0.09, 3);
+      const volCone6 = volRaw * Math.pow(1 - 0.12, 3);
+      const volCone10 = volRaw * Math.pow(1 - 0.15, 3);
+
+      const fmtMl = (ml) => ml >= 1000 ? `${(ml / 1000).toFixed(2)} L` : `${Math.round(ml)} mL`;
+
+      const elRaw = document.getElementById('v-vol-raw-ml');
+      if (elRaw) elRaw.textContent = fmtMl(volRaw);
+      const el04 = document.getElementById('v-vol-cone04-ml');
+      if (el04) el04.textContent = fmtMl(volCone04);
+      const el6 = document.getElementById('v-vol-cone6-ml');
+      if (el6) el6.textContent = fmtMl(volCone6);
+      const el10 = document.getElementById('v-vol-cone10-ml');
+      if (el10) el10.textContent = fmtMl(volCone10);
+
+      // Meta Volumétrica
+      const targetFired = parseFloat(document.getElementById('v-target-fired-ml')?.value) || 350;
+      const targetShrink = (parseFloat(document.getElementById('v-target-shrink-pct')?.value) || 12) / 100;
+      const shrinkFactor = Math.pow(1 - targetShrink, 3);
+      const neededRaw = shrinkFactor > 0.05 ? targetFired / shrinkFactor : targetFired;
+      const volLossPct = ((1 - shrinkFactor) * 100).toFixed(1);
+
+      const elNeeded = document.getElementById('v-target-raw-needed');
+      if (elNeeded) {
+        elNeeded.textContent = `Para ${targetFired} mL pós-queima (${(targetShrink * 100).toFixed(1)}%): tornear com ${Math.round(neededRaw)} mL no torno (-${volLossPct}% vol.)`;
       }
 
-      // Furo ergonômico de polegar para o oleiro segurar a costela com firmeza
-      const hole = new THREE.Path();
-      hole.absarc(18, Math.max(25, totalHeight / 2), 11, 0, Math.PI * 2, false);
-      shape.holes.push(hole);
+      // Sincroniza campos do Precificador
+      const cpRawVol = document.getElementById('cp-raw-vol-ml');
+      if (cpRawVol && document.activeElement !== cpRawVol) {
+        cpRawVol.value = Math.round(volRaw);
+      }
+      const cpSummary = document.getElementById('cp-vol-summary');
+      if (cpSummary) {
+        const cpShrink = (parseFloat(document.getElementById('cp-shrinkage-pct')?.value) || 12) / 100;
+        const cpFired = volRaw * Math.pow(1 - cpShrink, 3);
+        const cpLoss = ((1 - Math.pow(1 - cpShrink, 3)) * 100).toFixed(1);
+        cpSummary.textContent = `Cru: ${Math.round(volRaw)} mL ➔ Queimado: ${Math.round(cpFired)} mL (-${cpLoss}% contração volumétrica)`;
+      }
+    }
 
-      const extrudeGeo = new THREE.ExtrudeGeometry(shape, { depth: 4.5, bevelEnabled: true, bevelThickness: 0.8, bevelSize: 0.8 });
-      const mesh = new THREE.Mesh(extrudeGeo);
+    function scaleVaseToTargetFiredMl() {
+      const targetFired = parseFloat(document.getElementById('v-target-fired-ml')?.value) || 350;
+      const targetShrink = (parseFloat(document.getElementById('v-target-shrink-pct')?.value) || 12) / 100;
+      const shrinkFactor = Math.pow(1 - targetShrink, 3);
+      const neededRaw = targetFired / shrinkFactor;
+
+      for (let iter = 0; iter < 4; iter++) {
+        const currentRaw = computeVaseInternalHollowVolumeMl();
+        if (currentRaw <= 1) break;
+        const ratio = neededRaw / currentRaw;
+        if (Math.abs(ratio - 1) < 0.01) break;
+        const scale = Math.cbrt(ratio);
+
+        if (vaseDesignMode === 'spline') {
+          const hInput = document.getElementById('v-total-height');
+          if (hInput) hInput.value = Math.max(30, Math.round(parseFloat(hInput.value) * scale));
+          vaseSplineNodes.forEach(node => {
+            node.r = Math.max(8, Math.round(node.r * scale));
+          });
+          renderSplineNodesUI();
+          rebuildVaseFromSpline();
+        } else {
+          vaseStages.forEach(st => {
+            if (st.rBase !== undefined) st.rBase = Math.max(6, Math.round(st.rBase * scale));
+            if (st.rTopo !== undefined) st.rTopo = Math.max(6, Math.round(st.rTopo * scale));
+            if (st.rEsfera !== undefined) st.rEsfera = Math.max(8, Math.round(st.rEsfera * scale));
+            if (st.altura !== undefined) st.altura = Math.max(4, Math.round(st.altura * scale));
+          });
+          renderVaseStagesUI();
+          rebuildVase();
+        }
+      }
+      updateVaseVolumeTelemetry();
+    }
+
+    function onPricingConeChange(val) {
+      const shrinkInput = document.getElementById('cp-shrinkage-pct');
+      if (shrinkInput) shrinkInput.value = parseFloat(val).toFixed(1);
+      recalcCeramicPricing();
+    }
+
+    function onVaseRibOptionChange() {
+      if (activeTool === 'vasos_costela') {
+        previewVaseRib3D();
+      }
+    }
+
+    function buildCeramicRibShape() {
+      const preset = document.getElementById('v-rib-profile-preset')?.value || 'vaso_ativo';
+      const edgeType = document.getElementById('v-rib-edge-type')?.value || 'bisel_30';
+      const hasSerrated = document.getElementById('v-rib-serrated')?.checked ?? true;
+      const hasFootNotch = document.getElementById('v-rib-foot-notch')?.checked ?? true;
+
+      const shape = new THREE.Shape();
+      let totalH = 120;
+      const pts = [];
+
+      if (preset === 'shape1') {
+        // Mudtools Shape 1 (Kidney / Rim Curve)
+        totalH = 110;
+        pts.push({ x: 0, y: 0 });
+        for (let i = 0; i <= 36; i++) {
+          const t = i / 36;
+          const a = -Math.PI / 2 + t * Math.PI;
+          const rx = 46 + 12 * Math.cos(a * 2);
+          const ry = 55 + 55 * Math.sin(a);
+          pts.push({ x: Math.max(0, rx), y: ry });
+        }
+        for (let i = 36; i >= 0; i--) {
+          const t = i / 36;
+          const y = t * totalH;
+          const rx = 18 * Math.sin(t * Math.PI);
+          pts.push({ x: rx, y });
+        }
+      } else if (preset === 'shape2') {
+        // Mudtools Shape 2 (Cylinder & Straight Back)
+        totalH = 130;
+        pts.push({ x: 0, y: 0 });
+        for (let i = 0; i <= 36; i++) {
+          const t = i / 36;
+          const y = t * totalH;
+          const rx = 52 * Math.sin(t * Math.PI * 0.75);
+          pts.push({ x: Math.max(0, rx), y });
+        }
+        pts.push({ x: 0, y: totalH });
+        pts.push({ x: 0, y: 0 });
+      } else if (preset === 'shape4') {
+        // Mudtools Shape 4 (Wide Bowl Sweep)
+        totalH = 145;
+        pts.push({ x: 0, y: 0 });
+        for (let i = 0; i <= 40; i++) {
+          const t = i / 40;
+          const y = t * totalH;
+          const rx = 65 * Math.pow(Math.sin(t * Math.PI * 0.65), 0.85);
+          pts.push({ x: Math.max(0, rx), y });
+        }
+        pts.push({ x: 0, y: totalH });
+        pts.push({ x: 0, y: 0 });
+      } else {
+        // Vaso Ativo: perfil exato da peça em rotação
+        if (vaseDesignMode === 'spline') {
+          totalH = parseFloat(document.getElementById('v-total-height')?.value) || 165;
+          const isPoly = document.getElementById('v-spline-type')?.value === 'polilinha';
+          const tension = (parseFloat(document.getElementById('v-spline-tension')?.value) || 50) / 100;
+          const steps = 40;
+          pts.push({ x: 0, y: 0 });
+          for (let i = 0; i <= steps; i++) {
+            const t = i / steps;
+            const y = t * totalH;
+            const r = evaluateSplineRadius(t, vaseSplineNodes, tension, isPoly) * 0.55;
+            pts.push({ x: Math.max(2, r), y });
+          }
+          pts.push({ x: 0, y: totalH });
+          pts.push({ x: 0, y: 0 });
+        } else {
+          const rings = computeFrustumRings();
+          totalH = rings.reduce((a, b) => a + b.H, 0) || 120;
+          let yCursor = 0;
+          pts.push({ x: 0, y: 0 });
+          rings.forEach(rg => {
+            pts.push({ x: Math.max(2, rg.R1 * 0.55), y: yCursor });
+            yCursor += rg.H;
+            pts.push({ x: Math.max(2, rg.R2 * 0.55), y: yCursor });
+          });
+          pts.push({ x: 0, y: totalH });
+          pts.push({ x: 0, y: 0 });
+        }
+      }
+
+      // Aplica Dente Modelador de Pé / Galeria (6 mm largura × 8 mm altura no canto inferior)
+      if (hasFootNotch && pts.length > 4) {
+        pts[0] = { x: 0, y: 0 };
+        pts.splice(1, 0, { x: 0, y: 8 }, { x: 6, y: 8 }, { x: 6, y: 0 });
+      }
+
+      shape.moveTo(pts[0].x, pts[0].y);
+      for (let i = 1; i < pts.length; i++) {
+        shape.lineTo(pts[i].x, pts[i].y);
+      }
+
+      // Micro-Serrilha de 2mm (Scoring Teeth) no dorso reto/superior
+      if (hasSerrated) {
+        const serrStep = 2.0;
+        const numTeeth = 16;
+        for (let k = 0; k < numTeeth; k++) {
+          const yBase = totalH - 12 - k * serrStep * 2;
+          if (yBase > 20) {
+            shape.lineTo(0, yBase);
+            shape.lineTo(1.8, yBase - serrStep);
+            shape.lineTo(0, yBase - serrStep * 2);
+          }
+        }
+      }
+
+      // Furo anatômico reniforme para empunhadura firme com barbotina
+      const thumb = new THREE.Path();
+      const holeY = Math.max(25, totalH * 0.48);
+      thumb.absellipse(18, holeY, 8.5, 14, 0, Math.PI * 2, false);
+      shape.holes.push(thumb);
+
+      return { shape, totalH, preset, edgeType, hasSerrated, hasFootNotch };
+    }
+
+    function previewVaseRib3D() {
+      if (!scene) return;
+      activeTool = 'vasos_costela';
+      clearActiveGroup();
+      document.getElementById('viewport-active-label').textContent = 'Costela de Oleiro c/ Geometria de Ataque (Z=0)';
+
+      const rib = buildCeramicRibShape();
+      const bevelThick = rib.edgeType === 'bisel_30' ? 1.6 : rib.edgeType === 'bisel_45' ? 1.2 : 0.6;
+      const bevelSz = rib.edgeType === 'bisel_30' ? 2.2 : rib.edgeType === 'bisel_45' ? 1.2 : 0.6;
+
+      const geo = new THREE.ExtrudeGeometry(rib.shape, {
+        depth: 3.8,
+        bevelEnabled: true,
+        bevelSegments: 4,
+        steps: 1,
+        bevelSize: bevelSz,
+        bevelThickness: bevelThick
+      });
+      geo.center();
+      geo.computeBoundingBox();
+      geo.translate(0, 0, -geo.boundingBox.min.z);
+      geo.rotateX(-Math.PI / 2);
+      geo.computeBoundingBox();
+      geo.translate(0, -geo.boundingBox.min.y, 0);
+
+      const mat = new THREE.MeshStandardMaterial({
+        color: 0xC86D51,
+        roughness: 0.35,
+        metalness: 0.05,
+        side: THREE.DoubleSide,
+        wireframe: isWireframe
+      });
+      const mesh = new THREE.Mesh(geo, mat);
+      activeMeshGroup.add(mesh);
+      updateViewportBoundingBox();
+    }
+
+    function exportVaseRibSTL() {
+      const rib = buildCeramicRibShape();
+      const bevelThick = rib.edgeType === 'bisel_30' ? 1.6 : rib.edgeType === 'bisel_45' ? 1.2 : 0.6;
+      const bevelSz = rib.edgeType === 'bisel_30' ? 2.2 : rib.edgeType === 'bisel_45' ? 1.2 : 0.6;
+
+      const geo = new THREE.ExtrudeGeometry(rib.shape, {
+        depth: 3.8,
+        bevelEnabled: true,
+        bevelSegments: 4,
+        steps: 1,
+        bevelSize: bevelSz,
+        bevelThickness: bevelThick
+      });
+      geo.center();
+      geo.computeBoundingBox();
+      geo.translate(0, 0, -geo.boundingBox.min.z);
+      geo.rotateX(-Math.PI / 2);
+      geo.computeBoundingBox();
+      geo.translate(0, -geo.boundingBox.min.y, 0);
+
+      const mesh = new THREE.Mesh(geo);
       const exporter = new THREE.STLExporter();
-      downloadBlob(new Blob([exporter.parse(mesh, { binary: true })], { type: 'application/octet-stream' }), 'costela_oleiro_perfil_exato.stl');
+      const stl = exporter.parse(mesh, { binary: true });
+      downloadBlob(new Blob([stl], { type: 'application/octet-stream' }), `costela_ceramica_${rib.preset}_${rib.edgeType}.stl`);
+    }
+
+    function buildVaseNegativeTemplateData() {
+      const margin = Math.max(25, parseFloat(document.getElementById('v-template-margin')?.value) || 45);
+      const thick = Math.max(2.5, parseFloat(document.getElementById('v-template-thick')?.value) || 4.0);
+
+      let totalH = 160;
+      const curvePts = [];
+      const steps = 60;
+
+      if (vaseDesignMode === 'spline') {
+        totalH = parseFloat(document.getElementById('v-total-height')?.value) || 165;
+        const isPoly = document.getElementById('v-spline-type')?.value === 'polilinha';
+        const tension = (parseFloat(document.getElementById('v-spline-tension')?.value) || 50) / 100;
+        for (let i = 0; i <= steps; i++) {
+          const t = i / steps;
+          const y = t * totalH;
+          const r = evaluateSplineRadius(t, vaseSplineNodes, tension, isPoly);
+          curvePts.push({ r: Math.max(1, r), y });
+        }
+      } else {
+        const rings = computeFrustumRings();
+        totalH = rings.reduce((a, b) => a + b.H, 0) || 120;
+        let yCur = 0;
+        rings.forEach(rg => {
+          curvePts.push({ r: Math.max(1, rg.R1), y: yCur });
+          yCur += rg.H;
+          curvePts.push({ r: Math.max(1, rg.R2), y: yCur });
+        });
+      }
+
+      const maxR = Math.max(...curvePts.map(p => p.r));
+      const plateWidth = Math.round(maxR + margin);
+      const plateHeight = Math.round(totalH + 12);
+
+      const shape = new THREE.Shape();
+      shape.moveTo(0, 0);
+      shape.lineTo(plateWidth, 0);
+      shape.lineTo(plateWidth, plateHeight);
+      shape.lineTo(curvePts[curvePts.length - 1].r, plateHeight);
+
+      // Desce traçando a silhueta externa em arco côncavo
+      for (let i = curvePts.length - 1; i >= 0; i--) {
+        shape.lineTo(curvePts[i].r, curvePts[i].y);
+      }
+      shape.lineTo(0, 0);
+
+      // Furo de pendurar Ø8mm
+      const hangHole = new THREE.Path();
+      hangHole.absarc(plateWidth - 16, plateHeight - 16, 4.0, 0, Math.PI * 2, false);
+      shape.holes.push(hangHole);
+
+      // Alça de empunhadura oval
+      if (plateWidth > 75 && plateHeight > 90) {
+        const gripHole = new THREE.Path();
+        gripHole.absellipse(plateWidth - 22, plateHeight / 2, 8, 28, 0, Math.PI * 2, false);
+        shape.holes.push(gripHole);
+      }
+
+      return { shape, plateWidth, plateHeight, totalH, thick, curvePts };
+    }
+
+    function previewVaseNegativeTemplate3D() {
+      if (!scene) return;
+      activeTool = 'vasos_gabarito';
+      clearActiveGroup();
+      document.getElementById('viewport-active-label').textContent = 'Gabarito Negativo Externo de Torno (Z=0)';
+
+      const tpl = buildVaseNegativeTemplateData();
+      const geo = new THREE.ExtrudeGeometry(tpl.shape, {
+        depth: tpl.thick,
+        bevelEnabled: true,
+        bevelSegments: 2,
+        bevelSize: 0.4,
+        bevelThickness: 0.4
+      });
+      geo.center();
+      geo.computeBoundingBox();
+      geo.translate(0, 0, -geo.boundingBox.min.z);
+      geo.rotateX(-Math.PI / 2);
+      geo.computeBoundingBox();
+      geo.translate(0, -geo.boundingBox.min.y, 0);
+
+      const mat = new THREE.MeshStandardMaterial({
+        color: 0x486B7A,
+        roughness: 0.38,
+        metalness: 0.08,
+        side: THREE.DoubleSide,
+        wireframe: isWireframe
+      });
+      const mesh = new THREE.Mesh(geo, mat);
+      activeMeshGroup.add(mesh);
+      updateViewportBoundingBox();
+    }
+
+    function exportVaseNegativeTemplateSTL() {
+      const tpl = buildVaseNegativeTemplateData();
+      const geo = new THREE.ExtrudeGeometry(tpl.shape, {
+        depth: tpl.thick,
+        bevelEnabled: true,
+        bevelSegments: 2,
+        bevelSize: 0.4,
+        bevelThickness: 0.4
+      });
+      geo.center();
+      geo.computeBoundingBox();
+      geo.translate(0, 0, -geo.boundingBox.min.z);
+      geo.rotateX(-Math.PI / 2);
+      geo.computeBoundingBox();
+      geo.translate(0, -geo.boundingBox.min.y, 0);
+
+      const mesh = new THREE.Mesh(geo);
+      const exporter = new THREE.STLExporter();
+      const stl = exporter.parse(mesh, { binary: true });
+      downloadBlob(new Blob([stl], { type: 'application/octet-stream' }), `gabarito_vaso_perfil_externo_${Math.round(tpl.totalH)}mm.stl`);
+    }
+
+    function exportVaseNegativeTemplatePDF() {
+      try {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+        const tpl = buildVaseNegativeTemplateData();
+
+        doc.setFillColor(72, 107, 122);
+        doc.rect(0, 0, 210, 22, 'F');
+        doc.setTextColor(255, 255, 255);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(13);
+        doc.text('GABARITO DE PERFIL EXTERNO PARA TORNO (ESCALA 1:1)', 14, 11);
+        doc.setFontSize(8);
+        doc.setFont('helvetica', 'normal');
+        doc.text(`Altura: ${tpl.totalH.toFixed(0)} mm | Largura: ${tpl.plateWidth.toFixed(0)} mm | Apoie a base no prato do torno`, 14, 18);
+
+        const ox = 25, oy = 35;
+        doc.setDrawColor(25, 35, 40);
+        doc.setLineWidth(0.4);
+        doc.rect(ox, oy, tpl.plateWidth, tpl.plateHeight);
+
+        // Curva côncava do vaso
+        doc.setDrawColor(184, 74, 57);
+        doc.setLineWidth(0.65);
+        for (let i = 0; i < tpl.curvePts.length - 1; i++) {
+          const p1 = tpl.curvePts[i];
+          const p2 = tpl.curvePts[i + 1];
+          const y1 = oy + tpl.plateHeight - p1.y;
+          const y2 = oy + tpl.plateHeight - p2.y;
+          doc.line(ox + p1.r, y1, ox + p2.r, y2);
+        }
+
+        // Furo de pendurar
+        doc.circle(ox + tpl.plateWidth - 16, oy + 16, 4.0);
+
+        // Régua de Calibração 50 mm
+        doc.setDrawColor(20, 20, 20);
+        doc.setLineWidth(0.5);
+        doc.line(ox, 280, ox + 50, 280);
+        for (let t = 0; t <= 50; t += 10) {
+          doc.line(ox + t, 277, ox + t, 283);
+        }
+        doc.setFontSize(7.5);
+        doc.setTextColor(40, 40, 40);
+        doc.text('Régua 50 mm (Confira com régua física antes de cortar em MDF/plástico)', ox + 55, 281);
+
+        doc.save(`gabarito_torno_1a1_${Math.round(tpl.totalH)}mm.pdf`);
+      } catch (err) {
+        console.error(err);
+        alert('Erro ao exportar PDF do gabarito: ' + err.message);
+      }
     }
 
     function exportActiveMeshSTL(filename) {
@@ -10016,6 +10715,16 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
       document.getElementById('bar-cost').textContent = fmt(costTotalProduction);
       document.getElementById('bar-price').textContent = fmt(retailPrice);
       document.getElementById('bar-clay-kg').textContent = `${clayWeight.toFixed(2)} kg`;
+
+      // Atualiza resumo volumétrico no precificador
+      const cpRawVol = parseFloat(document.getElementById('cp-raw-vol-ml')?.value) || 514;
+      const cpShrink = (parseFloat(document.getElementById('cp-shrinkage-pct')?.value) || 12) / 100;
+      const cpFired = cpRawVol * Math.pow(1 - cpShrink, 3);
+      const cpLoss = ((1 - Math.pow(1 - cpShrink, 3)) * 100).toFixed(1);
+      const cpSummary = document.getElementById('cp-vol-summary');
+      if (cpSummary) {
+        cpSummary.textContent = `Cru: ${Math.round(cpRawVol)} mL ➔ Queimado: ${Math.round(cpFired)} mL (-${cpLoss}% contração volumétrica)`;
+      }
     }
 
     function exportCeramicQuotePDF() {
@@ -11138,6 +11847,536 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
       const pFilG = document.getElementById('p-filament-g');
       if (pFilG) pFilG.value = estGrams;
       recalcPricing();
+    }
+
+    // =========================================================================
+    // MÓDULO TORNO & QUEIMA: 8 FERRAMENTAS PARAMÉTRICAS Z=0 SEM SUPORTES
+    // =========================================================================
+    function updateLatheToolUI() {
+      const tool = document.getElementById('lathe-tool-select')?.value || 'spinner_608';
+      const subSel = document.getElementById('lathe-submode-select');
+      const subLbl = document.getElementById('lathe-submode-lbl');
+      const p1Lbl = document.getElementById('lathe-param1-lbl');
+      const p2Lbl = document.getElementById('lathe-param2-lbl');
+      const p3Lbl = document.getElementById('lathe-param3-lbl');
+      const p1 = document.getElementById('lathe-param1');
+      const p2 = document.getElementById('lathe-param2');
+      const p3 = document.getElementById('lathe-param3');
+      const opt1Lbl = document.getElementById('lathe-opt1-lbl');
+      const opt2Lbl = document.getElementById('lathe-opt2-lbl');
+      const specTitle = document.getElementById('lathe-spec-title');
+      const specDetails = document.getElementById('lathe-spec-details');
+
+      if (!subSel) return;
+
+      if (tool === 'spinner_608') {
+        if (subLbl) subLbl.textContent = 'Tipo de Eixo / Rolamento';
+        subSel.innerHTML = `
+          <option value="bearing_608" selected>⚙️ Alojamento Rolamento 608 (Ø22.20 × 7.15 mm + 3 Crush Ribs)</option>
+          <option value="printed_cone">🔩 Eixo Cônico Impresso Zero-Hardware (Ponta R=0.6mm Baixo Atrito)</option>
+        `;
+        if (p1Lbl) p1Lbl.textContent = 'Diâmetro (mm)';
+        if (p2Lbl) p2Lbl.textContent = 'Prof. Cavidade (mm)';
+        if (p3Lbl) p3Lbl.textContent = 'Raio Dedo (mm)';
+        if (p1) { p1.value = 52; p1.min = 36; p1.max = 85; p1.step = 1; }
+        if (p2) { p2.value = 7.15; p2.min = 4; p2.max = 12; p2.step = 0.25; }
+        if (p3) { p3.value = 15; p3.min = 8; p3.max = 25; p3.step = 0.5; }
+        if (opt1Lbl) opt1Lbl.textContent = '3 Crush Ribs + Alívio Central';
+        if (opt2Lbl) opt2Lbl.textContent = 'Canaleta Anelar de Tração';
+        if (specTitle) specTitle.textContent = 'Trimming Spinner 608 • Z=0 Sem Suportes';
+        if (specDetails) specDetails.textContent = 'Cavidade FDM: Ø22.20 mm × 7.15 mm • Alívio Central: Ø13.00 mm (Anel interno livre) • 3 Crush Ribs de 0.15 mm';
+
+      } else if (tool === 'chuck_mandril') {
+        if (subLbl) subLbl.textContent = 'Espaçamento Pinos do Torno';
+        subSel.innerHTML = `
+          <option value="bat_254" selected>📌 Padrão 10" / 254 mm (Shimpo / Brent / Thomas Stuart)</option>
+          <option value="bat_250">📌 Padrão Métrico 250 mm (Continental)</option>
+          <option value="bat_sem_pinos">🧲 Sem Pinos (Fixação c/ Argila ou Fricção)</option>
+        `;
+        if (p1Lbl) p1Lbl.textContent = 'Diâm. Base (mm)';
+        if (p2Lbl) p2Lbl.textContent = 'Diâm. Boca (mm)';
+        if (p3Lbl) p3Lbl.textContent = 'Altura (mm)';
+        if (p1) { p1.value = 180; p1.min = 90; p1.max = 280; p1.step = 5; }
+        if (p2) { p2.value = 75; p2.min = 30; p2.max = 180; p2.step = 5; }
+        if (p3) { p3.value = 90; p3.min = 40; p3.max = 220; p3.step = 5; }
+        if (opt1Lbl) opt1Lbl.textContent = 'Rasgos Oblongos p/ Bat Pins (Ø10mm)';
+        if (opt2Lbl) opt2Lbl.textContent = 'Degraus Concêntricos Anti-Derrapagem';
+        if (specTitle) specTitle.textContent = 'Mandril Cônico de Torno (Chuck)';
+        if (specDetails) specDetails.textContent = 'Assenta em Z=0 • Paredes com ângulo >= 50° para impressão oca 100% sem suportes • Degraus para taças e garrafas invertidas';
+
+      } else if (tool === 'throwing_gauge') {
+        if (subLbl) subLbl.textContent = 'Tipo de Fixação da Base';
+        subSel.innerHTML = `
+          <option value="clamp_bacia" selected>🗜️ Grampo C p/ Bacia Splash Pan (5–9 mm)</option>
+          <option value="base_mesa">🧱 Sapata Pesada Retangular de Bancada</option>
+        `;
+        if (p1Lbl) p1Lbl.textContent = 'Alt. Coluna (mm)';
+        if (p2Lbl) p2Lbl.textContent = 'Comp. Agulha (mm)';
+        if (p3Lbl) p3Lbl.textContent = 'Raio Ponta (mm)';
+        if (p1) { p1.value = 220; p1.min = 100; p1.max = 320; p1.step = 5; }
+        if (p2) { p2.value = 140; p2.min = 60; p2.max = 220; p2.step = 5; }
+        if (p3) { p3.value = 1.8; p3.min = 1.0; p3.max = 4.0; p3.step = 0.2; }
+        if (opt1Lbl) opt1Lbl.textContent = 'Agulha Dupla (Altura + Raio)';
+        if (opt2Lbl) opt2Lbl.textContent = 'Ponta Esférica Segura (Sem Rasgar)';
+        if (specTitle) specTitle.textContent = 'Throwing Gauge Repetidor Seriado';
+        if (specDetails) specDetails.textContent = 'Haste métrica e agulhas impressas deitadas em Z=0 • Pontas esféricas R=1.8mm para não deformar a argila úmida';
+
+      } else if (tool === 'chanfrador_45') {
+        if (subLbl) subLbl.textContent = 'Estilo da Sapata / Esqui';
+        subSel.innerHTML = `
+          <option value="esqui_duplo" selected>🎿 Sapata Larga c/ Proa Náutica (Gliding Sled)</option>
+          <option value="compacto">📐 Bloco Compacto de Encosto</option>
+        `;
+        if (p1Lbl) p1Lbl.textContent = 'Comp. Esqui (mm)';
+        if (p2Lbl) p2Lbl.textContent = 'Largura (mm)';
+        if (p3Lbl) p3Lbl.textContent = 'Alt. Corte (mm)';
+        if (p1) { p1.value = 65; p1.min = 35; p1.max = 100; p1.step = 2; }
+        if (p2) { p2.value = 32; p2.min = 20; p2.max = 60; p2.step = 2; }
+        if (p3) { p3.value = 18; p3.min = 8; p3.max = 45; p3.step = 1; }
+        if (opt1Lbl) opt1Lbl.textContent = 'Lâmina Afiada a 45°';
+        if (opt2Lbl) opt2Lbl.textContent = 'Calha de Evacuação de Raspas';
+        if (specTitle) specTitle.textContent = 'Cortador de Chanfro de Pé a 45°';
+        if (specDetails) specDetails.textContent = 'Desliza na cabeça giratória do torno e remove a sapata de barbotina • Lâmina a 45° com duto de descarte';
+
+      } else if (tool === 'lid_caliper') {
+        if (subLbl) subLbl.textContent = 'Tipo de Articulação';
+        subSel.innerHTML = `
+          <option value="snap_fit" selected>🔄 Pino Snap-Fit Integrado (Zero Hardware)</option>
+          <option value="parafuso_m4">🔩 Furo para Parafuso M4 c/ Porca-Borboleta</option>
+        `;
+        if (p1Lbl) p1Lbl.textContent = 'Comp. Braço (mm)';
+        if (p2Lbl) p2Lbl.textContent = 'Folga Tampa (mm)';
+        if (p3Lbl) p3Lbl.textContent = 'Espessura (mm)';
+        if (p1) { p1.value = 140; p1.min = 90; p1.max = 220; p1.step = 5; }
+        if (p2) { p2.value = 1.5; p2.min = 0.5; p2.max = 4.0; p2.step = 0.25; }
+        if (p3) { p3.value = 3.5; p3.min = 2.5; p3.max = 6.0; p3.step = 0.5; }
+        if (opt1Lbl) opt1Lbl.textContent = 'Braço Cruzado Proporcional';
+        if (opt2Lbl) opt2Lbl.textContent = 'Compensação Automática de Folga de Esmalte';
+        if (specTitle) specTitle.textContent = 'Calibre Duplo de Galeria & Tampa';
+        if (specDetails) specDetails.textContent = 'Mede a galeria do pote e abre simultaneamente o rebaixo da tampa com folga ajustável (+1.5mm)';
+
+      } else if (tool === 'shrinkage_ruler') {
+        if (subLbl) subLbl.textContent = 'Argila / Retração Típica';
+        subSel.innerHTML = `
+          <option value="gres_12" selected>🏺 Grés Cone 6 (12.0% • Fator 1.1364)</option>
+          <option value="terracota_9">🧱 Terracota Cone 04 (9.0% • Fator 1.0989)</option>
+          <option value="porcelana_15">⚪ Porcelana Cone 10 (15.0% • Fator 1.1765)</option>
+          <option value="custom">✏️ Personalizada (Use campo Retração %)</option>
+        `;
+        if (p1Lbl) p1Lbl.textContent = 'Comp. Fired (mm)';
+        if (p2Lbl) p2Lbl.textContent = 'Retração (%)';
+        if (p3Lbl) p3Lbl.textContent = 'Espessura (mm)';
+        if (p1) { p1.value = 200; p1.min = 100; p1.max = 300; p1.step = 10; }
+        if (p2) { p2.value = 12.0; p2.min = 5.0; p2.max = 22.0; p2.step = 0.5; }
+        if (p3) { p3.value = 3.2; p3.min = 2.0; p3.max = 6.0; p3.step = 0.4; }
+        if (opt1Lbl) opt1Lbl.textContent = 'Ranhuras Milimétricas em Baixo-Relevo';
+        if (opt2Lbl) opt2Lbl.textContent = 'Nervuras Inferiores de Carimbo em Argila';
+        if (specTitle) specTitle.textContent = 'Régua de Retração Física Paramétrica (STL)';
+        if (specDetails) specDetails.textContent = 'Fator: 1/(1-s) = 1.1364 • Ranhuras a cada 1mm e nervuras dorsais para carimbar tiras de teste diretamente na argila úmida';
+
+      } else if (tool === 'glaze_tile') {
+        if (subLbl) subLbl.textContent = 'Tipo de Amostra';
+        subSel.innerHTML = `
+          <option value="vertical_pe" selected>🧪 Ladrilho Vertical Autoportante em L</option>
+          <option value="matriz_extrusora">🔩 Flange / Matriz de Extrusora de Bancada (Ø58mm)</option>
+        `;
+        if (p1Lbl) p1Lbl.textContent = 'Altura (mm)';
+        if (p2Lbl) p2Lbl.textContent = 'Largura (mm)';
+        if (p3Lbl) p3Lbl.textContent = 'Nº Degraus Coleta';
+        if (p1) { p1.value = 85; p1.min = 50; p1.max = 140; p1.step = 5; }
+        if (p2) { p2.value = 40; p2.min = 25; p2.max = 70; p2.step = 2; }
+        if (p3) { p3.value = 3; p3.min = 2; p3.max = 5; p3.step = 1; }
+        if (opt1Lbl) opt1Lbl.textContent = 'Degraus Inclinados a 10° (Retém Esmalte)';
+        if (opt2Lbl) opt2Lbl.textContent = 'Texturas Triplas + Furo Ø6mm';
+        if (specTitle) specTitle.textContent = 'Proveta Vertical de Teste de Esmalte';
+        if (specDetails) specDetails.textContent = 'Base ampla em L autoportante • 3 degraus coletores para reter gotas de esmalte fundido e proteger as prateleiras do forno';
+
+      } else {
+        // throwing_rib_pro
+        if (subLbl) subLbl.textContent = 'Perfil Clássico de Torno';
+        subSel.innerHTML = `
+          <option value="shape1" selected>🫘 Shape 1 (Mudtools Rim & Kidney Curve)</option>
+          <option value="shape2">📐 Shape 2 (Mudtools Cylinder & Straight Back)</option>
+          <option value="shape4">🥣 Shape 4 (Mudtools Wide Bowl Sweep)</option>
+        `;
+        if (p1Lbl) p1Lbl.textContent = 'Comprimento (mm)';
+        if (p2Lbl) p2Lbl.textContent = 'Largura (mm)';
+        if (p3Lbl) p3Lbl.textContent = 'Bisel de Corte (°)';
+        if (p1) { p1.value = 115; p1.min = 70; p1.max = 180; p1.step = 5; }
+        if (p2) { p2.value = 52; p2.min = 30; p2.max = 90; p2.step = 2; }
+        if (p3) { p3.value = 30; p3.min = 20; p3.max = 60; p3.step = 5; }
+        if (opt1Lbl) opt1Lbl.textContent = 'Micro-Serrilha Superior (Scoring 2mm)';
+        if (opt2Lbl) opt2Lbl.textContent = 'Dente de Pé / Galeria (6×8mm)';
+        if (specTitle) specTitle.textContent = 'Costela de Torno Pro com Geometria de Ataque';
+        if (specDetails) specDetails.textContent = 'Face superior biselada a 30° para raspar barbotina • Face inferior plana para compactar • Dente de pé e serrilha integrados';
+      }
+    }
+
+    function generateLatheTool3D() {
+      if (!scene) return;
+      clearActiveGroup();
+      activeTool = 'utilitarios';
+      subToolUtil = 'torno';
+      document.getElementById('viewport-active-label').textContent = 'Ferramenta de Torno, Retorneamento & Queima (Z=0)';
+
+      const tool = document.getElementById('lathe-tool-select')?.value || 'spinner_608';
+      const submode = document.getElementById('lathe-submode-select')?.value || 'bearing_608';
+      const p1 = parseFloat(document.getElementById('lathe-param1')?.value) || 52;
+      const p2 = parseFloat(document.getElementById('lathe-param2')?.value) || 7.15;
+      const p3 = parseFloat(document.getElementById('lathe-param3')?.value) || 15.0;
+      const opt1 = document.getElementById('lathe-opt1')?.checked ?? true;
+      const opt2 = document.getElementById('lathe-opt2')?.checked ?? true;
+
+      const terraMat = new THREE.MeshStandardMaterial({ color: 0xC86D51, roughness: 0.35, metalness: 0.05, side: THREE.DoubleSide, wireframe: isWireframe });
+      const celadonMat = new THREE.MeshStandardMaterial({ color: 0x2D7A82, roughness: 0.30, metalness: 0.08, side: THREE.DoubleSide, wireframe: isWireframe });
+      const accentMat = new THREE.MeshStandardMaterial({ color: 0x3A3A3C, roughness: 0.40, metalness: 0.20, side: THREE.DoubleSide, wireframe: isWireframe });
+
+      let estWeightG = 30;
+
+      if (tool === 'spinner_608') {
+        const diam = Math.max(36, Math.min(85, p1));
+        const cavH = Math.max(4, Math.min(12, p2));
+        const fingerR = Math.max(8, Math.min(25, p3));
+        const totalH = cavH + 4.5;
+        const outerR = diam / 2;
+
+        if (submode === 'bearing_608') {
+          // Corpo principal do spinner com cavidade para rolamento 608 (Ø22.2mm)
+          const shape = new THREE.Shape();
+          shape.moveTo(0, 0);
+          shape.lineTo(outerR, 0);
+          shape.lineTo(outerR, totalH - 1.5);
+          shape.lineTo(outerR - 1.5, totalH); // Chanfro superior 45°
+          // Rebaixo ergonômico côncavo para o dedo
+          shape.lineTo(11.1, totalH);
+          shape.lineTo(11.1, totalH - cavH); // Fundo da cavidade Ø22.20mm
+          shape.lineTo(6.5, totalH - cavH);  // Prateleira de apoio (Clearance Ø13mm p/ anel interno)
+          shape.lineTo(6.5, 0);
+          shape.lineTo(0, 0);
+
+          const latheGeo = new THREE.LatheGeometry(shape.getPoints(), 48);
+          latheGeo.computeVertexNormals();
+          activeMeshGroup.add(new THREE.Mesh(latheGeo, terraMat));
+
+          // 3 Crush Ribs de 0.15mm dentro da cavidade para retenção do rolamento
+          if (opt1) {
+            for (let k = 0; k < 3; k++) {
+              const ang = (k / 3) * Math.PI * 2;
+              const ribGeo = new THREE.BoxGeometry(0.3, cavH, 0.4);
+              ribGeo.translate(Math.cos(ang) * 11.0, (totalH - cavH) + cavH / 2, Math.sin(ang) * 11.0);
+              activeMeshGroup.add(new THREE.Mesh(ribGeo, accentMat));
+            }
+          }
+
+          // Anel de rolamento visual simulado suspenso
+          const bearingRing = new THREE.CylinderGeometry(11.0, 11.0, 6.9, 36, 1, true);
+          bearingRing.translate(0, totalH - cavH + 3.5, 0);
+          activeMeshGroup.add(new THREE.Mesh(bearingRing, accentMat));
+
+        } else {
+          // Eixo Cônico Zero-Hardware Impresso (Base + Pivô pontual R=0.6mm + Tampa)
+          const baseShape = new THREE.Shape();
+          baseShape.moveTo(0, 0);
+          baseShape.lineTo(outerR, 0);
+          baseShape.lineTo(outerR, 4.0);
+          baseShape.lineTo(4.5, 4.0);
+          baseShape.lineTo(0.6, totalH); // Pivô cônico de baixo atrito
+          baseShape.lineTo(0, totalH);
+          baseShape.lineTo(0, 0);
+
+          const baseGeo = new THREE.LatheGeometry(baseShape.getPoints(), 48);
+          baseGeo.computeVertexNormals();
+          activeMeshGroup.add(new THREE.Mesh(baseGeo, terraMat));
+
+          // Tampa giratória superior côncava com folga
+          const capShape = new THREE.Shape();
+          capShape.moveTo(1.2, totalH + 0.5);
+          capShape.lineTo(fingerR, totalH + 0.5);
+          capShape.lineTo(fingerR, totalH + 4.5);
+          capShape.lineTo(1.2, totalH + 4.5);
+          capShape.lineTo(1.2, totalH + 0.5);
+
+          const capGeo = new THREE.LatheGeometry(capShape.getPoints(), 36);
+          capGeo.computeVertexNormals();
+          activeMeshGroup.add(new THREE.Mesh(capGeo, celadonMat));
+        }
+
+        estWeightG = Math.round((diam / 50) ** 2 * (totalH / 10) * 16);
+
+      } else if (tool === 'chuck_mandril') {
+        const dBase = Math.max(100, Math.min(280, p1));
+        const dTop = Math.max(30, Math.min(180, p2));
+        const h = Math.max(40, Math.min(220, p3));
+        const rBase = dBase / 2;
+        const rTop = dTop / 2;
+        const wall = 5.0;
+
+        // Mandril cônico oco com inclinação >= 50° para impressão 100% sem suportes em Z=0
+        const pts = [
+          new THREE.Vector2(0, 0),
+          new THREE.Vector2(rBase, 0),
+          new THREE.Vector2(rBase, 8.0),
+          new THREE.Vector2(rTop + wall, h),
+          new THREE.Vector2(rTop, h),
+          new THREE.Vector2(Math.max(12, rTop - wall), h - 10),
+          new THREE.Vector2(Math.max(10, rBase - wall * 2.5), 8.0),
+          new THREE.Vector2(0, 8.0)
+        ];
+
+        const chuckGeo = new THREE.LatheGeometry(pts, 48);
+        chuckGeo.computeVertexNormals();
+        activeMeshGroup.add(new THREE.Mesh(chuckGeo, celadonMat));
+
+        // 2 Rasgos Oblongos para Pinos de Morcego (Bat Pins Ø10mm em 254 ou 250 mm)
+        if (opt1 && submode !== 'bat_sem_pinos') {
+          const pinDist = submode === 'bat_250' ? 125 : 127;
+          [-1, 1].forEach(dir => {
+            const pinHole = new THREE.CylinderGeometry(5.2, 5.2, 9.0, 16);
+            pinHole.translate(dir * pinDist, 4.0, 0);
+            activeMeshGroup.add(new THREE.Mesh(pinHole, accentMat));
+          });
+        }
+
+        // Degraus concêntricos no lábio superior
+        if (opt2) {
+          const stepRing = new THREE.TorusGeometry(rTop + 2.5, 1.4, 8, 36);
+          stepRing.rotateX(Math.PI / 2);
+          stepRing.translate(0, h, 0);
+          activeMeshGroup.add(new THREE.Mesh(stepRing, terraMat));
+        }
+
+        estWeightG = Math.round(((rBase + rTop) / 100) * (h / 80) * 85);
+
+      } else if (tool === 'throwing_gauge') {
+        const hCol = Math.max(100, Math.min(320, p1));
+        const needleL = Math.max(60, Math.min(220, p2));
+        const tipR = Math.max(1.0, Math.min(4.0, p3));
+
+        // Haste vertical deitada na mesa em Z=0 para impressão sem suporte
+        const railGeo = new THREE.BoxGeometry(16, 16, hCol);
+        railGeo.translate(0, 8, 0);
+        activeMeshGroup.add(new THREE.Mesh(railGeo, celadonMat));
+
+        // Base C-Clamp / Sapata
+        const baseGeo = new THREE.BoxGeometry(60, 24, 45);
+        baseGeo.translate(0, 12, -hCol / 2 + 25);
+        activeMeshGroup.add(new THREE.Mesh(baseGeo, accentMat));
+
+        // 2 Agulhas horizontais com ponteiro de segurança esferoidal
+        [-1, 1].forEach((dir, idx) => {
+          const needleY = (hCol / 4) * (idx + 1) - hCol / 2;
+          const nGeo = new THREE.CylinderGeometry(2.5, 2.5, needleL, 16);
+          nGeo.rotateZ(Math.PI / 2);
+          nGeo.translate(needleL / 2 + 10, 10, needleY);
+          activeMeshGroup.add(new THREE.Mesh(nGeo, terraMat));
+
+          const ballGeo = new THREE.SphereGeometry(tipR, 16, 16);
+          ballGeo.translate(needleL + 10, 10, needleY);
+          activeMeshGroup.add(new THREE.Mesh(ballGeo, accentMat));
+        });
+
+        estWeightG = Math.round((hCol / 200) * 75);
+
+      } else if (tool === 'chanfrador_45') {
+        const sL = Math.max(35, Math.min(100, p1));
+        const sW = Math.max(20, Math.min(60, p2));
+        const cH = Math.max(8, Math.min(45, p3));
+
+        // Esqui planar Z=0 com lâmina 45° e calha de evacuação parabólica
+        const sledShape = new THREE.Shape();
+        sledShape.moveTo(0, 0);
+        sledShape.lineTo(sL, 0);
+        sledShape.lineTo(sL, cH);
+        sledShape.lineTo(sL - cH, 0); // Corte exato a 45°
+        sledShape.lineTo(8, 0);
+        sledShape.quadraticCurveTo(0, 0, 0, 6); // Proa náutica de deslizamento
+        sledShape.lineTo(0, 0);
+
+        const sledGeo = new THREE.ExtrudeGeometry(sledShape, { depth: sW, bevelEnabled: true, bevelThickness: 0.8, bevelSize: 0.8 });
+        sledGeo.center();
+        sledGeo.computeBoundingBox();
+        sledGeo.translate(0, -sledGeo.boundingBox.min.y, 0);
+        activeMeshGroup.add(new THREE.Mesh(sledGeo, terraMat));
+
+        estWeightG = Math.round((sL * sW * cH) / 1200);
+
+      } else if (tool === 'lid_caliper') {
+        const armL = Math.max(90, Math.min(220, p1));
+        const gap = Math.max(0.5, Math.min(4.0, p2));
+        const thick = Math.max(2.5, Math.min(6.0, p3));
+
+        // Braço duplo cruzado com compensação proporcional de folga de tampa
+        const makeArm = (isUpper) => {
+          const arm = new THREE.Shape();
+          arm.moveTo(0, 0);
+          arm.lineTo(armL, 0);
+          arm.lineTo(armL - 8, 12);
+          arm.lineTo(12, 12);
+          arm.lineTo(0, 0);
+          return new THREE.ExtrudeGeometry(arm, { depth: thick, bevelEnabled: false });
+        };
+
+        const g1 = makeArm(true);
+        g1.center();
+        g1.rotateZ(0.25);
+        g1.computeBoundingBox();
+        g1.translate(0, -g1.boundingBox.min.y, 0);
+        activeMeshGroup.add(new THREE.Mesh(g1, celadonMat));
+
+        const g2 = makeArm(false);
+        g2.center();
+        g2.rotateZ(-0.25);
+        g2.computeBoundingBox();
+        g2.translate(0, -g2.boundingBox.min.y + thick + 0.6, 0);
+        activeMeshGroup.add(new THREE.Mesh(g2, terraMat));
+
+        // Pino pivô central
+        const pinGeo = new THREE.CylinderGeometry(5.0, 5.0, thick * 2 + 3.0, 24);
+        pinGeo.translate(0, thick + 1.0, 0);
+        activeMeshGroup.add(new THREE.Mesh(pinGeo, accentMat));
+
+        estWeightG = Math.round((armL / 100) * 35);
+
+      } else if (tool === 'shrinkage_ruler') {
+        const firedL = Math.max(100, Math.min(300, p1));
+        const shrinkPct = Math.max(5.0, Math.min(22.0, p2));
+        const thick = Math.max(2.0, Math.min(6.0, p3));
+        const scaleFactor = 1 / (1 - shrinkPct / 100);
+        const rawL = Math.round(firedL * scaleFactor);
+        const rulerW = 32;
+
+        // Corpo da régua expandida em Z=0
+        const rulerGeo = new THREE.BoxGeometry(rawL, thick, rulerW);
+        rulerGeo.translate(0, thick / 2, 0);
+        activeMeshGroup.add(new THREE.Mesh(rulerGeo, terraMat));
+
+        // Ranhuras milimétricas em relevo no topo
+        if (opt1) {
+          const stepMm = 10 * scaleFactor;
+          const count = Math.floor(rawL / stepMm);
+          for (let k = -Math.floor(count / 2); k <= Math.floor(count / 2); k++) {
+            const markGeo = new THREE.BoxGeometry(0.8, 0.6, 14);
+            markGeo.translate(k * stepMm, thick + 0.3, rulerW / 2 - 8);
+            activeMeshGroup.add(new THREE.Mesh(markGeo, accentMat));
+          }
+        }
+
+        // Nervuras inferiores triangulares para estampar tiras na argila
+        if (opt2) {
+          const stepMm = 10 * scaleFactor;
+          const count = Math.floor(rawL / stepMm);
+          for (let k = -Math.floor(count / 2); k <= Math.floor(count / 2); k++) {
+            const stampRib = new THREE.BoxGeometry(1.2, 1.0, rulerW);
+            stampRib.translate(k * stepMm, -0.5, 0);
+            activeMeshGroup.add(new THREE.Mesh(stampRib, celadonMat));
+          }
+        }
+
+        estWeightG = Math.round((rawL / 180) * (rulerW / 30) * (thick / 3) * 32);
+
+      } else if (tool === 'glaze_tile') {
+        const hTile = Math.max(50, Math.min(140, p1));
+        const wTile = Math.max(25, Math.min(70, p2));
+        const nSteps = Math.max(2, Math.min(5, p3));
+
+        if (submode === 'matriz_extrusora') {
+          // Flange circular para bocal de extrusora de argila (Ø58mm / Ø75mm)
+          const flangeGeo = new THREE.CylinderGeometry(29, 29, 6.0, 48);
+          flangeGeo.translate(0, 3.0, 0);
+          activeMeshGroup.add(new THREE.Mesh(flangeGeo, celadonMat));
+
+          const slotGeo = new THREE.BoxGeometry(wTile * 0.7, 8.0, 4.0);
+          slotGeo.translate(0, 3.0, 0);
+          activeMeshGroup.add(new THREE.Mesh(slotGeo, accentMat));
+        } else {
+          // Ladrilho vertical em L autoportante
+          const shape = new THREE.Shape();
+          shape.moveTo(0, 0);
+          shape.lineTo(28, 0); // Pé L autoportante amplo
+          shape.lineTo(28, 4.5);
+          shape.lineTo(4.5, 4.5);
+          // Degraus coletores de escorrimento com ângulo para reter esmalte fundido
+          for (let k = 1; k <= nSteps; k++) {
+            const stepY = 14 + k * 12;
+            shape.lineTo(4.5, stepY - 3);
+            shape.lineTo(9.5, stepY);
+            shape.lineTo(4.5, stepY + 2);
+          }
+          shape.lineTo(4.5, hTile);
+          shape.lineTo(0, hTile);
+          shape.lineTo(0, 0);
+
+          // Furo superior para pendurar no mostruário
+          const hole = new THREE.Path();
+          hole.absarc(2.25, hTile - 8, 3.0, 0, Math.PI * 2, false);
+          shape.holes.push(hole);
+
+          const tileGeo = new THREE.ExtrudeGeometry(shape, { depth: wTile, bevelEnabled: false });
+          tileGeo.center();
+          tileGeo.computeBoundingBox();
+          tileGeo.translate(0, -tileGeo.boundingBox.min.y, 0);
+          activeMeshGroup.add(new THREE.Mesh(tileGeo, celadonMat));
+        }
+
+        estWeightG = Math.round((hTile / 80) * (wTile / 40) * 36);
+
+      } else {
+        // throwing_rib_pro
+        const rib = buildCeramicRibShape();
+        const bevelThick = rib.edgeType === 'bisel_30' ? 1.6 : rib.edgeType === 'bisel_45' ? 1.2 : 0.6;
+        const bevelSz = rib.edgeType === 'bisel_30' ? 2.2 : rib.edgeType === 'bisel_45' ? 1.2 : 0.6;
+
+        const geo = new THREE.ExtrudeGeometry(rib.shape, {
+          depth: 3.8,
+          bevelEnabled: true,
+          bevelSegments: 4,
+          steps: 1,
+          bevelSize: bevelSz,
+          bevelThickness: bevelThick
+        });
+        geo.center();
+        geo.computeBoundingBox();
+        geo.translate(0, 0, -geo.boundingBox.min.z);
+        geo.rotateX(-Math.PI / 2);
+        geo.computeBoundingBox();
+        geo.translate(0, -geo.boundingBox.min.y, 0);
+
+        const mesh = new THREE.Mesh(geo, terraMat);
+        activeMeshGroup.add(mesh);
+        estWeightG = 28;
+      }
+
+      updateViewportBoundingBox();
+      const barG = document.getElementById('bar-pla-g');
+      if (barG) barG.textContent = `~${estWeightG} g`;
+      const pFilG = document.getElementById('p-filament-g');
+      if (pFilG) pFilG.value = estWeightG;
+      recalcPricing();
+    }
+
+    function exportLatheToolSTL() {
+      if (!activeMeshGroup || activeMeshGroup.children.length === 0) {
+        alert('Nenhuma ferramenta gerada no palco 3D para exportar.');
+        return;
+      }
+      const tool = document.getElementById('lathe-tool-select')?.value || 'spinner_608';
+      const p1 = Math.round(parseFloat(document.getElementById('lathe-param1')?.value) || 50);
+      let filename = `ferramenta_torno_${tool}_${p1}mm.stl`;
+
+      if (tool === 'spinner_608') filename = `trimming_spinner_608_${p1}mm.stl`;
+      else if (tool === 'chuck_mandril') filename = `mandril_torno_chuck_${p1}mm.stl`;
+      else if (tool === 'throwing_gauge') filename = `throwing_gauge_kit_${p1}mm.stl`;
+      else if (tool === 'chanfrador_45') filename = `cortador_pe_chanfro_45_${p1}mm.stl`;
+      else if (tool === 'lid_caliper') filename = `calibre_duplo_tampa_${p1}mm.stl`;
+      else if (tool === 'shrinkage_ruler') {
+        const pct = document.getElementById('lathe-param2')?.value || '12';
+        filename = `regua_retracao_${pct}pct_${p1}mm.stl`;
+      } else if (tool === 'glaze_tile') filename = `proveta_teste_esmalte_${p1}mm.stl`;
+      else if (tool === 'throwing_rib_pro') filename = `costela_torno_pro_${p1}mm.stl`;
+
+      const exporter = new THREE.STLExporter();
+      const stl = exporter.parse(activeMeshGroup, { binary: true });
+      downloadBlob(new Blob([stl], { type: 'application/octet-stream' }), filename);
     }
 
     // =========================================================================
