@@ -1,11 +1,11 @@
 {
-  "timestamp": "2026-11-08T19:07:20.024Z",
+  "timestamp": "2026-11-08T23:45:25.207Z",
   "summary": {
     "total": 111,
     "passed": 111,
     "failed": 0,
     "passRate": "100.0%",
-    "durationSeconds": "48.51",
+    "durationSeconds": "99.56",
     "byStation": {
       "Station 1": {
         "total": 111,
@@ -69,7 +69,7 @@
           ]
         }
       },
-      "durationMs": 159
+      "durationMs": 183
     },
     {
       "id": "s1_spline_profile_xicara_cha",
@@ -104,7 +104,7 @@
           ]
         }
       },
-      "durationMs": 156
+      "durationMs": 540
     },
     {
       "id": "s1_spline_profile_caneca_cilindrica",
@@ -139,7 +139,7 @@
           ]
         }
       },
-      "durationMs": 119
+      "durationMs": 173
     },
     {
       "id": "s1_spline_profile_caneca_barril",
@@ -174,7 +174,7 @@
           ]
         }
       },
-      "durationMs": 122
+      "durationMs": 141
     },
     {
       "id": "s1_spline_profile_cuia_chimarrao",
@@ -209,7 +209,7 @@
           ]
         }
       },
-      "durationMs": 129
+      "durationMs": 137
     },
     {
       "id": "s1_spline_profile_cuia_terere",
@@ -244,7 +244,7 @@
           ]
         }
       },
-      "durationMs": 127
+      "durationMs": 103
     },
     {
       "id": "s1_spline_profile_chaleira_bule",
@@ -279,7 +279,7 @@
           ]
         }
       },
-      "durationMs": 127
+      "durationMs": 144
     },
     {
       "id": "s1_spline_profile_bule_cafe",
@@ -314,7 +314,7 @@
           ]
         }
       },
-      "durationMs": 90
+      "durationMs": 131
     },
     {
       "id": "s1_spline_profile_panela_barro",
@@ -349,7 +349,7 @@
           ]
         }
       },
-      "durationMs": 92
+      "durationMs": 106
     },
     {
       "id": "s1_spline_profile_cacarola_forno",
@@ -384,7 +384,7 @@
           ]
         }
       },
-      "durationMs": 93
+      "durationMs": 124
     },
     {
       "id": "s1_spline_profile_sopeira_artesanal",
@@ -419,7 +419,7 @@
           ]
         }
       },
-      "durationMs": 89
+      "durationMs": 145
     },
     {
       "id": "s1_spline_profile_leiteira_jarra",
@@ -454,7 +454,7 @@
           ]
         }
       },
-      "durationMs": 88
+      "durationMs": 132
     },
     {
       "id": "s1_spline_profile_tigela_chawan",
@@ -489,7 +489,7 @@
           ]
         }
       },
-      "durationMs": 93
+      "durationMs": 102
     },
     {
       "id": "s1_spline_profile_acucareiro_pote",
@@ -524,7 +524,7 @@
           ]
         }
       },
-      "durationMs": 84
+      "durationMs": 123
     },
     {
       "id": "s1_spline_profile_anfora",
@@ -559,7 +559,7 @@
           ]
         }
       },
-      "durationMs": 97
+      "durationMs": 98
     },
     {
       "id": "s1_spline_profile_cratera",
@@ -594,7 +594,7 @@
           ]
         }
       },
-      "durationMs": 91
+      "durationMs": 101
     },
     {
       "id": "s1_spline_profile_hidria",
@@ -629,7 +629,7 @@
           ]
         }
       },
-      "durationMs": 115
+      "durationMs": 104
     },
     {
       "id": "s1_spline_profile_lecito",
@@ -664,7 +664,7 @@
           ]
         }
       },
-      "durationMs": 88
+      "durationMs": 110
     },
     {
       "id": "s1_spline_profile_pithos",
@@ -699,7 +699,7 @@
           ]
         }
       },
-      "durationMs": -681
+      "durationMs": 96
     },
     {
       "id": "s1_spline_profile_kylix",
@@ -734,7 +734,7 @@
           ]
         }
       },
-      "durationMs": 94
+      "durationMs": 97
     },
     {
       "id": "s1_spline_profile_enocoa",
@@ -769,7 +769,7 @@
           ]
         }
       },
-      "durationMs": 115
+      "durationMs": 107
     },
     {
       "id": "s1_spline_profile_psicter",
@@ -804,7 +804,7 @@
           ]
         }
       },
-      "durationMs": 94
+      "durationMs": 95
     },
     {
       "id": "s1_spline_profile_pelike",
@@ -839,7 +839,7 @@
           ]
         }
       },
-      "durationMs": 90
+      "durationMs": 100
     },
     {
       "id": "s1_spline_profile_aribalo",
@@ -874,7 +874,7 @@
           ]
         }
       },
-      "durationMs": 101
+      "durationMs": 95
     },
     {
       "id": "s1_spline_profile_cantaro",
@@ -909,7 +909,7 @@
           ]
         }
       },
-      "durationMs": 93
+      "durationMs": 112
     },
     {
       "id": "s1_spline_profile_cabaca",
@@ -944,7 +944,7 @@
           ]
         }
       },
-      "durationMs": 88
+      "durationMs": 115
     },
     {
       "id": "s1_spline_profile_moonjar",
@@ -979,7 +979,7 @@
           ]
         }
       },
-      "durationMs": 79
+      "durationMs": 96
     },
     {
       "id": "s1_spline_profile_meiping",
@@ -1014,7 +1014,7 @@
           ]
         }
       },
-      "durationMs": 88
+      "durationMs": 92
     },
     {
       "id": "s1_spline_profile_baluster",
@@ -1049,7 +1049,7 @@
           ]
         }
       },
-      "durationMs": 80
+      "durationMs": 96
     },
     {
       "id": "s1_spline_profile_tokkuri",
@@ -1084,7 +1084,7 @@
           ]
         }
       },
-      "durationMs": 85
+      "durationMs": 96
     },
     {
       "id": "s1_spline_profile_yuhuchun",
@@ -1119,7 +1119,7 @@
           ]
         }
       },
-      "durationMs": 82
+      "durationMs": 100
     },
     {
       "id": "s1_spline_profile_zun",
@@ -1154,7 +1154,7 @@
           ]
         }
       },
-      "durationMs": 85
+      "durationMs": 169
     },
     {
       "id": "s1_spline_profile_cong",
@@ -1189,7 +1189,7 @@
           ]
         }
       },
-      "durationMs": 83
+      "durationMs": 94
     },
     {
       "id": "s1_spline_profile_alho",
@@ -1224,7 +1224,7 @@
           ]
         }
       },
-      "durationMs": 86
+      "durationMs": 106
     },
     {
       "id": "s1_spline_profile_tsubo",
@@ -1259,7 +1259,7 @@
           ]
         }
       },
-      "durationMs": 85
+      "durationMs": 184
     },
     {
       "id": "s1_spline_profile_maebyong",
@@ -1294,7 +1294,7 @@
           ]
         }
       },
-      "durationMs": 84
+      "durationMs": 106
     },
     {
       "id": "s1_spline_profile_garrafa",
@@ -1329,7 +1329,7 @@
           ]
         }
       },
-      "durationMs": 91
+      "durationMs": 165
     },
     {
       "id": "s1_spline_profile_gota",
@@ -1364,7 +1364,7 @@
           ]
         }
       },
-      "durationMs": 79
+      "durationMs": 110
     },
     {
       "id": "s1_spline_profile_albarello",
@@ -1399,7 +1399,7 @@
           ]
         }
       },
-      "durationMs": 105
+      "durationMs": 97
     },
     {
       "id": "s1_spline_profile_tulipa",
@@ -1434,7 +1434,7 @@
           ]
         }
       },
-      "durationMs": 79
+      "durationMs": 142
     },
     {
       "id": "s1_spline_profile_nordico",
@@ -1469,7 +1469,7 @@
           ]
         }
       },
-      "durationMs": 113
+      "durationMs": 99
     },
     {
       "id": "s1_spline_profile_ampulheta",
@@ -1504,7 +1504,7 @@
           ]
         }
       },
-      "durationMs": 86
+      "durationMs": 96
     },
     {
       "id": "s1_spline_profile_bojobaixo",
@@ -1539,7 +1539,7 @@
           ]
         }
       },
-      "durationMs": 86
+      "durationMs": 98
     },
     {
       "id": "s1_spline_profile_marajoara",
@@ -1574,7 +1574,7 @@
           ]
         }
       },
-      "durationMs": 99
+      "durationMs": 121
     },
     {
       "id": "s1_spline_profile_inca",
@@ -1609,7 +1609,7 @@
           ]
         }
       },
-      "durationMs": 93
+      "durationMs": 99
     },
     {
       "id": "s1_spline_profile_moringa",
@@ -1644,7 +1644,7 @@
           ]
         }
       },
-      "durationMs": 95
+      "durationMs": 96
     },
     {
       "id": "s1_spline_profile_totem",
@@ -1679,7 +1679,7 @@
           ]
         }
       },
-      "durationMs": 100
+      "durationMs": 116
     },
     {
       "id": "s1_spline_profile_bib_twisted",
@@ -1714,7 +1714,7 @@
           ]
         }
       },
-      "durationMs": 73
+      "durationMs": 78
     },
     {
       "id": "s1_spline_profile_bib_fluted",
@@ -1749,7 +1749,7 @@
           ]
         }
       },
-      "durationMs": 83
+      "durationMs": 79
     },
     {
       "id": "s1_spline_profile_bib_lampshade",
@@ -1784,7 +1784,7 @@
           ]
         }
       },
-      "durationMs": 68
+      "durationMs": 70
     },
     {
       "id": "s1_spline_profile_bib_facetado",
@@ -1819,7 +1819,7 @@
           ]
         }
       },
-      "durationMs": 66
+      "durationMs": 72
     },
     {
       "id": "s1_spline_profile_bib_costela",
@@ -1854,7 +1854,7 @@
           ]
         }
       },
-      "durationMs": 72
+      "durationMs": 84
     },
     {
       "id": "s1_spline_profile_bib_chanfrador",
@@ -1889,7 +1889,7 @@
           ]
         }
       },
-      "durationMs": 65
+      "durationMs": 69
     },
     {
       "id": "s1_spline_profile_bib_extrusora",
@@ -1924,7 +1924,7 @@
           ]
         }
       },
-      "durationMs": 67
+      "durationMs": 77
     },
     {
       "id": "s1_texture_liso",
@@ -1959,7 +1959,7 @@
           ]
         }
       },
-      "durationMs": 80
+      "durationMs": 106
     },
     {
       "id": "s1_texture_canelado",
@@ -1994,7 +1994,7 @@
           ]
         }
       },
-      "durationMs": 81
+      "durationMs": 102
     },
     {
       "id": "s1_texture_senoidal",
@@ -2029,7 +2029,7 @@
           ]
         }
       },
-      "durationMs": 77
+      "durationMs": 108
     },
     {
       "id": "s1_texture_cones",
@@ -2064,7 +2064,7 @@
           ]
         }
       },
-      "durationMs": 82
+      "durationMs": 106
     },
     {
       "id": "s1_texture_escamas",
@@ -2099,7 +2099,7 @@
           ]
         }
       },
-      "durationMs": 91
+      "durationMs": 125
     },
     {
       "id": "s1_texture_martelado",
@@ -2134,7 +2134,7 @@
           ]
         }
       },
-      "durationMs": 88
+      "durationMs": 119
     },
     {
       "id": "s1_texture_espiral_corda",
@@ -2169,7 +2169,7 @@
           ]
         }
       },
-      "durationMs": 93
+      "durationMs": 103
     },
     {
       "id": "s1_texture_favo_3d",
@@ -2204,7 +2204,7 @@
           ]
         }
       },
-      "durationMs": 111
+      "durationMs": 97
     },
     {
       "id": "s1_texture_ondas_zen",
@@ -2239,7 +2239,7 @@
           ]
         }
       },
-      "durationMs": 92
+      "durationMs": 116
     },
     {
       "id": "s1_texture_gomos_abobora",
@@ -2274,7 +2274,7 @@
           ]
         }
       },
-      "durationMs": 127
+      "durationMs": 112
     },
     {
       "id": "s1_texture_trama_cesto",
@@ -2309,7 +2309,7 @@
           ]
         }
       },
-      "durationMs": 100
+      "durationMs": 139
     },
     {
       "id": "s1_morph_cross_circle",
@@ -2321,7 +2321,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 85
+      "durationMs": 122
     },
     {
       "id": "s1_morph_cross_petals",
@@ -2333,7 +2333,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 83
+      "durationMs": 106
     },
     {
       "id": "s1_morph_cross_polygon",
@@ -2345,7 +2345,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 78
+      "durationMs": 96
     },
     {
       "id": "s1_morph_twist_neg180",
@@ -2357,7 +2357,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 77
+      "durationMs": 99
     },
     {
       "id": "s1_morph_twist_pos180",
@@ -2369,7 +2369,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 80
+      "durationMs": 87
     },
     {
       "id": "s1_morph_lofting_blend",
@@ -2381,7 +2381,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 79
+      "durationMs": 101
     },
     {
       "id": "s1_finish_terracota",
@@ -2393,7 +2393,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 2
+      "durationMs": 3
     },
     {
       "id": "s1_finish_celadon",
@@ -2405,7 +2405,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 778
+      "durationMs": 1574
     },
     {
       "id": "s1_finish_raku",
@@ -2417,7 +2417,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 223
+      "durationMs": 342
     },
     {
       "id": "s1_finish_gres",
@@ -2429,7 +2429,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 115
+      "durationMs": 363
     },
     {
       "id": "s1_finish_sigillata",
@@ -2441,7 +2441,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 46
+      "durationMs": 143
     },
     {
       "id": "s1_finish_porcelana",
@@ -2453,7 +2453,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 22
+      "durationMs": 200
     },
     {
       "id": "s1_feature_cut_270",
@@ -2465,7 +2465,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 126
+      "durationMs": 336
     },
     {
       "id": "s1_feature_closed_360",
@@ -2477,7 +2477,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 71
+      "durationMs": 85
     },
     {
       "id": "s1_feature_drainage_hole",
@@ -2489,7 +2489,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 80
+      "durationMs": 121
     },
     {
       "id": "s1_feature_base_fillet",
@@ -2501,7 +2501,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 75
+      "durationMs": 91
     },
     {
       "id": "s1_converter_spline_to_slabs",
@@ -2513,7 +2513,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 11922
+      "durationMs": 26736
     },
     {
       "id": "s1_slab_recipe_anfora_aneis",
@@ -2556,7 +2556,7 @@
           "patternLabels": "S1 Cone, S2 Cilindro, S3 Cone, S4 Cone, Disco Base Ø74"
         }
       },
-      "durationMs": 246
+      "durationMs": 455
     },
     {
       "id": "s1_slab_recipe_xicara_cafe",
@@ -2599,7 +2599,7 @@
           "patternLabels": "S1 Disco (solido), S2 Cilindro, S3 Cone, Disco Fundo Ø44 (Sólido), Tira de Alça  (80x12 mm)"
         }
       },
-      "durationMs": 226
+      "durationMs": 377
     },
     {
       "id": "s1_slab_recipe_xicara_cha",
@@ -2642,7 +2642,7 @@
           "patternLabels": "S1 Disco (solido), S3 Bojo 1/4, S3 Bojo 2/4, S3 Bojo 3/4, S3 Bojo 4/4, Disco Fundo Ø52 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Pé/Kodai (183x10 mm), Tira de Alça  (83x15 mm)"
         }
       },
-      "durationMs": 536
+      "durationMs": 1178
     },
     {
       "id": "s1_slab_recipe_caneca_cilindrica",
@@ -2685,7 +2685,7 @@
           "patternLabels": "S1 Disco (solido), S2 Cilindro, Disco Fundo Ø84 (Sólido), Faixa de Borda/Boca (296x9 mm), Tira de Alça  (112x18 mm)"
         }
       },
-      "durationMs": 110
+      "durationMs": 146
     },
     {
       "id": "s1_slab_recipe_caneca_barril",
@@ -2728,7 +2728,7 @@
           "patternLabels": "S1 Disco (solido), S2 Bojo 1/4, S2 Bojo 2/4, S2 Bojo 3/4, S2 Bojo 4/4, Disco Fundo Ø76 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Tira de Alça  (112x18 mm)"
         }
       },
-      "durationMs": 153
+      "durationMs": 294
     },
     {
       "id": "s1_slab_recipe_cuia_chimarrao",
@@ -2771,7 +2771,7 @@
           "patternLabels": "S1 Disco (solido), S2 Cone, S4 Bojo 1/4, S4 Bojo 2/4, S4 Bojo 3/4, S4 Bojo 4/4, S5 Cone, Disco Fundo Ø60 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Pé/Kodai (155x11 mm), Faixa de Borda/Boca (324x10 mm)"
         }
       },
-      "durationMs": 930
+      "durationMs": 1875
     },
     {
       "id": "s1_slab_recipe_cuia_terere",
@@ -2814,7 +2814,7 @@
           "patternLabels": "S1 Disco (solido), S2 Cone, S3 Cilindro, Disco Fundo Ø60 (Sólido), Faixa de Borda/Boca (296x9 mm)"
         }
       },
-      "durationMs": -613
+      "durationMs": 135
     },
     {
       "id": "s1_slab_recipe_chaleira_bule",
@@ -2857,7 +2857,7 @@
           "patternLabels": "S1 Disco (solido), S2 Bojo 1/4, S2 Bojo 2/4, S2 Bojo 3/4, S2 Bojo 4/4, S3 Cone, Disco Fundo Ø84 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Tira de Alça  (119x18 mm), Leque do Bico Vertedor (Base Ø34 ➔ Ponta Ø16 • Alcance 42mm), Disco da Tampa Ø83 mm (Domo 18mm)"
         }
       },
-      "durationMs": 891
+      "durationMs": 1763
     },
     {
       "id": "s1_slab_recipe_bule_cafe",
@@ -2900,7 +2900,7 @@
           "patternLabels": "S1 Disco (solido), S2 Cone, S3 Cone, S4 Cilindro, Disco Fundo Ø80 (Sólido), Tira de Alça  (146x17 mm), Leque do Bico Vertedor (Base Ø31 ➔ Ponta Ø15 • Alcance 44mm), Disco da Tampa Ø83 mm (Domo 20mm)"
         }
       },
-      "durationMs": 205
+      "durationMs": 345
     },
     {
       "id": "s1_slab_recipe_panela_barro",
@@ -2943,7 +2943,7 @@
           "patternLabels": "S1 Disco (solido), S2 Bojo 1/4, S2 Bojo 2/4, S2 Bojo 3/4, S2 Bojo 4/4, Disco Fundo Ø128 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Borda/Boca (507x11 mm), Tira de Alça 1/2 (74x22 mm), Tira de Alça 2/2 (74x22 mm), Disco da Tampa Ø168 mm (Domo 24mm)"
         }
       },
-      "durationMs": 131
+      "durationMs": 229
     },
     {
       "id": "s1_slab_recipe_cacarola_forno",
@@ -2986,7 +2986,7 @@
           "patternLabels": "S1 Disco (solido), S2 Cilindro, Disco Fundo Ø136 (Sólido), Faixa de Borda/Boca (479x10 mm), Tira de Alça 1/2 (67x25 mm), Tira de Alça 2/2 (67x25 mm), Disco da Tampa Ø159 mm (Domo 18mm)"
         }
       },
-      "durationMs": 123
+      "durationMs": 193
     },
     {
       "id": "s1_slab_recipe_sopeira_artesanal",
@@ -3029,7 +3029,7 @@
           "patternLabels": "S1 Disco (solido), S3 Bojo 1/4, S3 Bojo 2/4, S3 Bojo 3/4, S3 Bojo 4/4, Disco Fundo Ø108 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Pé/Kodai (380x13 mm), Tira de Alça 1/2 (80x20 mm), Tira de Alça 2/2 (80x20 mm), Disco da Tampa Ø155 mm (Domo 28mm)"
         }
       },
-      "durationMs": 540
+      "durationMs": 1056
     },
     {
       "id": "s1_slab_recipe_leiteira_jarra",
@@ -3072,7 +3072,7 @@
           "patternLabels": "S1 Disco (solido), S2 Bojo 1/4, S2 Bojo 2/4, S2 Bojo 3/4, S2 Bojo 4/4, S3 Cone, Disco Fundo Ø76 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Tira de Alça  (122x17 mm), Leque do Bico Vertedor (Base Ø31 ➔ Ponta Ø18 • Alcance 24mm)"
         }
       },
-      "durationMs": 542
+      "durationMs": 1069
     },
     {
       "id": "s1_slab_recipe_pote_tampa",
@@ -3115,7 +3115,7 @@
           "patternLabels": "S1 Disco (solido), S2 Cilindro, Disco Fundo Ø88 (Sólido), Faixa de Borda/Boca (310x9 mm), Disco da Tampa Ø105 mm (Domo 16mm)"
         }
       },
-      "durationMs": 81
+      "durationMs": 99
     },
     {
       "id": "s1_btn_add_cilindro",
@@ -3127,7 +3127,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 78
+      "durationMs": 103
     },
     {
       "id": "s1_btn_add_cone",
@@ -3139,7 +3139,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 95
+      "durationMs": 129
     },
     {
       "id": "s1_btn_add_esfera",
@@ -3151,7 +3151,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 545
+      "durationMs": 1073
     },
     {
       "id": "s1_btn_add_disco",
@@ -3163,7 +3163,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 636
+      "durationMs": 1291
     },
     {
       "id": "s1_btn_add_alca",
@@ -3175,7 +3175,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 739
+      "durationMs": 1806
     },
     {
       "id": "s1_btn_add_bico",
@@ -3187,7 +3187,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 1075
+      "durationMs": 2509
     },
     {
       "id": "s1_btn_add_tampa",
@@ -3199,7 +3199,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 1134
+      "durationMs": 2253
     },
     {
       "id": "s1_btn_add_borda",
@@ -3211,7 +3211,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 1215
+      "durationMs": 2514
     },
     {
       "id": "s1_card_inputs_reactive",
@@ -3223,7 +3223,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 334
+      "durationMs": 651
     },
     {
       "id": "s1_2d_patterns_pdf_export",
@@ -3249,7 +3249,7 @@
           }
         ]
       },
-      "durationMs": 2553
+      "durationMs": 5170
     },
     {
       "id": "s1_torno_costela_3d",
@@ -3284,7 +3284,7 @@
           ]
         }
       },
-      "durationMs": 72
+      "durationMs": 89
     },
     {
       "id": "s1_torno_gabarito_negativo_3d",
@@ -3319,7 +3319,7 @@
           ]
         }
       },
-      "durationMs": 73
+      "durationMs": 78
     },
     {
       "id": "s1_torno_volume_telemetry_scale",
@@ -3335,7 +3335,7 @@
         "rawAfter": 591.743323646703,
         "firedExpected": 403.25650625216593
       },
-      "durationMs": 7
+      "durationMs": 14
     },
     {
       "id": "s1_export_stl_binary",
@@ -3355,7 +3355,7 @@
           }
         ]
       },
-      "durationMs": 118
+      "durationMs": 130
     },
     {
       "id": "s1_ceramic_mesh_factory_origami",
@@ -3380,7 +3380,7 @@
         "cp2dValleys": 51,
         "facetMeshCount": 1
       },
-      "durationMs": 10
+      "durationMs": 25
     }
   ],
   "consoleErrors": []

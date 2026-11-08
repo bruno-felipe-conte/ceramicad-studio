@@ -622,14 +622,11 @@
     class="h-14 bg-white/90 dark:bg-[#151413]/95 backdrop-blur-xl border-b border-stone-200/80 dark:border-white/10 px-3 md:px-5 flex items-center justify-between shrink-0 z-40 shadow-xs select-none">
     <!-- Identidade da Marca + Subtítulo -->
     <div class="flex items-center gap-3">
-      <button type="button" onclick="toggleNavRail()"
-        class="w-8 h-8 rounded-xl bg-stone-100 dark:bg-stone-800 hover:bg-terracotta-500 hover:text-white text-stone-700 dark:text-stone-200 flex items-center justify-center transition shadow-xs lg:hidden"
-        title="Menu Lateral de Ferramentas Avançadas">
-        <span class="text-sm font-bold">☰</span>
-      </button>
       <div
-        class="w-8 h-8 rounded-xl bg-terracotta-500 text-white flex items-center justify-center font-bold text-base shadow-md shadow-terracotta-500/25">
-        🏺
+        class="w-8 h-8 rounded-xl bg-terracotta-500 text-white flex items-center justify-center shadow-md shadow-terracotta-500/25 shrink-0">
+        <svg class="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24">
+          <path d="M7 3h10v2h-1.5c-.8 2-1.5 5 1.5 8s3 6 1 8H6c-2-2-1-5 1-8s2.3-6 1.5-8H7V3z"/>
+        </svg>
       </div>
       <div class="flex flex-col">
         <div class="flex items-center gap-1.5 leading-none">
@@ -749,50 +746,26 @@
   </div>
 
   <!-- =========================================================================
-       WORKSPACE PRINCIPAL: BARRA LATERAL RETRÁTIL + PAINEL CONTEXTUAL + PALCO 3D
+       WORKSPACE PRINCIPAL: PALCO 3D (TORNO) & ESTÚDIO CAD 2D DE PLACAS
        ========================================================================= -->
-  <div class="flex-1 flex flex-col lg:flex-row overflow-hidden relative">
+  <div class="flex-1 flex overflow-hidden relative w-full h-full">
 
-    <!-- BARRA LATERAL RETRÁTIL DO ESTÚDIO 3D & PLACAS 2D -->
-    <nav id="app-nav-rail"
-      class="app-nav-rail flex flex-row lg:flex-col justify-between p-2 gap-1 border-b lg:border-b-0"
-      aria-label="Navegação do Estúdio 3D & Placas 2D">
-      <div class="flex flex-row lg:flex-col gap-1.5 w-full">
-        <button onclick="switchTool('vasos')" id="tab-btn-vasos" class="rail-item nav-pill-active"
-          title="Olaria, Modelagem 3D & Planificação 2D">
-          <span class="rail-icon">🏺</span>
-          <span class="rail-label">Modelos 3D</span>
-        </button>
+    <!-- BARRA LATERAL RETRÁTIL (OCULTA NO MODO ESTÚDIO UNIFICADO) -->
+    <nav id="app-nav-rail" class="hidden" aria-hidden="true"></nav>
 
-        <!-- Atalhos Rápidos dos Métodos de Modelagem Cerâmica -->
-        <div class="hidden lg:block pt-2 mt-1 border-t border-stone-200/70 dark:border-white/10 space-y-1">
-          <button onclick="switchVaseMode('spline')" class="rail-item text-[11px] py-2"
-            title="Silhueta Spline Contínua (Revolução e Torno)">
-            <span class="rail-icon text-sm">🏺</span>
-            <span class="rail-label">Silhueta Spline</span>
-          </button>
-          <button onclick="switchVaseMode('estagios')" class="rail-item text-[11px] py-2"
-            title="Camadas Conectadas (Placas C⁰, Alças, Bicos e Tampas)">
-            <span class="rail-icon text-sm">📐</span>
-            <span class="rail-label">Placas & Anéis</span>
-          </button>
-          <button onclick="switchVaseSubMode('planificacao')" class="rail-item text-[11px] py-2"
-            title="Planificação de Moldes 2D para Argila (PDF A4)">
-            <span class="rail-icon text-sm">📄</span>
-            <span class="rail-label">Moldes 2D (PDF)</span>
-          </button>
-          <button onclick="toggleCatalogDrawer()" class="rail-item text-[11px] py-2"
-            title="Abrir Catálogo Completo das 100 Peças">
-            <span class="rail-icon text-sm">📚</span>
-            <span class="rail-label">Catálogo 100 Peças</span>
-          </button>
-        </div>
-      </div>
-    </nav>
-
-    <!-- COLUNA ESQUERDA: PAINEL DE PARÂMETROS CONTEXTUAL -->
+    <!-- GAVETA RETRÁTIL DE PARÂMETROS TÉCNICOS CAD (OFF-CANVAS / ACIONADA QUANDO NECESSÁRIO) -->
     <aside id="left-control-panel"
-      class="w-full lg:w-[435px] xl:w-[455px] bg-[var(--bg-panel)] border-r border-[var(--border-hairline)] flex flex-col h-full overflow-y-auto shrink-0 z-20 select-text">
+      class="fixed inset-y-0 left-0 z-50 w-full sm:w-[420px] bg-[var(--bg-panel)] border-r border-[var(--border-hairline)] flex flex-col h-full overflow-y-auto select-text shadow-2xl transform -translate-x-full transition-transform duration-300">
+      
+      <!-- Cabeçalho da Gaveta com Botão Fechar -->
+      <div class="p-3 border-b border-stone-200 dark:border-white/10 flex items-center justify-between shrink-0 bg-stone-100 dark:bg-stone-900">
+        <span class="text-xs font-bold text-stone-900 dark:text-white uppercase font-mono-cad flex items-center gap-1.5">
+          <span>⚙️</span> Parâmetros Técnicos da Peça
+        </span>
+        <button onclick="toggleTechnicalParamsDrawer(false)"
+          class="w-7 h-7 rounded-lg bg-stone-200 dark:bg-stone-800 hover:bg-stone-300 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 flex items-center justify-center font-bold text-xs transition cursor-pointer"
+          title="Fechar Gaveta">✕</button>
+      </div>
 
       <!-- =====================================================================
            PAINEL 1: MODELAGEM DE VASOS 3D & MOLDES PLANIFICADOS 2D
@@ -1994,9 +1967,8 @@
         </div>
       </div>
 
-      <!-- BARRA DE TELEMETRIA AMAZON CLOUDSCAPE NO RODAPÉ DO VIEWPORT -->
-      <footer
-        class="h-13 bg-white/95 dark:bg-terracotta-800/95 backdrop-blur-md border-t border-stone-200/80 dark:border-cad-border px-4 flex items-center justify-between text-xs font-mono-cad shrink-0 z-20 shadow-xs">
+      <!-- BARRA DE TELEMETRIA AMAZON CLOUDSCAPE (OCULTA NO MODO ESTÚDIO UNIFICADO) -->
+      <footer id="app-footer" class="hidden">
         <div class="flex items-center gap-2.5 md:gap-4 overflow-x-auto py-1">
           <div
             class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-stone-100/80 dark:bg-stone-900/60 border border-stone-200/60 dark:border-stone-800">
@@ -8165,6 +8137,20 @@
     function validateBatchGeometry() {
       const batchPieces = STUDIO_100_CATALOG.filter(p => p.batch === currentCatalogBatch);
       alert(`✅ Lote ${currentCatalogBatch} validado com sucesso! Todas as ${batchPieces.length} peças possuem topologia 3D fechada (manifold) e moldes 2D planificáveis.`);
+    }
+
+    function toggleTechnicalParamsDrawer(forceState) {
+      const drawer = document.getElementById('left-control-panel');
+      if (!drawer) return;
+      const isOpen = !drawer.classList.contains('-translate-x-full');
+      const nextState = forceState !== undefined ? forceState : !isOpen;
+      if (nextState) {
+        drawer.classList.remove('-translate-x-full');
+        drawer.classList.add('translate-x-0');
+      } else {
+        drawer.classList.add('-translate-x-full');
+        drawer.classList.remove('translate-x-0');
+      }
     }
 
     function openDimensionsModal() {
