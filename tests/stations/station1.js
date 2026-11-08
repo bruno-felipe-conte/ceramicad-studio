@@ -784,6 +784,136 @@ async function testStation1(cdp, reporter) {
     }
   }
 
+  // =========================================================================
+  // 1.13 CeramicMeshFactory — Origami & Faceted BufferGeometry Suite
+  // =========================================================================
+  {
+    const t0 = Date.now();
+    try {
+      const result = await cdp.evaluate(`
+        (() => {
+          if (typeof CeramicMeshFactory === 'undefined') {
+            return { error: 'CeramicMeshFactory is not defined' };
+          }
+
+          // 1. Teste Yoshimura
+          const yoshiGeo = CeramicMeshFactory.createOrigamiYoshimuraGeometry({
+            height: 120,
+            baseRadius: 40,
+            topRadius: 45,
+            midRadius: 55,
+            columns: 8,
+            tiers: 6,
+            creaseDepth: 6.0,
+            wallThickness: 5.0,
+            hollow: true
+          });
+          const yoshiPos = yoshiGeo.getAttribute('position');
+          const yoshiNorm = yoshiGeo.getAttribute('normal');
+          const yoshiHasNaN = Array.from(yoshiPos.array).some(v => isNaN(v));
+
+          // 2. Teste Miura-ori
+          const miuraGeo = CeramicMeshFactory.createOrigamiMiuraGeometry({
+            height: 130,
+            radius: 46,
+            columns: 8,
+            tiers: 6,
+            creaseDepth: 5.0,
+            twistDeg: 15
+          });
+          const miuraPos = miuraGeo.getAttribute('position');
+          const miuraHasNaN = Array.from(miuraPos.array).some(v => isNaN(v));
+
+          // 3. Teste Waterbomb
+          const wbGeo = CeramicMeshFactory.createOrigamiWaterbombGeometry({
+            height: 110,
+            baseRadius: 42,
+            topRadius: 38,
+            midRadius: 52,
+            columns: 8,
+            tiers: 5,
+            creaseDepth: 5.5,
+            wallThickness: 4.5,
+            hollow: true
+          });
+          const wbPos = wbGeo.getAttribute('position');
+          const wbHasNaN = Array.from(wbPos.array).some(v => isNaN(v));
+
+          // 4. Teste replaceLatheGeometry
+          const pts = [
+            { x: 30, y: 0 },
+            { x: 50, y: 40 },
+            { x: 42, y: 90 },
+            { x: 35, y: 120 }
+          ];
+          const latheRepGeo = CeramicMeshFactory.replaceLatheGeometry(pts, 8, { creaseAmp: 3.0 });
+          const latheRepPos = latheRepGeo.getAttribute('position');
+          const latheRepHasNaN = Array.from(latheRepPos.array).some(v => isNaN(v));
+
+          // 5. Teste Crease Pattern 2D
+          const cp2d = CeramicMeshFactory.createOrigamiCreasePattern2D({
+            height: 120,
+            radius: 40,
+            columns: 8,
+            tiers: 6,
+            patternType: 'yoshimura'
+          });
+
+          // 6. Teste renderização do preset facetado na cena
+          loadStudioPreset3D('facetado');
+          const facetMeshCount = activeMeshGroup.children.length;
+
+          return {
+            success: true,
+            yoshimuraVerts: yoshiPos.count,
+            yoshimuraHasNaN: yoshiHasNaN,
+            miuraVerts: miuraPos.count,
+            miuraHasNaN: miuraHasNaN,
+            waterbombVerts: wbPos.count,
+            waterbombHasNaN: wbHasNaN,
+            latheRepVerts: latheRepPos.count,
+            latheRepHasNaN: latheRepHasNaN,
+            cp2dMountains: cp2d.mountainCreases.length,
+            cp2dValleys: cp2d.valleyCreases.length,
+            facetMeshCount: facetMeshCount
+          };
+        })()
+      `);
+
+      const pass = result && result.success &&
+        result.yoshimuraVerts > 0 && !result.yoshimuraHasNaN &&
+        result.miuraVerts > 0 && !result.miuraHasNaN &&
+        result.waterbombVerts > 0 && !result.waterbombHasNaN &&
+        result.latheRepVerts > 0 && !result.latheRepHasNaN &&
+        result.cp2dMountains > 0 && result.cp2dValleys > 0 &&
+        result.facetMeshCount > 0;
+
+      reporter.record({
+        id: 's1_ceramic_mesh_factory_origami',
+        station: 1,
+        subsystem: 'CeramicMeshFactory (Origami BufferGeometry)',
+        item: 'Geometrias Origami Manuais & Substituição de LatheGeometry',
+        expected: 'Gera BufferGeometry para Yoshimura, Miura, Waterbomb, Crease Pattern 2D e replaceLathe sem NaN',
+        actual: `Yoshi: ${result.yoshimuraVerts}v (NaN:${result.yoshimuraHasNaN}), Miura: ${result.miuraVerts}v (NaN:${result.miuraHasNaN}), WB: ${result.waterbombVerts}v (NaN:${result.waterbombHasNaN}), LatheRep: ${result.latheRepVerts}v (NaN:${result.latheRepHasNaN}), CP2D: ${result.cp2dMountains}M/${result.cp2dValleys}V, FacetMeshes: ${result.facetMeshCount}`,
+        status: pass ? 'PASS' : 'FAIL',
+        durationMs: Date.now() - t0,
+        details: result
+      });
+    } catch (err) {
+      reporter.record({
+        id: 's1_ceramic_mesh_factory_origami',
+        station: 1,
+        subsystem: 'CeramicMeshFactory (Origami BufferGeometry)',
+        item: 'Geometrias Origami Manuais & Substituição de LatheGeometry',
+        expected: 'Executa testes sem exceções',
+        actual: `Exception: ${err.message}`,
+        status: 'FAIL',
+        error: err.message,
+        durationMs: Date.now() - t0
+      });
+    }
+  }
+
   console.log('--- STATION 1 TESTS COMPLETE ---');
 }
 

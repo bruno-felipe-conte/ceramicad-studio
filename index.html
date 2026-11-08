@@ -21,6 +21,8 @@
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/exporters/STLExporter.js"></script>
+  <!-- CeramicMeshFactory: Geometrias Origami & Facetadas em BufferGeometry com Vincos Manuais -->
+  <script src="CeramicMeshFactory.js"></script>
   <!-- jsPDF via CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <!-- QRCode.js para Placas e Carimbos 3D -->
@@ -16435,16 +16437,38 @@ SAÍDA EXIGIDA: Emita o bloco de código STL ASCII puro (iniciando com "solid co
         activeMeshGroup.add(new THREE.Mesh(lathe, ceramicMat));
 
       } else if (presetName === 'facetado') {
-        // Cachepô Facetado Low-Poly
-        const geo = new THREE.DodecahedronGeometry(55, 1);
-        geo.scale(1, 1.25, 1);
-        geo.translate(0, 65, 0);
-        const matFacet = new THREE.MeshStandardMaterial({
-          color: 0x942B21,
-          flatShading: true,
-          roughness: 0.4
-        });
-        activeMeshGroup.add(new THREE.Mesh(geo, matFacet));
+        // Cachepô Facetado Low-Poly usando CeramicMeshFactory (Origami Yoshimura com BufferGeometry e vincos manuais)
+        if (typeof CeramicMeshFactory !== 'undefined' && CeramicMeshFactory.createOrigamiVaseMesh) {
+          const mesh = CeramicMeshFactory.createOrigamiVaseMesh({
+            patternType: 'yoshimura',
+            height: 95,
+            baseRadius: 40,
+            midRadius: 58,
+            topRadius: 52,
+            columns: 8,
+            tiers: 6,
+            creaseDepth: 7.0,
+            wallThickness: 5.0,
+            hollow: true,
+            name: 'cachepoFacetadoLowPoly'
+          }, new THREE.MeshStandardMaterial({
+            color: 0x942B21,
+            flatShading: true,
+            roughness: 0.4,
+            side: THREE.DoubleSide
+          }));
+          activeMeshGroup.add(mesh);
+        } else {
+          const geo = new THREE.DodecahedronGeometry(55, 1);
+          geo.scale(1, 1.25, 1);
+          geo.translate(0, 65, 0);
+          const matFacet = new THREE.MeshStandardMaterial({
+            color: 0x942B21,
+            flatShading: true,
+            roughness: 0.4
+          });
+          activeMeshGroup.add(new THREE.Mesh(geo, matFacet));
+        }
 
       } else if (presetName === 'costela') {
         // Costela de Oleiro Ergonômica com furo de polegar

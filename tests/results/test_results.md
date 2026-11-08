@@ -1,14 +1,14 @@
 # Relatório de Auditoria Automatizada — CeramiCAD Studio Pro
 
-**Data**: 2026-11-08T16:06:19.990Z
-**Total de Testes**: 261 | **Aprovados**: 261 | **Falhas**: 0 | **Taxa de Sucesso**: 100.0%
-**Tempo de Execução**: 72.51s | **Erros de Console**: 0
+**Data**: 2026-11-08T18:18:33.640Z
+**Total de Testes**: 262 | **Aprovados**: 262 | **Falhas**: 0 | **Taxa de Sucesso**: 100.0%
+**Tempo de Execução**: 67.81s | **Erros de Console**: 0
 
 ## Resumo por Estação
 
 | Estação | Total | Aprovados | Falhas | Taxa |
 |---|---|---|---|---|
-| **Station 1** | 110 | 110 | 0 | 100.0% |
+| **Station 1** | 111 | 111 | 0 | 100.0% |
 | **Station 2** | 37 | 37 | 0 | 100.0% |
 | **Station 3** | 98 | 98 | 0 | 100.0% |
 | **Station 4** | 11 | 11 | 0 | 100.0% |
@@ -70,7 +70,7 @@
 | `s1_spline_profile_bib_twisted`<br>**48. Vaso Espiral Torcido (Twisted Octogonal)** | Spline Profiles (54) | Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN) | Meshes: 1, Vertices: 475, Bounds: [98.2 x 160 x 98.2 mm], NaN: false, ActiveTool: vasos | ✅ Atingiu o Esperado |
 | `s1_spline_profile_bib_fluted`<br>**49. Vaso Nórdico Canelado Profundo (Fluted)** | Spline Profiles (54) | Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN) | Meshes: 1, Vertices: 1,883, Bounds: [99 x 150 x 99 mm], NaN: false, ActiveTool: vasos | ✅ Atingiu o Esperado |
 | `s1_spline_profile_bib_lampshade`<br>**50. Cúpula de Luminária Vazada (Soquete E27)** | Spline Profiles (54) | Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN) | Meshes: 1, Vertices: 931, Bounds: [152.92 x 120 x 152.92 mm], NaN: false, ActiveTool: vasos | ✅ Atingiu o Esperado |
-| `s1_spline_profile_bib_facetado`<br>**51. Cachepô Facetado Low-Poly Contemporâneo** | Spline Profiles (54) | Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN) | Meshes: 1, Vertices: 432, Bounds: [110 x 137.5 x 110 mm], NaN: false, ActiveTool: vasos | ✅ Atingiu o Esperado |
+| `s1_spline_profile_bib_facetado`<br>**51. Cachepô Facetado Low-Poly Contemporâneo** | Spline Profiles (54) | Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN) | Meshes: 1, Vertices: 672, Bounds: [126 x 95 x 126 mm], NaN: false, ActiveTool: vasos | ✅ Atingiu o Esperado |
 | `s1_spline_profile_bib_costela`<br>**52. Costela de Oleiro Ergonômica c/ Pega (Rib)** | Spline Profiles (54) | Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN) | Meshes: 1, Vertices: 2,400, Bounds: [106.93 x 52.76 x 6.1 mm], NaN: false, ActiveTool: vasos | ✅ Atingiu o Esperado |
 | `s1_spline_profile_bib_chanfrador`<br>**53. Chanfrador de Placas 45° (Gabarito Bisel)** | Spline Profiles (54) | Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN) | Meshes: 1, Vertices: 24, Bounds: [60 x 40 x 45 mm], NaN: false, ActiveTool: vasos | ✅ Atingiu o Esperado |
 | `s1_spline_profile_bib_extrusora`<br>**54. Bocal Matriz de Extrusora (Ø58 mm)** | Spline Profiles (54) | Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN) | Meshes: 1, Vertices: 372, Bounds: [58 x 5 x 58 mm], NaN: false, ActiveTool: vasos | ✅ Atingiu o Esperado |
@@ -130,6 +130,7 @@
 | `s1_torno_gabarito_negativo_3d`<br>**Gabarito Negativo Externo do Vaso para Checagem em Giro no Torno** | Torno: Gabarito Negativo | Generates concave plate template matching active vase outer silhouette with Z=0 foot | Meshes: 1, Vertices: 2,130, Bounds: [118.97 x 4.8 x 144.8 mm] | ✅ Atingiu o Esperado |
 | `s1_torno_volume_telemetry_scale`<br>**Calibração Volumétrica Direta para Meta Final Pós-Queima (400 mL)** | Queima: Volume Cúbico (1 - s)³ | Calculates raw volume needed and rescales vase geometry via cubic factor | RawBefore: 858 mL ➔ RawAfter: 592 mL (FiredExpected: 403 mL) | ✅ Atingiu o Esperado |
 | `s1_export_stl_binary`<br>**Exportação STL Binário da Malha Ativa** | STL Export | STLExporter parses activeMeshGroup and initiates binary STL download | Downloads: 1 (test_vaso_360.stl: 35584 bytes) | ✅ Atingiu o Esperado |
+| `s1_ceramic_mesh_factory_origami`<br>**Geometrias Origami Manuais & Substituição de LatheGeometry** | CeramicMeshFactory (Origami BufferGeometry) | Gera BufferGeometry para Yoshimura, Miura, Waterbomb, Crease Pattern 2D e replaceLathe sem NaN | Yoshi: 672v (NaN:false), Miura: 288v (NaN:false), WB: 1056v (NaN:false), LatheRep: 144v (NaN:false), CP2D: 50M/51V, FacetMeshes: 1 | ✅ Atingiu o Esperado |
 
 ## Estação 2: Cortadores & Ejetores 3D (#panel-cortadores)
 
@@ -285,7 +286,7 @@
 | `s4_preset_fluted`<br>**Vaso Nórdico Canelado Profundo (Fluted)** | Studio Presets (9) | Renders parametric studio model in activeMeshGroup with positive bounds | Meshes: 1, Vertices: 1,883, Bounds: [99 x 150 x 99 mm] | ✅ Atingiu o Esperado |
 | `s4_preset_lampshade`<br>**Cúpula de Luminária Vazada (Soquete E27)** | Studio Presets (9) | Renders parametric studio model in activeMeshGroup with positive bounds | Meshes: 1, Vertices: 931, Bounds: [152.92 x 120 x 152.92 mm] | ✅ Atingiu o Esperado |
 | `s4_preset_chawan`<br>**Chawan Tradicional Japonês c/ Pé Kodai** | Studio Presets (9) | Renders parametric studio model in activeMeshGroup with positive bounds | Meshes: 1, Vertices: 392, Bounds: [116 x 75 x 116 mm] | ✅ Atingiu o Esperado |
-| `s4_preset_facetado`<br>**Cachepô Facetado Low-Poly Contemporâneo** | Studio Presets (9) | Renders parametric studio model in activeMeshGroup with positive bounds | Meshes: 1, Vertices: 432, Bounds: [110 x 137.5 x 110 mm] | ✅ Atingiu o Esperado |
+| `s4_preset_facetado`<br>**Cachepô Facetado Low-Poly Contemporâneo** | Studio Presets (9) | Renders parametric studio model in activeMeshGroup with positive bounds | Meshes: 1, Vertices: 672, Bounds: [126 x 95 x 126 mm] | ✅ Atingiu o Esperado |
 | `s4_preset_costela`<br>**Costela de Oleiro Ergonômica c/ Pega** | Studio Presets (9) | Renders parametric studio model in activeMeshGroup with positive bounds | Meshes: 1, Vertices: 2,400, Bounds: [106.93 x 52.76 x 6.1 mm] | ✅ Atingiu o Esperado |
 | `s4_preset_chanfrador`<br>**Chanfrador de Placas 45° (Gabarito Bisel)** | Studio Presets (9) | Renders parametric studio model in activeMeshGroup with positive bounds | Meshes: 1, Vertices: 24, Bounds: [60 x 40 x 45 mm] | ✅ Atingiu o Esperado |
 | `s4_preset_extrusora`<br>**Bocal Matriz de Extrusora (Ø58 mm Hexagonal)** | Studio Presets (9) | Renders parametric studio model in activeMeshGroup with positive bounds | Meshes: 1, Vertices: 372, Bounds: [58 x 5 x 58 mm] | ✅ Atingiu o Esperado |

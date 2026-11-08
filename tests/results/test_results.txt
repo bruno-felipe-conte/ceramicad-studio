@@ -1,7 +1,7 @@
 ================================================================================
 CERAMICAD STUDIO PRO — AUTOMATED TEST SUITE REPORT
-Timestamp: 2026-11-08T16:06:20.000Z
-Total: 261 | Passed: 261 | Failed: 0 | Pass Rate: 100.0%
+Timestamp: 2026-11-08T18:18:33.650Z
+Total: 262 | Passed: 262 | Failed: 0 | Pass Rate: 100.0%
 ================================================================================
 
 [PASS] [St.1 - Spline Profiles (54)] 1. Xícara de Café Espresso c/ Alça Ergonômica (s1_spline_profile_xicara_cafe)
@@ -206,7 +206,7 @@ Total: 261 | Passed: 261 | Failed: 0 | Pass Rate: 100.0%
 
 [PASS] [St.1 - Spline Profiles (54)] 51. Cachepô Facetado Low-Poly Contemporâneo (s1_spline_profile_bib_facetado)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 1, Vertices: 432, Bounds: [110 x 137.5 x 110 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 1, Vertices: 672, Bounds: [126 x 95 x 126 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 52. Costela de Oleiro Ergonômica c/ Pega (Rib) (s1_spline_profile_bib_costela)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
@@ -443,6 +443,10 @@ Total: 261 | Passed: 261 | Failed: 0 | Pass Rate: 100.0%
 [PASS] [St.1 - STL Export] Exportação STL Binário da Malha Ativa (s1_export_stl_binary)
   Expected: STLExporter parses activeMeshGroup and initiates binary STL download
   Actual:   Downloads: 1 (test_vaso_360.stl: 35584 bytes)
+
+[PASS] [St.1 - CeramicMeshFactory (Origami BufferGeometry)] Geometrias Origami Manuais & Substituição de LatheGeometry (s1_ceramic_mesh_factory_origami)
+  Expected: Gera BufferGeometry para Yoshimura, Miura, Waterbomb, Crease Pattern 2D e replaceLathe sem NaN
+  Actual:   Yoshi: 672v (NaN:false), Miura: 288v (NaN:false), WB: 1056v (NaN:false), LatheRep: 144v (NaN:false), CP2D: 50M/51V, FacetMeshes: 1
 
 [PASS] [St.2 - Construction Modes] Modo Construtivo: kit_3_pecas (s2_mode_kit_3_pecas)
   Expected: Supported in #c-native-mode and generates 3D geometry
@@ -1006,7 +1010,7 @@ Total: 261 | Passed: 261 | Failed: 0 | Pass Rate: 100.0%
 
 [PASS] [St.4 - Studio Presets (9)] Cachepô Facetado Low-Poly Contemporâneo (s4_preset_facetado)
   Expected: Renders parametric studio model in activeMeshGroup with positive bounds
-  Actual:   Meshes: 1, Vertices: 432, Bounds: [110 x 137.5 x 110 mm]
+  Actual:   Meshes: 1, Vertices: 672, Bounds: [126 x 95 x 126 mm]
 
 [PASS] [St.4 - Studio Presets (9)] Costela de Oleiro Ergonômica c/ Pega (s4_preset_costela)
   Expected: Renders parametric studio model in activeMeshGroup with positive bounds
