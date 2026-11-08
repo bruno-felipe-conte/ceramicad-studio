@@ -1,6 +1,6 @@
 ================================================================================
 CERAMICAD STUDIO PRO — AUTOMATED TEST SUITE REPORT
-Timestamp: 2026-10-31T09:05:05.904Z
+Timestamp: 2026-11-08T16:06:20.000Z
 Total: 261 | Passed: 261 | Failed: 0 | Pass Rate: 100.0%
 ================================================================================
 
@@ -426,7 +426,7 @@ Total: 261 | Passed: 261 | Failed: 0 | Pass Rate: 100.0%
 
 [PASS] [St.1 - 2D Patterns & PDF] Planificação 2D A4 c/ Nesting >= 20mm & Exportação PDF A4 1:1 (s1_2d_patterns_pdf_export)
   Expected: Unrolls all pieces, packs onto A4 sheets with >= 20mm margin, exports PDF via jsPDF
-  Actual:   Items: 11, A4 Sheets: 4, ExportFn: exportVase2DPatternsPDF, PDFs Generated: 1 (moldes_vaso_geometrico_A4_otimizado.pdf)
+  Actual:   Items: 11, A4 Sheets: 4, ExportFn: exportVase2DPatternsPDF, PDFs Generated: 1 (moldes_ceramica_A4_nesting_1para1.pdf)
 
 [PASS] [St.1 - Torno: Costela de Ataque] Costela Cerâmica 3D com Bisel 30°, Serrilha e Dente de Pé (Z=0) (s1_torno_costela_3d)
   Expected: Generates flat-bottom 2-manifold rib with thumb hole and attack geometry

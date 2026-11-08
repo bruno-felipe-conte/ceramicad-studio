@@ -1,8 +1,8 @@
 # Relatório de Auditoria Automatizada — CeramiCAD Studio Pro
 
-**Data**: 2026-10-31T09:05:05.890Z
+**Data**: 2026-11-08T16:06:19.990Z
 **Total de Testes**: 261 | **Aprovados**: 261 | **Falhas**: 0 | **Taxa de Sucesso**: 100.0%
-**Tempo de Execução**: 33.03s | **Erros de Console**: 0
+**Tempo de Execução**: 72.51s | **Erros de Console**: 0
 
 ## Resumo por Estação
 
@@ -125,7 +125,7 @@
 | `s1_btn_add_tampa`<br>**+ Tampa (Tampa c/ Encaixe e Puxador)** | Stage Buttons (8) | Adds component stage to vaseStages, refreshes cards, builds 3D and 2D unrolling | Stage Count: 10 -> 11, 3D Meshes: 12, 2D Patterns: 17 | ✅ Atingiu o Esperado |
 | `s1_btn_add_borda`<br>**+ Borda/Pé (Anel Reforçado de Boca ou Pé Kodai)** | Stage Buttons (8) | Adds component stage to vaseStages, refreshes cards, builds 3D and 2D unrolling | Stage Count: 11 -> 12, 3D Meshes: 13, 2D Patterns: 18 | ✅ Atingiu o Esperado |
 | `s1_card_inputs_reactive`<br>**Atualização Reativa de Parâmetros (Disco Crivo Múltiplo + Alça 35mm)** | Stage Card Inputs | Modifies 3D geometry vertices and updates 2D pattern unrolling accordingly | Meshes: 6, Vertices: 15,984, Patterns: 5 | ✅ Atingiu o Esperado |
-| `s1_2d_patterns_pdf_export`<br>**Planificação 2D A4 c/ Nesting >= 20mm & Exportação PDF A4 1:1** | 2D Patterns & PDF | Unrolls all pieces, packs onto A4 sheets with >= 20mm margin, exports PDF via jsPDF | Items: 11, A4 Sheets: 4, ExportFn: exportVase2DPatternsPDF, PDFs Generated: 1 (moldes_vaso_geometrico_A4_otimizado.pdf) | ✅ Atingiu o Esperado |
+| `s1_2d_patterns_pdf_export`<br>**Planificação 2D A4 c/ Nesting >= 20mm & Exportação PDF A4 1:1** | 2D Patterns & PDF | Unrolls all pieces, packs onto A4 sheets with >= 20mm margin, exports PDF via jsPDF | Items: 11, A4 Sheets: 4, ExportFn: exportVase2DPatternsPDF, PDFs Generated: 1 (moldes_ceramica_A4_nesting_1para1.pdf) | ✅ Atingiu o Esperado |
 | `s1_torno_costela_3d`<br>**Costela Cerâmica 3D com Bisel 30°, Serrilha e Dente de Pé (Z=0)** | Torno: Costela de Ataque | Generates flat-bottom 2-manifold rib with thumb hole and attack geometry | Meshes: 1, Vertices: 4,188, Bounds: [45.23 x 7 x 137.47 mm] | ✅ Atingiu o Esperado |
 | `s1_torno_gabarito_negativo_3d`<br>**Gabarito Negativo Externo do Vaso para Checagem em Giro no Torno** | Torno: Gabarito Negativo | Generates concave plate template matching active vase outer silhouette with Z=0 foot | Meshes: 1, Vertices: 2,130, Bounds: [118.97 x 4.8 x 144.8 mm] | ✅ Atingiu o Esperado |
 | `s1_torno_volume_telemetry_scale`<br>**Calibração Volumétrica Direta para Meta Final Pós-Queima (400 mL)** | Queima: Volume Cúbico (1 - s)³ | Calculates raw volume needed and rescales vase geometry via cubic factor | RawBefore: 858 mL ➔ RawAfter: 592 mL (FiredExpected: 403 mL) | ✅ Atingiu o Esperado |
