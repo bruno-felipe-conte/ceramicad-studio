@@ -1,11 +1,11 @@
 {
-  "timestamp": "2026-11-08T18:18:33.628Z",
+  "timestamp": "2026-11-08T19:07:20.024Z",
   "summary": {
-    "total": 262,
-    "passed": 262,
+    "total": 111,
+    "passed": 111,
     "failed": 0,
     "passRate": "100.0%",
-    "durationSeconds": "67.80",
+    "durationSeconds": "48.51",
     "byStation": {
       "Station 1": {
         "total": 111,
@@ -13,23 +13,23 @@
         "failed": 0
       },
       "Station 2": {
-        "total": 37,
-        "passed": 37,
+        "total": 0,
+        "passed": 0,
         "failed": 0
       },
       "Station 3": {
-        "total": 98,
-        "passed": 98,
+        "total": 0,
+        "passed": 0,
         "failed": 0
       },
       "Station 4": {
-        "total": 11,
-        "passed": 11,
+        "total": 0,
+        "passed": 0,
         "failed": 0
       },
       "Station 5": {
-        "total": 5,
-        "passed": 5,
+        "total": 0,
+        "passed": 0,
         "failed": 0
       }
     },
@@ -69,7 +69,7 @@
           ]
         }
       },
-      "durationMs": 139
+      "durationMs": 159
     },
     {
       "id": "s1_spline_profile_xicara_cha",
@@ -104,7 +104,7 @@
           ]
         }
       },
-      "durationMs": 104
+      "durationMs": 156
     },
     {
       "id": "s1_spline_profile_caneca_cilindrica",
@@ -139,7 +139,7 @@
           ]
         }
       },
-      "durationMs": 112
+      "durationMs": 119
     },
     {
       "id": "s1_spline_profile_caneca_barril",
@@ -174,7 +174,7 @@
           ]
         }
       },
-      "durationMs": 96
+      "durationMs": 122
     },
     {
       "id": "s1_spline_profile_cuia_chimarrao",
@@ -209,7 +209,7 @@
           ]
         }
       },
-      "durationMs": 86
+      "durationMs": 129
     },
     {
       "id": "s1_spline_profile_cuia_terere",
@@ -244,7 +244,7 @@
           ]
         }
       },
-      "durationMs": 104
+      "durationMs": 127
     },
     {
       "id": "s1_spline_profile_chaleira_bule",
@@ -279,7 +279,7 @@
           ]
         }
       },
-      "durationMs": 109
+      "durationMs": 127
     },
     {
       "id": "s1_spline_profile_bule_cafe",
@@ -314,7 +314,7 @@
           ]
         }
       },
-      "durationMs": 93
+      "durationMs": 90
     },
     {
       "id": "s1_spline_profile_panela_barro",
@@ -349,7 +349,7 @@
           ]
         }
       },
-      "durationMs": 91
+      "durationMs": 92
     },
     {
       "id": "s1_spline_profile_cacarola_forno",
@@ -384,7 +384,7 @@
           ]
         }
       },
-      "durationMs": 82
+      "durationMs": 93
     },
     {
       "id": "s1_spline_profile_sopeira_artesanal",
@@ -419,7 +419,7 @@
           ]
         }
       },
-      "durationMs": 91
+      "durationMs": 89
     },
     {
       "id": "s1_spline_profile_leiteira_jarra",
@@ -454,7 +454,7 @@
           ]
         }
       },
-      "durationMs": 91
+      "durationMs": 88
     },
     {
       "id": "s1_spline_profile_tigela_chawan",
@@ -489,7 +489,7 @@
           ]
         }
       },
-      "durationMs": 86
+      "durationMs": 93
     },
     {
       "id": "s1_spline_profile_acucareiro_pote",
@@ -524,7 +524,7 @@
           ]
         }
       },
-      "durationMs": 95
+      "durationMs": 84
     },
     {
       "id": "s1_spline_profile_anfora",
@@ -559,7 +559,7 @@
           ]
         }
       },
-      "durationMs": 85
+      "durationMs": 97
     },
     {
       "id": "s1_spline_profile_cratera",
@@ -594,7 +594,7 @@
           ]
         }
       },
-      "durationMs": 94
+      "durationMs": 91
     },
     {
       "id": "s1_spline_profile_hidria",
@@ -629,7 +629,7 @@
           ]
         }
       },
-      "durationMs": 83
+      "durationMs": 115
     },
     {
       "id": "s1_spline_profile_lecito",
@@ -664,7 +664,7 @@
           ]
         }
       },
-      "durationMs": 87
+      "durationMs": 88
     },
     {
       "id": "s1_spline_profile_pithos",
@@ -699,7 +699,7 @@
           ]
         }
       },
-      "durationMs": 85
+      "durationMs": -681
     },
     {
       "id": "s1_spline_profile_kylix",
@@ -734,7 +734,7 @@
           ]
         }
       },
-      "durationMs": 87
+      "durationMs": 94
     },
     {
       "id": "s1_spline_profile_enocoa",
@@ -769,7 +769,7 @@
           ]
         }
       },
-      "durationMs": 88
+      "durationMs": 115
     },
     {
       "id": "s1_spline_profile_psicter",
@@ -804,7 +804,7 @@
           ]
         }
       },
-      "durationMs": 87
+      "durationMs": 94
     },
     {
       "id": "s1_spline_profile_pelike",
@@ -839,7 +839,7 @@
           ]
         }
       },
-      "durationMs": 88
+      "durationMs": 90
     },
     {
       "id": "s1_spline_profile_aribalo",
@@ -874,7 +874,7 @@
           ]
         }
       },
-      "durationMs": 86
+      "durationMs": 101
     },
     {
       "id": "s1_spline_profile_cantaro",
@@ -909,7 +909,7 @@
           ]
         }
       },
-      "durationMs": 85
+      "durationMs": 93
     },
     {
       "id": "s1_spline_profile_cabaca",
@@ -944,7 +944,7 @@
           ]
         }
       },
-      "durationMs": 83
+      "durationMs": 88
     },
     {
       "id": "s1_spline_profile_moonjar",
@@ -979,7 +979,7 @@
           ]
         }
       },
-      "durationMs": 80
+      "durationMs": 79
     },
     {
       "id": "s1_spline_profile_meiping",
@@ -1014,7 +1014,7 @@
           ]
         }
       },
-      "durationMs": 86
+      "durationMs": 88
     },
     {
       "id": "s1_spline_profile_baluster",
@@ -1049,7 +1049,7 @@
           ]
         }
       },
-      "durationMs": 79
+      "durationMs": 80
     },
     {
       "id": "s1_spline_profile_tokkuri",
@@ -1084,7 +1084,7 @@
           ]
         }
       },
-      "durationMs": 88
+      "durationMs": 85
     },
     {
       "id": "s1_spline_profile_yuhuchun",
@@ -1119,7 +1119,7 @@
           ]
         }
       },
-      "durationMs": 78
+      "durationMs": 82
     },
     {
       "id": "s1_spline_profile_zun",
@@ -1154,7 +1154,7 @@
           ]
         }
       },
-      "durationMs": 86
+      "durationMs": 85
     },
     {
       "id": "s1_spline_profile_cong",
@@ -1189,7 +1189,7 @@
           ]
         }
       },
-      "durationMs": 79
+      "durationMs": 83
     },
     {
       "id": "s1_spline_profile_alho",
@@ -1224,7 +1224,7 @@
           ]
         }
       },
-      "durationMs": 96
+      "durationMs": 86
     },
     {
       "id": "s1_spline_profile_tsubo",
@@ -1259,7 +1259,7 @@
           ]
         }
       },
-      "durationMs": 79
+      "durationMs": 85
     },
     {
       "id": "s1_spline_profile_maebyong",
@@ -1294,7 +1294,7 @@
           ]
         }
       },
-      "durationMs": 85
+      "durationMs": 84
     },
     {
       "id": "s1_spline_profile_garrafa",
@@ -1329,7 +1329,7 @@
           ]
         }
       },
-      "durationMs": 93
+      "durationMs": 91
     },
     {
       "id": "s1_spline_profile_gota",
@@ -1364,7 +1364,7 @@
           ]
         }
       },
-      "durationMs": 85
+      "durationMs": 79
     },
     {
       "id": "s1_spline_profile_albarello",
@@ -1399,7 +1399,7 @@
           ]
         }
       },
-      "durationMs": 91
+      "durationMs": 105
     },
     {
       "id": "s1_spline_profile_tulipa",
@@ -1434,7 +1434,7 @@
           ]
         }
       },
-      "durationMs": 82
+      "durationMs": 79
     },
     {
       "id": "s1_spline_profile_nordico",
@@ -1469,7 +1469,7 @@
           ]
         }
       },
-      "durationMs": 86
+      "durationMs": 113
     },
     {
       "id": "s1_spline_profile_ampulheta",
@@ -1504,7 +1504,7 @@
           ]
         }
       },
-      "durationMs": 93
+      "durationMs": 86
     },
     {
       "id": "s1_spline_profile_bojobaixo",
@@ -1539,7 +1539,7 @@
           ]
         }
       },
-      "durationMs": -702
+      "durationMs": 86
     },
     {
       "id": "s1_spline_profile_marajoara",
@@ -1574,7 +1574,7 @@
           ]
         }
       },
-      "durationMs": 84
+      "durationMs": 99
     },
     {
       "id": "s1_spline_profile_inca",
@@ -1609,7 +1609,7 @@
           ]
         }
       },
-      "durationMs": 100
+      "durationMs": 93
     },
     {
       "id": "s1_spline_profile_moringa",
@@ -1644,7 +1644,7 @@
           ]
         }
       },
-      "durationMs": 80
+      "durationMs": 95
     },
     {
       "id": "s1_spline_profile_totem",
@@ -1679,7 +1679,7 @@
           ]
         }
       },
-      "durationMs": 87
+      "durationMs": 100
     },
     {
       "id": "s1_spline_profile_bib_twisted",
@@ -1714,7 +1714,7 @@
           ]
         }
       },
-      "durationMs": 68
+      "durationMs": 73
     },
     {
       "id": "s1_spline_profile_bib_fluted",
@@ -1749,7 +1749,7 @@
           ]
         }
       },
-      "durationMs": 69
+      "durationMs": 83
     },
     {
       "id": "s1_spline_profile_bib_lampshade",
@@ -1784,7 +1784,7 @@
           ]
         }
       },
-      "durationMs": 66
+      "durationMs": 68
     },
     {
       "id": "s1_spline_profile_bib_facetado",
@@ -1819,7 +1819,7 @@
           ]
         }
       },
-      "durationMs": 68
+      "durationMs": 66
     },
     {
       "id": "s1_spline_profile_bib_costela",
@@ -1854,7 +1854,7 @@
           ]
         }
       },
-      "durationMs": 76
+      "durationMs": 72
     },
     {
       "id": "s1_spline_profile_bib_chanfrador",
@@ -1889,7 +1889,7 @@
           ]
         }
       },
-      "durationMs": 66
+      "durationMs": 65
     },
     {
       "id": "s1_spline_profile_bib_extrusora",
@@ -1924,7 +1924,7 @@
           ]
         }
       },
-      "durationMs": 66
+      "durationMs": 67
     },
     {
       "id": "s1_texture_liso",
@@ -1994,7 +1994,7 @@
           ]
         }
       },
-      "durationMs": 94
+      "durationMs": 81
     },
     {
       "id": "s1_texture_senoidal",
@@ -2029,7 +2029,7 @@
           ]
         }
       },
-      "durationMs": 82
+      "durationMs": 77
     },
     {
       "id": "s1_texture_cones",
@@ -2064,7 +2064,7 @@
           ]
         }
       },
-      "durationMs": 78
+      "durationMs": 82
     },
     {
       "id": "s1_texture_escamas",
@@ -2099,7 +2099,7 @@
           ]
         }
       },
-      "durationMs": 84
+      "durationMs": 91
     },
     {
       "id": "s1_texture_martelado",
@@ -2134,7 +2134,7 @@
           ]
         }
       },
-      "durationMs": 90
+      "durationMs": 88
     },
     {
       "id": "s1_texture_espiral_corda",
@@ -2169,7 +2169,7 @@
           ]
         }
       },
-      "durationMs": 88
+      "durationMs": 93
     },
     {
       "id": "s1_texture_favo_3d",
@@ -2204,7 +2204,7 @@
           ]
         }
       },
-      "durationMs": 94
+      "durationMs": 111
     },
     {
       "id": "s1_texture_ondas_zen",
@@ -2274,7 +2274,7 @@
           ]
         }
       },
-      "durationMs": 84
+      "durationMs": 127
     },
     {
       "id": "s1_texture_trama_cesto",
@@ -2309,7 +2309,7 @@
           ]
         }
       },
-      "durationMs": 88
+      "durationMs": 100
     },
     {
       "id": "s1_morph_cross_circle",
@@ -2321,7 +2321,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 70
+      "durationMs": 85
     },
     {
       "id": "s1_morph_cross_petals",
@@ -2333,7 +2333,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 82
+      "durationMs": 83
     },
     {
       "id": "s1_morph_cross_polygon",
@@ -2345,7 +2345,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 73
+      "durationMs": 78
     },
     {
       "id": "s1_morph_twist_neg180",
@@ -2357,7 +2357,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 73
+      "durationMs": 77
     },
     {
       "id": "s1_morph_twist_pos180",
@@ -2369,7 +2369,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 70
+      "durationMs": 80
     },
     {
       "id": "s1_morph_lofting_blend",
@@ -2381,7 +2381,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 71
+      "durationMs": 79
     },
     {
       "id": "s1_finish_terracota",
@@ -2405,7 +2405,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 749
+      "durationMs": 778
     },
     {
       "id": "s1_finish_raku",
@@ -2417,7 +2417,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 81
+      "durationMs": 223
     },
     {
       "id": "s1_finish_gres",
@@ -2429,7 +2429,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 237
+      "durationMs": 115
     },
     {
       "id": "s1_finish_sigillata",
@@ -2441,7 +2441,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 45
+      "durationMs": 46
     },
     {
       "id": "s1_finish_porcelana",
@@ -2453,7 +2453,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 13
+      "durationMs": 22
     },
     {
       "id": "s1_feature_cut_270",
@@ -2465,7 +2465,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 102
+      "durationMs": 126
     },
     {
       "id": "s1_feature_closed_360",
@@ -2477,7 +2477,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 75
+      "durationMs": 71
     },
     {
       "id": "s1_feature_drainage_hole",
@@ -2501,7 +2501,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 76
+      "durationMs": 75
     },
     {
       "id": "s1_converter_spline_to_slabs",
@@ -2513,7 +2513,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 12170
+      "durationMs": 11922
     },
     {
       "id": "s1_slab_recipe_anfora_aneis",
@@ -2556,7 +2556,7 @@
           "patternLabels": "S1 Cone, S2 Cilindro, S3 Cone, S4 Cone, Disco Base Ø74"
         }
       },
-      "durationMs": 254
+      "durationMs": 246
     },
     {
       "id": "s1_slab_recipe_xicara_cafe",
@@ -2599,7 +2599,7 @@
           "patternLabels": "S1 Disco (solido), S2 Cilindro, S3 Cone, Disco Fundo Ø44 (Sólido), Tira de Alça  (80x12 mm)"
         }
       },
-      "durationMs": 228
+      "durationMs": 226
     },
     {
       "id": "s1_slab_recipe_xicara_cha",
@@ -2642,7 +2642,7 @@
           "patternLabels": "S1 Disco (solido), S3 Bojo 1/4, S3 Bojo 2/4, S3 Bojo 3/4, S3 Bojo 4/4, Disco Fundo Ø52 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Pé/Kodai (183x10 mm), Tira de Alça  (83x15 mm)"
         }
       },
-      "durationMs": 525
+      "durationMs": 536
     },
     {
       "id": "s1_slab_recipe_caneca_cilindrica",
@@ -2685,7 +2685,7 @@
           "patternLabels": "S1 Disco (solido), S2 Cilindro, Disco Fundo Ø84 (Sólido), Faixa de Borda/Boca (296x9 mm), Tira de Alça  (112x18 mm)"
         }
       },
-      "durationMs": 117
+      "durationMs": 110
     },
     {
       "id": "s1_slab_recipe_caneca_barril",
@@ -2728,7 +2728,7 @@
           "patternLabels": "S1 Disco (solido), S2 Bojo 1/4, S2 Bojo 2/4, S2 Bojo 3/4, S2 Bojo 4/4, Disco Fundo Ø76 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Tira de Alça  (112x18 mm)"
         }
       },
-      "durationMs": 151
+      "durationMs": 153
     },
     {
       "id": "s1_slab_recipe_cuia_chimarrao",
@@ -2771,7 +2771,7 @@
           "patternLabels": "S1 Disco (solido), S2 Cone, S4 Bojo 1/4, S4 Bojo 2/4, S4 Bojo 3/4, S4 Bojo 4/4, S5 Cone, Disco Fundo Ø60 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Pé/Kodai (155x11 mm), Faixa de Borda/Boca (324x10 mm)"
         }
       },
-      "durationMs": 914
+      "durationMs": 930
     },
     {
       "id": "s1_slab_recipe_cuia_terere",
@@ -2814,7 +2814,7 @@
           "patternLabels": "S1 Disco (solido), S2 Cone, S3 Cilindro, Disco Fundo Ø60 (Sólido), Faixa de Borda/Boca (296x9 mm)"
         }
       },
-      "durationMs": 110
+      "durationMs": -613
     },
     {
       "id": "s1_slab_recipe_chaleira_bule",
@@ -2857,7 +2857,7 @@
           "patternLabels": "S1 Disco (solido), S2 Bojo 1/4, S2 Bojo 2/4, S2 Bojo 3/4, S2 Bojo 4/4, S3 Cone, Disco Fundo Ø84 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Tira de Alça  (119x18 mm), Leque do Bico Vertedor (Base Ø34 ➔ Ponta Ø16 • Alcance 42mm), Disco da Tampa Ø83 mm (Domo 18mm)"
         }
       },
-      "durationMs": 877
+      "durationMs": 891
     },
     {
       "id": "s1_slab_recipe_bule_cafe",
@@ -2900,7 +2900,7 @@
           "patternLabels": "S1 Disco (solido), S2 Cone, S3 Cone, S4 Cilindro, Disco Fundo Ø80 (Sólido), Tira de Alça  (146x17 mm), Leque do Bico Vertedor (Base Ø31 ➔ Ponta Ø15 • Alcance 44mm), Disco da Tampa Ø83 mm (Domo 20mm)"
         }
       },
-      "durationMs": 204
+      "durationMs": 205
     },
     {
       "id": "s1_slab_recipe_panela_barro",
@@ -2943,7 +2943,7 @@
           "patternLabels": "S1 Disco (solido), S2 Bojo 1/4, S2 Bojo 2/4, S2 Bojo 3/4, S2 Bojo 4/4, Disco Fundo Ø128 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Borda/Boca (507x11 mm), Tira de Alça 1/2 (74x22 mm), Tira de Alça 2/2 (74x22 mm), Disco da Tampa Ø168 mm (Domo 24mm)"
         }
       },
-      "durationMs": 136
+      "durationMs": 131
     },
     {
       "id": "s1_slab_recipe_cacarola_forno",
@@ -2986,7 +2986,7 @@
           "patternLabels": "S1 Disco (solido), S2 Cilindro, Disco Fundo Ø136 (Sólido), Faixa de Borda/Boca (479x10 mm), Tira de Alça 1/2 (67x25 mm), Tira de Alça 2/2 (67x25 mm), Disco da Tampa Ø159 mm (Domo 18mm)"
         }
       },
-      "durationMs": 122
+      "durationMs": 123
     },
     {
       "id": "s1_slab_recipe_sopeira_artesanal",
@@ -3029,7 +3029,7 @@
           "patternLabels": "S1 Disco (solido), S3 Bojo 1/4, S3 Bojo 2/4, S3 Bojo 3/4, S3 Bojo 4/4, Disco Fundo Ø108 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Pé/Kodai (380x13 mm), Tira de Alça 1/2 (80x20 mm), Tira de Alça 2/2 (80x20 mm), Disco da Tampa Ø155 mm (Domo 28mm)"
         }
       },
-      "durationMs": 534
+      "durationMs": 540
     },
     {
       "id": "s1_slab_recipe_leiteira_jarra",
@@ -3072,7 +3072,7 @@
           "patternLabels": "S1 Disco (solido), S2 Bojo 1/4, S2 Bojo 2/4, S2 Bojo 3/4, S2 Bojo 4/4, S3 Cone, Disco Fundo Ø76 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Tira de Alça  (122x17 mm), Leque do Bico Vertedor (Base Ø31 ➔ Ponta Ø18 • Alcance 24mm)"
         }
       },
-      "durationMs": -221
+      "durationMs": 542
     },
     {
       "id": "s1_slab_recipe_pote_tampa",
@@ -3115,7 +3115,7 @@
           "patternLabels": "S1 Disco (solido), S2 Cilindro, Disco Fundo Ø88 (Sólido), Faixa de Borda/Boca (310x9 mm), Disco da Tampa Ø105 mm (Domo 16mm)"
         }
       },
-      "durationMs": 85
+      "durationMs": 81
     },
     {
       "id": "s1_btn_add_cilindro",
@@ -3127,7 +3127,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 81
+      "durationMs": 78
     },
     {
       "id": "s1_btn_add_cone",
@@ -3139,7 +3139,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 97
+      "durationMs": 95
     },
     {
       "id": "s1_btn_add_esfera",
@@ -3151,7 +3151,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 558
+      "durationMs": 545
     },
     {
       "id": "s1_btn_add_disco",
@@ -3163,7 +3163,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 659
+      "durationMs": 636
     },
     {
       "id": "s1_btn_add_alca",
@@ -3175,7 +3175,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 752
+      "durationMs": 739
     },
     {
       "id": "s1_btn_add_bico",
@@ -3187,7 +3187,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 1087
+      "durationMs": 1075
     },
     {
       "id": "s1_btn_add_tampa",
@@ -3199,7 +3199,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 1127
+      "durationMs": 1134
     },
     {
       "id": "s1_btn_add_borda",
@@ -3211,7 +3211,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 1200
+      "durationMs": 1215
     },
     {
       "id": "s1_card_inputs_reactive",
@@ -3223,7 +3223,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 336
+      "durationMs": 334
     },
     {
       "id": "s1_2d_patterns_pdf_export",
@@ -3249,7 +3249,7 @@
           }
         ]
       },
-      "durationMs": 2515
+      "durationMs": 2553
     },
     {
       "id": "s1_torno_costela_3d",
@@ -3284,7 +3284,7 @@
           ]
         }
       },
-      "durationMs": 68
+      "durationMs": 72
     },
     {
       "id": "s1_torno_gabarito_negativo_3d",
@@ -3319,7 +3319,7 @@
           ]
         }
       },
-      "durationMs": 67
+      "durationMs": 73
     },
     {
       "id": "s1_torno_volume_telemetry_scale",
@@ -3335,7 +3335,7 @@
         "rawAfter": 591.743323646703,
         "firedExpected": 403.25650625216593
       },
-      "durationMs": 6
+      "durationMs": 7
     },
     {
       "id": "s1_export_stl_binary",
@@ -3355,7 +3355,7 @@
           }
         ]
       },
-      "durationMs": 111
+      "durationMs": 118
     },
     {
       "id": "s1_ceramic_mesh_factory_origami",
@@ -3380,4234 +3380,7 @@
         "cp2dValleys": 51,
         "facetMeshCount": 1
       },
-      "durationMs": 7
-    },
-    {
-      "id": "s2_mode_kit_3_pecas",
-      "station": 2,
-      "subsystem": "Construction Modes",
-      "item": "Modo Construtivo: kit_3_pecas",
-      "expected": "Supported in #c-native-mode and generates 3D geometry",
-      "actual": "Supported as 'kit3pecas'. Meshes: 3, Verts: 140,934",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 74
-    },
-    {
-      "id": "s2_mode_cortador_estampa",
-      "station": 2,
-      "subsystem": "Construction Modes",
-      "item": "Modo Construtivo: cortador_estampa",
-      "expected": "Supported in #c-native-mode and generates 3D geometry",
-      "actual": "Supported as 'cortador_estampa'. Meshes: 3, Verts: 137,460",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 84
-    },
-    {
-      "id": "s2_mode_cortador_simples",
-      "station": 2,
-      "subsystem": "Construction Modes",
-      "item": "Modo Construtivo: cortador_simples",
-      "expected": "Supported in #c-native-mode and generates 3D geometry",
-      "actual": "Supported as 'cortador_simples'. Meshes: 1, Verts: 123,912",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 80
-    },
-    {
-      "id": "s2_mode_carimbo_placa",
-      "station": 2,
-      "subsystem": "Construction Modes",
-      "item": "Modo Construtivo: carimbo_placa",
-      "expected": "Supported in #c-native-mode and generates 3D geometry",
-      "actual": "Supported as 'relevo'. Meshes: 2, Verts: 13,867",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 70
-    },
-    {
-      "id": "s2_preset_morcego",
-      "station": 2,
-      "subsystem": "Cutter Presets (12)",
-      "item": "🦇 1. Morcego Noturno (Kit 3 Peças Real)",
-      "expected": "Generates 3-part cutter kit (matriz + embolo + botao) with finite bounds and no NaN",
-      "actual": "Meshes: 3, Vertices: 140,934, Bounds: [128.53 x 15.98 x 85.07 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 3,
-        "totalVertices": 140934,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -53.19,
-            0,
-            -40.11
-          ],
-          "max": [
-            75.34,
-            15.98,
-            44.96
-          ],
-          "size": [
-            128.53,
-            15.98,
-            85.07
-          ]
-        }
-      },
-      "durationMs": 162
-    },
-    {
-      "id": "s2_preset_gato",
-      "station": 2,
-      "subsystem": "Cutter Presets (12)",
-      "item": "🐱 2. Gato Minimalista",
-      "expected": "Generates 3-part cutter kit (matriz + embolo + botao) with finite bounds and no NaN",
-      "actual": "Meshes: 26, Vertices: 118,705, Bounds: [206.9 x 43 x 193.98 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 3,
-        "meshCount": 26,
-        "totalVertices": 118705,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -107.42,
-            -19.5,
-            -95.97
-          ],
-          "max": [
-            99.48,
-            23.5,
-            98.01
-          ],
-          "size": [
-            206.9,
-            43,
-            193.98
-          ]
-        }
-      },
-      "durationMs": 169
-    },
-    {
-      "id": "s2_preset_folha",
-      "station": 2,
-      "subsystem": "Cutter Presets (12)",
-      "item": "🍃 3. Costela-de-Adão Botânica",
-      "expected": "Generates 3-part cutter kit (matriz + embolo + botao) with finite bounds and no NaN",
-      "actual": "Meshes: 24, Vertices: 87,949, Bounds: [206.35 x 43 x 211.04 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 3,
-        "meshCount": 24,
-        "totalVertices": 87949,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -106.86,
-            -19.5,
-            -99.69
-          ],
-          "max": [
-            99.48,
-            23.5,
-            111.35
-          ],
-          "size": [
-            206.35,
-            43,
-            211.04
-          ]
-        }
-      },
-      "durationMs": 173
-    },
-    {
-      "id": "s2_preset_marajoara",
-      "station": 2,
-      "subsystem": "Cutter Presets (12)",
-      "item": "🏺 4. Selo Geométrico Marajoara",
-      "expected": "Generates 3-part cutter kit (matriz + embolo + botao) with finite bounds and no NaN",
-      "actual": "Meshes: 25, Vertices: 103,369, Bounds: [211.85 x 43 x 197.82 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 3,
-        "meshCount": 25,
-        "totalVertices": 103369,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -112.37,
-            -19.5,
-            -93.75
-          ],
-          "max": [
-            99.48,
-            23.5,
-            104.08
-          ],
-          "size": [
-            211.85,
-            43,
-            197.82
-          ]
-        }
-      },
-      "durationMs": 165
-    },
-    {
-      "id": "s2_preset_flor",
-      "station": 2,
-      "subsystem": "Cutter Presets (12)",
-      "item": "🪷 5. Flor de Lótus Simétrica",
-      "expected": "Generates 3-part cutter kit (matriz + embolo + botao) with finite bounds and no NaN",
-      "actual": "Meshes: 24, Vertices: 87,409, Bounds: [215.81 x 43 x 206.64 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 3,
-        "meshCount": 24,
-        "totalVertices": 87409,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -116.33,
-            -19.5,
-            -97.71
-          ],
-          "max": [
-            99.48,
-            23.5,
-            108.93
-          ],
-          "size": [
-            215.81,
-            43,
-            206.64
-          ]
-        }
-      },
-      "durationMs": 152
-    },
-    {
-      "id": "s2_preset_sol_boho",
-      "station": 2,
-      "subsystem": "Cutter Presets (12)",
-      "item": "☀️ 6. Sol Radiante & Arco Boho",
-      "expected": "Generates 3-part cutter kit (matriz + embolo + botao) with finite bounds and no NaN",
-      "actual": "Meshes: 26, Vertices: 171,145, Bounds: [208.39 x 43 x 199.31 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 3,
-        "meshCount": 26,
-        "totalVertices": 171145,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -108.9,
-            -19.5,
-            -95.23
-          ],
-          "max": [
-            99.48,
-            23.5,
-            104.08
-          ],
-          "size": [
-            208.39,
-            43,
-            199.31
-          ]
-        }
-      },
-      "durationMs": 151
-    },
-    {
-      "id": "s2_preset_cogumelo",
-      "station": 2,
-      "subsystem": "Cutter Presets (12)",
-      "item": "🍄 7. Cogumelo Silvestre Amanita",
-      "expected": "Generates 3-part cutter kit (matriz + embolo + botao) with finite bounds and no NaN",
-      "actual": "Meshes: 23, Vertices: 81,781, Bounds: [212.02 x 43 x 201.13 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 3,
-        "meshCount": 23,
-        "totalVertices": 81781,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -112.53,
-            -19.5,
-            -95.23
-          ],
-          "max": [
-            99.48,
-            23.5,
-            105.9
-          ],
-          "size": [
-            212.02,
-            43,
-            201.13
-          ]
-        }
-      },
-      "durationMs": 176
-    },
-    {
-      "id": "s2_preset_concha",
-      "station": 2,
-      "subsystem": "Cutter Presets (12)",
-      "item": "🐚 8. Concha Vieira Marinha (Scallop)",
-      "expected": "Generates 3-part cutter kit (matriz + embolo + botao) with finite bounds and no NaN",
-      "actual": "Meshes: 25, Vertices: 93,757, Bounds: [213.35 x 43 x 197.82 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 3,
-        "meshCount": 25,
-        "totalVertices": 93757,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -113.86,
-            -19.5,
-            -93.75
-          ],
-          "max": [
-            99.48,
-            23.5,
-            104.08
-          ],
-          "size": [
-            213.35,
-            43,
-            197.82
-          ]
-        }
-      },
-      "durationMs": 149
-    },
-    {
-      "id": "s2_preset_coracao_sagrado",
-      "station": 2,
-      "subsystem": "Cutter Presets (12)",
-      "item": "❤️‍🔥 9. Coração Flamejante Mexicano",
-      "expected": "Generates 3-part cutter kit (matriz + embolo + botao) with finite bounds and no NaN",
-      "actual": "Meshes: 22, Vertices: 85,765, Bounds: [210.57 x 43 x 186.33 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 3,
-        "meshCount": 22,
-        "totalVertices": 85765,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -111.09,
-            -19.5,
-            -85.12
-          ],
-          "max": [
-            99.48,
-            23.5,
-            101.21
-          ],
-          "size": [
-            210.57,
-            43,
-            186.33
-          ]
-        }
-      },
-      "durationMs": 157
-    },
-    {
-      "id": "s2_preset_borboleta",
-      "station": 2,
-      "subsystem": "Cutter Presets (12)",
-      "item": "🦋 10. Borboleta Monarca Simétrica",
-      "expected": "Generates 3-part cutter kit (matriz + embolo + botao) with finite bounds and no NaN",
-      "actual": "Meshes: 20, Vertices: 64,177, Bounds: [208.93 x 43 x 179.59 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 3,
-        "meshCount": 20,
-        "totalVertices": 64177,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -109.45,
-            -19.5,
-            -85.55
-          ],
-          "max": [
-            99.48,
-            23.5,
-            94.03
-          ],
-          "size": [
-            208.93,
-            43,
-            179.59
-          ]
-        }
-      },
-      "durationMs": 156
-    },
-    {
-      "id": "s2_preset_hamsa_mao",
-      "station": 2,
-      "subsystem": "Cutter Presets (12)",
-      "item": "🪬 11. Mão de Hamsa & Olho Místico",
-      "expected": "Generates 3-part cutter kit (matriz + embolo + botao) with finite bounds and no NaN",
-      "actual": "Meshes: 22, Vertices: 85,765, Bounds: [202.91 x 43 x 195.13 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 3,
-        "meshCount": 22,
-        "totalVertices": 85765,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -103.42,
-            -19.5,
-            -94.88
-          ],
-          "max": [
-            99.48,
-            23.5,
-            100.24
-          ],
-          "size": [
-            202.91,
-            43,
-            195.13
-          ]
-        }
-      },
-      "durationMs": 139
-    },
-    {
-      "id": "s2_preset_passaro",
-      "station": 2,
-      "subsystem": "Cutter Presets (12)",
-      "item": "🕊️ 12. Andorinha em Voo (Folk Art)",
-      "expected": "Generates 3-part cutter kit (matriz + embolo + botao) with finite bounds and no NaN",
-      "actual": "Meshes: 19, Vertices: 58,549, Bounds: [203.55 x 43 x 196.99 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 3,
-        "meshCount": 19,
-        "totalVertices": 58549,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -104.06,
-            -19.5,
-            -93.37
-          ],
-          "max": [
-            99.48,
-            23.5,
-            103.62
-          ],
-          "size": [
-            203.55,
-            43,
-            196.99
-          ]
-        }
-      },
-      "durationMs": 141
-    },
-    {
-      "id": "s2_slider_largura_120",
-      "station": 2,
-      "subsystem": "Sliders & Dimensions",
-      "item": "Envergadura / Largura: 120 mm",
-      "expected": "Modifies parametric mesh dimensions without NaN",
-      "actual": "Meshes: 19, Vertices: 58,549, Bounds: [257.02 x 43 x 248.63 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 93
-    },
-    {
-      "id": "s2_slider_relevo_2",
-      "station": 2,
-      "subsystem": "Sliders & Dimensions",
-      "item": "Profundidade de Relevo: 2.0 mm",
-      "expected": "Modifies parametric mesh dimensions without NaN",
-      "actual": "Meshes: 19, Vertices: 58,549, Bounds: [257.02 x 43 x 248.63 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 81
-    },
-    {
-      "id": "s2_slider_retracao_115",
-      "station": 2,
-      "subsystem": "Sliders & Dimensions",
-      "item": "Fator de Retração da Argila: 1.15",
-      "expected": "Modifies parametric mesh dimensions without NaN",
-      "actual": "Meshes: 19, Vertices: 58,549, Bounds: [263.89 x 43 x 255.27 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 72
-    },
-    {
-      "id": "s2_chk_furo_ativo",
-      "station": 2,
-      "subsystem": "Checkboxes & Anti-Suction",
-      "item": "Furo Central de Fixação",
-      "expected": "Toggles feature and recalculates mesh geometry",
-      "actual": "Meshes: 17, Vertices: 58,231",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 74
-    },
-    {
-      "id": "s2_chk_invert_bw",
-      "station": 2,
-      "subsystem": "Checkboxes & Anti-Suction",
-      "item": "Inverter Preto e Branco",
-      "expected": "Toggles feature and recalculates mesh geometry",
-      "actual": "Meshes: 17, Vertices: 58,231",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 86
-    },
-    {
-      "id": "s2_chk_vent_holes",
-      "station": 2,
-      "subsystem": "Checkboxes & Anti-Suction",
-      "item": "Furos Anti-Vácuo Passantes",
-      "expected": "Toggles feature and recalculates mesh geometry",
-      "actual": "Meshes: 13, Vertices: 57,639",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 71
-    },
-    {
-      "id": "s2_chk_convex_dome",
-      "station": 2,
-      "subsystem": "Checkboxes & Anti-Suction",
-      "item": "Domo Descolador (+0.65 mm)",
-      "expected": "Toggles feature and recalculates mesh geometry",
-      "actual": "Meshes: 13, Vertices: 57,639",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 77
-    },
-    {
-      "id": "s2_chk_micro_ribs",
-      "station": 2,
-      "subsystem": "Checkboxes & Anti-Suction",
-      "item": "Micro-Frisos Anti-Sucção de Ar",
-      "expected": "Toggles feature and recalculates mesh geometry",
-      "actual": "Meshes: 13, Vertices: 57,639",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 98
-    },
-    {
-      "id": "s2_view_mode_bed",
-      "station": 2,
-      "subsystem": "View Modes (3)",
-      "item": "Disposição 3D: BED",
-      "expected": "setCutterViewMode sets currentCutterViewMode to 'bed' and arranges parts",
-      "actual": "Active Mode: bed, Meshes: 13, Bounds: [263.89 x 23.6 x 255.27 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 85
-    },
-    {
-      "id": "s2_view_mode_assembled",
-      "station": 2,
-      "subsystem": "View Modes (3)",
-      "item": "Disposição 3D: ASSEMBLED",
-      "expected": "setCutterViewMode sets currentCutterViewMode to 'assembled' and arranges parts",
-      "actual": "Active Mode: assembled, Meshes: 13, Bounds: [137.05 x 27.5 x 144.34 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 83
-    },
-    {
-      "id": "s2_view_mode_exploded",
-      "station": 2,
-      "subsystem": "View Modes (3)",
-      "item": "Disposição 3D: EXPLODED",
-      "expected": "setCutterViewMode sets currentCutterViewMode to 'exploded' and arranges parts",
-      "actual": "Active Mode: exploded, Meshes: 13, Bounds: [137.05 x 74.6 x 144.34 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 100
-    },
-    {
-      "id": "s2_spring_flex_pla",
-      "station": 2,
-      "subsystem": "Spring Selector",
-      "item": "Tipo de Mola: flex_pla",
-      "expected": "Adjusts plunger travel mechanism and clearance",
-      "actual": "Meshes: 13, Vertices: 57,639",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 74
-    },
-    {
-      "id": "s2_spring_mola_inox",
-      "station": 2,
-      "subsystem": "Spring Selector",
-      "item": "Tipo de Mola: mola_inox",
-      "expected": "Adjusts plunger travel mechanism and clearance",
-      "actual": "Meshes: 11, Vertices: 55,206",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 76
-    },
-    {
-      "id": "s2_spring_gravidade",
-      "station": 2,
-      "subsystem": "Spring Selector",
-      "item": "Tipo de Mola: gravidade",
-      "expected": "Adjusts plunger travel mechanism and clearance",
-      "actual": "Meshes: 10, Vertices: 55,140",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 77
-    },
-    {
-      "id": "s2_draft_angle_1.5",
-      "station": 2,
-      "subsystem": "Draft Angle",
-      "item": "Ângulo de Desmolde: 1.5°",
-      "expected": "Applies conical slope to blade walls",
-      "actual": "Meshes: 10, Vertices: 55,140",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 72
-    },
-    {
-      "id": "s2_draft_angle_2.0",
-      "station": 2,
-      "subsystem": "Draft Angle",
-      "item": "Ângulo de Desmolde: 2.0°",
-      "expected": "Applies conical slope to blade walls",
-      "actual": "Meshes: 10, Vertices: 55,140",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 75
-    },
-    {
-      "id": "s2_draft_angle_3.0",
-      "station": 2,
-      "subsystem": "Draft Angle",
-      "item": "Ângulo de Desmolde: 3.0°",
-      "expected": "Applies conical slope to blade walls",
-      "actual": "Meshes: 10, Vertices: 55,140",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 78
-    },
-    {
-      "id": "s2_stl_live_preview",
-      "station": 2,
-      "subsystem": "Live STL Preview",
-      "item": "Visualizador Live Preview de STL ASCII Colado",
-      "expected": "Parses ASCII STL triangles and displays preview in Three.js viewport",
-      "actual": "Meshes: 1, Vertices: 3, Bounds: [10 x 10 x 0 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 76
-    },
-    {
-      "id": "s2_download_part_matriz",
-      "station": 2,
-      "subsystem": "Part Downloads",
-      "item": "Download Individual da Peça: MATRIZ",
-      "expected": "Exports isolated STL file for matriz",
-      "actual": "Downloads: 1 (cortador_passaro_matriz_138mm.stl: 134B)",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 87
-    },
-    {
-      "id": "s2_download_part_embolo",
-      "station": 2,
-      "subsystem": "Part Downloads",
-      "item": "Download Individual da Peça: EMBOLO",
-      "expected": "Exports isolated STL file for embolo",
-      "actual": "Downloads: 1 (cortador_passaro_embolo_138mm.stl: 134B)",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 88
-    },
-    {
-      "id": "s2_download_part_botao",
-      "station": 2,
-      "subsystem": "Part Downloads",
-      "item": "Download Individual da Peça: BOTAO",
-      "expected": "Exports isolated STL file for botao",
-      "actual": "Downloads: 1 (cortador_passaro_botao_138mm.stl: 134B)",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 88
-    },
-    {
-      "id": "s3_roller_preset_marajoara",
-      "station": 3,
-      "subsystem": "Rollers 360° (20)",
-      "item": "🏺 1. Ondas Geométricas Marajoaras",
-      "expected": "Generates seamless procedural 360° cylinder relief without distortion",
-      "actual": "Meshes: 5, Vertices: 48,979, Bounds: [47 x 102 x 47 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 5,
-        "meshCount": 5,
-        "totalVertices": 48979,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -23.5,
-            0,
-            -23.5
-          ],
-          "max": [
-            23.5,
-            102,
-            23.5
-          ],
-          "size": [
-            47,
-            102,
-            47
-          ]
-        }
-      },
-      "durationMs": 101
-    },
-    {
-      "id": "s3_roller_preset_seigaiha",
-      "station": 3,
-      "subsystem": "Rollers 360° (20)",
-      "item": "🌊 2. Escamas Seigaiha (Ondas Japonesas)",
-      "expected": "Generates seamless procedural 360° cylinder relief without distortion",
-      "actual": "Meshes: 5, Vertices: 48,979, Bounds: [47 x 102 x 47 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 5,
-        "meshCount": 5,
-        "totalVertices": 48979,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -23.5,
-            0,
-            -23.5
-          ],
-          "max": [
-            23.5,
-            102,
-            23.5
-          ],
-          "size": [
-            47,
-            102,
-            47
-          ]
-        }
-      },
-      "durationMs": 99
-    },
-    {
-      "id": "s3_roller_preset_folhagem",
-      "station": 3,
-      "subsystem": "Rollers 360° (20)",
-      "item": "🌿 3. Folhagem Tropical & Samambaias",
-      "expected": "Generates seamless procedural 360° cylinder relief without distortion",
-      "actual": "Meshes: 5, Vertices: 48,979, Bounds: [46.65 x 102 x 46.83 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 5,
-        "meshCount": 5,
-        "totalVertices": 48979,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -23.15,
-            0,
-            -23.41
-          ],
-          "max": [
-            23.5,
-            102,
-            23.41
-          ],
-          "size": [
-            46.65,
-            102,
-            46.83
-          ]
-        }
-      },
-      "durationMs": 105
-    },
-    {
-      "id": "s3_roller_preset_espinha",
-      "station": 3,
-      "subsystem": "Rollers 360° (20)",
-      "item": "🌾 4. Espinha de Peixe (Herringbone)",
-      "expected": "Generates seamless procedural 360° cylinder relief without distortion",
-      "actual": "Meshes: 5, Vertices: 48,979, Bounds: [46.72 x 102 x 46.72 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 5,
-        "meshCount": 5,
-        "totalVertices": 48979,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -23.36,
-            0,
-            -23.36
-          ],
-          "max": [
-            23.36,
-            102,
-            23.36
-          ],
-          "size": [
-            46.72,
-            102,
-            46.72
-          ]
-        }
-      },
-      "durationMs": 94
-    },
-    {
-      "id": "s3_roller_preset_favo",
-      "station": 3,
-      "subsystem": "Rollers 360° (20)",
-      "item": "🐝 5. Favos de Mel Hexagonais (Honeycomb)",
-      "expected": "Generates seamless procedural 360° cylinder relief without distortion",
-      "actual": "Meshes: 5, Vertices: 48,979, Bounds: [47 x 102 x 47 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 5,
-        "meshCount": 5,
-        "totalVertices": 48979,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -23.5,
-            0,
-            -23.5
-          ],
-          "max": [
-            23.5,
-            102,
-            23.5
-          ],
-          "size": [
-            47,
-            102,
-            47
-          ]
-        }
-      },
-      "durationMs": 104
-    },
-    {
-      "id": "s3_roller_preset_renda",
-      "station": 3,
-      "subsystem": "Rollers 360° (20)",
-      "item": "🌸 6. Renda Floral Vitoriana",
-      "expected": "Generates seamless procedural 360° cylinder relief without distortion",
-      "actual": "Meshes: 5, Vertices: 48,979, Bounds: [47 x 102 x 47 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 5,
-        "meshCount": 5,
-        "totalVertices": 48979,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -23.5,
-            0,
-            -23.5
-          ],
-          "max": [
-            23.5,
-            102,
-            23.5
-          ],
-          "size": [
-            47,
-            102,
-            47
-          ]
-        }
-      },
-      "durationMs": 96
-    },
-    {
-      "id": "s3_roller_preset_cestaria",
-      "station": 3,
-      "subsystem": "Rollers 360° (20)",
-      "item": "🧺 7. Trama de Cestaria Indígena (Woven)",
-      "expected": "Generates seamless procedural 360° cylinder relief without distortion",
-      "actual": "Meshes: 5, Vertices: 48,979, Bounds: [46.65 x 102 x 46.65 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 5,
-        "meshCount": 5,
-        "totalVertices": 48979,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -23.33,
-            0,
-            -23.33
-          ],
-          "max": [
-            23.33,
-            102,
-            23.33
-          ],
-          "size": [
-            46.65,
-            102,
-            46.65
-          ]
-        }
-      },
-      "durationMs": 95
-    },
-    {
-      "id": "s3_roller_preset_meandro",
-      "station": 3,
-      "subsystem": "Rollers 360° (20)",
-      "item": "🏛️ 8. Labirinto Grego (Meandro Clássico)",
-      "expected": "Generates seamless procedural 360° cylinder relief without distortion",
-      "actual": "Meshes: 5, Vertices: 48,979, Bounds: [46.98 x 102 x 46.98 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 5,
-        "meshCount": 5,
-        "totalVertices": 48979,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -23.49,
-            0,
-            -23.49
-          ],
-          "max": [
-            23.49,
-            102,
-            23.49
-          ],
-          "size": [
-            46.98,
-            102,
-            46.98
-          ]
-        }
-      },
-      "durationMs": 92
-    },
-    {
-      "id": "s3_roller_preset_constelacao",
-      "station": 3,
-      "subsystem": "Rollers 360° (20)",
-      "item": "✨ 9. Constelação & Estrelas Celestiais",
-      "expected": "Generates seamless procedural 360° cylinder relief without distortion",
-      "actual": "Meshes: 5, Vertices: 48,979, Bounds: [45.31 x 102 x 47 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 5,
-        "meshCount": 5,
-        "totalVertices": 48979,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -22.66,
-            0,
-            -23.5
-          ],
-          "max": [
-            22.66,
-            102,
-            23.5
-          ],
-          "size": [
-            45.31,
-            102,
-            47
-          ]
-        }
-      },
-      "durationMs": 96
-    },
-    {
-      "id": "s3_roller_preset_casca",
-      "station": 3,
-      "subsystem": "Rollers 360° (20)",
-      "item": "🪵 10. Casca de Árvore Rústica (Woodgrain)",
-      "expected": "Generates seamless procedural 360° cylinder relief without distortion",
-      "actual": "Meshes: 5, Vertices: 48,979, Bounds: [46.72 x 102 x 46.72 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 5,
-        "meshCount": 5,
-        "totalVertices": 48979,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -23.36,
-            0,
-            -23.36
-          ],
-          "max": [
-            23.36,
-            102,
-            23.36
-          ],
-          "size": [
-            46.72,
-            102,
-            46.72
-          ]
-        }
-      },
-      "durationMs": 95
-    },
-    {
-      "id": "s3_roller_preset_azulejo",
-      "station": 3,
-      "subsystem": "Rollers 360° (20)",
-      "item": "💠 11. Azulejo Português / Arabesco",
-      "expected": "Generates seamless procedural 360° cylinder relief without distortion",
-      "actual": "Meshes: 5, Vertices: 48,979, Bounds: [46.69 x 102 x 46.69 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 5,
-        "meshCount": 5,
-        "totalVertices": 48979,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -23.35,
-            0,
-            -23.35
-          ],
-          "max": [
-            23.35,
-            102,
-            23.35
-          ],
-          "size": [
-            46.69,
-            102,
-            46.69
-          ]
-        }
-      },
-      "durationMs": 96
-    },
-    {
-      "id": "s3_roller_preset_seixos",
-      "station": 3,
-      "subsystem": "Rollers 360° (20)",
-      "item": "🪨 12. Seixos Rolados de Rio (Pebble Stone)",
-      "expected": "Generates seamless procedural 360° cylinder relief without distortion",
-      "actual": "Meshes: 5, Vertices: 48,979, Bounds: [46.96 x 102 x 46.99 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 5,
-        "meshCount": 5,
-        "totalVertices": 48979,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -23.49,
-            0,
-            -23.49
-          ],
-          "max": [
-            23.47,
-            102,
-            23.49
-          ],
-          "size": [
-            46.96,
-            102,
-            46.99
-          ]
-        }
-      },
-      "durationMs": 120
-    },
-    {
-      "id": "s3_roller_preset_kintsugi",
-      "station": 3,
-      "subsystem": "Rollers 360° (20)",
-      "item": "⚡ 13. Veios Kintsugi & Craquelê de Ouro",
-      "expected": "Generates seamless procedural 360° cylinder relief without distortion",
-      "actual": "Meshes: 5, Vertices: 48,979, Bounds: [47 x 102 x 47 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 5,
-        "meshCount": 5,
-        "totalVertices": 48979,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -23.5,
-            0,
-            -23.5
-          ],
-          "max": [
-            23.5,
-            102,
-            23.5
-          ],
-          "size": [
-            47,
-            102,
-            47
-          ]
-        }
-      },
-      "durationMs": 94
-    },
-    {
-      "id": "s3_roller_preset_bambu_zen",
-      "station": 3,
-      "subsystem": "Rollers 360° (20)",
-      "item": "🎋 14. Colmos de Bambu Zen & Nós Articulados",
-      "expected": "Generates seamless procedural 360° cylinder relief without distortion",
-      "actual": "Meshes: 5, Vertices: 48,979, Bounds: [45.97 x 102 x 45.97 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 5,
-        "meshCount": 5,
-        "totalVertices": 48979,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -22.98,
-            0,
-            -22.98
-          ],
-          "max": [
-            22.98,
-            102,
-            22.98
-          ],
-          "size": [
-            45.97,
-            102,
-            45.97
-          ]
-        }
-      },
-      "durationMs": 95
-    },
-    {
-      "id": "s3_roller_preset_olho_grego",
-      "station": 3,
-      "subsystem": "Rollers 360° (20)",
-      "item": "🧿 15. Olho Místico & Losangos Protetores",
-      "expected": "Generates seamless procedural 360° cylinder relief without distortion",
-      "actual": "Meshes: 5, Vertices: 48,979, Bounds: [46.83 x 102 x 47 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 5,
-        "meshCount": 5,
-        "totalVertices": 48979,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -23.41,
-            0,
-            -23.5
-          ],
-          "max": [
-            23.41,
-            102,
-            23.5
-          ],
-          "size": [
-            46.83,
-            102,
-            47
-          ]
-        }
-      },
-      "durationMs": 96
-    },
-    {
-      "id": "s3_roller_preset_mandala_boho",
-      "station": 3,
-      "subsystem": "Rollers 360° (20)",
-      "item": "☀️ 16. Rosetas & Mandalas Solares Boho",
-      "expected": "Generates seamless procedural 360° cylinder relief without distortion",
-      "actual": "Meshes: 5, Vertices: 48,979, Bounds: [46.53 x 102 x 47 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 5,
-        "meshCount": 5,
-        "totalVertices": 48979,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -23.03,
-            0,
-            -23.5
-          ],
-          "max": [
-            23.5,
-            102,
-            23.5
-          ],
-          "size": [
-            46.53,
-            102,
-            47
-          ]
-        }
-      },
-      "durationMs": 96
-    },
-    {
-      "id": "s3_roller_preset_folha_ginkgo",
-      "station": 3,
-      "subsystem": "Rollers 360° (20)",
-      "item": "🍂 17. Folhas de Ginkgo Biloba Orientais",
-      "expected": "Generates seamless procedural 360° cylinder relief without distortion",
-      "actual": "Meshes: 5, Vertices: 48,979, Bounds: [46.97 x 102 x 46.97 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 5,
-        "meshCount": 5,
-        "totalVertices": 48979,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -23.48,
-            0,
-            -23.48
-          ],
-          "max": [
-            23.48,
-            102,
-            23.48
-          ],
-          "size": [
-            46.97,
-            102,
-            46.97
-          ]
-        }
-      },
-      "durationMs": 98
-    },
-    {
-      "id": "s3_roller_preset_trama_rattan",
-      "station": 3,
-      "subsystem": "Rollers 360° (20)",
-      "item": "🪑 18. Palhinha Indiana Hexagonal (Rattan Cane)",
-      "expected": "Generates seamless procedural 360° cylinder relief without distortion",
-      "actual": "Meshes: 5, Vertices: 48,979, Bounds: [47 x 102 x 47 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 5,
-        "meshCount": 5,
-        "totalVertices": 48979,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -23.5,
-            0,
-            -23.5
-          ],
-          "max": [
-            23.5,
-            102,
-            23.5
-          ],
-          "size": [
-            47,
-            102,
-            47
-          ]
-        }
-      },
-      "durationMs": 92
-    },
-    {
-      "id": "s3_roller_preset_dunas_deserto",
-      "station": 3,
-      "subsystem": "Rollers 360° (20)",
-      "item": "🏜️ 19. Dunas de Areia & Ondas Eólicas",
-      "expected": "Generates seamless procedural 360° cylinder relief without distortion",
-      "actual": "Meshes: 5, Vertices: 48,979, Bounds: [46.72 x 102 x 46.72 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 5,
-        "meshCount": 5,
-        "totalVertices": 48979,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -23.36,
-            0,
-            -23.36
-          ],
-          "max": [
-            23.36,
-            102,
-            23.36
-          ],
-          "size": [
-            46.72,
-            102,
-            46.72
-          ]
-        }
-      },
-      "durationMs": 93
-    },
-    {
-      "id": "s3_roller_preset_runas_nordicas",
-      "station": 3,
-      "subsystem": "Rollers 360° (20)",
-      "item": "❄️ 20. Chevron Tribal & Geometria Nórdica",
-      "expected": "Generates seamless procedural 360° cylinder relief without distortion",
-      "actual": "Meshes: 5, Vertices: 48,979, Bounds: [46.92 x 102 x 46.92 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 5,
-        "meshCount": 5,
-        "totalVertices": 48979,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -23.46,
-            0,
-            -23.46
-          ],
-          "max": [
-            23.46,
-            102,
-            23.46
-          ],
-          "size": [
-            46.92,
-            102,
-            46.92
-          ]
-        }
-      },
-      "durationMs": 92
-    },
-    {
-      "id": "s3_roller_axle_hole_on",
-      "station": 3,
-      "subsystem": "Roller Parameters",
-      "item": "Furo Eixo Ø8mm c/ Túnel e Buchas (Ativo)",
-      "expected": "Adjusts axle hole / dimensions and regenerates roller mesh",
-      "actual": "Meshes: 5, Vertices: 48,979, Bounds: [46.92 x 102 x 46.92 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 87
-    },
-    {
-      "id": "s3_roller_axle_hole_off",
-      "station": 3,
-      "subsystem": "Roller Parameters",
-      "item": "Furo Eixo Desativado (Cilindro Fechado c/ Manoplas)",
-      "expected": "Adjusts axle hole / dimensions and regenerates roller mesh",
-      "actual": "Meshes: 4, Vertices: 36,317, Bounds: [46.92 x 108 x 46.92 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 91
-    },
-    {
-      "id": "s3_roller_dim_custom",
-      "station": 3,
-      "subsystem": "Roller Parameters",
-      "item": "Dimensões Personalizadas: Ø60mm x 150mm x 4.0mm Relevo",
-      "expected": "Adjusts axle hole / dimensions and regenerates roller mesh",
-      "actual": "Meshes: 4, Vertices: 78,297, Bounds: [67.95 x 158 x 67.95 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 133
-    },
-    {
-      "id": "s3_stamp_preset_oliveira",
-      "station": 3,
-      "subsystem": "Maker's Mark (24)",
-      "item": "🌿 1. Monograma Clássico & Ramo de Oliveira",
-      "expected": "Generates ergonomic turned handle + base plate + procedural vector emblem",
-      "actual": "Meshes: 17, Vertices: 193,398, Bounds: [33 x 52 x 33 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 17,
-        "totalVertices": 193398,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -16.5,
-            0,
-            -16.5
-          ],
-          "max": [
-            16.5,
-            52,
-            16.5
-          ],
-          "size": [
-            33,
-            52,
-            33
-          ]
-        }
-      },
-      "durationMs": 188
-    },
-    {
-      "id": "s3_stamp_preset_hanko",
-      "station": 3,
-      "subsystem": "Maker's Mark (24)",
-      "item": "⛩️ 2. Selo Japonês Hanko / Inkan Oriental",
-      "expected": "Generates ergonomic turned handle + base plate + procedural vector emblem",
-      "actual": "Meshes: 10, Vertices: 183,537, Bounds: [29.8 x 52 x 29.8 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 10,
-        "totalVertices": 183537,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -14.9,
-            0,
-            -14.9
-          ],
-          "max": [
-            14.9,
-            52,
-            14.9
-          ],
-          "size": [
-            29.8,
-            52,
-            29.8
-          ]
-        }
-      },
-      "durationMs": 173
-    },
-    {
-      "id": "s3_stamp_preset_sol_lua",
-      "station": 3,
-      "subsystem": "Maker's Mark (24)",
-      "item": "☀️ 3. Sol Radiante & Meia-Lua Boho",
-      "expected": "Generates ergonomic turned handle + base plate + procedural vector emblem",
-      "actual": "Meshes: 17, Vertices: 249,270, Bounds: [33 x 52.18 x 33 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 17,
-        "totalVertices": 249270,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -16.5,
-            0,
-            -16.5
-          ],
-          "max": [
-            16.5,
-            52.18,
-            16.5
-          ],
-          "size": [
-            33,
-            52.18,
-            33
-          ]
-        }
-      },
-      "durationMs": 232
-    },
-    {
-      "id": "s3_stamp_preset_monstera",
-      "station": 3,
-      "subsystem": "Maker's Mark (24)",
-      "item": "🍃 4. Folha de Costela-de-Adão (Monstera)",
-      "expected": "Generates ergonomic turned handle + base plate + procedural vector emblem",
-      "actual": "Meshes: 12, Vertices: 164,949, Bounds: [38.76 x 52.06 x 27.88 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 12,
-        "totalVertices": 164949,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -19.38,
-            0,
-            -13.94
-          ],
-          "max": [
-            19.38,
-            52.06,
-            13.94
-          ],
-          "size": [
-            38.76,
-            52.06,
-            27.88
-          ]
-        }
-      },
-      "durationMs": 281
-    },
-    {
-      "id": "s3_stamp_preset_hamsa",
-      "station": 3,
-      "subsystem": "Maker's Mark (24)",
-      "item": "🧿 5. Olho Místico Protetor (Hamsa / Nazar)",
-      "expected": "Generates ergonomic turned handle + base plate + procedural vector emblem",
-      "actual": "Meshes: 14, Vertices: 184,302, Bounds: [33 x 52.29 x 33 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 14,
-        "totalVertices": 184302,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -16.5,
-            0,
-            -16.5
-          ],
-          "max": [
-            16.5,
-            52.29,
-            16.5
-          ],
-          "size": [
-            33,
-            52.29,
-            33
-          ]
-        }
-      },
-      "durationMs": 201
-    },
-    {
-      "id": "s3_stamp_preset_abelha",
-      "station": 3,
-      "subsystem": "Maker's Mark (24)",
-      "item": "🐝 6. Abelha Imperial & Favo Hexagonal",
-      "expected": "Generates ergonomic turned handle + base plate + procedural vector emblem",
-      "actual": "Meshes: 12, Vertices: 221,262, Bounds: [31.56 x 52.25 x 28.71 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 12,
-        "totalVertices": 221262,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -15.78,
-            0,
-            -14.36
-          ],
-          "max": [
-            15.78,
-            52.25,
-            14.36
-          ],
-          "size": [
-            31.56,
-            52.25,
-            28.71
-          ]
-        }
-      },
-      "durationMs": 177
-    },
-    {
-      "id": "s3_stamp_preset_rosa_ventos",
-      "station": 3,
-      "subsystem": "Maker's Mark (24)",
-      "item": "🧭 7. Rosa dos Ventos Náutica (8 Pontas)",
-      "expected": "Generates ergonomic turned handle + base plate + procedural vector emblem",
-      "actual": "Meshes: 15, Vertices: 212,142, Bounds: [33 x 52.29 x 33 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 15,
-        "totalVertices": 212142,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -16.5,
-            0,
-            -16.5
-          ],
-          "max": [
-            16.5,
-            52.29,
-            16.5
-          ],
-          "size": [
-            33,
-            52.29,
-            33
-          ]
-        }
-      },
-      "durationMs": 199
-    },
-    {
-      "id": "s3_stamp_preset_marajoara",
-      "station": 3,
-      "subsystem": "Maker's Mark (24)",
-      "item": "🏺 8. Selo Geométrico Marajoara Autêntico",
-      "expected": "Generates ergonomic turned handle + base plate + procedural vector emblem",
-      "actual": "Meshes: 12, Vertices: 220,785, Bounds: [29.8 x 52 x 29.8 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 12,
-        "totalVertices": 220785,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -14.9,
-            0,
-            -14.9
-          ],
-          "max": [
-            14.9,
-            52,
-            14.9
-          ],
-          "size": [
-            29.8,
-            52,
-            29.8
-          ]
-        }
-      },
-      "durationMs": 225
-    },
-    {
-      "id": "s3_stamp_preset_lotus",
-      "station": 3,
-      "subsystem": "Maker's Mark (24)",
-      "item": "🪷 9. Flor de Lótus & Mandala Zen",
-      "expected": "Generates ergonomic turned handle + base plate + procedural vector emblem",
-      "actual": "Meshes: 11, Vertices: 109,233, Bounds: [33 x 52.06 x 33 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 11,
-        "totalVertices": 109233,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -16.5,
-            0,
-            -16.5
-          ],
-          "max": [
-            16.5,
-            52.06,
-            16.5
-          ],
-          "size": [
-            33,
-            52.06,
-            33
-          ]
-        }
-      },
-      "durationMs": 211
-    },
-    {
-      "id": "s3_stamp_preset_maos_oleiro",
-      "station": 3,
-      "subsystem": "Maker's Mark (24)",
-      "item": "🤲 10. Mãos de Oleiro & Vaso Central",
-      "expected": "Generates ergonomic turned handle + base plate + procedural vector emblem",
-      "actual": "Meshes: 13, Vertices: 183,513, Bounds: [38.76 x 52 x 27.88 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 13,
-        "totalVertices": 183513,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -19.38,
-            0,
-            -13.94
-          ],
-          "max": [
-            19.38,
-            52,
-            13.94
-          ],
-          "size": [
-            38.76,
-            52,
-            27.88
-          ]
-        }
-      },
-      "durationMs": 150
-    },
-    {
-      "id": "s3_stamp_preset_lavanda",
-      "station": 3,
-      "subsystem": "Maker's Mark (24)",
-      "item": "🌾 11. Ramo de Lavanda & Espiga de Trigo",
-      "expected": "Generates ergonomic turned handle + base plate + procedural vector emblem",
-      "actual": "Meshes: 14, Vertices: 104,643, Bounds: [38.76 x 52 x 27.88 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 14,
-        "totalVertices": 104643,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -19.38,
-            0,
-            -13.94
-          ],
-          "max": [
-            19.38,
-            52,
-            13.94
-          ],
-          "size": [
-            38.76,
-            52,
-            27.88
-          ]
-        }
-      },
-      "durationMs": 157
-    },
-    {
-      "id": "s3_stamp_preset_coroa",
-      "station": 3,
-      "subsystem": "Maker's Mark (24)",
-      "item": "👑 12. Coroa Real & Brasão Handmade",
-      "expected": "Generates ergonomic turned handle + base plate + procedural vector emblem",
-      "actual": "Meshes: 10, Vertices: 158,424, Bounds: [31.56 x 52.29 x 28.71 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 10,
-        "totalVertices": 158424,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -15.78,
-            0,
-            -14.36
-          ],
-          "max": [
-            15.78,
-            52.29,
-            14.36
-          ],
-          "size": [
-            31.56,
-            52.29,
-            28.71
-          ]
-        }
-      },
-      "durationMs": 185
-    },
-    {
-      "id": "s3_stamp_preset_ginkgo",
-      "station": 3,
-      "subsystem": "Maker's Mark (24)",
-      "item": "🍂 13. Folha Dupla de Ginkgo Biloba",
-      "expected": "Generates ergonomic turned handle + base plate + procedural vector emblem",
-      "actual": "Meshes: 11, Vertices: 137,097, Bounds: [33 x 52.12 x 33 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 11,
-        "totalVertices": 137097,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -16.5,
-            0,
-            -16.5
-          ],
-          "max": [
-            16.5,
-            52.12,
-            16.5
-          ],
-          "size": [
-            33,
-            52.12,
-            33
-          ]
-        }
-      },
-      "durationMs": 181
-    },
-    {
-      "id": "s3_stamp_preset_kintsugi_selo",
-      "station": 3,
-      "subsystem": "Maker's Mark (24)",
-      "item": "⚡ 14. Tigela Chawan & Cicatriz Kintsugi",
-      "expected": "Generates ergonomic turned handle + base plate + procedural vector emblem",
-      "actual": "Meshes: 10, Vertices: 174,369, Bounds: [29.8 x 52.25 x 29.8 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 10,
-        "totalVertices": 174369,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -14.9,
-            0,
-            -14.9
-          ],
-          "max": [
-            14.9,
-            52.25,
-            14.9
-          ],
-          "size": [
-            29.8,
-            52.25,
-            29.8
-          ]
-        }
-      },
-      "durationMs": 163
-    },
-    {
-      "id": "s3_stamp_preset_bule_cha",
-      "station": 3,
-      "subsystem": "Maker's Mark (24)",
-      "item": "🫖 15. Chaleira / Bule de Chá Artesanal",
-      "expected": "Generates ergonomic turned handle + base plate + procedural vector emblem",
-      "actual": "Meshes: 10, Vertices: 109,974, Bounds: [33 x 52.18 x 33 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 10,
-        "totalVertices": 109974,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -16.5,
-            0,
-            -16.5
-          ],
-          "max": [
-            16.5,
-            52.18,
-            16.5
-          ],
-          "size": [
-            33,
-            52.18,
-            33
-          ]
-        }
-      },
-      "durationMs": 165
-    },
-    {
-      "id": "s3_stamp_preset_cuia_mate",
-      "station": 3,
-      "subsystem": "Maker's Mark (24)",
-      "item": "🧉 16. Cuia de Chimarrão & Bomba Tradicional",
-      "expected": "Generates ergonomic turned handle + base plate + procedural vector emblem",
-      "actual": "Meshes: 11, Vertices: 128,598, Bounds: [38.76 x 52.29 x 27.88 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 11,
-        "totalVertices": 128598,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -19.38,
-            0,
-            -13.94
-          ],
-          "max": [
-            19.38,
-            52.29,
-            13.94
-          ],
-          "size": [
-            38.76,
-            52.29,
-            27.88
-          ]
-        }
-      },
-      "durationMs": 180
-    },
-    {
-      "id": "s3_stamp_preset_passaro_folk",
-      "station": 3,
-      "subsystem": "Maker's Mark (24)",
-      "item": "🕊️ 17. Andorinha Folk Art & Ramo Florido",
-      "expected": "Generates ergonomic turned handle + base plate + procedural vector emblem",
-      "actual": "Meshes: 10, Vertices: 110,034, Bounds: [33 x 52.07 x 33 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 10,
-        "totalVertices": 110034,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -16.5,
-            0,
-            -16.5
-          ],
-          "max": [
-            16.5,
-            52.07,
-            16.5
-          ],
-          "size": [
-            33,
-            52.07,
-            33
-          ]
-        }
-      },
-      "durationMs": 165
-    },
-    {
-      "id": "s3_stamp_preset_cacto_sol",
-      "station": 3,
-      "subsystem": "Maker's Mark (24)",
-      "item": "🌵 18. Cacto Mandacaru & Sol do Sertão",
-      "expected": "Generates ergonomic turned handle + base plate + procedural vector emblem",
-      "actual": "Meshes: 12, Vertices: 156,450, Bounds: [38.76 x 52.06 x 27.88 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 12,
-        "totalVertices": 156450,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -19.38,
-            0,
-            -13.94
-          ],
-          "max": [
-            19.38,
-            52.06,
-            13.94
-          ],
-          "size": [
-            38.76,
-            52.06,
-            27.88
-          ]
-        }
-      },
-      "durationMs": 183
-    },
-    {
-      "id": "s3_stamp_preset_concha_mar",
-      "station": 3,
-      "subsystem": "Maker's Mark (24)",
-      "item": "🐚 19. Concha Vieira Marinha (Scallop)",
-      "expected": "Generates ergonomic turned handle + base plate + procedural vector emblem",
-      "actual": "Meshes: 14, Vertices: 193,578, Bounds: [33 x 52.22 x 33 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 14,
-        "totalVertices": 193578,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -16.5,
-            0,
-            -16.5
-          ],
-          "max": [
-            16.5,
-            52.22,
-            16.5
-          ],
-          "size": [
-            33,
-            52.22,
-            33
-          ]
-        }
-      },
-      "durationMs": 198
-    },
-    {
-      "id": "s3_stamp_preset_cogumelo_bot",
-      "station": 3,
-      "subsystem": "Maker's Mark (24)",
-      "item": "🍄 20. Cogumelo Amanita & Estrelas da Floresta",
-      "expected": "Generates ergonomic turned handle + base plate + procedural vector emblem",
-      "actual": "Meshes: 11, Vertices: 93,024, Bounds: [38.76 x 52.29 x 27.88 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 11,
-        "totalVertices": 93024,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -19.38,
-            0,
-            -13.94
-          ],
-          "max": [
-            19.38,
-            52.29,
-            13.94
-          ],
-          "size": [
-            38.76,
-            52.29,
-            27.88
-          ]
-        }
-      },
-      "durationMs": 171
-    },
-    {
-      "id": "s3_stamp_preset_coracao_chama",
-      "station": 3,
-      "subsystem": "Maker's Mark (24)",
-      "item": "❤️‍🔥 21. Coração Sagrado Flamejante (Milagro)",
-      "expected": "Generates ergonomic turned handle + base plate + procedural vector emblem",
-      "actual": "Meshes: 11, Vertices: 137,097, Bounds: [33 x 52.12 x 33 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 11,
-        "totalVertices": 137097,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -16.5,
-            0,
-            -16.5
-          ],
-          "max": [
-            16.5,
-            52.12,
-            16.5
-          ],
-          "size": [
-            33,
-            52.12,
-            33
-          ]
-        }
-      },
-      "durationMs": 159
-    },
-    {
-      "id": "s3_stamp_preset_montanha_zen",
-      "station": 3,
-      "subsystem": "Maker's Mark (24)",
-      "item": "🏔️ 22. Monte Fuji, Sol Nascente & Ondas",
-      "expected": "Generates ergonomic turned handle + base plate + procedural vector emblem",
-      "actual": "Meshes: 11, Vertices: 230,634, Bounds: [31.56 x 52 x 28.71 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 11,
-        "totalVertices": 230634,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -15.78,
-            0,
-            -14.36
-          ],
-          "max": [
-            15.78,
-            52,
-            14.36
-          ],
-          "size": [
-            31.56,
-            52,
-            28.71
-          ]
-        }
-      },
-      "durationMs": 212
-    },
-    {
-      "id": "s3_stamp_preset_gato_atelie",
-      "station": 3,
-      "subsystem": "Maker's Mark (24)",
-      "item": "🐈 23. Gato Guardião do Ateliê & Meia-Lua",
-      "expected": "Generates ergonomic turned handle + base plate + procedural vector emblem",
-      "actual": "Meshes: 13, Vertices: 147,939, Bounds: [33 x 52.29 x 33 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 13,
-        "totalVertices": 147939,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -16.5,
-            0,
-            -16.5
-          ],
-          "max": [
-            16.5,
-            52.29,
-            16.5
-          ],
-          "size": [
-            33,
-            52.29,
-            33
-          ]
-        }
-      },
-      "durationMs": 208
-    },
-    {
-      "id": "s3_stamp_preset_estrela_norte",
-      "station": 3,
-      "subsystem": "Maker's Mark (24)",
-      "item": "✨ 24. Estrela Polar & Constelação Nórdica",
-      "expected": "Generates ergonomic turned handle + base plate + procedural vector emblem",
-      "actual": "Meshes: 11, Vertices: 230,634, Bounds: [31.56 x 52.36 x 28.71 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 11,
-        "totalVertices": 230634,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -15.78,
-            0,
-            -14.36
-          ],
-          "max": [
-            15.78,
-            52.36,
-            14.36
-          ],
-          "size": [
-            31.56,
-            52.36,
-            28.71
-          ]
-        }
-      },
-      "durationMs": 215
-    },
-    {
-      "id": "s3_stamp_fmt_circular",
-      "station": 3,
-      "subsystem": "Stamp Formats (4)",
-      "item": "Formato do Carimbo: CIRCULAR",
-      "expected": "Builds geometric base outline with rounded corners",
-      "actual": "Meshes: 11, Vertices: 137,886, Bounds: [33 x 52.36 x 33 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 196
-    },
-    {
-      "id": "s3_stamp_fmt_quadrado",
-      "station": 3,
-      "subsystem": "Stamp Formats (4)",
-      "item": "Formato do Carimbo: QUADRADO",
-      "expected": "Builds geometric base outline with rounded corners",
-      "actual": "Meshes: 11, Vertices: 184,434, Bounds: [29.8 x 52.36 x 29.8 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 180
-    },
-    {
-      "id": "s3_stamp_fmt_hexagonal",
-      "station": 3,
-      "subsystem": "Stamp Formats (4)",
-      "item": "Formato do Carimbo: HEXAGONAL",
-      "expected": "Builds geometric base outline with rounded corners",
-      "actual": "Meshes: 11, Vertices: 230,634, Bounds: [31.56 x 52.36 x 28.71 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 175
-    },
-    {
-      "id": "s3_stamp_fmt_oval",
-      "station": 3,
-      "subsystem": "Stamp Formats (4)",
-      "item": "Formato do Carimbo: OVAL",
-      "expected": "Builds geometric base outline with rounded corners",
-      "actual": "Meshes: 11, Vertices: 137,886, Bounds: [38.76 x 52.36 x 27.88 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 222
-    },
-    {
-      "id": "s3_stamp_pos_face_up",
-      "station": 3,
-      "subsystem": "Stamp Positions (3)",
-      "item": "Orientação FDM: FACE_UP",
-      "expected": "Transforms group rotation and positioning on print bed",
-      "actual": "Meshes: 11, Bounds: [38.76 x 52.36 x 27.88 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 163
-    },
-    {
-      "id": "s3_stamp_pos_stamp_down",
-      "station": 3,
-      "subsystem": "Stamp Positions (3)",
-      "item": "Orientação FDM: STAMP_DOWN",
-      "expected": "Transforms group rotation and positioning on print bed",
-      "actual": "Meshes: 11, Bounds: [38.76 x 52.36 x 27.88 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 202
-    },
-    {
-      "id": "s3_stamp_pos_side_both",
-      "station": 3,
-      "subsystem": "Stamp Positions (3)",
-      "item": "Orientação FDM: SIDE_BOTH",
-      "expected": "Transforms group rotation and positioning on print bed",
-      "actual": "Meshes: 22, Bounds: [93.16 x 52.62 x 27.88 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 244
-    },
-    {
-      "id": "s3_litho_preset_lotus",
-      "station": 3,
-      "subsystem": "Lithophane 3D (10)",
-      "item": "🪷 1. Flor de Lótus Botânica",
-      "expected": "Renders heightmap displacement mesh without recursion or lockup",
-      "actual": "Meshes: 1, Vertices: 22,801, Bounds: [164.88 x 120 x 47.89 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 1,
-        "totalVertices": 22801,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -82.44,
-            0,
-            -43.89
-          ],
-          "max": [
-            82.44,
-            120,
-            4
-          ],
-          "size": [
-            164.88,
-            120,
-            47.89
-          ]
-        }
-      },
-      "durationMs": 157
-    },
-    {
-      "id": "s3_litho_preset_onda",
-      "station": 3,
-      "subsystem": "Lithophane 3D (10)",
-      "item": "🌊 2. A Grande Onda de Kanagawa",
-      "expected": "Renders heightmap displacement mesh without recursion or lockup",
-      "actual": "Meshes: 1, Vertices: 22,801, Bounds: [164.88 x 120 x 47.89 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 1,
-        "totalVertices": 22801,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -82.44,
-            0,
-            -43.89
-          ],
-          "max": [
-            82.44,
-            120,
-            4
-          ],
-          "size": [
-            164.88,
-            120,
-            47.89
-          ]
-        }
-      },
-      "durationMs": 167
-    },
-    {
-      "id": "s3_litho_preset_estrelada",
-      "station": 3,
-      "subsystem": "Lithophane 3D (10)",
-      "item": "🌌 3. Noite Estrelada (Espiral Cósmica)",
-      "expected": "Renders heightmap displacement mesh without recursion or lockup",
-      "actual": "Meshes: 1, Vertices: 22,801, Bounds: [164.88 x 120 x 47.89 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 1,
-        "totalVertices": 22801,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -82.44,
-            0,
-            -43.89
-          ],
-          "max": [
-            82.44,
-            120,
-            4
-          ],
-          "size": [
-            164.88,
-            120,
-            47.89
-          ]
-        }
-      },
-      "durationMs": 141
-    },
-    {
-      "id": "s3_litho_preset_mandala",
-      "station": 3,
-      "subsystem": "Lithophane 3D (10)",
-      "item": "☀️ 4. Mandala Solar Geometria Sagrada",
-      "expected": "Renders heightmap displacement mesh without recursion or lockup",
-      "actual": "Meshes: 1, Vertices: 22,801, Bounds: [164.88 x 120 x 47.89 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 1,
-        "totalVertices": 22801,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -82.44,
-            0,
-            -43.89
-          ],
-          "max": [
-            82.44,
-            120,
-            4
-          ],
-          "size": [
-            164.88,
-            120,
-            47.89
-          ]
-        }
-      },
-      "durationMs": 203
-    },
-    {
-      "id": "s3_litho_preset_bambu",
-      "station": 3,
-      "subsystem": "Lithophane 3D (10)",
-      "item": "🎋 5. Bosque de Bambu Zen & Garça",
-      "expected": "Renders heightmap displacement mesh without recursion or lockup",
-      "actual": "Meshes: 1, Vertices: 22,801, Bounds: [164.88 x 120 x 47.89 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 1,
-        "totalVertices": 22801,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -82.44,
-            0,
-            -43.89
-          ],
-          "max": [
-            82.44,
-            120,
-            4
-          ],
-          "size": [
-            164.88,
-            120,
-            47.89
-          ]
-        }
-      },
-      "durationMs": 218
-    },
-    {
-      "id": "s3_litho_preset_vitral",
-      "station": 3,
-      "subsystem": "Lithophane 3D (10)",
-      "item": "⛪ 6. Rosácea de Vitral Gótico",
-      "expected": "Renders heightmap displacement mesh without recursion or lockup",
-      "actual": "Meshes: 1, Vertices: 22,801, Bounds: [164.88 x 120 x 47.89 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 1,
-        "totalVertices": 22801,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -82.44,
-            0,
-            -43.89
-          ],
-          "max": [
-            82.44,
-            120,
-            4
-          ],
-          "size": [
-            164.88,
-            120,
-            47.89
-          ]
-        }
-      },
-      "durationMs": 129
-    },
-    {
-      "id": "s3_litho_preset_gato_lua",
-      "station": 3,
-      "subsystem": "Lithophane 3D (10)",
-      "item": "🐈 7. Gato na Janela & Lua Cheia",
-      "expected": "Renders heightmap displacement mesh without recursion or lockup",
-      "actual": "Meshes: 1, Vertices: 22,801, Bounds: [164.88 x 120 x 47.89 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 1,
-        "totalVertices": 22801,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -82.44,
-            0,
-            -43.89
-          ],
-          "max": [
-            82.44,
-            120,
-            4
-          ],
-          "size": [
-            164.88,
-            120,
-            47.89
-          ]
-        }
-      },
-      "durationMs": 178
-    },
-    {
-      "id": "s3_litho_preset_vaso",
-      "station": 3,
-      "subsystem": "Lithophane 3D (10)",
-      "item": "🏺 8. Ânfora Clássica Greco-Romana",
-      "expected": "Renders heightmap displacement mesh without recursion or lockup",
-      "actual": "Meshes: 1, Vertices: 22,801, Bounds: [164.88 x 120 x 47.89 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 1,
-        "totalVertices": 22801,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -82.44,
-            0,
-            -43.89
-          ],
-          "max": [
-            82.44,
-            120,
-            4
-          ],
-          "size": [
-            164.88,
-            120,
-            47.89
-          ]
-        }
-      },
-      "durationMs": 191
-    },
-    {
-      "id": "s3_litho_preset_paisagem",
-      "station": 3,
-      "subsystem": "Lithophane 3D (10)",
-      "item": "🏔️ 9. Montanhas & Pinheiros ao Sol",
-      "expected": "Renders heightmap displacement mesh without recursion or lockup",
-      "actual": "Meshes: 1, Vertices: 22,801, Bounds: [164.88 x 120 x 47.89 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 1,
-        "totalVertices": 22801,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -82.44,
-            0,
-            -43.89
-          ],
-          "max": [
-            82.44,
-            120,
-            4
-          ],
-          "size": [
-            164.88,
-            120,
-            47.89
-          ]
-        }
-      },
-      "durationMs": 153
-    },
-    {
-      "id": "s3_litho_preset_colibri",
-      "station": 3,
-      "subsystem": "Lithophane 3D (10)",
-      "item": "🐦 10. Colibri & Flores de Hibisco",
-      "expected": "Renders heightmap displacement mesh without recursion or lockup",
-      "actual": "Meshes: 1, Vertices: 22,801, Bounds: [164.88 x 120 x 47.89 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 1,
-        "totalVertices": 22801,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -82.44,
-            0,
-            -43.89
-          ],
-          "max": [
-            82.44,
-            120,
-            4
-          ],
-          "size": [
-            164.88,
-            120,
-            47.89
-          ]
-        }
-      },
-      "durationMs": 152
-    },
-    {
-      "id": "s3_litho_shape_plana",
-      "station": 3,
-      "subsystem": "Lithophane Shapes (4)",
-      "item": "Formato Estrutural: PLANA",
-      "expected": "Transforms flat heightmap into curvilinear / cylindrical / dome coordinates",
-      "actual": "Meshes: 2, Vertices: 22,825, Bounds: [104 x 120 x 22 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 83
-    },
-    {
-      "id": "s3_litho_shape_curva",
-      "station": 3,
-      "subsystem": "Lithophane Shapes (4)",
-      "item": "Formato Estrutural: CURVA",
-      "expected": "Transforms flat heightmap into curvilinear / cylindrical / dome coordinates",
-      "actual": "Meshes: 1, Vertices: 22,801, Bounds: [164.88 x 120 x 47.89 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 81
-    },
-    {
-      "id": "s3_litho_shape_cilindro",
-      "station": 3,
-      "subsystem": "Lithophane Shapes (4)",
-      "item": "Formato Estrutural: CILINDRO",
-      "expected": "Transforms flat heightmap into curvilinear / cylindrical / dome coordinates",
-      "actual": "Meshes: 1, Vertices: 22,801, Bounds: [39.82 x 120 x 39.83 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 83
-    },
-    {
-      "id": "s3_litho_shape_cupula",
-      "station": 3,
-      "subsystem": "Lithophane Shapes (4)",
-      "item": "Formato Estrutural: CUPULA",
-      "expected": "Transforms flat heightmap into curvilinear / cylindrical / dome coordinates",
-      "actual": "Meshes: 1, Vertices: 22,801, Bounds: [108 x 76.62 x 107.98 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 79
-    },
-    {
-      "id": "s3_box_model_caxilho_kit4",
-      "station": 3,
-      "subsystem": "Plaster Boxes & Molds (12)",
-      "item": "🧱 1. Kit 4 Caxilhos em L Montados (Coddle Boards p/ Gesso)",
-      "expected": "Renders workshop tool geometry and updates dynamic input labels",
-      "actual": "Meshes: 13, Verts: 648, Bounds: [313.6 x 100 x 313.6 mm], Labels: [, , ]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 13,
-        "totalVertices": 648,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -156.8,
-            0,
-            -156.8
-          ],
-          "max": [
-            156.8,
-            100,
-            156.8
-          ],
-          "size": [
-            313.6,
-            100,
-            313.6
-          ]
-        }
-      },
-      "durationMs": 66
-    },
-    {
-      "id": "s3_box_model_caxilho",
-      "station": 3,
-      "subsystem": "Plaster Boxes & Molds (12)",
-      "item": "📐 2. Caxilho em L Individual Reforçado (c/ Aba e Nervuras)",
-      "expected": "Renders workshop tool geometry and updates dynamic input labels",
-      "actual": "Meshes: 3, Verts: 156, Bounds: [149 x 100 x 149 mm], Labels: [, , ]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 3,
-        "totalVertices": 156,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -79,
-            0,
-            -79
-          ],
-          "max": [
-            70,
-            100,
-            70
-          ],
-          "size": [
-            149,
-            100,
-            149
-          ]
-        }
-      },
-      "durationMs": 66
-    },
-    {
-      "id": "s3_box_model_molde_bipartido",
-      "station": 3,
-      "subsystem": "Plaster Boxes & Molds (12)",
-      "item": "🏺 3. Camisa Cilíndrica Bipartida p/ Gesso (c/ Chaves)",
-      "expected": "Renders workshop tool geometry and updates dynamic input labels",
-      "actual": "Meshes: 6, Verts: 5,872, Bounds: [180 x 100 x 167.2 mm], Labels: [, , ]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 2,
-        "meshCount": 6,
-        "totalVertices": 5872,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -90,
-            0,
-            -83.6
-          ],
-          "max": [
-            90,
-            100,
-            83.6
-          ],
-          "size": [
-            180,
-            100,
-            167.2
-          ]
-        }
-      },
-      "durationMs": 71
-    },
-    {
-      "id": "s3_box_model_gabarito",
-      "station": 3,
-      "subsystem": "Plaster Boxes & Molds (12)",
-      "item": "📏 4. Par de Réguas-Guia para Rolo de Placas (Clay Guides)",
-      "expected": "Renders workshop tool geometry and updates dynamic input labels",
-      "actual": "Meshes: 6, Verts: 144, Bounds: [140 x 12.2 x 160.8 mm], Labels: [, , ]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 2,
-        "meshCount": 6,
-        "totalVertices": 144,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -70,
-            0,
-            -80.4
-          ],
-          "max": [
-            70,
-            12.2,
-            80.4
-          ],
-          "size": [
-            140,
-            12.2,
-            160.8
-          ]
-        }
-      },
-      "durationMs": 66
-    },
-    {
-      "id": "s3_box_model_gabarito_escada",
-      "station": 3,
-      "subsystem": "Plaster Boxes & Molds (12)",
-      "item": "🪜 5. Réguas-Guia Escalonadas Multi-Espessura (4/6/8/10mm)",
-      "expected": "Renders workshop tool geometry and updates dynamic input labels",
-      "actual": "Meshes: 8, Verts: 192, Bounds: [140 x 10 x 115.2 mm], Labels: [, , ]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 2,
-        "meshCount": 8,
-        "totalVertices": 192,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -70,
-            0,
-            -39.6
-          ],
-          "max": [
-            70,
-            10,
-            75.6
-          ],
-          "size": [
-            140,
-            10,
-            115.2
-          ]
-        }
-      },
-      "durationMs": 68
-    },
-    {
-      "id": "s3_box_model_caixa",
-      "station": 3,
-      "subsystem": "Plaster Boxes & Molds (12)",
-      "item": "🧰 6. Caixa Organizadora Oca c/ Tampa de Encaixe (Lado a Lado)",
-      "expected": "Renders workshop tool geometry and updates dynamic input labels",
-      "actual": "Meshes: 7, Verts: 168, Bounds: [294 x 100 x 140 mm], Labels: [, , ]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 2,
-        "meshCount": 7,
-        "totalVertices": 168,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -147,
-            0,
-            -70
-          ],
-          "max": [
-            147,
-            100,
-            70
-          ],
-          "size": [
-            294,
-            100,
-            140
-          ]
-        }
-      },
-      "durationMs": 70
-    },
-    {
-      "id": "s3_box_model_damp_box",
-      "station": 3,
-      "subsystem": "Plaster Boxes & Molds (12)",
-      "item": "💧 7. Caixa Úmida (Damp Box) c/ Grelha Interna Vazada",
-      "expected": "Renders workshop tool geometry and updates dynamic input labels",
-      "actual": "Meshes: 11, Verts: 264, Bounds: [140 x 100 x 140 mm], Labels: [, , ]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 11,
-        "totalVertices": 264,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -70,
-            0,
-            -70
-          ],
-          "max": [
-            70,
-            100,
-            70
-          ],
-          "size": [
-            140,
-            100,
-            140
-          ]
-        }
-      },
-      "durationMs": 73
-    },
-    {
-      "id": "s3_box_model_bisel_45",
-      "station": 3,
-      "subsystem": "Plaster Boxes & Molds (12)",
-      "item": "📐 8. Gabarito Cortador de Bisel 45° para União de Placas",
-      "expected": "Renders workshop tool geometry and updates dynamic input labels",
-      "actual": "Meshes: 1, Verts: 36, Bounds: [57 x 45 x 140 mm], Labels: [, , ]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 1,
-        "totalVertices": 36,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -28.5,
-            0,
-            -70
-          ],
-          "max": [
-            28.5,
-            45,
-            70
-          ],
-          "size": [
-            57,
-            45,
-            140
-          ]
-        }
-      },
-      "durationMs": 70
-    },
-    {
-      "id": "s3_box_model_berco_alcas",
-      "station": 3,
-      "subsystem": "Plaster Boxes & Molds (12)",
-      "item": "☕ 9. Berço Curvo Secador de Alças de Caneca (4 Cavidades)",
-      "expected": "Renders workshop tool geometry and updates dynamic input labels",
-      "actual": "Meshes: 5, Verts: 808, Bounds: [159 x 17.5 x 103 mm], Labels: [, , ]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 5,
-        "totalVertices": 808,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -79.5,
-            0,
-            -51.5
-          ],
-          "max": [
-            79.5,
-            17.5,
-            51.5
-          ],
-          "size": [
-            159,
-            17.5,
-            103
-          ]
-        }
-      },
-      "durationMs": 71
-    },
-    {
-      "id": "s3_box_model_centralizador",
-      "station": 3,
-      "subsystem": "Plaster Boxes & Molds (12)",
-      "item": "🎯 10. Gabarito Centralizador Concêntrico (Rim & Foot Finder)",
-      "expected": "Renders workshop tool geometry and updates dynamic input labels",
-      "actual": "Meshes: 11, Verts: 1,128, Bounds: [140 x 33.8 x 140 mm], Labels: [, , ]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 11,
-        "meshCount": 11,
-        "totalVertices": 1128,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -70,
-            0,
-            -70
-          ],
-          "max": [
-            70,
-            33.8,
-            70
-          ],
-          "size": [
-            140,
-            33.8,
-            140
-          ]
-        }
-      },
-      "durationMs": 74
-    },
-    {
-      "id": "s3_box_model_porta_estecas",
-      "station": 3,
-      "subsystem": "Plaster Boxes & Molds (12)",
-      "item": "🖌️ 11. Organizador Alveolar de Bancada p/ Estecas e Esponja",
-      "expected": "Renders workshop tool geometry and updates dynamic input labels",
-      "actual": "Meshes: 6, Verts: 94, Bounds: [121.52 x 100 x 91.14 mm], Labels: [, , ]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 6,
-        "totalVertices": 94,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -60.76,
-            0,
-            -39.2
-          ],
-          "max": [
-            60.76,
-            100,
-            51.94
-          ],
-          "size": [
-            121.52,
-            100,
-            91.14
-          ]
-        }
-      },
-      "durationMs": 69
-    },
-    {
-      "id": "s3_box_model_bat_torno",
-      "station": 3,
-      "subsystem": "Plaster Boxes & Molds (12)",
-      "item": "💿 12. Disco Bat de Torno c/ Furação de Pinos e Nervuras",
-      "expected": "Renders workshop tool geometry and updates dynamic input labels",
-      "actual": "Meshes: 6, Verts: 756, Bounds: [140 x 21 x 140 mm], Labels: [, , ]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 6,
-        "meshCount": 6,
-        "totalVertices": 756,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -70,
-            -0.5,
-            -70
-          ],
-          "max": [
-            70,
-            20.5,
-            70
-          ],
-          "size": [
-            140,
-            21,
-            140
-          ]
-        }
-      },
-      "durationMs": 74
-    },
-    {
-      "id": "s3_qr_type_display",
-      "station": 3,
-      "subsystem": "QR Code Plates (10)",
-      "item": "🏪 1. Display de Balcão 65° (c/ Cavalete)",
-      "expected": "Generates procedural 21x21 QR modules with custom base/stand fixture",
-      "actual": "Meshes: 192, Vertices: 909,768, Bounds: [70 x 60.71 x 48.94 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 2,
-        "meshCount": 192,
-        "totalVertices": 909768,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -35,
-            -0.15,
-            -27.65
-          ],
-          "max": [
-            35,
-            60.56,
-            21.29
-          ],
-          "size": [
-            70,
-            60.71,
-            48.94
-          ]
-        }
-      },
-      "durationMs": 94
-    },
-    {
-      "id": "s3_qr_type_placa_dupla",
-      "station": 3,
-      "subsystem": "QR Code Plates (10)",
-      "item": "💳 2. Placa Dupla Pix + Insta (Base Estável)",
-      "expected": "Generates procedural 21x21 QR modules with custom base/stand fixture",
-      "actual": "Meshes: 420, Vertices: 1,996,668, Bounds: [136.5 x 62.78 x 24.18 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 3,
-        "meshCount": 420,
-        "totalVertices": 1996668,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -68.25,
-            0,
-            -12
-          ],
-          "max": [
-            68.25,
-            62.78,
-            12.18
-          ],
-          "size": [
-            136.5,
-            62.78,
-            24.18
-          ]
-        }
-      },
-      "durationMs": 113
-    },
-    {
-      "id": "s3_qr_type_chaveiro",
-      "station": 3,
-      "subsystem": "QR Code Plates (10)",
-      "item": "🔑 3. Chaveiro do Ateliê (c/ Aba e Furo Ø4mm)",
-      "expected": "Generates procedural 21x21 QR modules with custom base/stand fixture",
-      "actual": "Meshes: 192, Vertices: 910,344, Bounds: [70 x 6.4 x 83 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 3,
-        "meshCount": 192,
-        "totalVertices": 910344,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -35,
-            0,
-            -48
-          ],
-          "max": [
-            35,
-            6.4,
-            35
-          ],
-          "size": [
-            70,
-            6.4,
-            83
-          ]
-        }
-      },
-      "durationMs": 82
-    },
-    {
-      "id": "s3_qr_type_carimbo",
-      "station": 3,
-      "subsystem": "QR Code Plates (10)",
-      "item": "🏷️ 4. Carimbo Cerâmico QR Espelhado (c/ Cabo)",
-      "expected": "Generates procedural 21x21 QR modules with custom base/stand fixture",
-      "actual": "Meshes: 192, Vertices: 909,940, Bounds: [70 x 43.9 x 70 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 3,
-        "meshCount": 192,
-        "totalVertices": 909940,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -35,
-            0,
-            -35
-          ],
-          "max": [
-            35,
-            43.9,
-            35
-          ],
-          "size": [
-            70,
-            43.9,
-            70
-          ]
-        }
-      },
-      "durationMs": 81
-    },
-    {
-      "id": "s3_qr_type_parede",
-      "station": 3,
-      "subsystem": "QR Code Plates (10)",
-      "item": "🔩 5. Placa de Parede (4 Furos nos Cantos)",
-      "expected": "Generates procedural 21x21 QR modules with custom base/stand fixture",
-      "actual": "Meshes: 195, Vertices: 909,944, Bounds: [78.4 x 6.4 x 78.4 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 6,
-        "meshCount": 195,
-        "totalVertices": 909944,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -39.2,
-            0,
-            -39.2
-          ],
-          "max": [
-            39.2,
-            6.4,
-            39.2
-          ],
-          "size": [
-            78.4,
-            6.4,
-            78.4
-          ]
-        }
-      },
-      "durationMs": 87
-    },
-    {
-      "id": "s3_qr_type_medalhao",
-      "station": 3,
-      "subsystem": "QR Code Plates (10)",
-      "item": "🪙 6. Medalhão Circular de Mesa Chanfrado",
-      "expected": "Generates procedural 21x21 QR modules with custom base/stand fixture",
-      "actual": "Meshes: 192, Vertices: 910,238, Bounds: [90.27 x 6.4 x 90.27 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 3,
-        "meshCount": 192,
-        "totalVertices": 910238,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -45.14,
-            0,
-            -45.14
-          ],
-          "max": [
-            45.14,
-            6.4,
-            45.14
-          ],
-          "size": [
-            90.27,
-            6.4,
-            90.27
-          ]
-        }
-      },
-      "durationMs": 85
-    },
-    {
-      "id": "s3_qr_type_hexagonal",
-      "station": 3,
-      "subsystem": "QR Code Plates (10)",
-      "item": "⬡ 7. Placa Hexagonal Moderna de Balcão",
-      "expected": "Generates procedural 21x21 QR modules with custom base/stand fixture",
-      "actual": "Meshes: 192, Vertices: 909,774, Bounds: [86.8 x 6.4 x 90.27 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 3,
-        "meshCount": 192,
-        "totalVertices": 909774,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -43.4,
-            0,
-            -45.14
-          ],
-          "max": [
-            43.4,
-            6.4,
-            45.14
-          ],
-          "size": [
-            86.8,
-            6.4,
-            90.27
-          ]
-        }
-      },
-      "durationMs": 84
-    },
-    {
-      "id": "s3_qr_type_totem",
-      "station": 3,
-      "subsystem": "QR Code Plates (10)",
-      "item": "⛺ 8. Totem Prisma Triangular (Dupla Face)",
-      "expected": "Generates procedural 21x21 QR modules with custom base/stand fixture",
-      "actual": "Meshes: 1, Vertices: 24, Bounds: [63 x 66.5 x 70 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 1,
-        "totalVertices": 24,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -31.5,
-            0,
-            -35
-          ],
-          "max": [
-            31.5,
-            66.5,
-            35
-          ],
-          "size": [
-            63,
-            66.5,
-            70
-          ]
-        }
-      },
-      "durationMs": 70
-    },
-    {
-      "id": "s3_qr_type_quadro",
-      "station": 3,
-      "subsystem": "QR Code Plates (10)",
-      "item": "🖼️ 9. Quadro Minimalista c/ Moldura Alta",
-      "expected": "Generates procedural 21x21 QR modules with custom base/stand fixture",
-      "actual": "Meshes: 195, Vertices: 909,840, Bounds: [73.5 x 8.6 x 73.5 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 6,
-        "meshCount": 195,
-        "totalVertices": 909840,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -36.75,
-            0,
-            -36.75
-          ],
-          "max": [
-            36.75,
-            8.6,
-            36.75
-          ],
-          "size": [
-            73.5,
-            8.6,
-            73.5
-          ]
-        }
-      },
-      "durationMs": 85
-    },
-    {
-      "id": "s3_qr_type_tag_colecao",
-      "station": 3,
-      "subsystem": "QR Code Plates (10)",
-      "item": "🏺 10. Tag de Identificação de Coleção",
-      "expected": "Generates procedural 21x21 QR modules with custom base/stand fixture",
-      "actual": "Meshes: 192, Vertices: 909,768, Bounds: [70 x 6.4 x 89.6 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 3,
-        "meshCount": 192,
-        "totalVertices": 909768,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -35,
-            0,
-            -44.8
-          ],
-          "max": [
-            35,
-            6.4,
-            44.8
-          ],
-          "size": [
-            70,
-            6.4,
-            89.6
-          ]
-        }
-      },
-      "durationMs": 88
-    },
-    {
-      "id": "s3_lathe_tool_spinner_608",
-      "station": 3,
-      "subsystem": "Torno & Queima (8)",
-      "item": "🎡 1. Trimming Spinner c/ Rolamento 608 (Ø22.2mm) ou Eixo Cônico",
-      "expected": "Generates support-free Z=0 manifold 3D tool with non-zero vertices and no NaNs",
-      "actual": "Meshes: 5, Vertices: 587, Bounds: [52 x 11.65 x 52 mm], NaN: false",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 5,
-        "meshCount": 5,
-        "totalVertices": 587,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -26,
-            0,
-            -26
-          ],
-          "max": [
-            26,
-            11.65,
-            26
-          ],
-          "size": [
-            52,
-            11.65,
-            52
-          ]
-        }
-      },
-      "durationMs": 68
-    },
-    {
-      "id": "s3_lathe_tool_chuck_mandril",
-      "station": 3,
-      "subsystem": "Torno & Queima (8)",
-      "item": "🏺 2. Mandril / Chuck Paramétrico c/ Bat Pins (254 / 250 mm)",
-      "expected": "Generates support-free Z=0 manifold 3D tool with non-zero vertices and no NaNs",
-      "actual": "Meshes: 4, Vertices: 925, Bounds: [264.4 x 91.9 x 180 mm], NaN: false",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 4,
-        "meshCount": 4,
-        "totalVertices": 925,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -132.2,
-            -0.5,
-            -90
-          ],
-          "max": [
-            132.2,
-            91.4,
-            90
-          ],
-          "size": [
-            264.4,
-            91.9,
-            180
-          ]
-        }
-      },
-      "durationMs": 68
-    },
-    {
-      "id": "s3_lathe_tool_throwing_gauge",
-      "station": 3,
-      "subsystem": "Torno & Queima (8)",
-      "item": "📏 3. Compasso / Bitola de Altura & Bocal (Throwing Gauge)",
-      "expected": "Generates support-free Z=0 manifold 3D tool with non-zero vertices and no NaNs",
-      "actual": "Meshes: 6, Vertices: 826, Bounds: [181.8 x 24 x 220 mm], NaN: false",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 6,
-        "meshCount": 6,
-        "totalVertices": 826,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -30,
-            0,
-            -110
-          ],
-          "max": [
-            151.8,
-            24,
-            110
-          ],
-          "size": [
-            181.8,
-            24,
-            220
-          ]
-        }
-      },
-      "durationMs": 71
-    },
-    {
-      "id": "s3_lathe_tool_chanfrador_45",
-      "station": 3,
-      "subsystem": "Torno & Queima (8)",
-      "item": "📐 4. Cortador de Chanfro de Base 45° c/ Evacuação (Footing Sled)",
-      "expected": "Generates support-free Z=0 manifold 3D tool with non-zero vertices and no NaNs",
-      "actual": "Meshes: 1, Vertices: 792, Bounds: [66.6 x 19.85 x 33.6 mm], NaN: false",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 1,
-        "totalVertices": 792,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -33.3,
-            0,
-            -16.8
-          ],
-          "max": [
-            33.3,
-            19.85,
-            16.8
-          ],
-          "size": [
-            66.6,
-            19.85,
-            33.6
-          ]
-        }
-      },
-      "durationMs": 67
-    },
-    {
-      "id": "s3_lathe_tool_lid_caliper",
-      "station": 3,
-      "subsystem": "Torno & Queima (8)",
-      "item": "🧭 5. Calibre Duplo Reversível de Tampa & Galeria (Lid Caliper)",
-      "expected": "Generates support-free Z=0 manifold 3D tool with non-zero vertices and no NaNs",
-      "actual": "Meshes: 3, Vertices: 220, Bounds: [138.62 x 47.89 x 10 mm], NaN: false",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 3,
-        "meshCount": 3,
-        "totalVertices": 220,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -69.31,
-            -0.5,
-            -5
-          ],
-          "max": [
-            69.31,
-            47.39,
-            5
-          ],
-          "size": [
-            138.62,
-            47.89,
-            10
-          ]
-        }
-      },
-      "durationMs": 67
-    },
-    {
-      "id": "s3_lathe_tool_shrinkage_ruler",
-      "station": 3,
-      "subsystem": "Torno & Queima (8)",
-      "item": "📏 6. Régua de Retração Física Paramétrica (Shrinkage Ruler 8%–18%)",
-      "expected": "Generates support-free Z=0 manifold 3D tool with non-zero vertices and no NaNs",
-      "actual": "Meshes: 39, Vertices: 936, Bounds: [227 x 4.8 x 32 mm], NaN: false",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 39,
-        "meshCount": 39,
-        "totalVertices": 936,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -113.5,
-            -1,
-            -16
-          ],
-          "max": [
-            113.5,
-            3.8,
-            16
-          ],
-          "size": [
-            227,
-            4.8,
-            32
-          ]
-        }
-      },
-      "durationMs": 69
-    },
-    {
-      "id": "s3_lathe_tool_glaze_tile",
-      "station": 3,
-      "subsystem": "Torno & Queima (8)",
-      "item": "🧪 7. Proveta & Matriz Extrusora de Teste de Esmalte (Glaze Tile)",
-      "expected": "Generates support-free Z=0 manifold 3D tool with non-zero vertices and no NaNs",
-      "actual": "Meshes: 1, Vertices: 312, Bounds: [28.75 x 85 x 40 mm], NaN: false",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 1,
-        "totalVertices": 312,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -14.38,
-            0,
-            -20
-          ],
-          "max": [
-            14.38,
-            85,
-            20
-          ],
-          "size": [
-            28.75,
-            85,
-            40
-          ]
-        }
-      },
-      "durationMs": 68
-    },
-    {
-      "id": "s3_lathe_tool_throwing_rib_pro",
-      "station": 3,
-      "subsystem": "Torno & Queima (8)",
-      "item": "🪵 8. Costela de Torno c/ Geometria de Ataque (Mudtools / Garrity)",
-      "expected": "Generates support-free Z=0 manifold 3D tool with non-zero vertices and no NaNs",
-      "actual": "Meshes: 1, Vertices: 4,188, Bounds: [40.92 x 7 x 122.91 mm], NaN: false",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 1,
-        "totalVertices": 4188,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -20.46,
-            0,
-            -61.46
-          ],
-          "max": [
-            20.46,
-            7,
-            61.46
-          ],
-          "size": [
-            40.92,
-            7,
-            122.91
-          ]
-        }
-      },
-      "durationMs": 71
-    },
-    {
-      "id": "s4_preset_anfora",
-      "station": 4,
-      "subsystem": "Studio Presets (9)",
-      "item": "Ânfora Clássica Grega c/ 2 Alças",
-      "expected": "Renders parametric studio model in activeMeshGroup with positive bounds",
-      "actual": "Meshes: 3, Vertices: 1,091, Bounds: [127.23 x 185 x 120 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 3,
-        "meshCount": 3,
-        "totalVertices": 1091,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -63.62,
-            0,
-            -60
-          ],
-          "max": [
-            63.62,
-            185,
-            60
-          ],
-          "size": [
-            127.23,
-            185,
-            120
-          ]
-        }
-      },
-      "durationMs": 79
-    },
-    {
-      "id": "s4_preset_twisted",
-      "station": 4,
-      "subsystem": "Studio Presets (9)",
-      "item": "Vaso Espiral Torcido (Twisted Octogonal)",
-      "expected": "Renders parametric studio model in activeMeshGroup with positive bounds",
-      "actual": "Meshes: 1, Vertices: 475, Bounds: [98.2 x 160 x 98.2 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 1,
-        "totalVertices": 475,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -49.1,
-            0,
-            -49.1
-          ],
-          "max": [
-            49.1,
-            160,
-            49.1
-          ],
-          "size": [
-            98.2,
-            160,
-            98.2
-          ]
-        }
-      },
-      "durationMs": 69
-    },
-    {
-      "id": "s4_preset_fluted",
-      "station": 4,
-      "subsystem": "Studio Presets (9)",
-      "item": "Vaso Nórdico Canelado Profundo (Fluted)",
-      "expected": "Renders parametric studio model in activeMeshGroup with positive bounds",
-      "actual": "Meshes: 1, Vertices: 1,883, Bounds: [99 x 150 x 99 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 1,
-        "totalVertices": 1883,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -49.5,
-            0,
-            -49.5
-          ],
-          "max": [
-            49.5,
-            150,
-            49.5
-          ],
-          "size": [
-            99,
-            150,
-            99
-          ]
-        }
-      },
-      "durationMs": 74
-    },
-    {
-      "id": "s4_preset_lampshade",
-      "station": 4,
-      "subsystem": "Studio Presets (9)",
-      "item": "Cúpula de Luminária Vazada (Soquete E27)",
-      "expected": "Renders parametric studio model in activeMeshGroup with positive bounds",
-      "actual": "Meshes: 1, Vertices: 931, Bounds: [152.92 x 120 x 152.92 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 1,
-        "totalVertices": 931,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -76.46,
-            0,
-            -76.46
-          ],
-          "max": [
-            76.46,
-            120,
-            76.46
-          ],
-          "size": [
-            152.92,
-            120,
-            152.92
-          ]
-        }
-      },
-      "durationMs": 73
-    },
-    {
-      "id": "s4_preset_chawan",
-      "station": 4,
-      "subsystem": "Studio Presets (9)",
-      "item": "Chawan Tradicional Japonês c/ Pé Kodai",
-      "expected": "Renders parametric studio model in activeMeshGroup with positive bounds",
-      "actual": "Meshes: 1, Vertices: 392, Bounds: [116 x 75 x 116 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 1,
-        "totalVertices": 392,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -58,
-            0,
-            -58
-          ],
-          "max": [
-            58,
-            75,
-            58
-          ],
-          "size": [
-            116,
-            75,
-            116
-          ]
-        }
-      },
-      "durationMs": 72
-    },
-    {
-      "id": "s4_preset_facetado",
-      "station": 4,
-      "subsystem": "Studio Presets (9)",
-      "item": "Cachepô Facetado Low-Poly Contemporâneo",
-      "expected": "Renders parametric studio model in activeMeshGroup with positive bounds",
-      "actual": "Meshes: 1, Vertices: 672, Bounds: [126 x 95 x 126 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 1,
-        "totalVertices": 672,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -63,
-            0,
-            -63
-          ],
-          "max": [
-            63,
-            95,
-            63
-          ],
-          "size": [
-            126,
-            95,
-            126
-          ]
-        }
-      },
-      "durationMs": 72
-    },
-    {
-      "id": "s4_preset_costela",
-      "station": 4,
-      "subsystem": "Studio Presets (9)",
-      "item": "Costela de Oleiro Ergonômica c/ Pega",
-      "expected": "Renders parametric studio model in activeMeshGroup with positive bounds",
-      "actual": "Meshes: 1, Vertices: 2,400, Bounds: [106.93 x 52.76 x 6.1 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 1,
-        "totalVertices": 2400,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -53.46,
-            -21.38,
-            -3.05
-          ],
-          "max": [
-            53.46,
-            31.38,
-            3.05
-          ],
-          "size": [
-            106.93,
-            52.76,
-            6.1
-          ]
-        }
-      },
-      "durationMs": 73
-    },
-    {
-      "id": "s4_preset_chanfrador",
-      "station": 4,
-      "subsystem": "Studio Presets (9)",
-      "item": "Chanfrador de Placas 45° (Gabarito Bisel)",
-      "expected": "Renders parametric studio model in activeMeshGroup with positive bounds",
-      "actual": "Meshes: 1, Vertices: 24, Bounds: [60 x 40 x 45 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 1,
-        "totalVertices": 24,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -30,
-            0,
-            -22.5
-          ],
-          "max": [
-            30,
-            40,
-            22.5
-          ],
-          "size": [
-            60,
-            40,
-            45
-          ]
-        }
-      },
-      "durationMs": 71
-    },
-    {
-      "id": "s4_preset_extrusora",
-      "station": 4,
-      "subsystem": "Studio Presets (9)",
-      "item": "Bocal Matriz de Extrusora (Ø58 mm Hexagonal)",
-      "expected": "Renders parametric studio model in activeMeshGroup with positive bounds",
-      "actual": "Meshes: 1, Vertices: 372, Bounds: [58 x 5 x 58 mm]",
-      "status": "PASS",
-      "error": null,
-      "details": {
-        "childrenCount": 1,
-        "meshCount": 1,
-        "totalVertices": 372,
-        "hasNaN": false,
-        "isEmpty": false,
-        "bounds": {
-          "min": [
-            -29,
-            2.5,
-            -29
-          ],
-          "max": [
-            29,
-            7.5,
-            29
-          ],
-          "size": [
-            58,
-            5,
-            58
-          ]
-        }
-      },
-      "durationMs": 72
-    },
-    {
-      "id": "s4_stl_scale_risk_modal",
-      "station": 4,
-      "subsystem": "STL Inspector & Scaling",
-      "item": "Escala STL (100% -> 130%) & Modal de Risco Paramétrico (Fio Engrossado)",
-      "expected": "Triggers #risk-modal at >= 125% scale and applies parametric compensation",
-      "actual": "100%: \"✅ Seguro para Impressão FDM\", 130%: ModalVisible=true (\"\"), Reinforced: ModalClosed=true",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 77
-    },
-    {
-      "id": "s4_gcode_analyzer_parsers",
-      "station": 4,
-      "subsystem": "G-Code Analyzer",
-      "item": "Analisador de G-Code (PrusaSlicer, Cura, Bambu Studio / OrcaSlicer)",
-      "expected": "Extracts estimated print time, filament mass [g], and layer count accurately",
-      "actual": "Prusa: [3h 42m, 58.4 g], Cura: [10800, 42.1 g], Bambu: [2h 15m, 34.8 g]",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 3
-    },
-    {
-      "id": "s5_sync_vase_to_pricing",
-      "station": 5,
-      "subsystem": "Vase ➔ Pricing Sync",
-      "item": "Sincronização Geométrica 3D (Volume & Área Envidrada) ➔ Precificador",
-      "expected": "Switches to precificacao, calculates clay mass (kg) and glaze area (cm²) from 3D geometry",
-      "actual": "Tool: precificacao, Clay: 0.29 kg, GlazeArea: 578 cm², Retail: \"R$ 145,82\"",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 1109
-    },
-    {
-      "id": "s5_ceramic_pricing_formulas",
-      "station": 5,
-      "subsystem": "Ceramic Costing",
-      "item": "Cálculo de Custos Cerâmicos (Massa, Esmalte, 2 Queimas c/ Rateio, Mão de Obra, Risco & Margens)",
-      "expected": "Computes direct cost, labor, overheads, retail and wholesale prices deterministically",
-      "actual": "Direct: R$ 25,26, Labor: R$ 66,67, Overheads: R$ 18,65, TotalCost: R$ 110,58, Retail: R$ 184,30, Wholesale: R$ 149,28, NetProfit: R$ 55,29 (30%)",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 22
-    },
-    {
-      "id": "s5_export_ceramic_pdf",
-      "station": 5,
-      "subsystem": "Ceramic Costing",
-      "item": "Exportação da Ficha Técnica e Orçamento Cerâmico em PDF A4",
-      "expected": "Generates structured 2-section specification sheet PDF via jsPDF",
-      "actual": "PDFs Exported: 1 (ficha_tecnica_precificacao_ceramica.pdf)",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 117
-    },
-    {
-      "id": "s5_fdm_pricing_formulas",
-      "station": 5,
-      "subsystem": "3D FDM Costing",
-      "item": "Cálculo de Ferramentas Impressas em 3D FDM (Filamento, Máquina, Acabamento, Risco & Margem)",
-      "expected": "Calculates direct tool cost, machine depreciation, technical finishing, and sales markup",
-      "actual": "Cost3D: R$ 12,28, Total: R$ 39,78, FinalSale: R$ 90,40, NetProfit: R$ 39,78",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 3
-    },
-    {
-      "id": "s5_export_3d_pdf",
-      "station": 5,
-      "subsystem": "3D FDM Costing",
-      "item": "Exportação do Orçamento de Ferramenta 3D em PDF A4",
-      "expected": "Generates 3D tool quote PDF via jsPDF",
-      "actual": "PDFs Exported: 1 (orcamento_ceramicad_3d.pdf)",
-      "status": "PASS",
-      "error": null,
-      "details": {},
-      "durationMs": 123
+      "durationMs": 10
     }
   ],
   "consoleErrors": []

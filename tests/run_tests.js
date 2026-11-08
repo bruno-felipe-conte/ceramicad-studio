@@ -22,7 +22,7 @@ const { testStation5 } = require('./stations/station5');
 function parseArgs() {
   const args = process.argv.slice(2);
   const options = {
-    station: 'all',
+    station: '1',
     httpPort: 8099,
     cdpPort: 9299,
     outputDir: path.join(__dirname, 'results'),
