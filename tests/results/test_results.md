@@ -1,14 +1,14 @@
 # Relatório de Auditoria Automatizada — CeramiCAD Studio Pro
 
-**Data**: 2026-11-08T23:45:25.259Z
-**Total de Testes**: 111 | **Aprovados**: 111 | **Falhas**: 0 | **Taxa de Sucesso**: 100.0%
-**Tempo de Execução**: 99.61s | **Erros de Console**: 0
+**Data**: 2026-11-09T23:13:19.206Z
+**Total de Testes**: 119 | **Aprovados**: 119 | **Falhas**: 0 | **Taxa de Sucesso**: 100.0%
+**Tempo de Execução**: 87.48s | **Erros de Console**: 0
 
 ## Resumo por Estação
 
 | Estação | Total | Aprovados | Falhas | Taxa |
 |---|---|---|---|---|
-| **Station 1** | 111 | 111 | 0 | 100.0% |
+| **Station 1** | 119 | 119 | 0 | 100.0% |
 | **Station 2** | 0 | 0 | 0 | 0% |
 | **Station 3** | 0 | 0 | 0 | 0% |
 | **Station 4** | 0 | 0 | 0 | 0% |
@@ -131,4 +131,12 @@
 | `s1_torno_volume_telemetry_scale`<br>**Calibração Volumétrica Direta para Meta Final Pós-Queima (400 mL)** | Queima: Volume Cúbico (1 - s)³ | Calculates raw volume needed and rescales vase geometry via cubic factor | RawBefore: 858 mL ➔ RawAfter: 592 mL (FiredExpected: 403 mL) | ✅ Atingiu o Esperado |
 | `s1_export_stl_binary`<br>**Exportação STL Binário da Malha Ativa** | STL Export | STLExporter parses activeMeshGroup and initiates binary STL download | Downloads: 1 (test_vaso_360.stl: 35584 bytes) | ✅ Atingiu o Esperado |
 | `s1_ceramic_mesh_factory_origami`<br>**Geometrias Origami Manuais & Substituição de LatheGeometry** | CeramicMeshFactory (Origami BufferGeometry) | Gera BufferGeometry para Yoshimura, Miura, Waterbomb, Crease Pattern 2D e replaceLathe sem NaN | Yoshi: 672v (NaN:false), Miura: 288v (NaN:false), WB: 1056v (NaN:false), LatheRep: 144v (NaN:false), CP2D: 50M/51V, FacetMeshes: 1 | ✅ Atingiu o Esperado |
+| `s1_toggle_2d_3d_mode`<br>**Transição Interativa Bidirecional 2D (Moldes/CAD) e 3D (Torno)** | Alternador de Visualização 2D ↔ 3D | Alterna entre Modos 2D e 3D exibindo e ocultando os containers correspondentes | Modo 2D: true, Modo 3D: true | ✅ Atingiu o Esperado |
+| `s1_slab_piece_porta_copos_vincado`<br>**#86 — Porta-Copos Geométrico Vincado (Monoplaca)** | Catálogo de Peças em Placas (Slab Building) | Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas | 3D Verts: 672, Meshes: 1, Bounds: [126x95x126 mm], 2D Moldes: 1 placas | ✅ Atingiu o Esperado |
+| `s1_slab_piece_saboneteira_escorredor`<br>**#39 — Saboneteira com Escorredor Dobrado & Calha** | Catálogo de Peças em Placas (Slab Building) | Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas | 3D Verts: 672, Meshes: 1, Bounds: [126x95x126 mm], 2D Moldes: 1 placas | ✅ Atingiu o Esperado |
+| `s1_slab_piece_porta_incenso_canoa`<br>**#90 — Porta-Incenso Tipo Canoa Parabólica** | Catálogo de Peças em Placas (Slab Building) | Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas | 3D Verts: 672, Meshes: 1, Bounds: [126x95x126 mm], 2D Moldes: 1 placas | ✅ Atingiu o Esperado |
+| `s1_slab_piece_descanso_talheres`<br>**#88 — Descanso de Talheres / Hashe Ondulado em V** | Catálogo de Peças em Placas (Slab Building) | Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas | 3D Verts: 672, Meshes: 1, Bounds: [126x95x126 mm], 2D Moldes: 1 placas | ✅ Atingiu o Esperado |
+| `s1_slab_piece_manteigueira_francesa`<br>**#9 — Manteigueira Francesa Hermética (Butter Bell)** | Catálogo de Peças em Placas (Slab Building) | Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas | 3D Verts: 672, Meshes: 1, Bounds: [126x95x126 mm], 2D Moldes: 4 placas | ✅ Atingiu o Esperado |
+| `s1_slab_piece_saleiro_paredao`<br>**#38 — Saleiro de Mesa / Paredão c/ Chanfro 45°** | Catálogo de Peças em Placas (Slab Building) | Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas | 3D Verts: 672, Meshes: 1, Bounds: [126x95x126 mm], 2D Moldes: 5 placas | ✅ Atingiu o Esperado |
+| `s1_slab_piece_garrafa_facetada`<br>**#68 — Vaso / Garrafa Facetada Prismática em Placas** | Catálogo de Peças em Placas (Slab Building) | Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas | 3D Verts: 672, Meshes: 1, Bounds: [126x95x126 mm], 2D Moldes: 2 placas | ✅ Atingiu o Esperado |
 

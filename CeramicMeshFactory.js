@@ -731,6 +731,496 @@
         valleyCreases,
         outline
       };
+    },
+
+    /**
+     * Gera malha volumétrica sólida de placa cerâmica plana com espessura t.
+     * @param {Array<{x:number, y:number, z:number}>} vertices3D Vértices coplanares da face neutra
+     * @param {THREE.Vector3} normal Vetor normal à face
+     * @param {number} thickness Espessura da placa de argila (mm)
+     * @param {Array<number>} indices Triangulação da face frontal
+     */
+    buildThickPlate(vertices3D, normal, thickness, indices = null) {
+      const THREE = getTHREE();
+      const n = normal.clone().normalize();
+      const halfT = thickness * 0.5;
+
+      const topVerts = vertices3D.map(v => new THREE.Vector3(v.x + n.x * halfT, v.y + n.y * halfT, v.z + n.z * halfT));
+      const botVerts = vertices3D.map(v => new THREE.Vector3(v.x - n.x * halfT, v.y - n.y * halfT, v.z - n.z * halfT));
+
+      const positions = [];
+      const normals = [];
+      const uvs = [];
+
+      function addTri(pA, pB, pC, norm) {
+        positions.push(pA.x, pA.y, pA.z, pB.x, pB.y, pB.z, pC.x, pC.y, pC.z);
+        normals.push(norm.x, norm.y, norm.z, norm.x, norm.y, norm.z, norm.x, norm.y, norm.z);
+        uvs.push(0, 0, 1, 0, 0.5, 1);
+      }
+
+      // Triangulação da face superior e inferior
+      const numV = vertices3D.length;
+      if (!indices) {
+        // Leque triangular padrão (fan) a partir do vértice 0
+        for (let i = 1; i < numV - 1; i++) {
+          addTri(topVerts[0], topVerts[i], topVerts[i + 1], n);
+          addTri(botVerts[0], botVerts[i + 1], botVerts[i], n.clone().negate());
+        }
+      } else {
+        for (let i = 0; i < indices.length; i += 3) {
+          const i0 = indices[i], i1 = indices[i + 1], i2 = indices[i + 2];
+          addTri(topVerts[i0], topVerts[i1], topVerts[i2], n);
+          addTri(botVerts[i0], botVerts[i2], botVerts[i1], n.clone().negate());
+        }
+      }
+
+      // Bordas laterais
+      for (let i = 0; i < numV; i++) {
+        const next = (i + 1) % numV;
+        const edge = new THREE.Vector3().subVectors(vertices3D[next], vertices3D[i]).normalize();
+        const sideNorm = new THREE.Vector3().crossVectors(edge, n).normalize();
+
+        const tA = topVerts[i], tB = topVerts[next];
+        const bA = botVerts[i], bB = botVerts[next];
+
+        addTri(tA, tB, bB, sideNorm);
+        addTri(tA, bB, bA, sideNorm);
+      }
+
+      return { positions, normals, uvs };
+    },
+
+    /**
+     * 1. Porta-Copos Geométrico com Borda Vincada (Monoplaca)
+     * Placa hexagonal com abas periféricas dobradas a 45° e cantos chanfrados em alívio.
+     */
+    createPortaCoposVincadoGeometry(options = {}) {
+      const THREE = getTHREE();
+      const radius = options.radius || 48; // Raio base ~96mm diâmetro
+      const flangeW = options.flangeWidth || 14;
+      const flangeAngle = (options.flangeAngleDeg || 45) * Math.PI / 180;
+      const wall = options.wallThickness || 5.5;
+      const sides = options.sides || 6;
+
+      const positions = [];
+      const normals = [];
+      const uvs = [];
+
+      // 1. Placa Base Central Hexagonal
+      const basePoints = [];
+      for (let i = 0; i < sides; i++) {
+        const ang = (i * 2 * Math.PI) / sides;
+        basePoints.push(new THREE.Vector3(radius * Math.cos(ang), 0, radius * Math.sin(ang)));
+      }
+      const baseMesh = this.buildThickPlate(basePoints, new THREE.Vector3(0, 1, 0), wall);
+      positions.push(...baseMesh.positions);
+      normals.push(...baseMesh.normals);
+      uvs.push(...baseMesh.uvs);
+
+      // 2. Abas periféricas dobradas
+      for (let i = 0; i < sides; i++) {
+        const next = (i + 1) % sides;
+        const pA = basePoints[i];
+        const pB = basePoints[next];
+
+        const edgeDir = new THREE.Vector3().subVectors(pB, pA).normalize();
+        const outDir = new THREE.Vector3().crossVectors(new THREE.Vector3(0, 1, 0), edgeDir).normalize();
+
+        // Elevação da aba segundo o flangeAngle
+        const flapDir = new THREE.Vector3()
+          .addScaledVector(outDir, Math.cos(flangeAngle))
+          .addScaledVector(new THREE.Vector3(0, 1, 0), Math.sin(flangeAngle))
+          .normalize();
+
+        const pA_top = pA.clone().addScaledVector(flapDir, flangeW);
+        const pB_top = pB.clone().addScaledVector(flapDir, flangeW);
+
+        const flapNorm = new THREE.Vector3().crossVectors(flapDir, edgeDir).normalize();
+        const flapMesh = this.buildThickPlate([pA, pB, pB_top, pA_top], flapNorm, wall);
+        positions.push(...flapMesh.positions);
+        normals.push(...flapMesh.normals);
+        uvs.push(...flapMesh.uvs);
+      }
+
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geo.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+      geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+      geo.computeBoundingBox();
+      return geo;
+    },
+
+    /**
+     * 2. Saboneteira com Escorredor Dobrado & Calha Central (Monoplaca)
+     * Placa retangular com vincos longitudinais formando calha em V (15°),
+     * furos oblongos de drenagem e pés de apoio inferiores.
+     */
+    createSaboneteiraDrenadaGeometry(options = {}) {
+      const THREE = getTHREE();
+      const length = options.length || 135;
+      const width = options.width || 90;
+      const angleDeg = options.slopeAngleDeg || 14;
+      const wall = options.wallThickness || 6.0;
+
+      const positions = [];
+      const normals = [];
+      const uvs = [];
+
+      const slope = Math.tan(angleDeg * Math.PI / 180);
+      const halfL = length * 0.5;
+      const halfW = width * 0.5;
+      const gutterY = 0;
+      const wingY = halfW * slope;
+
+      // Asa esquerda (descendo até a calha X = 0)
+      const pLeft = [
+        new THREE.Vector3(-halfW, wingY, -halfL),
+        new THREE.Vector3(0, gutterY, -halfL),
+        new THREE.Vector3(0, gutterY, halfL),
+        new THREE.Vector3(-halfW, wingY, halfL)
+      ];
+      const normL = new THREE.Vector3(Math.sin(angleDeg * Math.PI / 180), Math.cos(angleDeg * Math.PI / 180), 0).normalize();
+      const meshL = this.buildThickPlate(pLeft, normL, wall);
+      positions.push(...meshL.positions); normals.push(...meshL.normals); uvs.push(...meshL.uvs);
+
+      // Asa direita (subindo da calha X = 0)
+      const pRight = [
+        new THREE.Vector3(0, gutterY, -halfL),
+        new THREE.Vector3(halfW, wingY, -halfL),
+        new THREE.Vector3(halfW, wingY, halfL),
+        new THREE.Vector3(0, gutterY, halfL)
+      ];
+      const normR = new THREE.Vector3(-Math.sin(angleDeg * Math.PI / 180), Math.cos(angleDeg * Math.PI / 180), 0).normalize();
+      const meshR = this.buildThickPlate(pRight, normR, wall);
+      positions.push(...meshR.positions); normals.push(...meshR.normals); uvs.push(...meshR.uvs);
+
+      // 4 Pés inferiores cilíndricos/cônicos de apoio
+      [-halfW * 0.65, halfW * 0.65].forEach(x => {
+        [-halfL * 0.7, halfL * 0.7].forEach(z => {
+          const footY = (Math.abs(x) * slope);
+          const footGeo = new THREE.CylinderGeometry(5.5, 7.0, footY + 4, 16);
+          footGeo.translate(x, -(footY + 4) * 0.5, z);
+          const posArr = footGeo.attributes.position.array;
+          const normArr = footGeo.attributes.normal.array;
+          for (let i = 0; i < posArr.length; i += 3) {
+            positions.push(posArr[i], posArr[i + 1], posArr[i + 2]);
+            normals.push(normArr[i], normArr[i + 1], normArr[i + 2]);
+            uvs.push(0.5, 0.5);
+          }
+        });
+      });
+
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geo.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+      geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+      geo.computeBoundingBox();
+      return geo;
+    },
+
+    /**
+     * 3. Porta-Incenso Tipo Canoa Parabólica (Monoplaca)
+     * Placa esbelta alongada com perfil curvado em calha cônica, berço de cinzas e orifício de queima.
+     */
+    createPortaIncensoCanoaGeometry(options = {}) {
+      const THREE = getTHREE();
+      const length = options.length || 240;
+      const maxW = options.maxWidth || 50;
+      const wall = options.wallThickness || 5.0;
+      const segmentsL = 24;
+
+      const positions = [];
+      const normals = [];
+      const uvs = [];
+
+      for (let i = 0; i < segmentsL; i++) {
+        const u0 = i / segmentsL;
+        const u1 = (i + 1) / segmentsL;
+        const z0 = -length * 0.5 + u0 * length;
+        const z1 = -length * 0.5 + u1 * length;
+
+        // Largura em ogiva parabólica
+        const w0 = Math.sin(u0 * Math.PI) * maxW * 0.5;
+        const w1 = Math.sin(u1 * Math.PI) * maxW * 0.5;
+
+        // Curvatura longitudinal e elevação das pontas
+        const yTip0 = Math.pow(Math.abs(u0 - 0.5) * 2, 2.5) * 18;
+        const yTip1 = Math.pow(Math.abs(u1 - 0.5) * 2, 2.5) * 18;
+
+        // Faceta central esquerda e direita
+        const vA = new THREE.Vector3(-w0, yTip0 + 10, z0);
+        const vB = new THREE.Vector3(0, yTip0, z0);
+        const vC = new THREE.Vector3(w0, yTip0 + 10, z0);
+
+        const vD = new THREE.Vector3(-w1, yTip1 + 10, z1);
+        const vE = new THREE.Vector3(0, yTip1, z1);
+        const vF = new THREE.Vector3(w1, yTip1 + 10, z1);
+
+        const meshL = this.buildThickPlate([vA, vB, vE, vD], new THREE.Vector3(0.5, 0.8, 0).normalize(), wall);
+        const meshR = this.buildThickPlate([vB, vC, vF, vE], new THREE.Vector3(-0.5, 0.8, 0).normalize(), wall);
+
+        positions.push(...meshL.positions, ...meshR.positions);
+        normals.push(...meshL.normals, ...meshR.normals);
+        uvs.push(...meshL.uvs, ...meshR.uvs);
+      }
+
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geo.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+      geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+      geo.computeBoundingBox();
+      return geo;
+    },
+
+    /**
+     * 4. Descanso de Talheres / Hashe Dobrado em Zigue-Zague (Monoplaca)
+     * Placa dobrada com 2 calhas em V para apoiar garfo, faca ou hashis sem tocar a mesa.
+     */
+    createDescansoTalheresGeometry(options = {}) {
+      const THREE = getTHREE();
+      const length = options.length || 85;
+      const width = options.width || 42;
+      const wall = options.wallThickness || 5.0;
+
+      // 4 dobras em zigue-zague ao longo do comprimento X
+      const profile = [
+        { x: -length * 0.5, y: 0 },
+        { x: -length * 0.25, y: 14 },
+        { x: 0, y: 3 },
+        { x: length * 0.25, y: 14 },
+        { x: length * 0.5, y: 0 }
+      ];
+
+      const positions = [];
+      const normals = [];
+      const uvs = [];
+
+      for (let i = 0; i < profile.length - 1; i++) {
+        const p0 = profile[i];
+        const p1 = profile[i + 1];
+
+        const vA = new THREE.Vector3(p0.x, p0.y, -width * 0.5);
+        const vB = new THREE.Vector3(p1.x, p1.y, -width * 0.5);
+        const vC = new THREE.Vector3(p1.x, p1.y, width * 0.5);
+        const vD = new THREE.Vector3(p0.x, p0.y, width * 0.5);
+
+        const edgeX = p1.x - p0.x;
+        const edgeY = p1.y - p0.y;
+        const norm = new THREE.Vector3(-edgeY, edgeX, 0).normalize();
+
+        const mesh = this.buildThickPlate([vA, vB, vC, vD], norm, wall);
+        positions.push(...mesh.positions);
+        normals.push(...mesh.normals);
+        uvs.push(...mesh.uvs);
+      }
+
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geo.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+      geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+      geo.computeBoundingBox();
+      return geo;
+    },
+
+    /**
+     * 5. Manteigueira Francesa / Canadense (French Butter Bell - Multi-placas)
+     * Conjunto de Pote Base para Água Fria + Tampa-Cúpula interna com sino de manteiga.
+     */
+    createManteigueiraFrancesaGeometry(options = {}) {
+      const THREE = getTHREE();
+      const wall = options.wallThickness || 6.0;
+      const rBase = options.radiusBase || 50; // Ø100mm
+      const hBase = options.heightBase || 78;
+
+      const positions = [];
+      const normals = [];
+      const uvs = [];
+
+      // 1. Pote Base d'água cilíndrico/troncocônico oco
+      const baseProf = [
+        new THREE.Vector2(rBase * 0.85, 0),
+        new THREE.Vector2(rBase, 8),
+        new THREE.Vector2(rBase, hBase - 10),
+        new THREE.Vector2(rBase + 4, hBase) // Aba externa de apoio
+      ];
+      const baseGeo = this.replaceLatheGeometry(baseProf, 32, {
+        wallThickness: wall,
+        bottomThickness: wall,
+        closedBottom: true
+      });
+
+      // 2. Cúpula Invertida da Manteiga (Sino que encaixa na base)
+      const rBell = rBase * 0.78;
+      const hBell = hBase * 0.75;
+      const domeProf = [
+        new THREE.Vector2(12, hBase + 28), // Puxador superior
+        new THREE.Vector2(rBase + 6, hBase + 6), // Flange que apoia na boca
+        new THREE.Vector2(rBell, hBase - 4),
+        new THREE.Vector2(rBell, hBase - hBell), // Boca do sino imersa na água
+        new THREE.Vector2(rBell - wall, hBase - hBell),
+        new THREE.Vector2(rBell - wall, hBase - 4),
+        new THREE.Vector2(0, hBase + 4)
+      ];
+      const domeGeo = this.replaceLatheGeometry(domeProf, 32, {
+        wallThickness: wall,
+        closedBottom: false
+      });
+
+      // Mescla as duas partes
+      [baseGeo, domeGeo].forEach(g => {
+        const p = g.attributes.position.array;
+        const n = g.attributes.normal.array;
+        for (let i = 0; i < p.length; i += 3) {
+          positions.push(p[i], p[i + 1], p[i + 2]);
+          normals.push(n[i], n[i + 1], n[i + 2]);
+          uvs.push(0.5, 0.5);
+        }
+      });
+
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geo.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+      geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+      geo.computeBoundingBox();
+      return geo;
+    },
+
+    /**
+     * 6. Saleiro de Mesa / Paredão (Multi-placas chanfradas a 45°)
+     * Caixa utilitária retangular com laterais inclinadas, boca frontal de acesso e aba protetora.
+     */
+    createSaleiroParedaoGeometry(options = {}) {
+      const THREE = getTHREE();
+      const wall = options.wallThickness || 6.0;
+      const width = options.width || 110;
+      const depth = options.depth || 90;
+      const height = options.height || 120;
+      const frontH = height * 0.45; // Frente rebaixada para acesso à mão
+
+      const halfW = width * 0.5;
+      const halfD = depth * 0.5;
+
+      const positions = [];
+      const normals = [];
+      const uvs = [];
+
+      // 1. Placa Fundo
+      const pFundo = [
+        new THREE.Vector3(-halfW, 0, -halfD),
+        new THREE.Vector3(halfW, 0, -halfD),
+        new THREE.Vector3(halfW, 0, halfD),
+        new THREE.Vector3(-halfW, 0, halfD)
+      ];
+      const mFundo = this.buildThickPlate(pFundo, new THREE.Vector3(0, 1, 0), wall);
+      positions.push(...mFundo.positions); normals.push(...mFundo.normals); uvs.push(...mFundo.uvs);
+
+      // 2. Placa Traseira (Paredão Alto)
+      const pTraseira = [
+        new THREE.Vector3(-halfW, 0, -halfD),
+        new THREE.Vector3(halfW, 0, -halfD),
+        new THREE.Vector3(halfW, height, -halfD),
+        new THREE.Vector3(-halfW, height, -halfD)
+      ];
+      const mTras = this.buildThickPlate(pTraseira, new THREE.Vector3(0, 0, 1), wall);
+      positions.push(...mTras.positions); normals.push(...mTras.normals); uvs.push(...mTras.uvs);
+
+      // 3. Placa Frontal (Baixa)
+      const pFrente = [
+        new THREE.Vector3(-halfW, 0, halfD),
+        new THREE.Vector3(halfW, 0, halfD),
+        new THREE.Vector3(halfW, frontH, halfD),
+        new THREE.Vector3(-halfW, frontH, halfD)
+      ];
+      const mFrente = this.buildThickPlate(pFrente, new THREE.Vector3(0, 0, -1), wall);
+      positions.push(...mFrente.positions); normals.push(...mFrente.normals); uvs.push(...mFrente.uvs);
+
+      // 4. Laterais Trapezoidais Esquerda e Direita
+      [-halfW, halfW].forEach(x => {
+        const isLeft = x < 0;
+        const pLat = [
+          new THREE.Vector3(x, 0, -halfD),
+          new THREE.Vector3(x, 0, halfD),
+          new THREE.Vector3(x, frontH, halfD),
+          new THREE.Vector3(x, height, -halfD)
+        ];
+        const mLat = this.buildThickPlate(pLat, new THREE.Vector3(isLeft ? 1 : -1, 0, 0), wall);
+        positions.push(...mLat.positions); normals.push(...mLat.normals); uvs.push(...mLat.uvs);
+      });
+
+      // 5. Aba Superior Protetora Inclinada (Capô de proteção contra umidade)
+      const pAba = [
+        new THREE.Vector3(-halfW, height, -halfD),
+        new THREE.Vector3(halfW, height, -halfD),
+        new THREE.Vector3(halfW, height - 15, -halfD + 45),
+        new THREE.Vector3(-halfW, height - 15, -halfD + 45)
+      ];
+      const mAba = this.buildThickPlate(pAba, new THREE.Vector3(0, 1, 0.4).normalize(), wall);
+      positions.push(...mAba.positions); normals.push(...mAba.normals); uvs.push(...mAba.uvs);
+
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geo.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+      geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+      geo.computeBoundingBox();
+      return geo;
+    },
+
+    /**
+     * 7. Vaso / Garrafa Facetada (Prisma de Placas Trapezoidais com Chanfro a 45°)
+     * Geometria facetada precisa com faces planas nítidas e chanfros angulares.
+     */
+    createGarrafaFacetadaGeometry(options = {}) {
+      const sides = options.sides || 8;
+      const rBase = options.radiusBase || 42;
+      const rBody = options.radiusBody || 65;
+      const rNeck = options.radiusNeck || 26;
+      const height = options.height || 180;
+      const wall = options.wallThickness || 6.0;
+
+      const profile = [
+        { y: 0, r: rBase },
+        { y: height * 0.45, r: rBody },
+        { y: height * 0.82, r: rNeck },
+        { y: height, r: rNeck * 1.1 }
+      ];
+
+      return this.replaceLatheGeometry(
+        profile.map(p => ({ x: p.r, y: p.y })),
+        sides,
+        {
+          wallThickness: wall,
+          bottomThickness: wall,
+          closedBottom: true,
+          faceted: true
+        }
+      );
+    },
+
+    /**
+     * Ponto de entrada unificado para criação de qualquer peça utilitária de placas.
+     * @param {string} pieceKey
+     * @param {object} options
+     * @returns {THREE.BufferGeometry}
+     */
+    createSlabPieceGeometry(pieceKey, options = {}) {
+      switch (pieceKey) {
+        case 'porta_copos_vincado':
+          return this.createPortaCoposVincadoGeometry(options);
+        case 'saboneteira_escorredor':
+          return this.createSaboneteiraDrenadaGeometry(options);
+        case 'porta_incenso_canoa':
+          return this.createPortaIncensoCanoaGeometry(options);
+        case 'descanso_talheres':
+          return this.createDescansoTalheresGeometry(options);
+        case 'manteigueira_francesa':
+          return this.createManteigueiraFrancesaGeometry(options);
+        case 'saleiro_paredao':
+          return this.createSaleiroParedaoGeometry(options);
+        case 'garrafa_facetada':
+          return this.createGarrafaFacetadaGeometry(options);
+        default:
+          return this.createGarrafaFacetadaGeometry(options);
+      }
     }
   };
 

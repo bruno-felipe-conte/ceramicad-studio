@@ -914,6 +914,123 @@ async function testStation1(cdp, reporter) {
     }
   }
 
+  // =========================================================================
+  // 1.11 Alternador 2D ↔ 3D & Expansão de Peças em Placas Cerâmicas
+  // =========================================================================
+  {
+    const t0 = Date.now();
+    try {
+      // 1. Testa Alternância Interativa 2D ↔ 3D
+      const toggleRes = await cdp.evaluate(`
+        (() => {
+          setStudioAppMode('2d');
+          const is2DActive = !document.getElementById('studio-view-2d').classList.contains('hidden');
+          const is3DHidden = document.getElementById('studio-view-3d').classList.contains('hidden');
+          
+          setStudioAppMode('3d');
+          const is3DActive = !document.getElementById('studio-view-3d').classList.contains('hidden');
+          const is2DHidden = document.getElementById('studio-view-2d').classList.contains('hidden');
+          
+          return {
+            mode2DSuccess: is2DActive && is3DHidden,
+            mode3DSuccess: is3DActive && is2DHidden
+          };
+        })()
+      `);
+
+      reporter.record({
+        id: 's1_toggle_2d_3d_mode',
+        station: 1,
+        subsystem: 'Alternador de Visualização 2D ↔ 3D',
+        item: 'Transição Interativa Bidirecional 2D (Moldes/CAD) e 3D (Torno)',
+        expected: 'Alterna entre Modos 2D e 3D exibindo e ocultando os containers correspondentes',
+        actual: `Modo 2D: ${toggleRes.mode2DSuccess}, Modo 3D: ${toggleRes.mode3DSuccess}`,
+        status: (toggleRes.mode2DSuccess && toggleRes.mode3DSuccess) ? 'PASS' : 'FAIL',
+        durationMs: Date.now() - t0,
+        details: toggleRes
+      });
+    } catch (err) {
+      reporter.record({
+        id: 's1_toggle_2d_3d_mode',
+        station: 1,
+        subsystem: 'Alternador de Visualização 2D ↔ 3D',
+        item: 'Transição Interativa Bidirecional 2D (Moldes/CAD) e 3D (Torno)',
+        expected: 'Executa teste sem exceção',
+        actual: `Exception: ${err.message}`,
+        status: 'FAIL',
+        error: err.message,
+        durationMs: Date.now() - t0
+      });
+    }
+  }
+
+  // 2. Testa as 7 Novas Peças em Placas (3D e 2D)
+  const slabPieceIds = [86, 39, 90, 88, 9, 38, 68];
+  for (const pId of slabPieceIds) {
+    const t0 = Date.now();
+    try {
+      const res = await cdp.evaluate(`
+        (() => {
+          setStudioAppMode('3d');
+          loadCatalogPiece(${pId});
+          const cur = STUDIO_100_CATALOG.find(p => p.id === ${pId});
+          const isSlab = !!(cur && (cur.isSlabModel || SLAB_PIECES_DEFINITIONS[cur.key]));
+          const patCount = (SLAB_PIECES_DEFINITIONS[cur.key]?.patterns || []).length;
+          
+          // Teste no 2D também
+          setStudioAppMode('2d');
+          const canvas = document.getElementById('studio-moldes-canvas');
+          const canvasHasSize = canvas && canvas.width > 0 && canvas.height > 0;
+          
+          // Volta para 3D para inspecionar malha
+          setStudioAppMode('3d');
+          return {
+            id: ${pId},
+            key: cur.key,
+            title: cur.title,
+            isSlab,
+            patternsCount: patCount,
+            canvasValid: canvasHasSize
+          };
+        })()
+      `);
+
+      await new Promise(r => setTimeout(r, 60));
+      const mesh = await cdp.inspectActiveMesh();
+
+      const pass = res.isSlab &&
+        res.patternsCount > 0 &&
+        res.canvasValid &&
+        mesh.meshCount > 0 &&
+        mesh.totalVertices > 0 &&
+        !mesh.hasNaN;
+
+      reporter.record({
+        id: `s1_slab_piece_${res.key}`,
+        station: 1,
+        subsystem: 'Catálogo de Peças em Placas (Slab Building)',
+        item: `${res.title}`,
+        expected: 'Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas',
+        actual: `3D Verts: ${mesh.totalVertices}, Meshes: ${mesh.meshCount}, Bounds: [${mesh.bounds.size.map(v => Math.round(v)).join('x')} mm], 2D Moldes: ${res.patternsCount} placas`,
+        status: pass ? 'PASS' : 'FAIL',
+        durationMs: Date.now() - t0,
+        details: { piece: res, mesh }
+      });
+    } catch (err) {
+      reporter.record({
+        id: `s1_slab_piece_${pId}`,
+        station: 1,
+        subsystem: 'Catálogo de Peças em Placas (Slab Building)',
+        item: `Peça de Placa ID #${pId}`,
+        expected: 'Executa sem exceções',
+        actual: `Exception: ${err.message}`,
+        status: 'FAIL',
+        error: err.message,
+        durationMs: Date.now() - t0
+      });
+    }
+  }
+
   console.log('--- STATION 1 TESTS COMPLETE ---');
 }
 

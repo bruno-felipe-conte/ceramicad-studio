@@ -1,7 +1,7 @@
 ================================================================================
 CERAMICAD STUDIO PRO — AUTOMATED TEST SUITE REPORT
-Timestamp: 2026-11-08T23:45:25.318Z
-Total: 111 | Passed: 111 | Failed: 0 | Pass Rate: 100.0%
+Timestamp: 2026-11-09T23:13:19.255Z
+Total: 119 | Passed: 119 | Failed: 0 | Pass Rate: 100.0%
 ================================================================================
 
 [PASS] [St.1 - Spline Profiles (54)] 1. Xícara de Café Espresso c/ Alça Ergonômica (s1_spline_profile_xicara_cafe)
@@ -447,4 +447,36 @@ Total: 111 | Passed: 111 | Failed: 0 | Pass Rate: 100.0%
 [PASS] [St.1 - CeramicMeshFactory (Origami BufferGeometry)] Geometrias Origami Manuais & Substituição de LatheGeometry (s1_ceramic_mesh_factory_origami)
   Expected: Gera BufferGeometry para Yoshimura, Miura, Waterbomb, Crease Pattern 2D e replaceLathe sem NaN
   Actual:   Yoshi: 672v (NaN:false), Miura: 288v (NaN:false), WB: 1056v (NaN:false), LatheRep: 144v (NaN:false), CP2D: 50M/51V, FacetMeshes: 1
+
+[PASS] [St.1 - Alternador de Visualização 2D ↔ 3D] Transição Interativa Bidirecional 2D (Moldes/CAD) e 3D (Torno) (s1_toggle_2d_3d_mode)
+  Expected: Alterna entre Modos 2D e 3D exibindo e ocultando os containers correspondentes
+  Actual:   Modo 2D: true, Modo 3D: true
+
+[PASS] [St.1 - Catálogo de Peças em Placas (Slab Building)] #86 — Porta-Copos Geométrico Vincado (Monoplaca) (s1_slab_piece_porta_copos_vincado)
+  Expected: Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas
+  Actual:   3D Verts: 672, Meshes: 1, Bounds: [126x95x126 mm], 2D Moldes: 1 placas
+
+[PASS] [St.1 - Catálogo de Peças em Placas (Slab Building)] #39 — Saboneteira com Escorredor Dobrado & Calha (s1_slab_piece_saboneteira_escorredor)
+  Expected: Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas
+  Actual:   3D Verts: 672, Meshes: 1, Bounds: [126x95x126 mm], 2D Moldes: 1 placas
+
+[PASS] [St.1 - Catálogo de Peças em Placas (Slab Building)] #90 — Porta-Incenso Tipo Canoa Parabólica (s1_slab_piece_porta_incenso_canoa)
+  Expected: Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas
+  Actual:   3D Verts: 672, Meshes: 1, Bounds: [126x95x126 mm], 2D Moldes: 1 placas
+
+[PASS] [St.1 - Catálogo de Peças em Placas (Slab Building)] #88 — Descanso de Talheres / Hashe Ondulado em V (s1_slab_piece_descanso_talheres)
+  Expected: Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas
+  Actual:   3D Verts: 672, Meshes: 1, Bounds: [126x95x126 mm], 2D Moldes: 1 placas
+
+[PASS] [St.1 - Catálogo de Peças em Placas (Slab Building)] #9 — Manteigueira Francesa Hermética (Butter Bell) (s1_slab_piece_manteigueira_francesa)
+  Expected: Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas
+  Actual:   3D Verts: 672, Meshes: 1, Bounds: [126x95x126 mm], 2D Moldes: 4 placas
+
+[PASS] [St.1 - Catálogo de Peças em Placas (Slab Building)] #38 — Saleiro de Mesa / Paredão c/ Chanfro 45° (s1_slab_piece_saleiro_paredao)
+  Expected: Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas
+  Actual:   3D Verts: 672, Meshes: 1, Bounds: [126x95x126 mm], 2D Moldes: 5 placas
+
+[PASS] [St.1 - Catálogo de Peças em Placas (Slab Building)] #68 — Vaso / Garrafa Facetada Prismática em Placas (s1_slab_piece_garrafa_facetada)
+  Expected: Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas
+  Actual:   3D Verts: 672, Meshes: 1, Bounds: [126x95x126 mm], 2D Moldes: 2 placas
 

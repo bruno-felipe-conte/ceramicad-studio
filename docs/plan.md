@@ -1,10 +1,17 @@
-# Plano Técnico de Engenharia: Modelo 3D & Placas 2D
+# Plano Técnico de Engenharia: Alternador 2D ↔ 3D & Placas Cerâmicas
 
-Consulte o artefato mestre estruturado em:
-`plan_3d_slabs_and_lathe_refactor.md`
+Consulte o documento mestre de planejamento com especificações completas em:
+[`plan_2d_3d_slabs_expansion.md`](file:///home/bruno/.gemini/antigravity/brain/af9dde2a-7b63-46cd-9550-6c362e6e5900/plan_2d_3d_slabs_expansion.md)
 
-## Componentes Principais
-1. **Header Principal**: Logo + Toggle central de modos (`Modo 3D` / `Modo 2D`) + Ações (`Exportar`, Tema).
-2. **Barra de Catálogo & Lotes**: Lotes 1..10 com 10 peças cada, carrossel de chips horizontais e navegação de peças.
-3. **Viewport 3D**: Three.js r128 com prato de torno concêntrico, materiais PBR (Terracota, Grés, Esmalte, Porcelana), corte 270° e dock de controles inferior.
-4. **Editor CAD 2D**: Canvas milimétrico (0-350mm Y, 0-140mm X), nós interativos com badges de raio, espessura da placa de argila com preenchimento em terracota e aba de moldes 2D planificados.
+## Componentes Técnicos
+1. **Alternador Unificado 2D ↔ 3D**:
+   - Alternância na barra superior (`setStudioAppMode('3d')` / `setStudioAppMode('2d')`) sincronizada com o estado da peça ativa.
+   - Modo 3D: renderização volumétrica Three.js com prato de torno giratório e OrbitControls.
+   - Modo 2D: visualizador técnico de desdobramento com linhas de corte contínuo, linhas de vinco tracejadas e cotas em mm.
+2. **Catálogo de 7 Peças Utilitárias em Placas**:
+   - Monoplacas vincadas: Porta-copos geométrico, Saboneteira com calha, Porta-incenso canoa, Descanso de talheres.
+   - Multi-placas compostas: Manteigueira Francesa com vedação hidráulica, Saleiro de parede/mesa chanfrado 45° e Vaso/Garrafa facetada.
+3. **Módulo de Geometria Tridimensional (`CeramicMeshFactory.js`)**:
+   - Criação de geometrias com cálculo manual de normais de faceta e espessura real de placa de argila crua.
+4. **Motor de Desdobramento e Cotas 2D**:
+   - `renderStudioMoldesCanvas()` aprimorado com desenho normatizado de moldes de corte e vincos.

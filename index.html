@@ -3964,7 +3964,254 @@
       }
     };
 
+        // =========================================================================
+    // 📐 CATÁLOGO ESPECIALIZADO DE PEÇAS UTILITÁRIAS EM PLACAS (SLAB BUILDING)
     // =========================================================================
+    const SLAB_PIECES_DEFINITIONS = {
+      porta_copos_vincado: {
+        id: 86,
+        key: 'porta_copos_vincado',
+        title: '#86 — Porta-Copos Geométrico Vincado (Monoplaca)',
+        shortTitle: '#86 Porta-Copos Vincado',
+        batch: 9,
+        category: 'decoracao',
+        categoryLabel: 'Mesa & Decoração',
+        method: 'plaqueira',
+        methodLabel: 'Plaqueira · Monoplaca Vincada',
+        desc: 'Porta-copos hexagonal de placa única com 6 abas periféricas dobradas a 45° e cantos chanfrados.',
+        totalH: 15,
+        maxR: 58,
+        isSlabModel: true,
+        patterns: [
+          {
+            label: 'Placa Base Hexagonal c/ 6 Abas Vincadas',
+            outline: [
+              { x: 0, y: -58 }, { x: 50, y: -29 }, { x: 50, y: 29 },
+              { x: 0, y: 58 }, { x: -50, y: 29 }, { x: -50, y: -29 }
+            ],
+            creases: [
+              { p1: { x: 0, y: -44 }, p2: { x: 38, y: -22 }, type: 'mountain', angleDeg: 45 },
+              { p1: { x: 38, y: -22 }, p2: { x: 38, y: 22 }, type: 'mountain', angleDeg: 45 },
+              { p1: { x: 38, y: 22 }, p2: { x: 0, y: 44 }, type: 'mountain', angleDeg: 45 },
+              { p1: { x: 0, y: 44 }, p2: { x: -38, y: 22 }, type: 'mountain', angleDeg: 45 },
+              { p1: { x: -38, y: 22 }, p2: { x: -38, y: -22 }, type: 'mountain', angleDeg: 45 },
+              { p1: { x: -38, y: -22 }, p2: { x: 0, y: -44 }, type: 'mountain', angleDeg: 45 }
+            ],
+            dimensions: { w: 100, h: 116, thickness: 5.5, label: '100 × 116 mm • Dobra: 45°' }
+          }
+        ]
+      },
+      saboneteira_escorredor: {
+        id: 39,
+        key: 'saboneteira_escorredor',
+        title: '#39 — Saboneteira com Escorredor Dobrado & Calha',
+        shortTitle: '#39 Saboneteira Drenada',
+        batch: 4,
+        category: 'cozinha',
+        categoryLabel: 'Banho & Utilidades',
+        method: 'plaqueira',
+        methodLabel: 'Plaqueira · Calha & Dreno',
+        desc: 'Saboneteira de placa com calha central rebaixada a 14°, 4 drenos oblongos de escoamento e pés de apoio.',
+        totalH: 25,
+        maxR: 68,
+        isSlabModel: true,
+        patterns: [
+          {
+            label: 'Placa Calha de Drenagem (135 × 90 mm)',
+            outline: [
+              { x: -45, y: -67.5 }, { x: 45, y: -67.5 },
+              { x: 45, y: 67.5 }, { x: -45, y: 67.5 }
+            ],
+            creases: [
+              { p1: { x: 0, y: -67.5 }, p2: { x: 0, y: 67.5 }, type: 'valley', angleDeg: 14 }
+            ],
+            drains: [
+              { cx: 0, cy: -35, r: 4 }, { cx: 0, cy: -12, r: 4 },
+              { cx: 0, cy: 12, r: 4 }, { cx: 0, cy: 35, r: 4 }
+            ],
+            dimensions: { w: 90, h: 135, thickness: 6.0, label: '90 × 135 mm • Declive: 14°' }
+          }
+        ]
+      },
+      porta_incenso_canoa: {
+        id: 90,
+        key: 'porta_incenso_canoa',
+        title: '#90 — Porta-Incenso Tipo Canoa Parabólica',
+        shortTitle: '#90 Porta-Incenso Canoa',
+        batch: 9,
+        category: 'decoracao',
+        categoryLabel: 'Decoração & Zen',
+        method: 'plaqueira',
+        methodLabel: 'Plaqueira · Canoa Parabólica',
+        desc: 'Placa esbelta alongada com perfil parabólico em canoa, retenção total de cinzas e furo de queima a 45°.',
+        totalH: 32,
+        maxR: 120,
+        isSlabModel: true,
+        patterns: [
+          {
+            label: 'Placa Canoa Ogival (240 × 50 mm)',
+            outline: [
+              { x: 0, y: -120 }, { x: 18, y: -80 }, { x: 25, y: 0 }, { x: 18, y: 80 },
+              { x: 0, y: 120 }, { x: -18, y: 80 }, { x: -25, y: 0 }, { x: -18, y: -80 }
+            ],
+            creases: [
+              { p1: { x: 0, y: -110 }, p2: { x: 0, y: 110 }, type: 'valley', angleDeg: 25 }
+            ],
+            dimensions: { w: 50, h: 240, thickness: 5.0, label: '50 × 240 mm • Furo: Ø3mm' }
+          }
+        ]
+      },
+      descanso_talheres: {
+        id: 88,
+        key: 'descanso_talheres',
+        title: '#88 — Descanso de Talheres / Hashe Ondulado em V',
+        shortTitle: '#88 Descanso de Talheres',
+        batch: 9,
+        category: 'mesa',
+        categoryLabel: 'Mesa & Servir',
+        method: 'plaqueira',
+        methodLabel: 'Plaqueira · Zigue-Zague em V',
+        desc: 'Placa única dobrada com 2 calhas em V para apoiar hashi, garfo ou faca sem contato com a mesa.',
+        totalH: 18,
+        maxR: 44,
+        isSlabModel: true,
+        patterns: [
+          {
+            label: 'Placa Zigue-Zague Dobrada (85 × 42 mm)',
+            outline: [
+              { x: -42.5, y: -21 }, { x: 42.5, y: -21 },
+              { x: 42.5, y: 21 }, { x: -42.5, y: 21 }
+            ],
+            creases: [
+              { p1: { x: -21.2, y: -21 }, p2: { x: -21.2, y: 21 }, type: 'mountain', angleDeg: 60 },
+              { p1: { x: 0, y: -21 }, p2: { x: 0, y: 21 }, type: 'valley', angleDeg: 60 },
+              { p1: { x: 21.2, y: -21 }, p2: { x: 21.2, y: 21 }, type: 'mountain', angleDeg: 60 }
+            ],
+            dimensions: { w: 85, h: 42, thickness: 5.0, label: '85 × 42 mm • 3 Vincos V' }
+          }
+        ]
+      },
+      manteigueira_francesa: {
+        id: 9,
+        key: 'manteigueira_francesa',
+        title: '#9 — Manteigueira Francesa Hermética (Butter Bell)',
+        shortTitle: '#9 Manteigueira Francesa',
+        batch: 1,
+        category: 'mesa',
+        categoryLabel: 'Mesa & Cozinha',
+        method: 'encaixe',
+        methodLabel: 'Multi-Placas · Vedação por Água',
+        desc: 'Pote base para água fria e cúpula interna para manteiga compactada com vedação hermética hidráulica.',
+        totalH: 106,
+        maxR: 56,
+        isSlabModel: true,
+        patterns: [
+          {
+            label: 'Pote Base: Disco de Fundo Ø85 mm',
+            outline: 'circle',
+            radius: 42.5,
+            dimensions: { w: 85, h: 85, thickness: 6.0, label: 'Disco Ø85 mm' }
+          },
+          {
+            label: 'Pote Base: Faixa da Parede (285 × 75 mm)',
+            outline: [
+              { x: -142.5, y: -37.5 }, { x: 142.5, y: -37.5 },
+              { x: 142.5, y: 37.5 }, { x: -142.5, y: 37.5 }
+            ],
+            dimensions: { w: 285, h: 75, thickness: 6.0, label: '285 × 75 mm • Chanfro: 45°' }
+          },
+          {
+            label: 'Cúpula: Sino Interno da Manteiga (245 × 55 mm)',
+            outline: [
+              { x: -122.5, y: -27.5 }, { x: 122.5, y: -27.5 },
+              { x: 122.5, y: 27.5 }, { x: -122.5, y: 27.5 }
+            ],
+            dimensions: { w: 245, h: 55, thickness: 6.0, label: '245 × 55 mm' }
+          },
+          {
+            label: 'Cúpula: Disco Flange Superior Ø95 mm c/ Puxador',
+            outline: 'circle',
+            radius: 47.5,
+            dimensions: { w: 95, h: 95, thickness: 6.0, label: 'Disco Flange Ø95 mm' }
+          }
+        ]
+      },
+      saleiro_paredao: {
+        id: 38,
+        key: 'saleiro_paredao',
+        title: '#38 — Saleiro de Mesa / Paredão c/ Chanfro 45°',
+        shortTitle: '#38 Saleiro Paredão',
+        batch: 4,
+        category: 'cozinha',
+        categoryLabel: 'Cozinha & Panelas',
+        method: 'plaqueira',
+        methodLabel: 'Multi-Placas · Meia-Esquadria 45°',
+        desc: 'Caixa montada com placas chanfradas a 45°, aba superior contra vapor de panela e acesso frontal fácil.',
+        totalH: 120,
+        maxR: 58,
+        isSlabModel: true,
+        patterns: [
+          {
+            label: 'Fundo da Caixa (110 × 90 mm)',
+            outline: [{ x: -55, y: -45 }, { x: 55, y: -45 }, { x: 55, y: 45 }, { x: -55, y: 45 }],
+            dimensions: { w: 110, h: 90, thickness: 6.0, label: '110 × 90 mm • 4 Chanfros 45°' }
+          },
+          {
+            label: 'Paredão Traseiro (110 × 120 mm)',
+            outline: [{ x: -55, y: -60 }, { x: 55, y: -60 }, { x: 55, y: 60 }, { x: -55, y: 60 }],
+            dimensions: { w: 110, h: 120, thickness: 6.0, label: '110 × 120 mm • Meia-Esquadria' }
+          },
+          {
+            label: 'Frente Rebaixada (110 × 55 mm)',
+            outline: [{ x: -55, y: -27.5 }, { x: 55, y: -27.5 }, { x: 55, y: 27.5 }, { x: -55, y: 27.5 }],
+            dimensions: { w: 110, h: 55, thickness: 6.0, label: '110 × 55 mm' }
+          },
+          {
+            label: 'Laterais Trapezoidais Inclinadas (2x)',
+            outline: [{ x: -45, y: -60 }, { x: 45, y: -60 }, { x: 45, y: -5 }, { x: -45, y: 60 }],
+            dimensions: { w: 90, h: 120, thickness: 6.0, label: '90 × 120 mm (Trapézio)' }
+          },
+          {
+            label: 'Aba Superior Protetora (110 × 45 mm)',
+            outline: [{ x: -55, y: -22.5 }, { x: 55, y: -22.5 }, { x: 55, y: 22.5 }, { x: -55, y: 22.5 }],
+            dimensions: { w: 110, h: 45, thickness: 6.0, label: '110 × 45 mm • Protetor Anti-Vapor' }
+          }
+        ]
+      },
+      garrafa_facetada: {
+        id: 68,
+        key: 'garrafa_facetada',
+        title: '#68 — Vaso / Garrafa Facetada Prismática em Placas',
+        shortTitle: '#68 Garrafa Facetada',
+        batch: 7,
+        category: 'decoracao',
+        categoryLabel: 'Vasos & Decoração',
+        method: 'plaqueira',
+        methodLabel: 'Multi-Placas · Poliedro Facetado',
+        desc: 'Montagem em 8 placas trapezoidais com chanfros de 22.5° nas laterais para junção perfeita a 45°.',
+        totalH: 180,
+        maxR: 65,
+        isSlabModel: true,
+        patterns: [
+          {
+            label: 'Fundo Octogonal Regular (Raio 42 mm)',
+            outline: 'circle',
+            radius: 42,
+            dimensions: { w: 84, h: 84, thickness: 6.0, label: 'Octógono Ø84 mm' }
+          },
+          {
+            label: 'Facetas Trapezoidais do Bojo (8x)',
+            outline: [
+              { x: -16, y: -90 }, { x: 16, y: -90 },
+              { x: 25, y: 0 }, { x: 10, y: 90 }, { x: -10, y: 90 }, { x: -25, y: 0 }
+            ],
+            dimensions: { w: 50, h: 180, thickness: 6.0, label: '50 × 180 mm • 8 Placas Chanfradas' }
+          }
+        ]
+      }
+    };
+
+// =========================================================================
     // 🏺 STUDIO PRO: CATÁLOGO DE 100 PEÇAS, 10 LOTES & NAVEGAÇÃO 3D/2D
     // =========================================================================
     const STUDIO_100_CATALOG = [
@@ -7831,6 +8078,24 @@
     let latheWheelheadGroup = null;
 
     // Sincroniza o catálogo de 100 peças com a biblioteca histórica para compatibilidade
+    
+    // Sincroniza as peças utilitárias de placas no catálogo de 100 peças
+    Object.keys(SLAB_PIECES_DEFINITIONS).forEach(k => {
+      const def = SLAB_PIECES_DEFINITIONS[k];
+      const p = STUDIO_100_CATALOG.find(item => item.id === def.id || item.key === def.key);
+      if (p) {
+        p.key = def.key;
+        p.title = def.title;
+        p.shortTitle = def.shortTitle;
+        p.method = def.method;
+        p.methodLabel = def.methodLabel;
+        p.desc = def.desc;
+        p.totalH = def.totalH;
+        p.maxR = def.maxR;
+        p.isSlabModel = true;
+      }
+    });
+
     STUDIO_100_CATALOG.forEach(p => {
       if (!CLASSIC_CERAMIC_PROFILES[p.key]) {
         CLASSIC_CERAMIC_PROFILES[p.key] = {
@@ -7878,7 +8143,12 @@
           b3d.className = 'px-3.5 sm:px-4 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2 transition text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white';
         }
         renderCatalogPieceList();
-        drawCartesianCADProfile();
+        const curPiece = STUDIO_100_CATALOG.find(p => p.id === currentCatalogPieceId);
+        if (curPiece && (curPiece.isSlabModel || SLAB_PIECES_DEFINITIONS[curPiece.key])) {
+          setStudio2DSubTab('moldes');
+        } else {
+          drawCartesianCADProfile();
+        }
       }
     }
 
@@ -8457,15 +8727,164 @@
       const ctx = c.getContext('2d');
       ctx.clearRect(0, 0, c.width, c.height);
 
-      const rings = computeFrustumRings();
-      if (!rings || rings.length === 0) return;
-
-      const items = prepareAllVasePatternItems(rings);
       const isDark = document.documentElement.classList.contains('dark');
       ctx.fillStyle = isDark ? '#1a1816' : '#fdfbf7';
       ctx.fillRect(0, 0, c.width, c.height);
 
-      // Renderiza as peças desdobradas com cotas
+      const curPiece = STUDIO_100_CATALOG.find(p => p.id === currentCatalogPieceId);
+      const slabDef = curPiece ? (SLAB_PIECES_DEFINITIONS[curPiece.key] || (curPiece.isSlabModel && SLAB_PIECES_DEFINITIONS[curPiece.key])) : null;
+
+      if (slabDef && slabDef.patterns && slabDef.patterns.length > 0) {
+        // RENDERIZAÇÃO ESPECIALIZADA DE PLACAS CERÂMICAS (SLAB BUILDING)
+        let curX = 40;
+        const retracao = parseFloat(document.getElementById('v-retracao')?.value) || 1.12;
+
+        slabDef.patterns.forEach((pat, idx) => {
+          ctx.save();
+
+          if (pat.outline === 'circle') {
+            const rad = (pat.radius || 40) * retracao;
+            const diam = rad * 2;
+            const scale = Math.min(1.2, 180 / diam);
+
+            ctx.translate(curX + rad * scale, 240);
+
+            // Círculo de corte externo (linha contínua)
+            ctx.beginPath();
+            ctx.arc(0, 0, rad * scale, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(200, 100, 70, 0.12)';
+            ctx.fill();
+            ctx.strokeStyle = '#292524';
+            ctx.lineWidth = 2.0;
+            ctx.stroke();
+
+            // Rótulo e Cotas
+            ctx.fillStyle = isDark ? '#f5f5f4' : '#1c1917';
+            ctx.font = 'bold 12px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(pat.label, 0, -rad * scale - 12);
+
+            ctx.font = '11px monospace';
+            ctx.fillStyle = '#c86446';
+            ctx.fillText(`Corte: Ø${Math.round(diam)} mm • Queima: Ø${Math.round(diam / retracao)} mm`, 0, rad * scale + 18);
+            if (pat.dimensions && pat.dimensions.thickness) {
+              ctx.fillStyle = '#78716c';
+              ctx.fillText(`Espessura da Placa: ${pat.dimensions.thickness} mm`, 0, rad * scale + 32);
+            }
+
+            curX += diam * scale + 70;
+            ctx.restore();
+            return;
+          }
+
+          // Polígono / Peça com Contorno e Vincos
+          const pts = pat.outline;
+          let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+          pts.forEach(p => {
+            const px = p.x * retracao;
+            const py = p.y * retracao;
+            if (px < minX) minX = px; if (px > maxX) maxX = px;
+            if (py < minY) minY = py; if (py > maxY) maxY = py;
+          });
+
+          const pw = Math.max(10, maxX - minX);
+          const ph = Math.max(10, maxY - minY);
+          const scale = Math.min(1.2, 220 / Math.max(pw, ph));
+
+          ctx.translate(curX - minX * scale, 240 - (minY + ph / 2) * scale);
+
+          // 1. Contorno de Corte Externo (Linha Contínua Sólida Preta #292524)
+          ctx.beginPath();
+          pts.forEach((p, i) => {
+            const x = p.x * retracao * scale;
+            const y = p.y * retracao * scale;
+            if (i === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          });
+          ctx.closePath();
+          ctx.fillStyle = 'rgba(200, 100, 70, 0.12)';
+          ctx.fill();
+          ctx.strokeStyle = isDark ? '#e7e5e4' : '#292524';
+          ctx.lineWidth = 2.2;
+          ctx.setLineDash([]);
+          ctx.stroke();
+
+          // 2. Linhas de Vinco / Dobra (Tracejado Vermelho para Montanha, Azul para Vale)
+          if (pat.creases && pat.creases.length > 0) {
+            pat.creases.forEach(cr => {
+              ctx.beginPath();
+              ctx.moveTo(cr.p1.x * retracao * scale, cr.p1.y * retracao * scale);
+              ctx.lineTo(cr.p2.x * retracao * scale, cr.p2.y * retracao * scale);
+
+              if (cr.type === 'mountain') {
+                ctx.strokeStyle = '#dc2626'; // Vermelho Montanha
+                ctx.setLineDash([6, 4]);
+              } else {
+                ctx.strokeStyle = '#0284c7'; // Azul Vale
+                ctx.setLineDash([8, 3, 2, 3]);
+              }
+              ctx.lineWidth = 1.6;
+              ctx.stroke();
+
+              // Ângulo de dobra ao lado do vinco
+              if (cr.angleDeg) {
+                const midX = (cr.p1.x + cr.p2.x) * 0.5 * retracao * scale;
+                const midY = (cr.p1.y + cr.p2.y) * 0.5 * retracao * scale;
+                ctx.font = 'bold 9px sans-serif';
+                ctx.fillStyle = cr.type === 'mountain' ? '#dc2626' : '#0284c7';
+                ctx.fillText(`Dobra: ${cr.angleDeg}°`, midX + 3, midY - 3);
+              }
+            });
+            ctx.setLineDash([]);
+          }
+
+          // 3. Furos e Drenos de Escoamento
+          if (pat.drains && pat.drains.length > 0) {
+            pat.drains.forEach(dr => {
+              ctx.beginPath();
+              ctx.arc(dr.cx * retracao * scale, dr.cy * retracao * scale, dr.r * retracao * scale, 0, Math.PI * 2);
+              ctx.fillStyle = isDark ? '#1a1816' : '#fdfbf7';
+              ctx.fill();
+              ctx.strokeStyle = '#0284c7';
+              ctx.lineWidth = 1.4;
+              ctx.stroke();
+            });
+          }
+
+          // 4. Rótulo e Cotas Técnicas
+          ctx.fillStyle = isDark ? '#f5f5f4' : '#1c1917';
+          ctx.font = 'bold 12px sans-serif';
+          ctx.fillText(pat.label, 0, -ph * scale / 2 - 12);
+
+          ctx.font = '11px monospace';
+          ctx.fillStyle = '#c86446';
+          ctx.fillText(`Molde Cru: ${Math.round(pw)} × ${Math.round(ph)} mm (Retração: ${retracao}x)`, 0, ph * scale / 2 + 18);
+
+          if (pat.dimensions && pat.dimensions.label) {
+            ctx.fillStyle = '#78716c';
+            ctx.fillText(pat.dimensions.label, 0, ph * scale / 2 + 32);
+          }
+
+          ctx.restore();
+          curX += pw * scale + 80;
+        });
+
+        // Legenda técnica de convenções de dobra no rodapé do canvas
+        ctx.save();
+        ctx.font = '10.5px sans-serif';
+        ctx.fillStyle = isDark ? '#a8a29e' : '#57534e';
+        ctx.fillText('━━ Linha de Corte Contínuo   - - - Linha de Vinco Montanha (Dobra para cima)   -·-· Linha de Vinco Vale (Dobra para baixo)', 40, c.height - 18);
+        ctx.restore();
+
+        return;
+      }
+
+      // FALLBACK: RINGS TRADICIONAIS DE TORNO
+      const rings = computeFrustumRings();
+      if (!rings || rings.length === 0) return;
+
+      const items = prepareAllVasePatternItems(rings);
+
       let curX = 35;
       items.forEach((it, idx) => {
         const pts = it.rawPoints;
@@ -8897,6 +9316,43 @@
     // =========================================================================
     // CONSTRUÇÃO THREE.JS DA MALHA SPLINE AVANÇADA COM LOFT, TORÇÃO & TEXTURAS
     // =========================================================================
+    
+    // Renderizador 3D Dedicado para Peças de Placas (CeramicMeshFactory)
+    function renderSlabPiece3D(pieceKey) {
+      if (!scene || activeTool !== 'vasos') return;
+      clearActiveGroup();
+
+      const wall = Math.max(2.0, parseFloat(document.getElementById('v-spline-wall')?.value) || 6.0);
+      const retracao = parseFloat(document.getElementById('v-retracao')?.value) || 1.12;
+      const verCorte = document.getElementById('v-section-cut')?.checked || false;
+
+      // Cria a geometria sólida volumétrica via CeramicMeshFactory
+      let geo = null;
+      if (typeof CeramicMeshFactory !== 'undefined' && CeramicMeshFactory.createSlabPieceGeometry) {
+        geo = CeramicMeshFactory.createSlabPieceGeometry(pieceKey, {
+          wallThickness: wall,
+          retracao: retracao,
+          cutSection: verCorte
+        });
+      }
+
+      if (!geo) {
+        rebuildVaseFromSpline();
+        return;
+      }
+
+      // Material cerâmico ativo com PBR
+      const mat = (typeof CinnabarMaterialSystem !== 'undefined' && CinnabarMaterialSystem.getMaterial)
+        ? CinnabarMaterialSystem.getMaterial(currentCeramicFinish, isWireframe)
+        : new THREE.MeshStandardMaterial({ color: 0xD05840, roughness: 0.45, wireframe: isWireframe, side: THREE.DoubleSide });
+      const mesh = new THREE.Mesh(geo, mat);
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+
+      activeMeshGroup.add(mesh);
+      updateViewportBoundingBox();
+    }
+
     function rebuildVaseFromSpline() {
       if (!scene || activeTool !== 'vasos') return;
       clearActiveGroup();
@@ -9880,6 +10336,11 @@
 
     // Despachante Geral de Modelagem de Vasos
     function rebuildVase() {
+      const curPiece = STUDIO_100_CATALOG.find(p => p.id === currentCatalogPieceId);
+      if (curPiece && (curPiece.isSlabModel || SLAB_PIECES_DEFINITIONS[curPiece.key])) {
+        renderSlabPiece3D(curPiece.key);
+        return;
+      }
       if (vaseDesignMode === 'spline') {
         initSplineCanvasEvents();
         drawSplineCanvas();
