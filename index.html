@@ -1070,9 +1070,9 @@
                 <span class="flex items-center">
                   Torção vertical (Twist Espiral)
                 </span>
-                <span id="twist-angle-label" class="text-xs font-mono-cad font-bold text-terracotta-500">45°</span>
+                <span id="twist-angle-label" class="text-xs font-mono-cad font-bold text-terracotta-500">0°</span>
               </div>
-              <input type="range" id="v-twist-angle" min="-360" max="360" value="45" step="5"
+              <input type="range" id="v-twist-angle" min="-360" max="360" value="0" step="5"
                 oninput="document.getElementById('twist-angle-label').textContent = this.value + '°'; rebuildVase();"
                 class="w-full accent-terracotta-500 cursor-pointer" />
             </div>
@@ -1138,8 +1138,8 @@
                   <div>
                     <span class="text-[10px] text-stone-500 block mb-0.5">Meio (50%)</span>
                     <select id="v-loft-mid" onchange="rebuildVase()" class="cad-input text-xs px-2">
-                      <option value="circle">Circular</option>
-                      <option value="petals" selected>Pétalas</option>
+                      <option value="circle" selected>Circular</option>
+                      <option value="petals">Pétalas</option>
                       <option value="polygon">Polígono</option>
                     </select>
                   </div>
@@ -1729,11 +1729,42 @@
             </div>
           </div>
 
+          <!-- Seletores Rápidos de Forma e Relevo da Argila (Canto Superior Direito) -->
+          <div class="absolute top-3 right-3 z-10 flex items-center gap-2 select-none">
+            <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-black/65 backdrop-blur-md border border-white/15 text-xs shadow-lg" title="Formato de Seção da Estrutura">
+              <span class="text-[10px] text-terracotta-400 font-bold uppercase tracking-wider">Forma:</span>
+              <select id="dock-shape-select" onchange="setQuickClayShape(this.value)"
+                class="bg-transparent text-stone-100 font-semibold text-xs focus:outline-none cursor-pointer">
+                <option value="circle" class="bg-stone-900 text-stone-100" selected>● Circular (Torno)</option>
+                <option value="polygon" class="bg-stone-900 text-stone-100">⬡ Facetado (Poligonal)</option>
+                <option value="petals" class="bg-stone-900 text-stone-100">❖ Ondulado (Pétalas)</option>
+                <option value="twisted" class="bg-stone-900 text-stone-100">≈ Torcido (Espiral)</option>
+              </select>
+            </div>
+
+            <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-black/65 backdrop-blur-md border border-white/15 text-xs shadow-lg" title="Textura / Relevo Superficial da Argila">
+              <span class="text-[10px] text-terracotta-400 font-bold uppercase tracking-wider">Relevo:</span>
+              <select id="dock-texture-select" onchange="setQuickClayTexture(this.value)"
+                class="bg-transparent text-stone-100 font-semibold text-xs focus:outline-none cursor-pointer">
+                <option value="liso" class="bg-stone-900 text-stone-100" selected>✦ Liso Suave</option>
+                <option value="canelado" class="bg-stone-900 text-stone-100">║ Canelado Vertical</option>
+                <option value="martelado" class="bg-stone-900 text-stone-100">◈ Martelado Manual</option>
+                <option value="ondas_zen" class="bg-stone-900 text-stone-100">≈ Ondas Zen</option>
+                <option value="espiral_corda" class="bg-stone-900 text-stone-100">⌇ Corda Espiral</option>
+                <option value="favo_3d" class="bg-stone-900 text-stone-100">⬡ Favo 3D</option>
+                <option value="gomos_abobora" class="bg-stone-900 text-stone-100">◑ Gomos Esculturais</option>
+                <option value="trama_cesto" class="bg-stone-900 text-stone-100">▦ Trama Cesto</option>
+                <option value="senoidal" class="bg-stone-900 text-stone-100">∿ Senoidal</option>
+                <option value="escamas" class="bg-stone-900 text-stone-100">◡ Escamas</option>
+              </select>
+            </div>
+          </div>
+
           <!-- DOCK FLUTUANTE INFERIOR APPLE / macOS VIBRANCY (EXATO SCREENSHOT 1) -->
           <div id="studio-bottom-dock"
-            class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1.5 select-none pointer-events-auto">
+            class="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1.5 select-none pointer-events-auto">
             <div
-              class="flex flex-wrap items-center gap-2 sm:gap-3 p-1.5 px-3.5 rounded-2xl bg-black/80 dark:bg-[#141211]/90 backdrop-blur-2xl border border-white/15 text-stone-100 shadow-2xl shadow-black/60">
+              class="flex flex-nowrap whitespace-nowrap items-center gap-2 sm:gap-2.5 p-1.5 px-3 rounded-2xl bg-black/80 dark:bg-[#141211]/90 backdrop-blur-2xl border border-white/15 text-stone-100 shadow-2xl shadow-black/60">
               
               <!-- 1. Vistas de Câmera -->
               <div class="flex items-center p-0.5 rounded-xl bg-white/10 border border-white/10 text-xs font-medium">
@@ -1753,22 +1784,26 @@
 
               <div class="h-4 w-px bg-white/20"></div>
 
-              <!-- 2. Acabamentos Cerâmicos PBR (Terracota, Grés, Esmalte, Porcelana) -->
+              <!-- 2. Acabamentos Cerâmicos PBR (Terracota, Grés, Celadon, Raku, Porcelana) -->
               <div class="flex items-center p-0.5 rounded-xl bg-white/10 border border-white/10 text-xs font-medium">
                 <button id="dock-finish-terracota" onclick="applyCeramicFinish('terracota')"
-                  class="px-3 py-1 rounded-lg transition font-bold bg-terracotta-500 text-white shadow-xs">
+                  class="px-2.5 py-1 rounded-lg transition font-bold bg-terracotta-500 text-white shadow-xs cursor-pointer">
                   Terracota
                 </button>
                 <button id="dock-finish-gres" onclick="applyCeramicFinish('gres')"
-                  class="px-3 py-1 rounded-lg transition text-stone-300 hover:text-white hover:bg-white/15">
+                  class="px-2.5 py-1 rounded-lg transition text-stone-300 hover:text-white hover:bg-white/15 cursor-pointer">
                   Grés
                 </button>
-                <button id="dock-finish-esmalte" onclick="applyCeramicFinish('esmalte_celadon')"
-                  class="px-3 py-1 rounded-lg transition text-stone-300 hover:text-white hover:bg-white/15">
-                  Esmalte
+                <button id="dock-finish-esmalte" onclick="applyCeramicFinish('celadon')"
+                  class="px-2.5 py-1 rounded-lg transition text-stone-300 hover:text-white hover:bg-white/15 cursor-pointer">
+                  Celadon
                 </button>
-                <button id="dock-finish-porcelana" onclick="applyCeramicFinish('porcelana_biscuit')"
-                  class="px-3 py-1 rounded-lg transition text-stone-300 hover:text-white hover:bg-white/15">
+                <button id="dock-finish-raku" onclick="applyCeramicFinish('raku')"
+                  class="px-2.5 py-1 rounded-lg transition text-stone-300 hover:text-white hover:bg-white/15 cursor-pointer">
+                  Raku
+                </button>
+                <button id="dock-finish-porcelana" onclick="applyCeramicFinish('porcelana')"
+                  class="px-2.5 py-1 rounded-lg transition text-stone-300 hover:text-white hover:bg-white/15 cursor-pointer">
                   Porcelana
                 </button>
               </div>
@@ -1779,7 +1814,7 @@
               <div class="flex items-center gap-2 px-1 text-xs text-stone-200">
                 <button id="dock-spin-btn" onclick="togglePotteryWheelSpin()"
                   class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-stone-200 hover:text-white transition font-medium cursor-pointer">
-                  <span>🌀</span>
+                  <span>↻</span>
                   <span>Girar</span>
                 </button>
                 <input type="range" id="dock-spin-slider" min="0.2" max="3.0" step="0.1" value="1.0"
@@ -8269,9 +8304,115 @@
         selClassic.value = piece.key;
       }
 
+      // Calibração inteligente do formato de seção e relevo conforme a especificação da peça
+      const fullSearchText = `${piece.key || ''} ${piece.title || ''} ${piece.desc || ''}`.toLowerCase();
+      let defaultShape = 'circle';
+      if (piece.isSlabModel || SLAB_PIECES_DEFINITIONS[piece.key]) {
+        defaultShape = 'polygon';
+      } else if (/facetad|prismat|sextavad|oitavad|octogon|hexagon|quadrad/.test(fullSearchText)) {
+        defaultShape = 'polygon';
+      } else if (/ondulad|pétala|petala|gomos|flor/.test(fullSearchText)) {
+        defaultShape = 'petals';
+      } else if (/torcid|espiral|helicoid/.test(fullSearchText)) {
+        defaultShape = 'twisted';
+      }
+
+      let defaultTex = 'liso';
+      if (/canelad|frisad|estriad|fluted/.test(fullSearchText)) {
+        defaultTex = 'canelado';
+      } else if (/martelad|hammered/.test(fullSearchText)) {
+        defaultTex = 'martelado';
+      } else if (/trançad|cesto/.test(fullSearchText)) {
+        defaultTex = 'trama_cesto';
+      } else if (/favo|colmeia/.test(fullSearchText)) {
+        defaultTex = 'favo_3d';
+      }
+
+      activeTool = 'vasos';
+      vaseDesignMode = 'spline';
+
+      setQuickClayShape(defaultShape, false);
+      setQuickClayTexture(defaultTex, false);
+
       rebuildVase();
       drawCartesianCADProfile();
       renderCatalogPieceList();
+    }
+
+    function setQuickClayShape(mode, triggerRebuild = true) {
+      const allowedShapes = ['circle', 'polygon', 'petals', 'twisted'];
+      const validMode = allowedShapes.includes(mode) ? mode : 'circle';
+
+      const dockSel = document.getElementById('dock-shape-select');
+      if (dockSel && dockSel.value !== validMode) dockSel.value = validMode;
+
+      const crossShapeEl = document.getElementById('v-cross-shape');
+      const loftBaseEl = document.getElementById('v-loft-base');
+      const loftMidEl = document.getElementById('v-loft-mid');
+      const loftTopEl = document.getElementById('v-loft-top');
+      const twistEl = document.getElementById('v-twist-angle');
+      const twistLbl = document.getElementById('twist-angle-label');
+      const countEl = document.getElementById('v-cross-count');
+      const depthEl = document.getElementById('v-cross-depth');
+
+      if (validMode === 'circle') {
+        if (crossShapeEl) crossShapeEl.value = 'circle';
+        if (loftBaseEl) loftBaseEl.value = 'circle';
+        if (loftMidEl) loftMidEl.value = 'circle';
+        if (loftTopEl) loftTopEl.value = 'circle';
+        if (twistEl) twistEl.value = 0;
+        if (twistLbl) twistLbl.textContent = '0°';
+      } else if (validMode === 'polygon') {
+        if (crossShapeEl) crossShapeEl.value = 'polygon';
+        if (loftBaseEl) loftBaseEl.value = 'polygon';
+        if (loftMidEl) loftMidEl.value = 'polygon';
+        if (loftTopEl) loftTopEl.value = 'polygon';
+        if (countEl) countEl.value = 8;
+        if (depthEl) depthEl.value = 3.5;
+        if (twistEl) twistEl.value = 0;
+        if (twistLbl) twistLbl.textContent = '0°';
+      } else if (validMode === 'petals') {
+        if (crossShapeEl) crossShapeEl.value = 'petals';
+        if (loftBaseEl) loftBaseEl.value = 'circle';
+        if (loftMidEl) loftMidEl.value = 'petals';
+        if (loftTopEl) loftTopEl.value = 'circle';
+        if (countEl) countEl.value = 8;
+        if (depthEl) depthEl.value = 3.5;
+        if (twistEl) twistEl.value = 0;
+        if (twistLbl) twistLbl.textContent = '0°';
+      } else if (validMode === 'twisted') {
+        if (crossShapeEl) crossShapeEl.value = 'petals';
+        if (loftBaseEl) loftBaseEl.value = 'petals';
+        if (loftMidEl) loftMidEl.value = 'petals';
+        if (loftTopEl) loftTopEl.value = 'petals';
+        if (countEl) countEl.value = 8;
+        if (depthEl) depthEl.value = 3.5;
+        if (twistEl) twistEl.value = 60;
+        if (twistLbl) twistLbl.textContent = '60°';
+      }
+
+      if (triggerRebuild) {
+        rebuildVase();
+      }
+    }
+
+    function setQuickClayTexture(texKey, triggerRebuild = true) {
+      const allowedTex = [
+        'liso', 'canelado', 'senoidal', 'cones', 'escamas',
+        'martelado', 'espiral_corda', 'favo_3d', 'ondas_zen',
+        'gomos_abobora', 'trama_cesto'
+      ];
+      const validTex = allowedTex.includes(texKey) ? texKey : 'liso';
+
+      const dockTexSel = document.getElementById('dock-texture-select');
+      if (dockTexSel && dockTexSel.value !== validTex) dockTexSel.value = validTex;
+
+      const splineTexSel = document.getElementById('v-spline-texture');
+      if (splineTexSel && splineTexSel.value !== validTex) splineTexSel.value = validTex;
+
+      if (triggerRebuild) {
+        rebuildVase();
+      }
     }
 
     function onCatalogSearch(query) {
@@ -9149,9 +9290,19 @@
     }
 
     function onCrossShapeChange(val) {
+      const baseEl = document.getElementById('v-loft-base');
       const midEl = document.getElementById('v-loft-mid');
-      if (midEl && val !== 'circle') {
+      const topEl = document.getElementById('v-loft-top');
+      if (val === 'circle') {
+        if (baseEl) baseEl.value = 'circle';
+        if (midEl) midEl.value = 'circle';
+        if (topEl) topEl.value = 'circle';
+      } else if (midEl) {
         midEl.value = val;
+      }
+      const dockSel = document.getElementById('dock-shape-select');
+      if (dockSel && ['circle', 'polygon', 'petals'].includes(val)) {
+        dockSel.value = val;
       }
     }
 
@@ -9325,6 +9476,10 @@
       const wall = Math.max(2.0, parseFloat(document.getElementById('v-spline-wall')?.value) || 6.0);
       const retracao = parseFloat(document.getElementById('v-retracao')?.value) || 1.12;
       const verCorte = document.getElementById('v-section-cut')?.checked || false;
+      const surfaceTexture = document.getElementById('v-spline-texture')?.value || 'liso';
+      const shapeMode = document.getElementById('dock-shape-select')?.value || 'polygon';
+      const texAmp = parseFloat(document.getElementById('v-spline-tex-amp')?.value) || 1.5;
+      const texFreq = parseInt(document.getElementById('v-spline-tex-freq')?.value) || 18;
 
       // Cria a geometria sólida volumétrica via CeramicMeshFactory
       let geo = null;
@@ -9332,7 +9487,11 @@
         geo = CeramicMeshFactory.createSlabPieceGeometry(pieceKey, {
           wallThickness: wall,
           retracao: retracao,
-          cutSection: verCorte
+          cutSection: verCorte,
+          surfaceTexture: surfaceTexture,
+          shapeMode: shapeMode,
+          texAmp: texAmp,
+          texFreq: texFreq
         });
       }
 
@@ -9368,11 +9527,11 @@
       const symmetry = document.getElementById('v-symmetry-mode')?.value || 'windmill';
       const crossCount = parseInt(document.getElementById('v-cross-count')?.value) || 8;
       const crossDepth = parseFloat(document.getElementById('v-cross-depth')?.value) || 3.5;
-      const twistDeg = parseFloat(document.getElementById('v-twist-angle')?.value) || 45;
+      const twistDeg = parseFloat(document.getElementById('v-twist-angle')?.value) || 0;
       const twistRad = twistDeg * (Math.PI / 180);
 
       const loftBase = document.getElementById('v-loft-base')?.value || 'circle';
-      const loftMid = document.getElementById('v-loft-mid')?.value || 'petals';
+      const loftMid = document.getElementById('v-loft-mid')?.value || 'circle';
       const loftTop = document.getElementById('v-loft-top')?.value || 'circle';
 
       const texture = document.getElementById('v-spline-texture')?.value || 'liso';
@@ -10092,7 +10251,11 @@
       }
 
       return {
-        getMaterial: function (finishKey, isWireframe = false) {
+        getMaterial: function (rawFinishKey, isWireframe = false) {
+          let finishKey = rawFinishKey || 'terracota';
+          if (finishKey === 'esmalte_celadon' || finishKey === 'esmalte') finishKey = 'celadon';
+          if (finishKey === 'porcelana_biscuit') finishKey = 'porcelana';
+
           const cacheKey = `${finishKey}_${isWireframe ? 'wire' : 'solid'}_${isTriplanarEnabled ? 'tri' : 'uv'}`;
           if (cache[cacheKey]) return cache[cacheKey];
 
@@ -10192,16 +10355,38 @@
     })();
 
     // Despachante Reativo PDCA: Atualiza acabamento cerâmico em tempo constante O(1) sem recriar malhas
-    function applyCeramicFinish(finishKey) {
+    function applyCeramicFinish(rawFinishKey) {
+      let finishKey = rawFinishKey || 'terracota';
+      if (finishKey === 'esmalte_celadon' || finishKey === 'esmalte') finishKey = 'celadon';
+      if (finishKey === 'porcelana_biscuit') finishKey = 'porcelana';
+
       currentCeramicFinish = finishKey;
       const finishEl1 = document.getElementById('v-ceramic-finish');
       if (finishEl1 && finishEl1.value !== finishKey) finishEl1.value = finishKey;
       const finishEl2 = document.getElementById('v-ceramic-finish-estagios');
       if (finishEl2 && finishEl2.value !== finishKey) finishEl2.value = finishKey;
 
+      // Sincroniza estado visual dos botões no Dock 3D
+      const dockMap = {
+        terracota: 'dock-finish-terracota',
+        gres: 'dock-finish-gres',
+        celadon: 'dock-finish-esmalte',
+        raku: 'dock-finish-raku',
+        porcelana: 'dock-finish-porcelana'
+      };
+      Object.entries(dockMap).forEach(([k, btnId]) => {
+        const btn = document.getElementById(btnId);
+        if (!btn) return;
+        if (k === finishKey) {
+          btn.className = 'px-2.5 py-1 rounded-lg transition font-bold bg-terracotta-500 text-white shadow-xs cursor-pointer';
+        } else {
+          btn.className = 'px-2.5 py-1 rounded-lg transition text-stone-300 hover:text-white hover:bg-white/15 cursor-pointer';
+        }
+      });
+
       const newMat = CinnabarMaterialSystem.getMaterial(finishKey, isWireframe);
-      if (activeMeshGroup && activeMeshGroup.children.length > 0) {
-        activeMeshGroup.children.forEach(child => {
+      if (activeMeshGroup) {
+        activeMeshGroup.traverse(child => {
           if (child.isMesh && child.material && child.material.name !== 'internalWall') {
             child.material = newMat;
             child.material.needsUpdate = true;

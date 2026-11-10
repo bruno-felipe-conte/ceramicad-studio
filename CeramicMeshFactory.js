@@ -755,7 +755,12 @@
       function addTri(pA, pB, pC, norm) {
         positions.push(pA.x, pA.y, pA.z, pB.x, pB.y, pB.z, pC.x, pC.y, pC.z);
         normals.push(norm.x, norm.y, norm.z, norm.x, norm.y, norm.z, norm.x, norm.y, norm.z);
-        uvs.push(0, 0, 1, 0, 0.5, 1);
+        const uvScale = 0.015;
+        uvs.push(
+          (pA.x + pA.z) * uvScale, (pA.y + pA.z) * uvScale,
+          (pB.x + pB.z) * uvScale, (pB.y + pB.z) * uvScale,
+          (pC.x + pC.z) * uvScale, (pC.y + pC.z) * uvScale
+        );
       }
 
       // Triangulação da face superior e inferior
@@ -1197,30 +1202,200 @@
     },
 
     /**
+     * Aplica modificadores morfológicos de formato (seção/torção) e relevo de superfície
+     * em malhas de placas cerâmicas, subdividindo triângulos largos quando necessário.
+     */
+    applyProceduralClayModifiers(geo, options = {}) {
+      const THREE = getTHREE();
+      const tex = options.surfaceTexture || 'liso';
+      const shapeMode = options.shapeMode || 'auto';
+      const texAmp = options.texAmp || 1.4;
+      const texFreq = options.texFreq || 16;
+
+      if (tex === 'liso' && (shapeMode === 'auto' || shapeMode === 'polygon')) {
+        return geo;
+      }
+
+      // 1. Subdivide triângulos grandes (2 passes) para suportar relevo contínuo
+      let posArr = Array.from(geo.getAttribute('position').array);
+      let normArr = Array.from(geo.getAttribute('normal').array);
+      let uvArr = geo.getAttribute('uv') ? Array.from(geo.getAttribute('uv').array) : new Array((posArr.length / 3) * 2).fill(0);
+
+      for (let pass = 0; pass < 2; pass++) {
+        const nextPos = [];
+        const nextNorm = [];
+        const nextUv = [];
+        const triCount = posArr.length / 9;
+
+        for (let t = 0; t < triCount; t++) {
+          const b = t * 9;
+          const u = t * 6;
+          const ax = posArr[b], ay = posArr[b + 1], az = posArr[b + 2];
+          const bx = posArr[b + 3], by = posArr[b + 4], bz = posArr[b + 5];
+          const cx = posArr[b + 6], cy = posArr[b + 7], cz = posArr[b + 8];
+
+          const dAB = Math.hypot(bx - ax, by - ay, bz - az);
+          const dBC = Math.hypot(cx - bx, cy - by, cz - bz);
+          const dCA = Math.hypot(ax - cx, ay - cy, az - cz);
+
+          if (Math.max(dAB, dBC, dCA) > 14) {
+            const mxAB = (ax + bx) * 0.5, myAB = (ay + by) * 0.5, mzAB = (az + bz) * 0.5;
+            const mxBC = (bx + cx) * 0.5, myBC = (by + cy) * 0.5, mzBC = (bz + cz) * 0.5;
+            const mxCA = (cx + ax) * 0.5, myCA = (cy + ay) * 0.5, mzCA = (cz + az) * 0.5;
+
+            const nx = normArr[b], ny = normArr[b + 1], nz = normArr[b + 2];
+            const pushSubTri = (x1, y1, z1, x2, y2, z2, x3, y3, z3) => {
+              nextPos.push(x1, y1, z1, x2, y2, z2, x3, y3, z3);
+              nextNorm.push(nx, ny, nz, nx, ny, nz, nx, ny, nz);
+              nextUv.push((x1 + z1) * 0.015, (y1 + z1) * 0.015, (x2 + z2) * 0.015, (y2 + z2) * 0.015, (x3 + z3) * 0.015, (y3 + z3) * 0.015);
+            };
+            pushSubTri(ax, ay, az, mxAB, myAB, mzAB, mxCA, myCA, mzCA);
+            pushSubTri(mxAB, myAB, mzAB, bx, by, bz, mxBC, myBC, mzBC);
+            pushSubTri(mxCA, myCA, mzCA, mxBC, myBC, mzBC, cx, cy, cz);
+            pushSubTri(mxAB, myAB, mzAB, mxBC, myBC, mzBC, mxCA, myCA, mzCA);
+          } else {
+            for (let k = 0; k < 9; k++) {
+              nextPos.push(posArr[b + k]);
+              nextNorm.push(normArr[b + k]);
+            }
+            for (let k = 0; k < 6; k++) {
+              nextUv.push(uvArr[u + k]);
+            }
+          }
+        }
+        posArr = nextPos;
+        normArr = nextNorm;
+        uvArr = nextUv;
+      }
+
+      geo.computeBoundingBox();
+      const minY = geo.boundingBox ? geo.boundingBox.min.y : 0;
+      const maxY = geo.boundingBox ? Math.max(minY + 10, geo.boundingBox.max.y) : 100;
+      const spanY = Math.max(10, maxY - minY);
+
+      // 2. Desloca cada vértice segundo o formato e o relevo de argila
+      const vCount = posArr.length / 3;
+      for (let i = 0; i < vCount; i++) {
+        const idx = i * 3;
+        let vx = posArr[idx];
+        let vy = posArr[idx + 1];
+        let vz = posArr[idx + 2];
+        const nx = normArr[idx];
+        const ny = normArr[idx + 1];
+        const nz = normArr[idx + 2];
+
+        const yNorm = Math.max(0, Math.min(1, (vy - minY) / spanY));
+        const phi = Math.atan2(vx, vz);
+
+        // Modificador de forma (se selecionado pelo usuário)
+        if (shapeMode === 'twisted') {
+          const twistAng = yNorm * (Math.PI / 3);
+          const cosT = Math.cos(twistAng);
+          const sinT = Math.sin(twistAng);
+          const rx = vx * cosT - vz * sinT;
+          const rz = vx * sinT + vz * cosT;
+          vx = rx;
+          vz = rz;
+        } else if (shapeMode === 'petals') {
+          const wave = Math.cos(phi * 8) * 2.2 * Math.sin(yNorm * Math.PI);
+          const rad = Math.hypot(vx, vz);
+          if (rad > 2) {
+            const scale = (rad + wave) / rad;
+            vx *= scale;
+            vz *= scale;
+          }
+        }
+
+        // Modificador de relevo superficial
+        let texDelta = 0;
+        const coordU = (vx + vz) * 0.08;
+        const coordV = vy * 0.08;
+        if (tex === 'canelado') {
+          texDelta = Math.cos(phi * texFreq + vx * 0.15) * texAmp;
+        } else if (tex === 'senoidal') {
+          texDelta = Math.sin(coordV * 2.2) * texAmp;
+        } else if (tex === 'martelado') {
+          const c1 = Math.sin(vx * 0.22) * Math.cos(vy * 0.22 + vz * 0.22);
+          const c2 = Math.cos(vz * 0.18 - vx * 0.15);
+          texDelta = -Math.abs(c1 * 0.7 + c2 * 0.3) * texAmp * 1.1;
+        } else if (tex === 'ondas_zen') {
+          texDelta = Math.sin(coordV * 2.5 + Math.sin(coordU * 1.5) * 1.5) * texAmp * 0.85;
+        } else if (tex === 'espiral_corda') {
+          texDelta = Math.pow(Math.max(0, Math.cos(phi * 6 + yNorm * Math.PI * 14)), 1.6) * texAmp;
+        } else if (tex === 'favo_3d') {
+          const rH = coordV * 1.2;
+          const cA = coordU * 1.2 + (Math.floor(rH) % 2) * 0.5;
+          const dHex = Math.hypot((cA - Math.floor(cA)) - 0.5, (rH - Math.floor(rH)) - 0.5);
+          texDelta = (0.35 - Math.min(0.45, dHex)) * texAmp * 2.0;
+        } else if (tex === 'gomos_abobora') {
+          const gomo = Math.abs(Math.sin(phi * 6));
+          texDelta = (Math.pow(gomo, 0.55) - 0.35) * texAmp * 1.4;
+        } else if (tex === 'trama_cesto') {
+          const wU = Math.sin(coordU * 2.5) * Math.cos(coordV * 2.5);
+          const wV = Math.cos(coordU * 2.5) * Math.sin(coordV * 2.5);
+          texDelta = (Math.abs(wU) - Math.abs(wV)) * texAmp * 0.9;
+        } else if (tex === 'escamas') {
+          texDelta = Math.max(0, Math.sin(coordV * 2.2 + Math.cos(coordU * 2.2))) * texAmp;
+        }
+
+        // Não desloca a sola inferior (vy próximo de minY com normal apontando para baixo)
+        const bottomWeight = (vy - minY < 3.0 && ny < -0.5) ? 0.0 : 1.0;
+        posArr[idx] = vx + nx * texDelta * bottomWeight;
+        posArr[idx + 1] = vy + ny * texDelta * bottomWeight;
+        posArr[idx + 2] = vz + nz * texDelta * bottomWeight;
+      }
+
+      const outGeo = new THREE.BufferGeometry();
+      outGeo.setAttribute('position', new THREE.Float32BufferAttribute(posArr, 3));
+      outGeo.setAttribute('normal', new THREE.Float32BufferAttribute(normArr, 3));
+      outGeo.setAttribute('uv', new THREE.Float32BufferAttribute(uvArr, 2));
+      outGeo.computeVertexNormals();
+      outGeo.computeBoundingBox();
+      return outGeo;
+    },
+
+    /**
      * Ponto de entrada unificado para criação de qualquer peça utilitária de placas.
      * @param {string} pieceKey
      * @param {object} options
      * @returns {THREE.BufferGeometry}
      */
     createSlabPieceGeometry(pieceKey, options = {}) {
+      const shapeMode = options.shapeMode || 'auto';
+      const opts = Object.assign({}, options);
+      if (shapeMode === 'circle') {
+        opts.sides = 24;
+      } else if (shapeMode === 'polygon') {
+        opts.sides = options.sides || 6;
+      }
+
+      let baseGeo;
       switch (pieceKey) {
         case 'porta_copos_vincado':
-          return this.createPortaCoposVincadoGeometry(options);
+          baseGeo = this.createPortaCoposVincadoGeometry(opts);
+          break;
         case 'saboneteira_escorredor':
-          return this.createSaboneteiraDrenadaGeometry(options);
+          baseGeo = this.createSaboneteiraDrenadaGeometry(opts);
+          break;
         case 'porta_incenso_canoa':
-          return this.createPortaIncensoCanoaGeometry(options);
+          baseGeo = this.createPortaIncensoCanoaGeometry(opts);
+          break;
         case 'descanso_talheres':
-          return this.createDescansoTalheresGeometry(options);
+          baseGeo = this.createDescansoTalheresGeometry(opts);
+          break;
         case 'manteigueira_francesa':
-          return this.createManteigueiraFrancesaGeometry(options);
+          baseGeo = this.createManteigueiraFrancesaGeometry(opts);
+          break;
         case 'saleiro_paredao':
-          return this.createSaleiroParedaoGeometry(options);
+          baseGeo = this.createSaleiroParedaoGeometry(opts);
+          break;
         case 'garrafa_facetada':
-          return this.createGarrafaFacetadaGeometry(options);
         default:
-          return this.createGarrafaFacetadaGeometry(options);
+          baseGeo = this.createGarrafaFacetadaGeometry(opts);
+          break;
       }
+
+      return this.applyProceduralClayModifiers(baseGeo, opts);
     }
   };
 

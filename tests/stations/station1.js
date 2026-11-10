@@ -1031,6 +1031,115 @@ async function testStation1(cdp, reporter) {
     }
   }
 
+  // --- 7. Teste de Calibração Circular de Torno, Seletores de Formato, Relevo e PBR ---
+  {
+    const t0 = Date.now();
+    try {
+      const checkRes = await cdp.evaluate(`
+        (() => {
+          setStudioAppMode('3d');
+          loadCatalogPiece(1); // #1 Xícara cônica (torno circular)
+
+          const loftMidAfterLoad = document.getElementById('v-loft-mid')?.value;
+          const crossShapeAfterLoad = document.getElementById('v-cross-shape')?.value;
+          const twistAfterLoad = parseFloat(document.getElementById('v-twist-angle')?.value || 0);
+
+          let posArrCircle = [];
+          activeMeshGroup.traverse(c => {
+            if (c.isMesh && c.geometry && posArrCircle.length === 0) {
+              posArrCircle = Array.from(c.geometry.attributes.position.array.slice(0, 180));
+            }
+          });
+
+          // Altera para Facetado e verifica mudança real nos vértices
+          setQuickClayShape('polygon');
+          let posArrPoly = [];
+          activeMeshGroup.traverse(c => {
+            if (c.isMesh && c.geometry && posArrPoly.length === 0) {
+              posArrPoly = Array.from(c.geometry.attributes.position.array.slice(0, 180));
+            }
+          });
+          const shapeChanged = posArrCircle.some((v, idx) => Math.abs(v - (posArrPoly[idx] || 0)) > 0.05);
+
+          // Altera relevo para Canelado e verifica mudança real nos vértices
+          setQuickClayShape('circle');
+          setQuickClayTexture('canelado');
+          let posArrCanelado = [];
+          activeMeshGroup.traverse(c => {
+            if (c.isMesh && c.geometry && posArrCanelado.length === 0) {
+              posArrCanelado = Array.from(c.geometry.attributes.position.array.slice(0, 180));
+            }
+          });
+          const textureChanged = posArrCircle.some((v, idx) => Math.abs(v - (posArrCanelado[idx] || 0)) > 0.05);
+
+          // Testa Acabamentos PBR
+          applyCeramicFinish('celadon');
+          let celadonHex = null;
+          activeMeshGroup.traverse(c => {
+            if (c.isMesh && c.material && c.material.name !== 'internalWall' && !celadonHex) {
+              celadonHex = c.material.color.getHexString();
+            }
+          });
+
+          applyCeramicFinish('raku');
+          let rakuHex = null;
+          activeMeshGroup.traverse(c => {
+            if (c.isMesh && c.material && c.material.name !== 'internalWall' && !rakuHex) {
+              rakuHex = c.material.color.getHexString();
+            }
+          });
+
+          // Restaura estado padrão
+          applyCeramicFinish('terracota');
+          setQuickClayTexture('liso');
+
+          return {
+            loftMidAfterLoad,
+            crossShapeAfterLoad,
+            twistAfterLoad,
+            shapeChanged,
+            textureChanged,
+            celadonHex,
+            rakuHex,
+            pbrDistinct: celadonHex !== rakuHex && celadonHex === '98bead'
+          };
+        })()
+      `);
+
+      const pass =
+        checkRes.loftMidAfterLoad === 'circle' &&
+        checkRes.crossShapeAfterLoad === 'circle' &&
+        checkRes.twistAfterLoad === 0 &&
+        checkRes.shapeChanged &&
+        checkRes.textureChanged &&
+        checkRes.pbrDistinct;
+
+      reporter.record({
+        id: 's1_clay_shape_texture_pbr',
+        station: 1,
+        subsystem: 'Morfologia, Relevo e Materiais PBR (Dock 3D)',
+        item: 'Vaso Circular Puro + Seletores de Forma, Relevo e Esmaltes Cinnabar',
+        expected: 'Peça #1 inicia circular (sem ondas), seletores alteram malha 3D e PBR atualiza materiais',
+        actual: `LoftMid: ${checkRes.loftMidAfterLoad}, Twist: ${checkRes.twistAfterLoad}°, ShapeChanged: ${checkRes.shapeChanged}, TexChanged: ${checkRes.textureChanged}, Celadon: #${checkRes.celadonHex}, Raku: #${checkRes.rakuHex}`,
+        status: pass ? 'PASS' : 'FAIL',
+        durationMs: Date.now() - t0,
+        details: checkRes
+      });
+    } catch (err) {
+      reporter.record({
+        id: 's1_clay_shape_texture_pbr',
+        station: 1,
+        subsystem: 'Morfologia, Relevo e Materiais PBR (Dock 3D)',
+        item: 'Vaso Circular Puro + Seletores de Forma, Relevo e Esmaltes Cinnabar',
+        expected: 'Executa sem exceções',
+        actual: `Exception: ${err.message}`,
+        status: 'FAIL',
+        error: err.message,
+        durationMs: Date.now() - t0
+      });
+    }
+  }
+
   console.log('--- STATION 1 TESTS COMPLETE ---');
 }
 
