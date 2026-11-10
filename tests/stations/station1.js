@@ -915,37 +915,73 @@ async function testStation1(cdp, reporter) {
   }
 
   // =========================================================================
-  // 1.11 Alternador 2D ↔ 3D & Expansão de Peças em Placas Cerâmicas
+  // 1.11 Alternador 2D ↔ 3D (Split-View), Seleção Visual de Partes & Conversão A4
   // =========================================================================
   {
     const t0 = Date.now();
     try {
-      // 1. Testa Alternância Interativa 2D ↔ 3D
+      // 1. Testa Alternância Interativa 2D ↔ 3D com Split-View 3D dentro da aba 2D
       const toggleRes = await cdp.evaluate(`
         (() => {
+          const leftPanelVisible = !document.getElementById('left-control-panel').classList.contains('hidden');
+          const footerVisible = !document.getElementById('app-footer').classList.contains('hidden');
+
           setStudioAppMode('2d');
           const is2DActive = !document.getElementById('studio-view-2d').classList.contains('hidden');
-          const is3DHidden = document.getElementById('studio-view-3d').classList.contains('hidden');
-          
+          const is3DVisibleInSplit = !document.getElementById('studio-view-3d').classList.contains('hidden');
+
+          // Testa ocultar o 3D dentro da aba 2D e reativá-lo
+          toggle2DSplit3D(false);
+          const is3DHiddenWhenSplitOff = document.getElementById('studio-view-3d').classList.contains('hidden');
+          toggle2DSplit3D(true);
+          const is3DRestoredWhenSplitOn = !document.getElementById('studio-view-3d').classList.contains('hidden');
+
+          // Testa Seleção Visual Bidirecional de Partes (2D ↔ 3D)
+          loadCatalogPiece(86); // Saleiro Paredão (Multi-peças em placas)
+          selectSlabPart2D3D('slab-part-0');
+          const pillVisible = !document.getElementById('viewport-selected-part-pill').classList.contains('hidden');
+          selectSlabPart2D3D(null);
+
+          // Testa Conversão 3D -> 2D A4 (Disco Único e Subdivisão Inteligente sem Oversized)
+          loadClassicProfilePreset('anfora_grega');
+          switchVaseMode('estagios');
+          setA4LargePatternMode('subdivide');
+          const items = getActivePatternItemsForA4();
+          const discItems = items.filter(it => it.type === 'base');
+          const packRes = packPatternsToA4Sheets(items);
+
           setStudioAppMode('3d');
           const is3DActive = !document.getElementById('studio-view-3d').classList.contains('hidden');
           const is2DHidden = document.getElementById('studio-view-2d').classList.contains('hidden');
           
           return {
-            mode2DSuccess: is2DActive && is3DHidden,
-            mode3DSuccess: is3DActive && is2DHidden
+            leftPanelVisible,
+            footerVisible,
+            mode2DSuccess: is2DActive && is3DVisibleInSplit && is3DHiddenWhenSplitOff && is3DRestoredWhenSplitOn,
+            mode3DSuccess: is3DActive && is2DHidden,
+            partSelectionSuccess: pillVisible,
+            singleBaseDisc: discItems.length === 1,
+            zeroOversizedInSubdivide: packRes.oversized.length === 0 && packRes.sheets.length >= 1
           };
         })()
       `);
 
+      const allOk = toggleRes.leftPanelVisible &&
+        toggleRes.footerVisible &&
+        toggleRes.mode2DSuccess &&
+        toggleRes.mode3DSuccess &&
+        toggleRes.partSelectionSuccess &&
+        toggleRes.singleBaseDisc &&
+        toggleRes.zeroOversizedInSubdivide;
+
       reporter.record({
         id: 's1_toggle_2d_3d_mode',
         station: 1,
-        subsystem: 'Alternador de Visualização 2D ↔ 3D',
-        item: 'Transição Interativa Bidirecional 2D (Moldes/CAD) e 3D (Torno)',
-        expected: 'Alterna entre Modos 2D e 3D exibindo e ocultando os containers correspondentes',
-        actual: `Modo 2D: ${toggleRes.mode2DSuccess}, Modo 3D: ${toggleRes.mode3DSuccess}`,
-        status: (toggleRes.mode2DSuccess && toggleRes.mode3DSuccess) ? 'PASS' : 'FAIL',
+        subsystem: 'Alternador de Visualização 2D ↔ 3D & Conversão A4',
+        item: 'Split-View 2D+3D, Seleção Visual de Partes 2D↔3D, Painel Completo e Conversão A4 Sem Falhas',
+        expected: 'Exibe painel completo, Split-View 3D na aba 2D, destaca partes 2D↔3D e converte 100% em folhas A4 sem duplicar base',
+        actual: `Painel: ${toggleRes.leftPanelVisible}, Split2D+3D: ${toggleRes.mode2DSuccess}, PartSelect: ${toggleRes.partSelectionSuccess}, BaseÚnica: ${toggleRes.singleBaseDisc}, ZeroOversizedA4: ${toggleRes.zeroOversizedInSubdivide}`,
+        status: allOk ? 'PASS' : 'FAIL',
         durationMs: Date.now() - t0,
         details: toggleRes
       });

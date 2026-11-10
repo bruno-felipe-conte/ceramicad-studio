@@ -1396,6 +1396,162 @@
       }
 
       return this.applyProceduralClayModifiers(baseGeo, opts);
+    },
+
+    /**
+     * Retorna as partes individuais de uma peça utilitária de placas com seus respectivos partId
+     * para seleção visual bidirecional 2D ↔ 3D (sincronizado com SLAB_PIECES_DEFINITIONS).
+     * @param {string} pieceKey
+     * @param {object} options
+     * @returns {Array<{partId: string, geometry: THREE.BufferGeometry}>}
+     */
+    createSlabPieceParts(pieceKey, options = {}) {
+      const THREE = getTHREE();
+      const shapeMode = options.shapeMode || 'auto';
+      const opts = Object.assign({}, options);
+      if (shapeMode === 'circle') {
+        opts.sides = 24;
+      } else if (shapeMode === 'polygon') {
+        opts.sides = options.sides || 6;
+      }
+      const wall = opts.wallThickness || 6.0;
+
+      const buildGeoFromPlate = (m) => {
+        const g = new THREE.BufferGeometry();
+        g.setAttribute('position', new THREE.Float32BufferAttribute(m.positions, 3));
+        g.setAttribute('normal', new THREE.Float32BufferAttribute(m.normals, 3));
+        g.setAttribute('uv', new THREE.Float32BufferAttribute(m.uvs, 2));
+        g.computeBoundingBox();
+        return this.applyProceduralClayModifiers(g, opts);
+      };
+
+      if (pieceKey === 'saleiro_paredao') {
+        const width = opts.width || 110;
+        const depth = opts.depth || 90;
+        const height = opts.height || 120;
+        const frontH = height * 0.45;
+        const halfW = width * 0.5;
+        const halfD = depth * 0.5;
+
+        const mFundo = this.buildThickPlate([
+          new THREE.Vector3(-halfW, 0, -halfD),
+          new THREE.Vector3(halfW, 0, -halfD),
+          new THREE.Vector3(halfW, 0, halfD),
+          new THREE.Vector3(-halfW, 0, halfD)
+        ], new THREE.Vector3(0, 1, 0), wall);
+
+        const mTras = this.buildThickPlate([
+          new THREE.Vector3(-halfW, 0, -halfD),
+          new THREE.Vector3(halfW, 0, -halfD),
+          new THREE.Vector3(halfW, height, -halfD),
+          new THREE.Vector3(-halfW, height, -halfD)
+        ], new THREE.Vector3(0, 0, 1), wall);
+
+        const mFrente = this.buildThickPlate([
+          new THREE.Vector3(-halfW, 0, halfD),
+          new THREE.Vector3(halfW, 0, halfD),
+          new THREE.Vector3(halfW, frontH, halfD),
+          new THREE.Vector3(-halfW, frontH, halfD)
+        ], new THREE.Vector3(0, 0, -1), wall);
+
+        const latPos = [], latNorm = [], latUv = [];
+        [-halfW, halfW].forEach(x => {
+          const isLeft = x < 0;
+          const mLat = this.buildThickPlate([
+            new THREE.Vector3(x, 0, -halfD),
+            new THREE.Vector3(x, 0, halfD),
+            new THREE.Vector3(x, frontH, halfD),
+            new THREE.Vector3(x, height, -halfD)
+          ], new THREE.Vector3(isLeft ? 1 : -1, 0, 0), wall);
+          latPos.push(...mLat.positions);
+          latNorm.push(...mLat.normals);
+          latUv.push(...mLat.uvs);
+        });
+
+        const mAba = this.buildThickPlate([
+          new THREE.Vector3(-halfW, height, -halfD),
+          new THREE.Vector3(halfW, height, -halfD),
+          new THREE.Vector3(halfW, height - 15, -halfD + 45),
+          new THREE.Vector3(-halfW, height - 15, -halfD + 45)
+        ], new THREE.Vector3(0, 1, 0.4).normalize(), wall);
+
+        return [
+          { partId: 'slab-part-0', geometry: buildGeoFromPlate(mFundo) },
+          { partId: 'slab-part-1', geometry: buildGeoFromPlate(mTras) },
+          { partId: 'slab-part-2', geometry: buildGeoFromPlate(mFrente) },
+          { partId: 'slab-part-3', geometry: buildGeoFromPlate({ positions: latPos, normals: latNorm, uvs: latUv }) },
+          { partId: 'slab-part-4', geometry: buildGeoFromPlate(mAba) }
+        ];
+      }
+
+      if (pieceKey === 'manteigueira_francesa') {
+        const rBase = opts.radiusBase || 50;
+        const hBase = opts.heightBase || 78;
+        const rBell = rBase * 0.78;
+        const hBell = hBase * 0.75;
+
+        const gBaseDisc = this.replaceLatheGeometry([
+          new THREE.Vector2(0.5, 0),
+          new THREE.Vector2(rBase * 0.85, 0),
+          new THREE.Vector2(rBase, 8)
+        ], 32, { wallThickness: wall, bottomThickness: wall, closedBottom: true });
+
+        const gBaseWall = this.replaceLatheGeometry([
+          new THREE.Vector2(rBase, 8),
+          new THREE.Vector2(rBase, hBase - 10),
+          new THREE.Vector2(rBase + 4, hBase)
+        ], 32, { wallThickness: wall, closedBottom: false });
+
+        const gBell = this.replaceLatheGeometry([
+          new THREE.Vector2(rBell, hBase - 4),
+          new THREE.Vector2(rBell, hBase - hBell),
+          new THREE.Vector2(rBell - wall, hBase - hBell),
+          new THREE.Vector2(rBell - wall, hBase - 4)
+        ], 32, { wallThickness: wall, closedBottom: false });
+
+        const gFlange = this.replaceLatheGeometry([
+          new THREE.Vector2(12, hBase + 28),
+          new THREE.Vector2(rBase + 6, hBase + 6),
+          new THREE.Vector2(rBell, hBase - 4)
+        ], 32, { wallThickness: wall, closedBottom: false });
+
+        return [
+          { partId: 'slab-part-0', geometry: this.applyProceduralClayModifiers(gBaseDisc, opts) },
+          { partId: 'slab-part-1', geometry: this.applyProceduralClayModifiers(gBaseWall, opts) },
+          { partId: 'slab-part-2', geometry: this.applyProceduralClayModifiers(gBell, opts) },
+          { partId: 'slab-part-3', geometry: this.applyProceduralClayModifiers(gFlange, opts) }
+        ];
+      }
+
+      if (pieceKey === 'garrafa_facetada') {
+        const sides = opts.sides || 8;
+        const rBase = opts.radiusBase || 42;
+        const rBody = opts.radiusBody || 65;
+        const rNeck = opts.radiusNeck || 26;
+        const height = opts.height || 180;
+
+        const gBase = this.replaceLatheGeometry([
+          { x: 0.5, y: 0 },
+          { x: rBase, y: 0 },
+          { x: rBase, y: wall }
+        ], sides, { wallThickness: wall, bottomThickness: wall, closedBottom: true, faceted: true });
+
+        const gWalls = this.replaceLatheGeometry([
+          { x: rBase, y: wall },
+          { x: rBody, y: height * 0.45 },
+          { x: rNeck, y: height * 0.82 },
+          { x: rNeck * 1.1, y: height }
+        ], sides, { wallThickness: wall, closedBottom: false, faceted: true });
+
+        return [
+          { partId: 'slab-part-0', geometry: this.applyProceduralClayModifiers(gBase, opts) },
+          { partId: 'slab-part-1', geometry: this.applyProceduralClayModifiers(gWalls, opts) }
+        ];
+      }
+
+      return [
+        { partId: 'slab-part-0', geometry: this.createSlabPieceGeometry(pieceKey, options) }
+      ];
     }
   };
 

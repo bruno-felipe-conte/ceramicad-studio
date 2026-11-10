@@ -1,11 +1,11 @@
 {
-  "timestamp": "2026-11-10T00:23:17.258Z",
+  "timestamp": "2026-11-10T01:10:18.118Z",
   "summary": {
     "total": 120,
     "passed": 120,
     "failed": 0,
     "passRate": "100.0%",
-    "durationSeconds": "49.91",
+    "durationSeconds": "115.42",
     "byStation": {
       "Station 1": {
         "total": 120,
@@ -42,12 +42,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "1. Xícara de Café Espresso c/ Alça Ergonômica",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 8, Vertices: 134,640, Bounds: [93.33 x 68 x 59.75 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 12, Vertices: 134,640, Bounds: [93.33 x 68 x 59.75 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 8,
-        "meshCount": 8,
+        "childrenCount": 12,
+        "meshCount": 12,
         "totalVertices": 134640,
         "hasNaN": false,
         "isEmpty": false,
@@ -69,7 +69,7 @@
           ]
         }
       },
-      "durationMs": 154
+      "durationMs": 535
     },
     {
       "id": "s1_spline_profile_xicara_cha",
@@ -77,12 +77,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "2. Xícara de Chá Clássica c/ Alça e Pé Torneado",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 9, Vertices: 141,552, Bounds: [126.59 x 74.1 x 85.36 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 13, Vertices: 141,552, Bounds: [126.59 x 74.1 x 85.36 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 9,
-        "meshCount": 9,
+        "childrenCount": 13,
+        "meshCount": 13,
         "totalVertices": 141552,
         "hasNaN": false,
         "isEmpty": false,
@@ -104,7 +104,7 @@
           ]
         }
       },
-      "durationMs": 118
+      "durationMs": 1243
     },
     {
       "id": "s1_spline_profile_caneca_cilindrica",
@@ -112,12 +112,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "3. Caneca Cilíndrica de Ateliê c/ Alça",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 8, Vertices: 134,640, Bounds: [121.76 x 102 x 73.41 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 12, Vertices: 134,640, Bounds: [121.76 x 102 x 73.41 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 8,
-        "meshCount": 8,
+        "childrenCount": 12,
+        "meshCount": 12,
         "totalVertices": 134640,
         "hasNaN": false,
         "isEmpty": false,
@@ -139,7 +139,7 @@
           ]
         }
       },
-      "durationMs": 93
+      "durationMs": 136
     },
     {
       "id": "s1_spline_profile_caneca_barril",
@@ -147,12 +147,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "4. Caneca Bojo Barril Rústica c/ Alça",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 8, Vertices: 134,640, Bounds: [134.65 x 105 x 85.45 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 12, Vertices: 134,640, Bounds: [134.65 x 105 x 85.45 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 8,
-        "meshCount": 8,
+        "childrenCount": 12,
+        "meshCount": 12,
         "totalVertices": 134640,
         "hasNaN": false,
         "isEmpty": false,
@@ -174,7 +174,7 @@
           ]
         }
       },
-      "durationMs": 90
+      "durationMs": 1235
     },
     {
       "id": "s1_spline_profile_cuia_chimarrao",
@@ -182,12 +182,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "5. Cuia de Chimarrão Gaúcha c/ Bocal e Pé",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 9, Vertices: 144,576, Bounds: [102.05 x 139.01 x 102.05 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 13, Vertices: 144,576, Bounds: [102.05 x 139.01 x 102.05 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 9,
-        "meshCount": 9,
+        "childrenCount": 13,
+        "meshCount": 13,
         "totalVertices": 144576,
         "hasNaN": false,
         "isEmpty": false,
@@ -209,7 +209,7 @@
           ]
         }
       },
-      "durationMs": 121
+      "durationMs": 1152
     },
     {
       "id": "s1_spline_profile_cuia_terere",
@@ -217,12 +217,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "6. Cuia de Tereré / Mate Copo Contemporânea",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 8, Vertices: 137,664, Bounds: [94.05 x 115.9 x 94.05 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 12, Vertices: 137,664, Bounds: [94.05 x 115.9 x 94.05 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 8,
-        "meshCount": 8,
+        "childrenCount": 12,
+        "meshCount": 12,
         "totalVertices": 137664,
         "hasNaN": false,
         "isEmpty": false,
@@ -244,7 +244,7 @@
           ]
         }
       },
-      "durationMs": 101
+      "durationMs": 694
     },
     {
       "id": "s1_spline_profile_chaleira_bule",
@@ -252,12 +252,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "7. Chaleira / Bule Oriental c/ Bico, Alça e Tampa",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 12, Vertices: 152,496, Bounds: [218.26 x 142 x 117.32 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 16, Vertices: 152,496, Bounds: [218.26 x 142 x 117.32 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 12,
-        "meshCount": 12,
+        "childrenCount": 16,
+        "meshCount": 16,
         "totalVertices": 152496,
         "hasNaN": false,
         "isEmpty": false,
@@ -279,7 +279,7 @@
           ]
         }
       },
-      "durationMs": 129
+      "durationMs": 1512
     },
     {
       "id": "s1_spline_profile_bule_cafe",
@@ -287,12 +287,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "8. Bule de Café Alto c/ Bico de Cisne, Alça e Tampa",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 12, Vertices: 152,496, Bounds: [184.42 x 182 x 90.2 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 16, Vertices: 152,496, Bounds: [184.42 x 182 x 90.2 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 12,
-        "meshCount": 12,
+        "childrenCount": 16,
+        "meshCount": 16,
         "totalVertices": 152496,
         "hasNaN": false,
         "isEmpty": false,
@@ -314,7 +314,7 @@
           ]
         }
       },
-      "durationMs": 104
+      "durationMs": 870
     },
     {
       "id": "s1_spline_profile_panela_barro",
@@ -322,12 +322,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "9. Panela de Barro Capixaba c/ 2 Alças e Tampa",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 11, Vertices: 152,352, Bounds: [217.21 x 122 x 159.87 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 15, Vertices: 152,352, Bounds: [217.21 x 122 x 159.87 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 11,
-        "meshCount": 11,
+        "childrenCount": 15,
+        "meshCount": 15,
         "totalVertices": 152352,
         "hasNaN": false,
         "isEmpty": false,
@@ -349,7 +349,7 @@
           ]
         }
       },
-      "durationMs": 111
+      "durationMs": 910
     },
     {
       "id": "s1_spline_profile_cacarola_forno",
@@ -357,12 +357,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "10. Caçarola Cocotte de Forno c/ 2 Alças e Tampa",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 11, Vertices: 152,352, Bounds: [190.52 x 112 x 147.7 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 15, Vertices: 152,352, Bounds: [190.52 x 112 x 147.7 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 11,
-        "meshCount": 11,
+        "childrenCount": 15,
+        "meshCount": 15,
         "totalVertices": 152352,
         "hasNaN": false,
         "isEmpty": false,
@@ -384,7 +384,7 @@
           ]
         }
       },
-      "durationMs": 112
+      "durationMs": 644
     },
     {
       "id": "s1_spline_profile_sopeira_artesanal",
@@ -392,12 +392,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "11. Sopeira Bojo Largo c/ 2 Alças e Tampa",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 11, Vertices: 152,352, Bounds: [225.64 x 146.12 x 149.23 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 15, Vertices: 152,352, Bounds: [225.64 x 146.12 x 149.23 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 11,
-        "meshCount": 11,
+        "childrenCount": 15,
+        "meshCount": 15,
         "totalVertices": 152352,
         "hasNaN": false,
         "isEmpty": false,
@@ -419,7 +419,7 @@
           ]
         }
       },
-      "durationMs": 96
+      "durationMs": 940
     },
     {
       "id": "s1_spline_profile_leiteira_jarra",
@@ -427,12 +427,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "12. Jarra / Leiteira de Mesa c/ Bico Vertedor e Alça",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 11, Vertices: 145,584, Bounds: [150.04 x 136 x 92.48 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 15, Vertices: 145,584, Bounds: [150.04 x 136 x 92.48 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 11,
-        "meshCount": 11,
+        "childrenCount": 15,
+        "meshCount": 15,
         "totalVertices": 145584,
         "hasNaN": false,
         "isEmpty": false,
@@ -454,7 +454,7 @@
           ]
         }
       },
-      "durationMs": 93
+      "durationMs": 1157
     },
     {
       "id": "s1_spline_profile_tigela_chawan",
@@ -462,12 +462,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "13. Tigela Chawan de Chá Matcha c/ Pé Kodai",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 8, Vertices: 137,664, Bounds: [116.01 x 82.12 x 99.02 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 12, Vertices: 137,664, Bounds: [116.01 x 82.12 x 99.02 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 8,
-        "meshCount": 8,
+        "childrenCount": 12,
+        "meshCount": 12,
         "totalVertices": 137664,
         "hasNaN": false,
         "isEmpty": false,
@@ -489,7 +489,7 @@
           ]
         }
       },
-      "durationMs": 93
+      "durationMs": 1173
     },
     {
       "id": "s1_spline_profile_acucareiro_pote",
@@ -497,12 +497,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "14. Pote / Açucareiro de Mesa c/ Tampa e Puxador",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 9, Vertices: 144,576, Bounds: [96.03 x 112 x 94.31 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 13, Vertices: 144,576, Bounds: [96.03 x 112 x 94.31 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 9,
-        "meshCount": 9,
+        "childrenCount": 13,
+        "meshCount": 13,
         "totalVertices": 144576,
         "hasNaN": false,
         "isEmpty": false,
@@ -524,7 +524,7 @@
           ]
         }
       },
-      "durationMs": 91
+      "durationMs": 1480
     },
     {
       "id": "s1_spline_profile_anfora",
@@ -532,12 +532,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "15. Ânfora Grega Clássica",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 9, Vertices: 138,528, Bounds: [164.24 x 96 x 109.25 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 13, Vertices: 138,528, Bounds: [164.24 x 96 x 109.25 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 9,
-        "meshCount": 9,
+        "childrenCount": 13,
+        "meshCount": 13,
         "totalVertices": 138528,
         "hasNaN": false,
         "isEmpty": false,
@@ -559,7 +559,7 @@
           ]
         }
       },
-      "durationMs": 101
+      "durationMs": 1510
     },
     {
       "id": "s1_spline_profile_cratera",
@@ -567,12 +567,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "16. Cratera Grega (Krater)",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [136 x 96 x 116.08 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [136 x 96 x 116.08 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
@@ -594,7 +594,7 @@
           ]
         }
       },
-      "durationMs": 86
+      "durationMs": 964
     },
     {
       "id": "s1_spline_profile_hidria",
@@ -602,12 +602,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "17. Hidria / Jarro de Água",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [134.54 x 96 x 114.84 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [134.54 x 175 x 114.84 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
@@ -619,17 +619,17 @@
           ],
           "max": [
             67.27,
-            96,
+            175,
             47.57
           ],
           "size": [
             134.54,
-            96,
+            175,
             114.84
           ]
         }
       },
-      "durationMs": 90
+      "durationMs": 529
     },
     {
       "id": "s1_spline_profile_lecito",
@@ -637,12 +637,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "18. Lécito Grego (Lekythos)",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [80.44 x 96 x 68.66 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [80.43 x 190 x 68.66 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
@@ -654,17 +654,17 @@
           ],
           "max": [
             40.22,
-            96,
+            190,
             28.44
           ],
           "size": [
-            80.44,
-            96,
+            80.43,
+            190,
             68.66
           ]
         }
       },
-      "durationMs": 84
+      "durationMs": 205
     },
     {
       "id": "s1_spline_profile_pithos",
@@ -672,12 +672,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "19. Pithos Mediterrâneo",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [131.19 x 96 x 111.97 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [131.18 x 210 x 111.97 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
@@ -689,17 +689,17 @@
           ],
           "max": [
             65.59,
-            96,
+            210,
             46.38
           ],
           "size": [
-            131.19,
-            96,
+            131.18,
+            210,
             111.97
           ]
         }
       },
-      "durationMs": 93
+      "durationMs": 715
     },
     {
       "id": "s1_spline_profile_kylix",
@@ -707,12 +707,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "20. Kylix / Taça Alta",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [136 x 96 x 116.08 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [136 x 110 x 116.08 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
@@ -724,17 +724,17 @@
           ],
           "max": [
             68,
-            96,
+            110,
             48.08
           ],
           "size": [
             136,
-            96,
+            110,
             116.08
           ]
         }
       },
-      "durationMs": 83
+      "durationMs": 1559
     },
     {
       "id": "s1_spline_profile_enocoa",
@@ -742,34 +742,34 @@
       "subsystem": "Spline Profiles (54)",
       "item": "21. Enócoa (Oinochoe)",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [128.08 x 96 x 109.32 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [128.05 x 168 x 109.3 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
         "bounds": {
           "min": [
-            -64.04,
+            -64.03,
             0,
-            -64.04
+            -64.03
           ],
           "max": [
-            64.04,
-            96,
-            45.28
+            64.03,
+            168,
+            45.27
           ],
           "size": [
-            128.08,
-            96,
-            109.32
+            128.05,
+            168,
+            109.3
           ]
         }
       },
-      "durationMs": 93
+      "durationMs": 643
     },
     {
       "id": "s1_spline_profile_psicter",
@@ -777,34 +777,34 @@
       "subsystem": "Spline Profiles (54)",
       "item": "22. Psicter (Psykter)",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [132.06 x 96 x 112.72 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [132.03 x 170 x 112.7 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
         "bounds": {
           "min": [
-            -66.03,
+            -66.02,
             0,
-            -66.03
+            -66.02
           ],
           "max": [
-            66.03,
-            96,
-            46.69
+            66.02,
+            170,
+            46.68
           ],
           "size": [
-            132.06,
-            96,
-            112.72
+            132.03,
+            170,
+            112.7
           ]
         }
       },
-      "durationMs": 98
+      "durationMs": 799
     },
     {
       "id": "s1_spline_profile_pelike",
@@ -812,12 +812,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "23. Pelike",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [132.14 x 96 x 112.79 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [132.13 x 170 x 112.78 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
@@ -829,17 +829,17 @@
           ],
           "max": [
             66.07,
-            96,
+            170,
             46.72
           ],
           "size": [
-            132.14,
-            96,
-            112.79
+            132.13,
+            170,
+            112.78
           ]
         }
       },
-      "durationMs": 93
+      "durationMs": 535
     },
     {
       "id": "s1_spline_profile_aribalo",
@@ -847,12 +847,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "24. Aríbalo (Aryballos)",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [128.22 x 96 x 109.44 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [128.21 x 170 x 109.44 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
@@ -864,17 +864,17 @@
           ],
           "max": [
             64.11,
-            96,
+            170,
             45.33
           ],
           "size": [
-            128.22,
-            96,
+            128.21,
+            170,
             109.44
           ]
         }
       },
-      "durationMs": 86
+      "durationMs": 728
     },
     {
       "id": "s1_spline_profile_cantaro",
@@ -882,12 +882,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "25. Cântaro (Kantharos)",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [116 x 96 x 99.01 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [116 x 170 x 99.01 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
@@ -899,17 +899,17 @@
           ],
           "max": [
             58,
-            96,
+            170,
             41.01
           ],
           "size": [
             116,
-            96,
+            170,
             99.01
           ]
         }
       },
-      "durationMs": 88
+      "durationMs": 690
     },
     {
       "id": "s1_spline_profile_cabaca",
@@ -917,12 +917,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "26. Cabaça / Hulu (Duplo Bojo)",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [132.04 x 96 x 112.71 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [132.03 x 170 x 112.7 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
@@ -934,17 +934,17 @@
           ],
           "max": [
             66.02,
-            96,
+            170,
             46.68
           ],
           "size": [
-            132.04,
-            96,
-            112.71
+            132.03,
+            170,
+            112.7
           ]
         }
       },
-      "durationMs": 90
+      "durationMs": 739
     },
     {
       "id": "s1_spline_profile_moonjar",
@@ -952,34 +952,34 @@
       "subsystem": "Spline Profiles (54)",
       "item": "27. Jarro Moon (Dal-hangari)",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [131.99 x 96 x 112.66 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [132 x 170 x 112.67 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
         "bounds": {
           "min": [
-            -65.99,
+            -66,
             0,
-            -65.99
+            -66
           ],
           "max": [
-            65.99,
-            96,
+            66,
+            170,
             46.67
           ],
           "size": [
-            131.99,
-            96,
-            112.66
+            132,
+            170,
+            112.67
           ]
         }
       },
-      "durationMs": 97
+      "durationMs": 635
     },
     {
       "id": "s1_spline_profile_meiping",
@@ -987,34 +987,34 @@
       "subsystem": "Spline Profiles (54)",
       "item": "28. Meiping Imperial (Ameixeira)",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [132.28 x 96 x 112.91 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [132.29 x 170 x 112.92 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
         "bounds": {
           "min": [
-            -66.14,
+            -66.15,
             0,
-            -66.14
+            -66.15
           ],
           "max": [
-            66.14,
-            96,
+            66.15,
+            170,
             46.77
           ],
           "size": [
-            132.28,
-            96,
-            112.91
+            132.29,
+            170,
+            112.92
           ]
         }
       },
-      "durationMs": 87
+      "durationMs": 1044
     },
     {
       "id": "s1_spline_profile_baluster",
@@ -1022,12 +1022,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "29. Guanyin / Baluster Qing",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [124 x 96 x 105.84 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [124 x 170 x 105.84 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
@@ -1039,17 +1039,17 @@
           ],
           "max": [
             62,
-            96,
+            170,
             43.84
           ],
           "size": [
             124,
-            96,
+            170,
             105.84
           ]
         }
       },
-      "durationMs": 88
+      "durationMs": 714
     },
     {
       "id": "s1_spline_profile_tokkuri",
@@ -1057,34 +1057,34 @@
       "subsystem": "Spline Profiles (54)",
       "item": "30. Tokkuri (Garrafa de Saquê)",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [124.37 x 96 x 106.15 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [124.38 x 170 x 106.16 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
         "bounds": {
           "min": [
-            -62.18,
+            -62.19,
             0,
-            -62.18
+            -62.19
           ],
           "max": [
-            62.18,
-            96,
+            62.19,
+            170,
             43.97
           ],
           "size": [
-            124.37,
-            96,
-            106.15
+            124.38,
+            170,
+            106.16
           ]
         }
       },
-      "durationMs": 82
+      "durationMs": 1014
     },
     {
       "id": "s1_spline_profile_yuhuchun",
@@ -1092,34 +1092,34 @@
       "subsystem": "Spline Profiles (54)",
       "item": "31. Yuhuchunping (Pêra Song)",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [128.49 x 96 x 109.67 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [128.51 x 170 x 109.69 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
         "bounds": {
           "min": [
-            -64.24,
+            -64.25,
             0,
-            -64.24
+            -64.25
           ],
           "max": [
-            64.24,
-            96,
+            64.25,
+            170,
             45.43
           ],
           "size": [
-            128.49,
-            96,
-            109.67
+            128.51,
+            170,
+            109.69
           ]
         }
       },
-      "durationMs": 88
+      "durationMs": 900
     },
     {
       "id": "s1_spline_profile_zun",
@@ -1127,12 +1127,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "32. Zun Imperial Ritualístico",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [132 x 96 x 112.67 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [132 x 170 x 112.67 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
@@ -1144,17 +1144,17 @@
           ],
           "max": [
             66,
-            96,
+            170,
             46.67
           ],
           "size": [
             132,
-            96,
+            170,
             112.67
           ]
         }
       },
-      "durationMs": 90
+      "durationMs": 332
     },
     {
       "id": "s1_spline_profile_cong",
@@ -1162,12 +1162,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "33. Cong (Tubo Prismático)",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [100 x 96 x 85.36 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [100 x 170 x 85.35 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
@@ -1179,17 +1179,17 @@
           ],
           "max": [
             50,
-            96,
+            170,
             35.36
           ],
           "size": [
             100,
-            96,
-            85.36
+            170,
+            85.35
           ]
         }
       },
-      "durationMs": 86
+      "durationMs": 728
     },
     {
       "id": "s1_spline_profile_alho",
@@ -1197,34 +1197,34 @@
       "subsystem": "Spline Profiles (54)",
       "item": "34. Suanpanping (Cabeça de Alho)",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [128.36 x 96 x 109.56 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [128.34 x 170 x 109.54 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
         "bounds": {
           "min": [
-            -64.18,
+            -64.17,
             0,
-            -64.18
+            -64.17
           ],
           "max": [
-            64.18,
-            96,
-            45.38
+            64.17,
+            170,
+            45.37
           ],
           "size": [
-            128.36,
-            96,
-            109.56
+            128.34,
+            170,
+            109.54
           ]
         }
       },
-      "durationMs": 96
+      "durationMs": 996
     },
     {
       "id": "s1_spline_profile_tsubo",
@@ -1232,34 +1232,34 @@
       "subsystem": "Spline Profiles (54)",
       "item": "35. Tsubo (Jarro de Chá Japonês)",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [130.03 x 96 x 110.99 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [130.02 x 170 x 110.98 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
         "bounds": {
           "min": [
-            -65.02,
+            -65.01,
             0,
-            -65.02
+            -65.01
           ],
           "max": [
-            65.02,
-            96,
+            65.01,
+            170,
             45.97
           ],
           "size": [
-            130.03,
-            96,
-            110.99
+            130.02,
+            170,
+            110.98
           ]
         }
       },
-      "durationMs": 84
+      "durationMs": 675
     },
     {
       "id": "s1_spline_profile_maebyong",
@@ -1267,34 +1267,34 @@
       "subsystem": "Spline Profiles (54)",
       "item": "36. Maebyong Coreano (Goryeo)",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [132 x 96 x 112.67 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [131.93 x 170 x 112.61 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
         "bounds": {
           "min": [
-            -66,
+            -65.96,
             0,
-            -66
+            -65.96
           ],
           "max": [
-            66,
-            96,
-            46.67
+            65.96,
+            170,
+            46.64
           ],
           "size": [
-            132,
-            96,
-            112.67
+            131.93,
+            170,
+            112.61
           ]
         }
       },
-      "durationMs": 91
+      "durationMs": 665
     },
     {
       "id": "s1_spline_profile_garrafa",
@@ -1302,12 +1302,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "37. Garrafa Clássica",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [90 x 96 x 76.82 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [90 x 205 x 76.82 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
@@ -1319,17 +1319,17 @@
           ],
           "max": [
             45,
-            96,
+            205,
             31.82
           ],
           "size": [
             90,
-            96,
+            205,
             76.82
           ]
         }
       },
-      "durationMs": 89
+      "durationMs": 809
     },
     {
       "id": "s1_spline_profile_gota",
@@ -1337,34 +1337,34 @@
       "subsystem": "Spline Profiles (54)",
       "item": "38. Gota Minimalista",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [128.24 x 96 x 109.46 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [128.23 x 205 x 109.45 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
         "bounds": {
           "min": [
-            -64.12,
+            -64.11,
             0,
-            -64.12
+            -64.11
           ],
           "max": [
-            64.12,
-            96,
+            64.11,
+            205,
             45.34
           ],
           "size": [
-            128.24,
-            96,
-            109.46
+            128.23,
+            205,
+            109.45
           ]
         }
       },
-      "durationMs": 91
+      "durationMs": 709
     },
     {
       "id": "s1_spline_profile_albarello",
@@ -1372,34 +1372,34 @@
       "subsystem": "Spline Profiles (54)",
       "item": "39. Albarello Farmacêutico",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [88.14 x 96 x 75.23 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [88.11 x 205 x 75.21 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
         "bounds": {
           "min": [
-            -44.07,
+            -44.06,
             0,
-            -44.07
+            -44.06
           ],
           "max": [
-            44.07,
-            96,
-            31.16
+            44.06,
+            205,
+            31.15
           ],
           "size": [
-            88.14,
-            96,
-            75.23
+            88.11,
+            205,
+            75.21
           ]
         }
       },
-      "durationMs": 86
+      "durationMs": 298
     },
     {
       "id": "s1_spline_profile_tulipa",
@@ -1407,12 +1407,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "40. Vaso Tulipa / Cálice",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [128 x 96 x 109.25 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [128 x 205 x 109.25 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
@@ -1424,17 +1424,17 @@
           ],
           "max": [
             64,
-            96,
+            205,
             45.25
           ],
           "size": [
             128,
-            96,
+            205,
             109.25
           ]
         }
       },
-      "durationMs": 99
+      "durationMs": 650
     },
     {
       "id": "s1_spline_profile_nordico",
@@ -1442,12 +1442,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "41. Cilindro Nórdico Minimalista",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [84.44 x 96 x 72.08 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [84.44 x 205 x 72.08 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
@@ -1459,17 +1459,17 @@
           ],
           "max": [
             42.22,
-            96,
+            205,
             29.86
           ],
           "size": [
             84.44,
-            96,
+            205,
             72.08
           ]
         }
       },
-      "durationMs": 88
+      "durationMs": 496
     },
     {
       "id": "s1_spline_profile_ampulheta",
@@ -1477,12 +1477,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "42. Vaso Ampulheta / Diabolo",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [112 x 96 x 95.6 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [112 x 205 x 95.6 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
@@ -1494,17 +1494,17 @@
           ],
           "max": [
             56,
-            96,
+            205,
             39.6
           ],
           "size": [
             112,
-            96,
+            205,
             95.6
           ]
         }
       },
-      "durationMs": 89
+      "durationMs": 552
     },
     {
       "id": "s1_spline_profile_bojobaixo",
@@ -1512,34 +1512,34 @@
       "subsystem": "Spline Profiles (54)",
       "item": "43. Bule / Jarro Bojo Baixo",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [132.44 x 96 x 113.05 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [132.41 x 205 x 113.02 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
         "bounds": {
           "min": [
-            -66.22,
+            -66.2,
             0,
-            -66.22
+            -66.2
           ],
           "max": [
-            66.22,
-            96,
-            46.83
+            66.2,
+            205,
+            46.81
           ],
           "size": [
-            132.44,
-            96,
-            113.05
+            132.41,
+            205,
+            113.02
           ]
         }
       },
-      "durationMs": 97
+      "durationMs": 610
     },
     {
       "id": "s1_spline_profile_marajoara",
@@ -1547,34 +1547,34 @@
       "subsystem": "Spline Profiles (54)",
       "item": "44. Urna Marajoara",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [131.97 x 96 x 112.65 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [132 x 205 x 112.67 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
         "bounds": {
           "min": [
-            -65.99,
+            -66,
             0,
-            -65.99
+            -66
           ],
           "max": [
-            65.99,
-            96,
-            46.66
+            66,
+            205,
+            46.67
           ],
           "size": [
-            131.97,
-            96,
-            112.65
+            132,
+            205,
+            112.67
           ]
         }
       },
-      "durationMs": 88
+      "durationMs": 844
     },
     {
       "id": "s1_spline_profile_inca",
@@ -1582,12 +1582,12 @@
       "subsystem": "Spline Profiles (54)",
       "item": "45. Aríbalo Inca",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [128.66 x 96 x 109.81 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [128.65 x 180 x 109.81 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
@@ -1599,17 +1599,17 @@
           ],
           "max": [
             64.33,
-            96,
+            180,
             45.49
           ],
           "size": [
-            128.66,
-            96,
+            128.65,
+            180,
             109.81
           ]
         }
       },
-      "durationMs": 94
+      "durationMs": 978
     },
     {
       "id": "s1_spline_profile_moringa",
@@ -1617,34 +1617,34 @@
       "subsystem": "Spline Profiles (54)",
       "item": "46. Moringa Brasileira (Bilha)",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [132.05 x 96 x 112.71 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [132.07 x 185 x 112.73 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
         "bounds": {
           "min": [
-            -66.02,
+            -66.03,
             0,
-            -66.02
+            -66.03
           ],
           "max": [
-            66.02,
-            96,
+            66.03,
+            185,
             46.69
           ],
           "size": [
-            132.05,
-            96,
-            112.71
+            132.07,
+            185,
+            112.73
           ]
         }
       },
-      "durationMs": 95
+      "durationMs": 881
     },
     {
       "id": "s1_spline_profile_totem",
@@ -1652,34 +1652,34 @@
       "subsystem": "Spline Profiles (54)",
       "item": "47. Vaso Totem Escultural",
       "expected": "Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)",
-      "actual": "Meshes: 7, Vertices: 130,752, Bounds: [111.98 x 96 x 95.58 mm], NaN: false, ActiveTool: vasos",
+      "actual": "Meshes: 11, Vertices: 130,752, Bounds: [111.87 x 220 x 95.48 mm], NaN: false, ActiveTool: vasos",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 7,
-        "meshCount": 7,
+        "childrenCount": 11,
+        "meshCount": 11,
         "totalVertices": 130752,
         "hasNaN": false,
         "isEmpty": false,
         "bounds": {
           "min": [
-            -55.99,
+            -55.93,
             0,
-            -55.99
+            -55.93
           ],
           "max": [
-            55.99,
-            96,
-            39.59
+            55.93,
+            220,
+            39.55
           ],
           "size": [
-            111.98,
-            96,
-            95.58
+            111.87,
+            220,
+            95.48
           ]
         }
       },
-      "durationMs": 94
+      "durationMs": 643
     },
     {
       "id": "s1_spline_profile_bib_twisted",
@@ -1714,7 +1714,7 @@
           ]
         }
       },
-      "durationMs": 69
+      "durationMs": 67
     },
     {
       "id": "s1_spline_profile_bib_fluted",
@@ -1749,7 +1749,7 @@
           ]
         }
       },
-      "durationMs": 70
+      "durationMs": 73
     },
     {
       "id": "s1_spline_profile_bib_lampshade",
@@ -1784,7 +1784,7 @@
           ]
         }
       },
-      "durationMs": 68
+      "durationMs": 66
     },
     {
       "id": "s1_spline_profile_bib_facetado",
@@ -1819,7 +1819,7 @@
           ]
         }
       },
-      "durationMs": 72
+      "durationMs": 143
     },
     {
       "id": "s1_spline_profile_bib_costela",
@@ -1854,7 +1854,7 @@
           ]
         }
       },
-      "durationMs": 73
+      "durationMs": 85
     },
     {
       "id": "s1_spline_profile_bib_chanfrador",
@@ -1889,7 +1889,7 @@
           ]
         }
       },
-      "durationMs": 66
+      "durationMs": 67
     },
     {
       "id": "s1_spline_profile_bib_extrusora",
@@ -1924,7 +1924,7 @@
           ]
         }
       },
-      "durationMs": 68
+      "durationMs": 66
     },
     {
       "id": "s1_texture_liso",
@@ -1932,34 +1932,34 @@
       "subsystem": "3D Surface Textures (11)",
       "item": "1. Liso Natural de Torno",
       "expected": "Modifies vertex displacement with continuous texture profile without NaN",
-      "actual": "Meshes: 9, Vertices: 138,528, Bounds: [164.24 x 96 x 109.25 mm]",
+      "actual": "Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 109.22 mm]",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 9,
-        "meshCount": 9,
+        "childrenCount": 13,
+        "meshCount": 13,
         "totalVertices": 138528,
         "hasNaN": false,
         "isEmpty": false,
         "bounds": {
           "min": [
-            -82.12,
+            -83.31,
             0,
-            -64
+            -63.98
           ],
           "max": [
-            82.12,
-            96,
-            45.25
+            83.31,
+            220,
+            45.24
           ],
           "size": [
-            164.24,
-            96,
-            109.25
+            166.62,
+            220,
+            109.22
           ]
         }
       },
-      "durationMs": 80
+      "durationMs": 649
     },
     {
       "id": "s1_texture_canelado",
@@ -1967,34 +1967,34 @@
       "subsystem": "3D Surface Textures (11)",
       "item": "2. Canelado Romano (Fluted)",
       "expected": "Modifies vertex displacement with continuous texture profile without NaN",
-      "actual": "Meshes: 9, Vertices: 138,528, Bounds: [164.24 x 96 x 112.25 mm]",
+      "actual": "Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 112.22 mm]",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 9,
-        "meshCount": 9,
+        "childrenCount": 13,
+        "meshCount": 13,
         "totalVertices": 138528,
         "hasNaN": false,
         "isEmpty": false,
         "bounds": {
           "min": [
-            -82.12,
+            -83.31,
             0,
-            -67
+            -66.98
           ],
           "max": [
-            82.12,
-            96,
-            45.25
+            83.31,
+            220,
+            45.24
           ],
           "size": [
-            164.24,
-            96,
-            112.25
+            166.62,
+            220,
+            112.22
           ]
         }
       },
-      "durationMs": 95
+      "durationMs": 641
     },
     {
       "id": "s1_texture_senoidal",
@@ -2002,34 +2002,34 @@
       "subsystem": "3D Surface Textures (11)",
       "item": "3. Ondas Senoidais Horizontais",
       "expected": "Modifies vertex displacement with continuous texture profile without NaN",
-      "actual": "Meshes: 9, Vertices: 138,528, Bounds: [164.24 x 96 x 110.98 mm]",
+      "actual": "Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 110.93 mm]",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 9,
-        "meshCount": 9,
+        "childrenCount": 13,
+        "meshCount": 13,
         "totalVertices": 138528,
         "hasNaN": false,
         "isEmpty": false,
         "bounds": {
           "min": [
-            -82.12,
+            -83.31,
             0,
-            -65.01
+            -64.98
           ],
           "max": [
-            82.12,
-            96,
-            45.97
+            83.31,
+            220,
+            45.95
           ],
           "size": [
-            164.24,
-            96,
-            110.98
+            166.62,
+            220,
+            110.93
           ]
         }
       },
-      "durationMs": 85
+      "durationMs": 648
     },
     {
       "id": "s1_texture_cones",
@@ -2037,34 +2037,34 @@
       "subsystem": "3D Surface Textures (11)",
       "item": "4. Cones & Diamantes 3D",
       "expected": "Modifies vertex displacement with continuous texture profile without NaN",
-      "actual": "Meshes: 9, Vertices: 138,528, Bounds: [164.24 x 96 x 112.07 mm]",
+      "actual": "Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 112.21 mm]",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 9,
-        "meshCount": 9,
+        "childrenCount": 13,
+        "meshCount": 13,
         "totalVertices": 138528,
         "hasNaN": false,
         "isEmpty": false,
         "bounds": {
           "min": [
-            -82.12,
+            -83.31,
             0,
-            -66.82
+            -66.97
           ],
           "max": [
-            82.12,
-            96,
-            45.25
+            83.31,
+            220,
+            45.24
           ],
           "size": [
-            164.24,
-            96,
-            112.07
+            166.62,
+            220,
+            112.21
           ]
         }
       },
-      "durationMs": 96
+      "durationMs": 644
     },
     {
       "id": "s1_texture_escamas",
@@ -2072,34 +2072,34 @@
       "subsystem": "3D Surface Textures (11)",
       "item": "5. Escamas de Peixe / Pétalas",
       "expected": "Modifies vertex displacement with continuous texture profile without NaN",
-      "actual": "Meshes: 9, Vertices: 138,528, Bounds: [164.24 x 96 x 114.15 mm]",
+      "actual": "Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 114.24 mm]",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 9,
-        "meshCount": 9,
+        "childrenCount": 13,
+        "meshCount": 13,
         "totalVertices": 138528,
         "hasNaN": false,
         "isEmpty": false,
         "bounds": {
           "min": [
-            -82.12,
+            -83.31,
             0,
-            -66.9
+            -66.88
           ],
           "max": [
-            82.12,
-            96,
-            47.25
+            83.31,
+            220,
+            47.36
           ],
           "size": [
-            164.24,
-            96,
-            114.15
+            166.62,
+            220,
+            114.24
           ]
         }
       },
-      "durationMs": 90
+      "durationMs": 642
     },
     {
       "id": "s1_texture_martelado",
@@ -2107,34 +2107,34 @@
       "subsystem": "3D Surface Textures (11)",
       "item": "6. Martelado Japonês (Tsuchime)",
       "expected": "Modifies vertex displacement with continuous texture profile without NaN",
-      "actual": "Meshes: 9, Vertices: 138,528, Bounds: [164.24 x 96 x 108.63 mm]",
+      "actual": "Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 108.61 mm]",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 9,
-        "meshCount": 9,
+        "childrenCount": 13,
+        "meshCount": 13,
         "totalVertices": 138528,
         "hasNaN": false,
         "isEmpty": false,
         "bounds": {
           "min": [
-            -82.12,
+            -83.31,
             0,
-            -63.77
+            -63.73
           ],
           "max": [
-            82.12,
-            96,
-            44.86
+            83.31,
+            220,
+            44.88
           ],
           "size": [
-            164.24,
-            96,
-            108.63
+            166.62,
+            220,
+            108.61
           ]
         }
       },
-      "durationMs": 94
+      "durationMs": 636
     },
     {
       "id": "s1_texture_espiral_corda",
@@ -2142,34 +2142,34 @@
       "subsystem": "3D Surface Textures (11)",
       "item": "7. Espiral de Corda (Jomon)",
       "expected": "Modifies vertex displacement with continuous texture profile without NaN",
-      "actual": "Meshes: 9, Vertices: 138,528, Bounds: [164.24 x 96 x 113.8 mm]",
+      "actual": "Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 113.98 mm]",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 9,
-        "meshCount": 9,
+        "childrenCount": 13,
+        "meshCount": 13,
         "totalVertices": 138528,
         "hasNaN": false,
         "isEmpty": false,
         "bounds": {
           "min": [
-            -82.12,
+            -83.31,
             0,
-            -66.65
+            -66.62
           ],
           "max": [
-            82.12,
-            96,
-            47.15
+            83.31,
+            220,
+            47.36
           ],
           "size": [
-            164.24,
-            96,
-            113.8
+            166.62,
+            220,
+            113.98
           ]
         }
       },
-      "durationMs": 91
+      "durationMs": 637
     },
     {
       "id": "s1_texture_favo_3d",
@@ -2177,34 +2177,34 @@
       "subsystem": "3D Surface Textures (11)",
       "item": "8. Favo Hexagonal Alveolar",
       "expected": "Modifies vertex displacement with continuous texture profile without NaN",
-      "actual": "Meshes: 9, Vertices: 138,528, Bounds: [164.24 x 96 x 111.71 mm]",
+      "actual": "Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 111.82 mm]",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 9,
-        "meshCount": 9,
+        "childrenCount": 13,
+        "meshCount": 13,
         "totalVertices": 138528,
         "hasNaN": false,
         "isEmpty": false,
         "bounds": {
           "min": [
-            -82.12,
+            -83.31,
             0,
-            -66.04
+            -66.12
           ],
           "max": [
-            82.12,
-            96,
-            45.67
+            83.31,
+            220,
+            45.7
           ],
           "size": [
-            164.24,
-            96,
-            111.71
+            166.62,
+            220,
+            111.82
           ]
         }
       },
-      "durationMs": 88
+      "durationMs": 631
     },
     {
       "id": "s1_texture_ondas_zen",
@@ -2212,34 +2212,34 @@
       "subsystem": "3D Surface Textures (11)",
       "item": "9. Ondas Cruzadas Zen (Karesansui)",
       "expected": "Modifies vertex displacement with continuous texture profile without NaN",
-      "actual": "Meshes: 9, Vertices: 138,528, Bounds: [164.24 x 96 x 113.5 mm]",
+      "actual": "Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 113.47 mm]",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 9,
-        "meshCount": 9,
+        "childrenCount": 13,
+        "meshCount": 13,
         "totalVertices": 138528,
         "hasNaN": false,
         "isEmpty": false,
         "bounds": {
           "min": [
-            -82.12,
+            -83.31,
             0,
             -66.48
           ],
           "max": [
-            82.12,
-            96,
-            47.01
+            83.31,
+            220,
+            46.99
           ],
           "size": [
-            164.24,
-            96,
-            113.5
+            166.62,
+            220,
+            113.47
           ]
         }
       },
-      "durationMs": 113
+      "durationMs": 639
     },
     {
       "id": "s1_texture_gomos_abobora",
@@ -2247,34 +2247,34 @@
       "subsystem": "3D Surface Textures (11)",
       "item": "10. Gomos Botânicos (Cabotiá)",
       "expected": "Modifies vertex displacement with continuous texture profile without NaN",
-      "actual": "Meshes: 9, Vertices: 138,528, Bounds: [164.24 x 96 x 110.11 mm]",
+      "actual": "Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 110.09 mm]",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 9,
-        "meshCount": 9,
+        "childrenCount": 13,
+        "meshCount": 13,
         "totalVertices": 138528,
         "hasNaN": false,
         "isEmpty": false,
         "bounds": {
           "min": [
-            -82.12,
+            -83.31,
             0,
-            -65.98
+            -65.96
           ],
           "max": [
-            82.12,
-            96,
-            44.14
+            83.31,
+            220,
+            44.13
           ],
           "size": [
-            164.24,
-            96,
-            110.11
+            166.62,
+            220,
+            110.09
           ]
         }
       },
-      "durationMs": 103
+      "durationMs": 649
     },
     {
       "id": "s1_texture_trama_cesto",
@@ -2282,34 +2282,34 @@
       "subsystem": "3D Surface Textures (11)",
       "item": "11. Trama Cestaria Entrelaçada",
       "expected": "Modifies vertex displacement with continuous texture profile without NaN",
-      "actual": "Meshes: 9, Vertices: 138,528, Bounds: [164.24 x 96 x 113.04 mm]",
+      "actual": "Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 112.87 mm]",
       "status": "PASS",
       "error": null,
       "details": {
-        "childrenCount": 9,
-        "meshCount": 9,
+        "childrenCount": 13,
+        "meshCount": 13,
         "totalVertices": 138528,
         "hasNaN": false,
         "isEmpty": false,
         "bounds": {
           "min": [
-            -82.12,
+            -83.31,
             0,
-            -66.1
+            -65.95
           ],
           "max": [
-            82.12,
-            96,
-            46.94
+            83.31,
+            220,
+            46.91
           ],
           "size": [
-            164.24,
-            96,
-            113.04
+            166.62,
+            220,
+            112.87
           ]
         }
       },
-      "durationMs": 93
+      "durationMs": 633
     },
     {
       "id": "s1_morph_cross_circle",
@@ -2317,11 +2317,11 @@
       "subsystem": "Morphology & Twist",
       "item": "Seção Transversal: Círculo",
       "expected": "Parametric loft/cross-section modulates 3D shape smoothly without NaN",
-      "actual": "Meshes: 9, Vertices: 138,528, Bounds: [164.24 x 96 x 113.04 mm]",
+      "actual": "Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 112.87 mm]",
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 82
+      "durationMs": 631
     },
     {
       "id": "s1_morph_cross_petals",
@@ -2329,11 +2329,11 @@
       "subsystem": "Morphology & Twist",
       "item": "Seção Transversal: Pétalas (8)",
       "expected": "Parametric loft/cross-section modulates 3D shape smoothly without NaN",
-      "actual": "Meshes: 9, Vertices: 138,528, Bounds: [164.24 x 96 x 117.69 mm]",
+      "actual": "Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 117.37 mm]",
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 95
+      "durationMs": 632
     },
     {
       "id": "s1_morph_cross_polygon",
@@ -2341,11 +2341,11 @@
       "subsystem": "Morphology & Twist",
       "item": "Seção Transversal: Polígono (6 lados)",
       "expected": "Parametric loft/cross-section modulates 3D shape smoothly without NaN",
-      "actual": "Meshes: 9, Vertices: 138,528, Bounds: [164.24 x 96 x 115.26 mm]",
+      "actual": "Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 114.67 mm]",
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 94
+      "durationMs": 641
     },
     {
       "id": "s1_morph_twist_neg180",
@@ -2353,11 +2353,11 @@
       "subsystem": "Morphology & Twist",
       "item": "Torção Helicoidal: -180°",
       "expected": "Parametric loft/cross-section modulates 3D shape smoothly without NaN",
-      "actual": "Meshes: 9, Vertices: 138,528, Bounds: [164.24 x 96 x 119.66 mm]",
+      "actual": "Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 118.88 mm]",
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 87
+      "durationMs": 634
     },
     {
       "id": "s1_morph_twist_pos180",
@@ -2365,11 +2365,11 @@
       "subsystem": "Morphology & Twist",
       "item": "Torção Helicoidal: +180°",
       "expected": "Parametric loft/cross-section modulates 3D shape smoothly without NaN",
-      "actual": "Meshes: 9, Vertices: 138,528, Bounds: [164.24 x 96 x 119.66 mm]",
+      "actual": "Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 118.88 mm]",
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 100
+      "durationMs": 625
     },
     {
       "id": "s1_morph_lofting_blend",
@@ -2377,11 +2377,11 @@
       "subsystem": "Morphology & Twist",
       "item": "Lofting Hermite: Base Quadrada -> Topo Circular",
       "expected": "Parametric loft/cross-section modulates 3D shape smoothly without NaN",
-      "actual": "Meshes: 9, Vertices: 138,528, Bounds: [164.24 x 96 x 118.57 mm]",
+      "actual": "Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 117.88 mm]",
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 95
+      "durationMs": 626
     },
     {
       "id": "s1_finish_terracota",
@@ -2405,7 +2405,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 1044
+      "durationMs": 1047
     },
     {
       "id": "s1_finish_raku",
@@ -2417,7 +2417,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 304
+      "durationMs": 292
     },
     {
       "id": "s1_finish_gres",
@@ -2429,7 +2429,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 284
+      "durationMs": 281
     },
     {
       "id": "s1_finish_sigillata",
@@ -2441,7 +2441,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 145
+      "durationMs": 147
     },
     {
       "id": "s1_finish_porcelana",
@@ -2453,7 +2453,7 @@
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 188
+      "durationMs": 196
     },
     {
       "id": "s1_feature_cut_270",
@@ -2461,11 +2461,11 @@
       "subsystem": "Cut, Fillet & Drainage",
       "item": "Corte 270° c/ Paredes Espessas Tampadas",
       "expected": "Generates non-empty geometry with caps/tubular sleeve",
-      "actual": "Meshes: 9, Vertices: 138,528, Bounds: [164.24 x 96 x 118.57 mm]",
+      "actual": "Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 117.88 mm]",
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 218
+      "durationMs": 617
     },
     {
       "id": "s1_feature_closed_360",
@@ -2473,11 +2473,11 @@
       "subsystem": "Cut, Fillet & Drainage",
       "item": "Vaso 360° Fechado Sem Corte",
       "expected": "Generates non-empty geometry with caps/tubular sleeve",
-      "actual": "Meshes: 7, Vertices: 137,376, Bounds: [164.24 x 96 x 138.32 mm]",
+      "actual": "Meshes: 11, Vertices: 137,376, Bounds: [166.62 x 220 x 137.16 mm]",
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 85
+      "durationMs": 606
     },
     {
       "id": "s1_feature_drainage_hole",
@@ -2485,11 +2485,11 @@
       "subsystem": "Cut, Fillet & Drainage",
       "item": "Furo Central de Drenagem Ø25mm c/ Manga Tubular",
       "expected": "Generates non-empty geometry with caps/tubular sleeve",
-      "actual": "Meshes: 8, Vertices: 138,816, Bounds: [164.24 x 96 x 138.32 mm]",
+      "actual": "Meshes: 12, Vertices: 138,816, Bounds: [166.62 x 220 x 137.16 mm]",
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 105
+      "durationMs": 633
     },
     {
       "id": "s1_feature_base_fillet",
@@ -2497,11 +2497,11 @@
       "subsystem": "Cut, Fillet & Drainage",
       "item": "Filete de Base Anti-Trinca Raio 12mm",
       "expected": "Generates non-empty geometry with caps/tubular sleeve",
-      "actual": "Meshes: 8, Vertices: 143,856, Bounds: [164.24 x 96 x 137.72 mm]",
+      "actual": "Meshes: 12, Vertices: 143,856, Bounds: [166.62 x 220 x 137.08 mm]",
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 102
+      "durationMs": 642
     },
     {
       "id": "s1_converter_spline_to_slabs",
@@ -2509,11 +2509,11 @@
       "subsystem": "Spline to Slabs Converter",
       "item": "Conversor Automático: Silhueta Spline ➔ 5 Estágios Conectados",
       "expected": "Switches to estagios mode, creates base disc + >= 5 axial stages, builds valid 3D mesh",
-      "actual": "Mode: estagios, Stages: 7, Cards: 7, Meshes: 8, Vertices: 34,560",
+      "actual": "Mode: estagios, Stages: 7, Cards: 7, Meshes: 21, Vertices: 49,248",
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 11237
+      "durationMs": 8186
     },
     {
       "id": "s1_slab_recipe_anfora_aneis",
@@ -2521,13 +2521,13 @@
       "subsystem": "Connected Slabs Recipes (14)",
       "item": "🏺 1. Vaso / Ânfora em Anéis Conectados (Padrão)",
       "expected": "Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items",
-      "actual": "Stages: 4, 3D Meshes: 5, Verts: 27,648, 2D Patterns: 5 (S1 Cone, S2 Cilindro, S3 Cone, S4 Cone, Disco Base Ø74)",
+      "actual": "Stages: 4, 3D Meshes: 8, Verts: 27,648, 2D Patterns: 6 (S1 Cone, S2 Cilindro (Arco 1/2), S2 Cilindro (Arco 2/2), S3 Cone, S4 Cone, Disco Base Ø74)",
       "status": "PASS",
       "error": null,
       "details": {
         "mesh": {
-          "childrenCount": 5,
-          "meshCount": 5,
+          "childrenCount": 8,
+          "meshCount": 8,
           "totalVertices": 27648,
           "hasNaN": false,
           "isEmpty": false,
@@ -2552,11 +2552,11 @@
         "data": {
           "stagesCount": 4,
           "ringsCount": 4,
-          "patternsCount": 5,
-          "patternLabels": "S1 Cone, S2 Cilindro, S3 Cone, S4 Cone, Disco Base Ø74"
+          "patternsCount": 6,
+          "patternLabels": "S1 Cone, S2 Cilindro (Arco 1/2), S2 Cilindro (Arco 2/2), S3 Cone, S4 Cone, Disco Base Ø74"
         }
       },
-      "durationMs": 216
+      "durationMs": 303
     },
     {
       "id": "s1_slab_recipe_xicara_cafe",
@@ -2564,13 +2564,13 @@
       "subsystem": "Connected Slabs Recipes (14)",
       "item": "☕ 2. Xícara de Café Espresso (Cone + Pé + Alça)",
       "expected": "Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items",
-      "actual": "Stages: 4, 3D Meshes: 6, Verts: 15,984, 2D Patterns: 5 (S1 Disco (solido), S2 Cilindro, S3 Cone, Disco Fundo Ø44 (Sólido), Tira de Alça  (80x12 mm))",
+      "actual": "Stages: 4, 3D Meshes: 8, Verts: 15,984, 2D Patterns: 4 (S2 Cilindro, S3 Cone, Disco Fundo Ø44 (Sólido), Tira de Alça  (77x12 mm))",
       "status": "PASS",
       "error": null,
       "details": {
         "mesh": {
-          "childrenCount": 6,
-          "meshCount": 6,
+          "childrenCount": 8,
+          "meshCount": 8,
           "totalVertices": 15984,
           "hasNaN": false,
           "isEmpty": false,
@@ -2595,11 +2595,11 @@
         "data": {
           "stagesCount": 4,
           "ringsCount": 3,
-          "patternsCount": 5,
-          "patternLabels": "S1 Disco (solido), S2 Cilindro, S3 Cone, Disco Fundo Ø44 (Sólido), Tira de Alça  (80x12 mm)"
+          "patternsCount": 4,
+          "patternLabels": "S2 Cilindro, S3 Cone, Disco Fundo Ø44 (Sólido), Tira de Alça  (77x12 mm)"
         }
       },
-      "durationMs": 220
+      "durationMs": 185
     },
     {
       "id": "s1_slab_recipe_xicara_cha",
@@ -2607,13 +2607,13 @@
       "subsystem": "Connected Slabs Recipes (14)",
       "item": "🍵 3. Xícara de Chá Clássica (Bojo Esf. + Pé + Alça)",
       "expected": "Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items",
-      "actual": "Stages: 4, 3D Meshes: 7, Verts: 22,896, 2D Patterns: 9 (S1 Disco (solido), S3 Bojo 1/4, S3 Bojo 2/4, S3 Bojo 3/4, S3 Bojo 4/4, Disco Fundo Ø52 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Pé/Kodai (183x10 mm), Tira de Alça  (83x15 mm))",
+      "actual": "Stages: 4, 3D Meshes: 11, Verts: 22,896, 2D Patterns: 10 (S3 Bojo 1/4, S3 Bojo 2/4, S3 Bojo 3/4 (Arco 1/2), S3 Bojo 3/4 (Arco 2/2), S3 Bojo 4/4 (Arco 1/2), S3 Bojo 4/4 (Arco 2/2), Disco Fundo Ø52 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Pé/Kodai (183x10 mm), Tira de Alça  (80x15 mm))",
       "status": "PASS",
       "error": null,
       "details": {
         "mesh": {
-          "childrenCount": 7,
-          "meshCount": 7,
+          "childrenCount": 11,
+          "meshCount": 11,
           "totalVertices": 22896,
           "hasNaN": false,
           "isEmpty": false,
@@ -2638,11 +2638,11 @@
         "data": {
           "stagesCount": 4,
           "ringsCount": 5,
-          "patternsCount": 9,
-          "patternLabels": "S1 Disco (solido), S3 Bojo 1/4, S3 Bojo 2/4, S3 Bojo 3/4, S3 Bojo 4/4, Disco Fundo Ø52 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Pé/Kodai (183x10 mm), Tira de Alça  (83x15 mm)"
+          "patternsCount": 10,
+          "patternLabels": "S3 Bojo 1/4, S3 Bojo 2/4, S3 Bojo 3/4 (Arco 1/2), S3 Bojo 3/4 (Arco 2/2), S3 Bojo 4/4 (Arco 1/2), S3 Bojo 4/4 (Arco 2/2), Disco Fundo Ø52 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Pé/Kodai (183x10 mm), Tira de Alça  (80x15 mm)"
         }
       },
-      "durationMs": 517
+      "durationMs": 1177
     },
     {
       "id": "s1_slab_recipe_caneca_cilindrica",
@@ -2650,13 +2650,13 @@
       "subsystem": "Connected Slabs Recipes (14)",
       "item": "🍺 4. Caneca Cilíndrica de Ateliê (Cilindro + Borda + Alça)",
       "expected": "Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items",
-      "actual": "Stages: 4, 3D Meshes: 7, Verts: 28,944, 2D Patterns: 5 (S1 Disco (solido), S2 Cilindro, Disco Fundo Ø84 (Sólido), Faixa de Borda/Boca (296x9 mm), Tira de Alça  (112x18 mm))",
+      "actual": "Stages: 4, 3D Meshes: 8, Verts: 28,944, 2D Patterns: 6 (S2 Cilindro (Arco 1/2), S2 Cilindro (Arco 2/2), Disco Fundo Ø84 (Sólido), Faixa de Borda/Boca (1/2) (148x9 mm), Faixa de Borda/Boca (2/2) (148x9 mm), Tira de Alça  (108x18 mm))",
       "status": "PASS",
       "error": null,
       "details": {
         "mesh": {
-          "childrenCount": 7,
-          "meshCount": 7,
+          "childrenCount": 8,
+          "meshCount": 8,
           "totalVertices": 28944,
           "hasNaN": false,
           "isEmpty": false,
@@ -2681,11 +2681,11 @@
         "data": {
           "stagesCount": 4,
           "ringsCount": 2,
-          "patternsCount": 5,
-          "patternLabels": "S1 Disco (solido), S2 Cilindro, Disco Fundo Ø84 (Sólido), Faixa de Borda/Boca (296x9 mm), Tira de Alça  (112x18 mm)"
+          "patternsCount": 6,
+          "patternLabels": "S2 Cilindro (Arco 1/2), S2 Cilindro (Arco 2/2), Disco Fundo Ø84 (Sólido), Faixa de Borda/Boca (1/2) (148x9 mm), Faixa de Borda/Boca (2/2) (148x9 mm), Tira de Alça  (108x18 mm)"
         }
       },
-      "durationMs": 100
+      "durationMs": 119
     },
     {
       "id": "s1_slab_recipe_caneca_barril",
@@ -2693,13 +2693,13 @@
       "subsystem": "Connected Slabs Recipes (14)",
       "item": "🪵 5. Caneca Barril Rústica (Cone + Bojo + Alça)",
       "expected": "Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items",
-      "actual": "Stages: 3, 3D Meshes: 6, Verts: 23,760, 2D Patterns: 8 (S1 Disco (solido), S2 Bojo 1/4, S2 Bojo 2/4, S2 Bojo 3/4, S2 Bojo 4/4, Disco Fundo Ø76 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Tira de Alça  (112x18 mm))",
+      "actual": "Stages: 3, 3D Meshes: 10, Verts: 23,760, 2D Patterns: 9 (S2 Bojo 1/4, S2 Bojo 2/4 (Arco 1/2), S2 Bojo 2/4 (Arco 2/2), S2 Bojo 3/4 (Arco 1/2), S2 Bojo 3/4 (Arco 2/2), S2 Bojo 4/4, Disco Fundo Ø76 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Tira de Alça  (108x18 mm))",
       "status": "PASS",
       "error": null,
       "details": {
         "mesh": {
-          "childrenCount": 6,
-          "meshCount": 6,
+          "childrenCount": 10,
+          "meshCount": 10,
           "totalVertices": 23760,
           "hasNaN": false,
           "isEmpty": false,
@@ -2724,11 +2724,11 @@
         "data": {
           "stagesCount": 3,
           "ringsCount": 5,
-          "patternsCount": 8,
-          "patternLabels": "S1 Disco (solido), S2 Bojo 1/4, S2 Bojo 2/4, S2 Bojo 3/4, S2 Bojo 4/4, Disco Fundo Ø76 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Tira de Alça  (112x18 mm)"
+          "patternsCount": 9,
+          "patternLabels": "S2 Bojo 1/4, S2 Bojo 2/4 (Arco 1/2), S2 Bojo 2/4 (Arco 2/2), S2 Bojo 3/4 (Arco 1/2), S2 Bojo 3/4 (Arco 2/2), S2 Bojo 4/4, Disco Fundo Ø76 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Tira de Alça  (108x18 mm)"
         }
       },
-      "durationMs": 163
+      "durationMs": 706
     },
     {
       "id": "s1_slab_recipe_cuia_chimarrao",
@@ -2736,13 +2736,13 @@
       "subsystem": "Connected Slabs Recipes (14)",
       "item": "🧉 6. Cuia de Chimarrão Gaúcha (Pé + Bojo Esf. + Bocal)",
       "expected": "Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items",
-      "actual": "Stages: 6, 3D Meshes: 7, Verts: 38,016, 2D Patterns: 11 (S1 Disco (solido), S2 Cone, S4 Bojo 1/4, S4 Bojo 2/4, S4 Bojo 3/4, S4 Bojo 4/4, S5 Cone, Disco Fundo Ø60 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Pé/Kodai (155x11 mm), Faixa de Borda/Boca (324x10 mm))",
+      "actual": "Stages: 6, 3D Meshes: 13, Verts: 38,016, 2D Patterns: 12 (S2 Cone, S4 Bojo 1/4, S4 Bojo 2/4, S4 Bojo 3/4 (Arco 1/2), S4 Bojo 3/4 (Arco 2/2), S4 Bojo 4/4, S5 Cone, Disco Fundo Ø60 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Pé/Kodai (155x11 mm), Faixa de Borda/Boca (1/2) (162x10 mm), Faixa de Borda/Boca (2/2) (162x10 mm))",
       "status": "PASS",
       "error": null,
       "details": {
         "mesh": {
-          "childrenCount": 7,
-          "meshCount": 7,
+          "childrenCount": 13,
+          "meshCount": 13,
           "totalVertices": 38016,
           "hasNaN": false,
           "isEmpty": false,
@@ -2767,11 +2767,11 @@
         "data": {
           "stagesCount": 6,
           "ringsCount": 7,
-          "patternsCount": 11,
-          "patternLabels": "S1 Disco (solido), S2 Cone, S4 Bojo 1/4, S4 Bojo 2/4, S4 Bojo 3/4, S4 Bojo 4/4, S5 Cone, Disco Fundo Ø60 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Pé/Kodai (155x11 mm), Faixa de Borda/Boca (324x10 mm)"
+          "patternsCount": 12,
+          "patternLabels": "S2 Cone, S4 Bojo 1/4, S4 Bojo 2/4, S4 Bojo 3/4 (Arco 1/2), S4 Bojo 3/4 (Arco 2/2), S4 Bojo 4/4, S5 Cone, Disco Fundo Ø60 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Pé/Kodai (155x11 mm), Faixa de Borda/Boca (1/2) (162x10 mm), Faixa de Borda/Boca (2/2) (162x10 mm)"
         }
       },
-      "durationMs": 870
+      "durationMs": 1490
     },
     {
       "id": "s1_slab_recipe_cuia_terere",
@@ -2779,13 +2779,13 @@
       "subsystem": "Connected Slabs Recipes (14)",
       "item": "🌿 7. Cuia de Tereré / Mate Copo (Cone Duplo + Borda)",
       "expected": "Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items",
-      "actual": "Stages: 4, 3D Meshes: 6, Verts: 27,648, 2D Patterns: 5 (S1 Disco (solido), S2 Cone, S3 Cilindro, Disco Fundo Ø60 (Sólido), Faixa de Borda/Boca (296x9 mm))",
+      "actual": "Stages: 4, 3D Meshes: 8, Verts: 27,648, 2D Patterns: 6 (S2 Cone, S3 Cilindro (Arco 1/2), S3 Cilindro (Arco 2/2), Disco Fundo Ø60 (Sólido), Faixa de Borda/Boca (1/2) (148x9 mm), Faixa de Borda/Boca (2/2) (148x9 mm))",
       "status": "PASS",
       "error": null,
       "details": {
         "mesh": {
-          "childrenCount": 6,
-          "meshCount": 6,
+          "childrenCount": 8,
+          "meshCount": 8,
           "totalVertices": 27648,
           "hasNaN": false,
           "isEmpty": false,
@@ -2810,11 +2810,11 @@
         "data": {
           "stagesCount": 4,
           "ringsCount": 3,
-          "patternsCount": 5,
-          "patternLabels": "S1 Disco (solido), S2 Cone, S3 Cilindro, Disco Fundo Ø60 (Sólido), Faixa de Borda/Boca (296x9 mm)"
+          "patternsCount": 6,
+          "patternLabels": "S2 Cone, S3 Cilindro (Arco 1/2), S3 Cilindro (Arco 2/2), Disco Fundo Ø60 (Sólido), Faixa de Borda/Boca (1/2) (148x9 mm), Faixa de Borda/Boca (2/2) (148x9 mm)"
         }
       },
-      "durationMs": 102
+      "durationMs": 195
     },
     {
       "id": "s1_slab_recipe_chaleira_bule",
@@ -2822,13 +2822,13 @@
       "subsystem": "Connected Slabs Recipes (14)",
       "item": "🫖 8. Chaleira / Bule Completo (Bojo + Bico + Alça + Tampa)",
       "expected": "Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items",
-      "actual": "Stages: 6, 3D Meshes: 10, Verts: 44,208, 2D Patterns: 11 (S1 Disco (solido), S2 Bojo 1/4, S2 Bojo 2/4, S2 Bojo 3/4, S2 Bojo 4/4, S3 Cone, Disco Fundo Ø84 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Tira de Alça  (119x18 mm), Leque do Bico Vertedor (Base Ø34 ➔ Ponta Ø16 • Alcance 42mm), Disco da Tampa Ø83 mm (Domo 18mm))",
+      "actual": "Stages: 6, 3D Meshes: 15, Verts: 44,208, 2D Patterns: 12 (S2 Bojo 1/4, S2 Bojo 2/4 (Arco 1/2), S2 Bojo 2/4 (Arco 2/2), S2 Bojo 3/4 (Arco 1/2), S2 Bojo 3/4 (Arco 2/2), S2 Bojo 4/4, S3 Cone, Disco Fundo Ø84 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Tira de Alça  (116x18 mm), Leque do Bico Vertedor (Base Ø34 ➔ Ponta Ø16 • Alcance 42mm), Disco da Tampa Ø83 mm (Domo 18mm))",
       "status": "PASS",
       "error": null,
       "details": {
         "mesh": {
-          "childrenCount": 10,
-          "meshCount": 10,
+          "childrenCount": 15,
+          "meshCount": 15,
           "totalVertices": 44208,
           "hasNaN": false,
           "isEmpty": false,
@@ -2853,11 +2853,11 @@
         "data": {
           "stagesCount": 6,
           "ringsCount": 6,
-          "patternsCount": 11,
-          "patternLabels": "S1 Disco (solido), S2 Bojo 1/4, S2 Bojo 2/4, S2 Bojo 3/4, S2 Bojo 4/4, S3 Cone, Disco Fundo Ø84 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Tira de Alça  (119x18 mm), Leque do Bico Vertedor (Base Ø34 ➔ Ponta Ø16 • Alcance 42mm), Disco da Tampa Ø83 mm (Domo 18mm)"
+          "patternsCount": 12,
+          "patternLabels": "S2 Bojo 1/4, S2 Bojo 2/4 (Arco 1/2), S2 Bojo 2/4 (Arco 2/2), S2 Bojo 3/4 (Arco 1/2), S2 Bojo 3/4 (Arco 2/2), S2 Bojo 4/4, S3 Cone, Disco Fundo Ø84 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Tira de Alça  (116x18 mm), Leque do Bico Vertedor (Base Ø34 ➔ Ponta Ø16 • Alcance 42mm), Disco da Tampa Ø83 mm (Domo 18mm)"
         }
       },
-      "durationMs": 806
+      "durationMs": 1703
     },
     {
       "id": "s1_slab_recipe_bule_cafe",
@@ -2865,13 +2865,13 @@
       "subsystem": "Connected Slabs Recipes (14)",
       "item": "☕ 9. Bule de Café Alto Colonial (Cone + Bico + Alça + Tampa)",
       "expected": "Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items",
-      "actual": "Stages: 7, 3D Meshes: 10, Verts: 50,256, 2D Patterns: 8 (S1 Disco (solido), S2 Cone, S3 Cone, S4 Cilindro, Disco Fundo Ø80 (Sólido), Tira de Alça  (146x17 mm), Leque do Bico Vertedor (Base Ø31 ➔ Ponta Ø15 • Alcance 44mm), Disco da Tampa Ø83 mm (Domo 20mm))",
+      "actual": "Stages: 7, 3D Meshes: 13, Verts: 50,256, 2D Patterns: 9 (S2 Cone (Arco 1/2), S2 Cone (Arco 2/2), S3 Cone (Arco 1/2), S3 Cone (Arco 2/2), S4 Cilindro, Disco Fundo Ø80 (Sólido), Tira de Alça  (142x17 mm), Leque do Bico Vertedor (Base Ø31 ➔ Ponta Ø15 • Alcance 44mm), Disco da Tampa Ø83 mm (Domo 20mm))",
       "status": "PASS",
       "error": null,
       "details": {
         "mesh": {
-          "childrenCount": 10,
-          "meshCount": 10,
+          "childrenCount": 13,
+          "meshCount": 13,
           "totalVertices": 50256,
           "hasNaN": false,
           "isEmpty": false,
@@ -2896,11 +2896,11 @@
         "data": {
           "stagesCount": 7,
           "ringsCount": 4,
-          "patternsCount": 8,
-          "patternLabels": "S1 Disco (solido), S2 Cone, S3 Cone, S4 Cilindro, Disco Fundo Ø80 (Sólido), Tira de Alça  (146x17 mm), Leque do Bico Vertedor (Base Ø31 ➔ Ponta Ø15 • Alcance 44mm), Disco da Tampa Ø83 mm (Domo 20mm)"
+          "patternsCount": 9,
+          "patternLabels": "S2 Cone (Arco 1/2), S2 Cone (Arco 2/2), S3 Cone (Arco 1/2), S3 Cone (Arco 2/2), S4 Cilindro, Disco Fundo Ø80 (Sólido), Tira de Alça  (142x17 mm), Leque do Bico Vertedor (Base Ø31 ➔ Ponta Ø15 • Alcance 44mm), Disco da Tampa Ø83 mm (Domo 20mm)"
         }
       },
-      "durationMs": 181
+      "durationMs": 482
     },
     {
       "id": "s1_slab_recipe_panela_barro",
@@ -2908,13 +2908,13 @@
       "subsystem": "Connected Slabs Recipes (14)",
       "item": "🍲 10. Panela de Barro Capixaba (Bojo + 2 Alças + Tampa)",
       "expected": "Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items",
-      "actual": "Stages: 5, 3D Meshes: 9, Verts: 38,016, 2D Patterns: 11 (S1 Disco (solido), S2 Bojo 1/4, S2 Bojo 2/4, S2 Bojo 3/4, S2 Bojo 4/4, Disco Fundo Ø128 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Borda/Boca (507x11 mm), Tira de Alça 1/2 (74x22 mm), Tira de Alça 2/2 (74x22 mm), Disco da Tampa Ø168 mm (Domo 24mm))",
+      "actual": "Stages: 5, 3D Meshes: 13, Verts: 38,016, 2D Patterns: 17 (S2 Bojo 1/4 (Arco 1/2), S2 Bojo 1/4 (Arco 2/2), S2 Bojo 2/4 (Arco 1/2), S2 Bojo 2/4 (Arco 2/2), S2 Bojo 3/4 (Arco 1/3), S2 Bojo 3/4 (Arco 2/3), S2 Bojo 3/4 (Arco 3/3), S2 Bojo 4/4 (Arco 1/2), S2 Bojo 4/4 (Arco 2/2), Disco Fundo Ø128 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Borda/Boca (1/3) (169x11 mm), Faixa de Borda/Boca (2/3) (169x11 mm), Faixa de Borda/Boca (3/3) (169x11 mm), Tira de Alça 1/2 (72x22 mm), Tira de Alça 2/2 (72x22 mm), Disco da Tampa Ø168 mm (Domo 24mm))",
       "status": "PASS",
       "error": null,
       "details": {
         "mesh": {
-          "childrenCount": 9,
-          "meshCount": 9,
+          "childrenCount": 13,
+          "meshCount": 13,
           "totalVertices": 38016,
           "hasNaN": false,
           "isEmpty": false,
@@ -2939,11 +2939,11 @@
         "data": {
           "stagesCount": 5,
           "ringsCount": 5,
-          "patternsCount": 11,
-          "patternLabels": "S1 Disco (solido), S2 Bojo 1/4, S2 Bojo 2/4, S2 Bojo 3/4, S2 Bojo 4/4, Disco Fundo Ø128 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Borda/Boca (507x11 mm), Tira de Alça 1/2 (74x22 mm), Tira de Alça 2/2 (74x22 mm), Disco da Tampa Ø168 mm (Domo 24mm)"
+          "patternsCount": 17,
+          "patternLabels": "S2 Bojo 1/4 (Arco 1/2), S2 Bojo 1/4 (Arco 2/2), S2 Bojo 2/4 (Arco 1/2), S2 Bojo 2/4 (Arco 2/2), S2 Bojo 3/4 (Arco 1/3), S2 Bojo 3/4 (Arco 2/3), S2 Bojo 3/4 (Arco 3/3), S2 Bojo 4/4 (Arco 1/2), S2 Bojo 4/4 (Arco 2/2), Disco Fundo Ø128 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Borda/Boca (1/3) (169x11 mm), Faixa de Borda/Boca (2/3) (169x11 mm), Faixa de Borda/Boca (3/3) (169x11 mm), Tira de Alça 1/2 (72x22 mm), Tira de Alça 2/2 (72x22 mm), Disco da Tampa Ø168 mm (Domo 24mm)"
         }
       },
-      "durationMs": 143
+      "durationMs": 1145
     },
     {
       "id": "s1_slab_recipe_cacarola_forno",
@@ -2951,13 +2951,13 @@
       "subsystem": "Connected Slabs Recipes (14)",
       "item": "🥘 11. Caçarola Cocotte de Forno (Cilindro + 2 Alças + Tampa)",
       "expected": "Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items",
-      "actual": "Stages: 5, 3D Meshes: 9, Verts: 37,152, 2D Patterns: 7 (S1 Disco (solido), S2 Cilindro, Disco Fundo Ø136 (Sólido), Faixa de Borda/Boca (479x10 mm), Tira de Alça 1/2 (67x25 mm), Tira de Alça 2/2 (67x25 mm), Disco da Tampa Ø159 mm (Domo 18mm))",
+      "actual": "Stages: 5, 3D Meshes: 10, Verts: 37,152, 2D Patterns: 8 (S2 Cilindro (Arco 1/2), S2 Cilindro (Arco 2/2), Disco Fundo Ø136 (Sólido), Faixa de Borda/Boca (1/2) (240x10 mm), Faixa de Borda/Boca (2/2) (240x10 mm), Tira de Alça 1/2 (66x25 mm), Tira de Alça 2/2 (66x25 mm), Disco da Tampa Ø159 mm (Domo 18mm))",
       "status": "PASS",
       "error": null,
       "details": {
         "mesh": {
-          "childrenCount": 9,
-          "meshCount": 9,
+          "childrenCount": 10,
+          "meshCount": 10,
           "totalVertices": 37152,
           "hasNaN": false,
           "isEmpty": false,
@@ -2982,11 +2982,11 @@
         "data": {
           "stagesCount": 5,
           "ringsCount": 2,
-          "patternsCount": 7,
-          "patternLabels": "S1 Disco (solido), S2 Cilindro, Disco Fundo Ø136 (Sólido), Faixa de Borda/Boca (479x10 mm), Tira de Alça 1/2 (67x25 mm), Tira de Alça 2/2 (67x25 mm), Disco da Tampa Ø159 mm (Domo 18mm)"
+          "patternsCount": 8,
+          "patternLabels": "S2 Cilindro (Arco 1/2), S2 Cilindro (Arco 2/2), Disco Fundo Ø136 (Sólido), Faixa de Borda/Boca (1/2) (240x10 mm), Faixa de Borda/Boca (2/2) (240x10 mm), Tira de Alça 1/2 (66x25 mm), Tira de Alça 2/2 (66x25 mm), Disco da Tampa Ø159 mm (Domo 18mm)"
         }
       },
-      "durationMs": 138
+      "durationMs": 130
     },
     {
       "id": "s1_slab_recipe_sopeira_artesanal",
@@ -2994,13 +2994,13 @@
       "subsystem": "Connected Slabs Recipes (14)",
       "item": "🥣 12. Sopeira Artesanal Bojo Esférico (Bojo + 2 Alças + Tampa)",
       "expected": "Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items",
-      "actual": "Stages: 5, 3D Meshes: 9, Verts: 41,472, 2D Patterns: 11 (S1 Disco (solido), S3 Bojo 1/4, S3 Bojo 2/4, S3 Bojo 3/4, S3 Bojo 4/4, Disco Fundo Ø108 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Pé/Kodai (380x13 mm), Tira de Alça 1/2 (80x20 mm), Tira de Alça 2/2 (80x20 mm), Disco da Tampa Ø155 mm (Domo 28mm))",
+      "actual": "Stages: 5, 3D Meshes: 13, Verts: 41,472, 2D Patterns: 14 (S3 Bojo 1/4, S3 Bojo 2/4 (Arco 1/2), S3 Bojo 2/4 (Arco 2/2), S3 Bojo 3/4 (Arco 1/2), S3 Bojo 3/4 (Arco 2/2), S3 Bojo 4/4 (Arco 1/2), S3 Bojo 4/4 (Arco 2/2), Disco Fundo Ø108 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Pé/Kodai (1/2) (190x13 mm), Faixa de Pé/Kodai (2/2) (190x13 mm), Tira de Alça 1/2 (78x20 mm), Tira de Alça 2/2 (78x20 mm), Disco da Tampa Ø155 mm (Domo 28mm))",
       "status": "PASS",
       "error": null,
       "details": {
         "mesh": {
-          "childrenCount": 9,
-          "meshCount": 9,
+          "childrenCount": 13,
+          "meshCount": 13,
           "totalVertices": 41472,
           "hasNaN": false,
           "isEmpty": false,
@@ -3025,11 +3025,11 @@
         "data": {
           "stagesCount": 5,
           "ringsCount": 5,
-          "patternsCount": 11,
-          "patternLabels": "S1 Disco (solido), S3 Bojo 1/4, S3 Bojo 2/4, S3 Bojo 3/4, S3 Bojo 4/4, Disco Fundo Ø108 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Pé/Kodai (380x13 mm), Tira de Alça 1/2 (80x20 mm), Tira de Alça 2/2 (80x20 mm), Disco da Tampa Ø155 mm (Domo 28mm)"
+          "patternsCount": 14,
+          "patternLabels": "S3 Bojo 1/4, S3 Bojo 2/4 (Arco 1/2), S3 Bojo 2/4 (Arco 2/2), S3 Bojo 3/4 (Arco 1/2), S3 Bojo 3/4 (Arco 2/2), S3 Bojo 4/4 (Arco 1/2), S3 Bojo 4/4 (Arco 2/2), Disco Fundo Ø108 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Pé/Kodai (1/2) (190x13 mm), Faixa de Pé/Kodai (2/2) (190x13 mm), Tira de Alça 1/2 (78x20 mm), Tira de Alça 2/2 (78x20 mm), Disco da Tampa Ø155 mm (Domo 28mm)"
         }
       },
-      "durationMs": 559
+      "durationMs": 1094
     },
     {
       "id": "s1_slab_recipe_leiteira_jarra",
@@ -3037,13 +3037,13 @@
       "subsystem": "Connected Slabs Recipes (14)",
       "item": "🥛 13. Jarra / Leiteira de Mesa (Bojo + Colo + Bico + Alça)",
       "expected": "Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items",
-      "actual": "Stages: 5, 3D Meshes: 9, Verts: 37,296, 2D Patterns: 10 (S1 Disco (solido), S2 Bojo 1/4, S2 Bojo 2/4, S2 Bojo 3/4, S2 Bojo 4/4, S3 Cone, Disco Fundo Ø76 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Tira de Alça  (122x17 mm), Leque do Bico Vertedor (Base Ø31 ➔ Ponta Ø18 • Alcance 24mm))",
+      "actual": "Stages: 5, 3D Meshes: 14, Verts: 37,296, 2D Patterns: 11 (S2 Bojo 1/4, S2 Bojo 2/4 (Arco 1/2), S2 Bojo 2/4 (Arco 2/2), S2 Bojo 3/4 (Arco 1/2), S2 Bojo 3/4 (Arco 2/2), S2 Bojo 4/4, S3 Cone, Disco Fundo Ø76 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Tira de Alça  (119x17 mm), Leque do Bico Vertedor (Base Ø31 ➔ Ponta Ø18 • Alcance 24mm))",
       "status": "PASS",
       "error": null,
       "details": {
         "mesh": {
-          "childrenCount": 9,
-          "meshCount": 9,
+          "childrenCount": 14,
+          "meshCount": 14,
           "totalVertices": 37296,
           "hasNaN": false,
           "isEmpty": false,
@@ -3068,11 +3068,11 @@
         "data": {
           "stagesCount": 5,
           "ringsCount": 6,
-          "patternsCount": 10,
-          "patternLabels": "S1 Disco (solido), S2 Bojo 1/4, S2 Bojo 2/4, S2 Bojo 3/4, S2 Bojo 4/4, S3 Cone, Disco Fundo Ø76 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Tira de Alça  (122x17 mm), Leque do Bico Vertedor (Base Ø31 ➔ Ponta Ø18 • Alcance 24mm)"
+          "patternsCount": 11,
+          "patternLabels": "S2 Bojo 1/4, S2 Bojo 2/4 (Arco 1/2), S2 Bojo 2/4 (Arco 2/2), S2 Bojo 3/4 (Arco 1/2), S2 Bojo 3/4 (Arco 2/2), S2 Bojo 4/4, S3 Cone, Disco Fundo Ø76 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Tira de Alça  (119x17 mm), Leque do Bico Vertedor (Base Ø31 ➔ Ponta Ø18 • Alcance 24mm)"
         }
       },
-      "durationMs": 562
+      "durationMs": 1411
     },
     {
       "id": "s1_slab_recipe_pote_tampa",
@@ -3080,13 +3080,13 @@
       "subsystem": "Connected Slabs Recipes (14)",
       "item": "🍯 14. Pote / Açucareiro de Bancada (Cilindro + Borda + Tampa)",
       "expected": "Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items",
-      "actual": "Stages: 4, 3D Meshes: 7, Verts: 31,104, 2D Patterns: 5 (S1 Disco (solido), S2 Cilindro, Disco Fundo Ø88 (Sólido), Faixa de Borda/Boca (310x9 mm), Disco da Tampa Ø105 mm (Domo 16mm))",
+      "actual": "Stages: 4, 3D Meshes: 8, Verts: 31,104, 2D Patterns: 6 (S2 Cilindro (Arco 1/2), S2 Cilindro (Arco 2/2), Disco Fundo Ø88 (Sólido), Faixa de Borda/Boca (1/2) (155x9 mm), Faixa de Borda/Boca (2/2) (155x9 mm), Disco da Tampa Ø105 mm (Domo 16mm))",
       "status": "PASS",
       "error": null,
       "details": {
         "mesh": {
-          "childrenCount": 7,
-          "meshCount": 7,
+          "childrenCount": 8,
+          "meshCount": 8,
           "totalVertices": 31104,
           "hasNaN": false,
           "isEmpty": false,
@@ -3111,11 +3111,11 @@
         "data": {
           "stagesCount": 4,
           "ringsCount": 2,
-          "patternsCount": 5,
-          "patternLabels": "S1 Disco (solido), S2 Cilindro, Disco Fundo Ø88 (Sólido), Faixa de Borda/Boca (310x9 mm), Disco da Tampa Ø105 mm (Domo 16mm)"
+          "patternsCount": 6,
+          "patternLabels": "S2 Cilindro (Arco 1/2), S2 Cilindro (Arco 2/2), Disco Fundo Ø88 (Sólido), Faixa de Borda/Boca (1/2) (155x9 mm), Faixa de Borda/Boca (2/2) (155x9 mm), Disco da Tampa Ø105 mm (Domo 16mm)"
         }
       },
-      "durationMs": 90
+      "durationMs": 83
     },
     {
       "id": "s1_btn_add_cilindro",
@@ -3123,11 +3123,11 @@
       "subsystem": "Stage Buttons (8)",
       "item": "+ Cilindro (Anel Cilíndrico Reto)",
       "expected": "Adds component stage to vaseStages, refreshes cards, builds 3D and 2D unrolling",
-      "actual": "Stage Count: 4 -> 5, 3D Meshes: 7, 2D Patterns: 6",
+      "actual": "Stage Count: 4 -> 5, 3D Meshes: 9, 2D Patterns: 8",
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 88
+      "durationMs": 120
     },
     {
       "id": "s1_btn_add_cone",
@@ -3135,11 +3135,11 @@
       "subsystem": "Stage Buttons (8)",
       "item": "+ Cone (Tronco de Cone Flutuante)",
       "expected": "Adds component stage to vaseStages, refreshes cards, builds 3D and 2D unrolling",
-      "actual": "Stage Count: 5 -> 6, 3D Meshes: 7, 2D Patterns: 7",
+      "actual": "Stage Count: 5 -> 6, 3D Meshes: 10, 2D Patterns: 9",
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 105
+      "durationMs": 270
     },
     {
       "id": "s1_btn_add_esfera",
@@ -3147,11 +3147,11 @@
       "subsystem": "Stage Buttons (8)",
       "item": "+ Bojo Esf. (Bojo Esférico em Frustuns)",
       "expected": "Adds component stage to vaseStages, refreshes cards, builds 3D and 2D unrolling",
-      "actual": "Stage Count: 6 -> 7, 3D Meshes: 7, 2D Patterns: 12",
+      "actual": "Stage Count: 6 -> 7, 3D Meshes: 14, 2D Patterns: 14",
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 543
+      "durationMs": 923
     },
     {
       "id": "s1_btn_add_disco",
@@ -3159,11 +3159,11 @@
       "subsystem": "Stage Buttons (8)",
       "item": "+ Disco (Fundo ou Prato Separador)",
       "expected": "Adds component stage to vaseStages, refreshes cards, builds 3D and 2D unrolling",
-      "actual": "Stage Count: 7 -> 8, 3D Meshes: 7, 2D Patterns: 14",
+      "actual": "Stage Count: 7 -> 8, 3D Meshes: 15, 2D Patterns: 15",
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 670
+      "durationMs": 998
     },
     {
       "id": "s1_btn_add_alca",
@@ -3171,11 +3171,11 @@
       "subsystem": "Stage Buttons (8)",
       "item": "+ Alça (Alça Curva Cerâmica Extrudada)",
       "expected": "Adds component stage to vaseStages, refreshes cards, builds 3D and 2D unrolling",
-      "actual": "Stage Count: 8 -> 9, 3D Meshes: 8, 2D Patterns: 15",
+      "actual": "Stage Count: 8 -> 9, 3D Meshes: 16, 2D Patterns: 16",
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 729
+      "durationMs": 1073
     },
     {
       "id": "s1_btn_add_bico",
@@ -3183,11 +3183,11 @@
       "subsystem": "Stage Buttons (8)",
       "item": "+ Bico (Bico Vertedor Cônico)",
       "expected": "Adds component stage to vaseStages, refreshes cards, builds 3D and 2D unrolling",
-      "actual": "Stage Count: 9 -> 10, 3D Meshes: 11, 2D Patterns: 16",
+      "actual": "Stage Count: 9 -> 10, 3D Meshes: 19, 2D Patterns: 17",
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 1032
+      "durationMs": 1391
     },
     {
       "id": "s1_btn_add_tampa",
@@ -3195,11 +3195,11 @@
       "subsystem": "Stage Buttons (8)",
       "item": "+ Tampa (Tampa c/ Encaixe e Puxador)",
       "expected": "Adds component stage to vaseStages, refreshes cards, builds 3D and 2D unrolling",
-      "actual": "Stage Count: 10 -> 11, 3D Meshes: 12, 2D Patterns: 17",
+      "actual": "Stage Count: 10 -> 11, 3D Meshes: 20, 2D Patterns: 18",
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 1084
+      "durationMs": 1426
     },
     {
       "id": "s1_btn_add_borda",
@@ -3207,11 +3207,11 @@
       "subsystem": "Stage Buttons (8)",
       "item": "+ Borda/Pé (Anel Reforçado de Boca ou Pé Kodai)",
       "expected": "Adds component stage to vaseStages, refreshes cards, builds 3D and 2D unrolling",
-      "actual": "Stage Count: 11 -> 12, 3D Meshes: 13, 2D Patterns: 18",
+      "actual": "Stage Count: 11 -> 12, 3D Meshes: 21, 2D Patterns: 19",
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 1083
+      "durationMs": 1459
     },
     {
       "id": "s1_card_inputs_reactive",
@@ -3219,11 +3219,11 @@
       "subsystem": "Stage Card Inputs",
       "item": "Atualização Reativa de Parâmetros (Disco Crivo Múltiplo + Alça 35mm)",
       "expected": "Modifies 3D geometry vertices and updates 2D pattern unrolling accordingly",
-      "actual": "Meshes: 6, Vertices: 15,984, Patterns: 5",
+      "actual": "Meshes: 8, Vertices: 15,984, Patterns: 4",
       "status": "PASS",
       "error": null,
       "details": {},
-      "durationMs": 312
+      "durationMs": 256
     },
     {
       "id": "s1_2d_patterns_pdf_export",
@@ -3231,13 +3231,13 @@
       "subsystem": "2D Patterns & PDF",
       "item": "Planificação 2D A4 c/ Nesting >= 20mm & Exportação PDF A4 1:1",
       "expected": "Unrolls all pieces, packs onto A4 sheets with >= 20mm margin, exports PDF via jsPDF",
-      "actual": "Items: 11, A4 Sheets: 4, ExportFn: exportVase2DPatternsPDF, PDFs Generated: 1 (moldes_ceramica_A4_nesting_1para1.pdf)",
+      "actual": "Items: 12, A4 Sheets: 6, ExportFn: exportVase2DPatternsPDF, PDFs Generated: 1 (moldes_ceramica_A4_nesting_1para1.pdf)",
       "status": "PASS",
       "error": null,
       "details": {
         "pdfRes": {
-          "itemsCount": 11,
-          "sheetsCount": 4,
+          "itemsCount": 12,
+          "sheetsCount": 6,
           "minGapEnforced": true,
           "exportFnCalled": true,
           "fnName": "exportVase2DPatternsPDF"
@@ -3245,11 +3245,11 @@
         "pdfs": [
           {
             "filename": "moldes_ceramica_A4_nesting_1para1.pdf",
-            "pageCount": 10
+            "pageCount": 6
           }
         ]
       },
-      "durationMs": 2290
+      "durationMs": 4751
     },
     {
       "id": "s1_torno_costela_3d",
@@ -3284,7 +3284,7 @@
           ]
         }
       },
-      "durationMs": 72
+      "durationMs": 74
     },
     {
       "id": "s1_torno_gabarito_negativo_3d",
@@ -3319,7 +3319,7 @@
           ]
         }
       },
-      "durationMs": 69
+      "durationMs": 71
     },
     {
       "id": "s1_torno_volume_telemetry_scale",
@@ -3335,7 +3335,7 @@
         "rawAfter": 591.743323646703,
         "firedExpected": 403.25650625216593
       },
-      "durationMs": 5
+      "durationMs": 10
     },
     {
       "id": "s1_export_stl_binary",
@@ -3355,7 +3355,7 @@
           }
         ]
       },
-      "durationMs": 111
+      "durationMs": 119
     },
     {
       "id": "s1_ceramic_mesh_factory_origami",
@@ -3380,22 +3380,27 @@
         "cp2dValleys": 51,
         "facetMeshCount": 1
       },
-      "durationMs": 8
+      "durationMs": 9
     },
     {
       "id": "s1_toggle_2d_3d_mode",
       "station": 1,
-      "subsystem": "Alternador de Visualização 2D ↔ 3D",
-      "item": "Transição Interativa Bidirecional 2D (Moldes/CAD) e 3D (Torno)",
-      "expected": "Alterna entre Modos 2D e 3D exibindo e ocultando os containers correspondentes",
-      "actual": "Modo 2D: true, Modo 3D: true",
+      "subsystem": "Alternador de Visualização 2D ↔ 3D & Conversão A4",
+      "item": "Split-View 2D+3D, Seleção Visual de Partes 2D↔3D, Painel Completo e Conversão A4 Sem Falhas",
+      "expected": "Exibe painel completo, Split-View 3D na aba 2D, destaca partes 2D↔3D e converte 100% em folhas A4 sem duplicar base",
+      "actual": "Painel: true, Split2D+3D: true, PartSelect: true, BaseÚnica: true, ZeroOversizedA4: true",
       "status": "PASS",
       "error": null,
       "details": {
+        "leftPanelVisible": true,
+        "footerVisible": true,
         "mode2DSuccess": true,
-        "mode3DSuccess": true
+        "mode3DSuccess": true,
+        "partSelectionSuccess": true,
+        "singleBaseDisc": true,
+        "zeroOversizedInSubdivide": true
       },
-      "durationMs": 16
+      "durationMs": 10695
     },
     {
       "id": "s1_slab_piece_porta_copos_vincado",
@@ -3440,7 +3445,7 @@
           }
         }
       },
-      "durationMs": 119
+      "durationMs": 139
     },
     {
       "id": "s1_slab_piece_saboneteira_escorredor",
@@ -3485,7 +3490,7 @@
           }
         }
       },
-      "durationMs": 75
+      "durationMs": 76
     },
     {
       "id": "s1_slab_piece_porta_incenso_canoa",
@@ -3530,7 +3535,7 @@
           }
         }
       },
-      "durationMs": 80
+      "durationMs": 84
     },
     {
       "id": "s1_slab_piece_descanso_talheres",
@@ -3575,7 +3580,7 @@
           }
         }
       },
-      "durationMs": 75
+      "durationMs": 77
     },
     {
       "id": "s1_slab_piece_manteigueira_francesa",
@@ -3583,7 +3588,7 @@
       "subsystem": "Catálogo de Peças em Placas (Slab Building)",
       "item": "#9 — Manteigueira Francesa Hermética (Butter Bell)",
       "expected": "Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas",
-      "actual": "3D Verts: 1728, Meshes: 1, Bounds: [112x106x112 mm], 2D Moldes: 4 placas",
+      "actual": "3D Verts: 1728, Meshes: 4, Bounds: [112x106x112 mm], 2D Moldes: 4 placas",
       "status": "PASS",
       "error": null,
       "details": {
@@ -3596,8 +3601,8 @@
           "canvasValid": true
         },
         "mesh": {
-          "childrenCount": 1,
-          "meshCount": 1,
+          "childrenCount": 4,
+          "meshCount": 4,
           "totalVertices": 1728,
           "hasNaN": false,
           "isEmpty": false,
@@ -3620,7 +3625,7 @@
           }
         }
       },
-      "durationMs": 86
+      "durationMs": 231
     },
     {
       "id": "s1_slab_piece_saleiro_paredao",
@@ -3628,7 +3633,7 @@
       "subsystem": "Catálogo de Peças em Placas (Slab Building)",
       "item": "#38 — Saleiro de Mesa / Paredão c/ Chanfro 45°",
       "expected": "Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas",
-      "actual": "3D Verts: 216, Meshes: 1, Bounds: [116x125x96 mm], 2D Moldes: 5 placas",
+      "actual": "3D Verts: 216, Meshes: 5, Bounds: [116x125x96 mm], 2D Moldes: 5 placas",
       "status": "PASS",
       "error": null,
       "details": {
@@ -3641,8 +3646,8 @@
           "canvasValid": true
         },
         "mesh": {
-          "childrenCount": 1,
-          "meshCount": 1,
+          "childrenCount": 5,
+          "meshCount": 5,
           "totalVertices": 216,
           "hasNaN": false,
           "isEmpty": false,
@@ -3665,7 +3670,7 @@
           }
         }
       },
-      "durationMs": 76
+      "durationMs": 88
     },
     {
       "id": "s1_slab_piece_garrafa_facetada",
@@ -3673,7 +3678,7 @@
       "subsystem": "Catálogo de Peças em Placas (Slab Building)",
       "item": "#68 — Vaso / Garrafa Facetada Prismática em Placas",
       "expected": "Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas",
-      "actual": "3D Verts: 108, Meshes: 1, Bounds: [113x180x130 mm], 2D Moldes: 2 placas",
+      "actual": "3D Verts: 180, Meshes: 2, Bounds: [113x180x130 mm], 2D Moldes: 2 placas",
       "status": "PASS",
       "error": null,
       "details": {
@@ -3686,9 +3691,9 @@
           "canvasValid": true
         },
         "mesh": {
-          "childrenCount": 1,
-          "meshCount": 1,
-          "totalVertices": 108,
+          "childrenCount": 2,
+          "meshCount": 2,
+          "totalVertices": 180,
           "hasNaN": false,
           "isEmpty": false,
           "bounds": {
@@ -3710,7 +3715,7 @@
           }
         }
       },
-      "durationMs": 74
+      "durationMs": 88
     },
     {
       "id": "s1_clay_shape_texture_pbr",
@@ -3731,7 +3736,7 @@
         "rakuHex": "624d42",
         "pbrDistinct": true
       },
-      "durationMs": 113
+      "durationMs": 4182
     }
   ],
   "consoleErrors": []

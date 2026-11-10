@@ -639,19 +639,28 @@
     </div>
 
     <!-- Centro: Seletor de Modo Pílula Segmentada (Modo 3D vs Modo 2D) -->
-    <div class="flex items-center bg-stone-100 dark:bg-[#1f1d1b] p-1 rounded-xl border border-stone-200/80 dark:border-white/10 shadow-inner">
-      <button id="mode-btn-3d" type="button" onclick="setStudioAppMode('3d')"
-        class="px-3.5 sm:px-4 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2 transition bg-terracotta-500 text-white shadow-xs">
-        <span class="text-sm">🧊</span>
-        <span class="hidden xs:inline">Modo 3D — Visualização</span>
-        <span class="xs:hidden">3D</span>
+    <div class="flex items-center gap-2">
+      <button id="btn-toggle-left-panel" type="button" onclick="toggleTechnicalParamsDrawer()"
+        class="px-3 py-1.5 rounded-xl bg-terracotta-500/15 hover:bg-terracotta-500/25 border border-terracotta-500/30 text-terracotta-600 dark:text-terracotta-300 text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
+        title="Mostrar ou recolher o painel completo de Modelagem 3D e Placas 2D">
+        <span>⚙️</span>
+        <span class="hidden md:inline">Painel de Modelagem 3D/2D</span>
       </button>
-      <button id="mode-btn-2d" type="button" onclick="setStudioAppMode('2d')"
-        class="px-3.5 sm:px-4 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2 transition text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white">
-        <span class="text-sm">📐</span>
-        <span class="hidden xs:inline">Modo 2D — Contornos & Moldes</span>
-        <span class="xs:hidden">2D</span>
-      </button>
+
+      <div class="flex items-center bg-stone-100 dark:bg-[#1f1d1b] p-1 rounded-xl border border-stone-200/80 dark:border-white/10 shadow-inner">
+        <button id="mode-btn-3d" type="button" onclick="setStudioAppMode('3d')"
+          class="px-3.5 sm:px-4 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2 transition bg-terracotta-500 text-white shadow-xs cursor-pointer">
+          <span class="text-sm">🧊</span>
+          <span class="hidden xs:inline">Modo 3D — Visualização</span>
+          <span class="xs:hidden">3D</span>
+        </button>
+        <button id="mode-btn-2d" type="button" onclick="setStudioAppMode('2d')"
+          class="px-3.5 sm:px-4 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2 transition text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white cursor-pointer">
+          <span class="text-sm">📐</span>
+          <span class="hidden xs:inline">Modo 2D — Moldes A4 + 3D</span>
+          <span class="xs:hidden">2D+3D</span>
+        </button>
+      </div>
     </div>
 
     <!-- Indicador de Estação Ativa (Compatibilidade) -->
@@ -753,18 +762,18 @@
     <!-- BARRA LATERAL RETRÁTIL (OCULTA NO MODO ESTÚDIO UNIFICADO) -->
     <nav id="app-nav-rail" class="hidden" aria-hidden="true"></nav>
 
-    <!-- GAVETA RETRÁTIL DE PARÂMETROS TÉCNICOS CAD (OFF-CANVAS / ACIONADA QUANDO NECESSÁRIO) -->
+    <!-- COLUNA LATERAL DE PARÂMETROS TÉCNICOS CAD (VISÍVEL POR PADRÃO + RECOLHÍVEL) -->
     <aside id="left-control-panel"
-      class="fixed inset-y-0 left-0 z-50 w-full sm:w-[420px] bg-[var(--bg-panel)] border-r border-[var(--border-hairline)] flex flex-col h-full overflow-y-auto select-text shadow-2xl transform -translate-x-full transition-transform duration-300">
+      class="w-full md:w-[390px] xl:w-[415px] bg-[var(--bg-panel)] border-r border-[var(--border-hairline)] flex flex-col h-full overflow-y-auto shrink-0 z-20 select-text transition-all duration-300">
       
-      <!-- Cabeçalho da Gaveta com Botão Fechar -->
+      <!-- Cabeçalho do Painel Lateral com Botão Recolher -->
       <div class="p-3 border-b border-stone-200 dark:border-white/10 flex items-center justify-between shrink-0 bg-stone-100 dark:bg-stone-900">
         <span class="text-xs font-bold text-stone-900 dark:text-white uppercase font-mono-cad flex items-center gap-1.5">
-          <span>⚙️</span> Parâmetros Técnicos da Peça
+          <span>⚙️</span> Parâmetros Técnicos 3D & Placas 2D
         </span>
         <button onclick="toggleTechnicalParamsDrawer(false)"
           class="w-7 h-7 rounded-lg bg-stone-200 dark:bg-stone-800 hover:bg-stone-300 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 flex items-center justify-center font-bold text-xs transition cursor-pointer"
-          title="Fechar Gaveta">✕</button>
+          title="Recolher Painel Lateral">✕</button>
       </div>
 
       <!-- =====================================================================
@@ -1706,19 +1715,22 @@
     </aside>
 
     <!-- =====================================================================
-         PALCO PRINCIPAL: MODO 3D (TORNO & VISUALIZAÇÃO) + MODO 2D (CAD & MOLDES)
+         PALCO PRINCIPAL: MODO 3D (TORNO & VISUALIZAÇÃO) + MODO 2D (CAD, MOLDES A4 & SPLIT-VIEW 3D)
          ===================================================================== -->
     <main class="flex-1 flex flex-col relative overflow-hidden bg-[#181615]">
+
+      <!-- CONTAINER FLEX UNIFICADO PARA MODO 3D OU SPLIT-VIEW 2D+3D -->
+      <div id="studio-views-split-wrapper" class="flex-1 flex flex-row relative overflow-hidden w-full h-full">
 
       <!-- =====================================================================
            MODO 3D: PALCO THREE.JS + PRATO DE TORNO CERÂMICO + DOCK INFERIOR (SCREENSHOT 1)
            ===================================================================== -->
-      <div id="studio-view-3d" class="flex-1 flex flex-col relative overflow-hidden w-full h-full">
+      <div id="studio-view-3d" class="order-2 flex-1 flex flex-col relative overflow-hidden w-full h-full">
         <!-- Canvas 3D Principal -->
         <div id="main-viewport-container" class="flex-1 viewport-bg relative overflow-hidden">
 
-          <!-- Badge Superior Esquerdo Discreto de Status -->
-          <div class="absolute top-3 left-3 z-10 flex items-center gap-2">
+          <!-- Badge Superior Esquerdo Discreto de Status + Inspetor de Parte 3D -->
+          <div class="absolute top-3 left-3 z-10 flex flex-wrap items-center gap-2 max-w-[65%]">
             <div class="flex items-center gap-2 px-2.5 py-1 rounded-xl bg-black/50 backdrop-blur-md border border-white/10 text-xs font-mono-cad text-stone-200">
               <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0 animate-pulse"></span>
               <span id="viewport-active-label" class="font-medium">Xícara cônica (#1)</span>
@@ -1726,6 +1738,12 @@
             <div id="viewport-dims-pill"
               class="bg-terracotta-500/90 text-white px-2.5 py-1 rounded-xl text-[11px] font-mono-cad font-bold shrink-0 shadow-xs">
               92 × 75 × 92 mm
+            </div>
+            <div id="viewport-selected-part-pill"
+              class="hidden bg-amber-500/95 text-stone-950 px-2.5 py-1 rounded-xl text-[11px] font-mono-cad font-extrabold shrink-0 shadow-md items-center gap-1.5">
+              <span>🔍</span>
+              <span id="viewport-selected-part-text">Parte Selecionada</span>
+              <button onclick="selectSlabPart2D3D(null)" class="ml-1 hover:text-red-900 font-black cursor-pointer" title="Limpar seleção">✕</button>
             </div>
           </div>
 
@@ -1762,22 +1780,22 @@
 
           <!-- DOCK FLUTUANTE INFERIOR APPLE / macOS VIBRANCY (EXATO SCREENSHOT 1) -->
           <div id="studio-bottom-dock"
-            class="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1.5 select-none pointer-events-auto">
+            class="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1.5 select-none pointer-events-auto max-w-[96%]">
             <div
-              class="flex flex-nowrap whitespace-nowrap items-center gap-2 sm:gap-2.5 p-1.5 px-3 rounded-2xl bg-black/80 dark:bg-[#141211]/90 backdrop-blur-2xl border border-white/15 text-stone-100 shadow-2xl shadow-black/60">
+              class="flex flex-wrap sm:flex-nowrap whitespace-nowrap items-center justify-center gap-1.5 sm:gap-2 p-1.5 px-2.5 rounded-2xl bg-black/80 dark:bg-[#141211]/90 backdrop-blur-2xl border border-white/15 text-stone-100 shadow-2xl shadow-black/60">
               
               <!-- 1. Vistas de Câmera -->
               <div class="flex items-center p-0.5 rounded-xl bg-white/10 border border-white/10 text-xs font-medium">
                 <button id="dock-cam-persp" onclick="setCameraView('iso')"
-                  class="px-2.5 py-1 rounded-lg hover:bg-white/15 transition text-stone-200 hover:text-white font-semibold">
+                  class="px-2 py-1 rounded-lg hover:bg-white/15 transition text-stone-200 hover:text-white font-semibold">
                   Persp
                 </button>
                 <button id="dock-cam-front" onclick="setCameraView('front')"
-                  class="px-2.5 py-1 rounded-lg hover:bg-white/15 transition text-stone-200 hover:text-white">
+                  class="px-2 py-1 rounded-lg hover:bg-white/15 transition text-stone-200 hover:text-white">
                   Frente
                 </button>
                 <button id="dock-cam-top" onclick="setCameraView('top')"
-                  class="px-2.5 py-1 rounded-lg hover:bg-white/15 transition text-stone-200 hover:text-white">
+                  class="px-2 py-1 rounded-lg hover:bg-white/15 transition text-stone-200 hover:text-white">
                   Topo
                 </button>
               </div>
@@ -1787,23 +1805,23 @@
               <!-- 2. Acabamentos Cerâmicos PBR (Terracota, Grés, Celadon, Raku, Porcelana) -->
               <div class="flex items-center p-0.5 rounded-xl bg-white/10 border border-white/10 text-xs font-medium">
                 <button id="dock-finish-terracota" onclick="applyCeramicFinish('terracota')"
-                  class="px-2.5 py-1 rounded-lg transition font-bold bg-terracotta-500 text-white shadow-xs cursor-pointer">
+                  class="px-2 py-1 rounded-lg transition font-bold bg-terracotta-500 text-white shadow-xs cursor-pointer">
                   Terracota
                 </button>
                 <button id="dock-finish-gres" onclick="applyCeramicFinish('gres')"
-                  class="px-2.5 py-1 rounded-lg transition text-stone-300 hover:text-white hover:bg-white/15 cursor-pointer">
+                  class="px-2 py-1 rounded-lg transition text-stone-300 hover:text-white hover:bg-white/15 cursor-pointer">
                   Grés
                 </button>
                 <button id="dock-finish-esmalte" onclick="applyCeramicFinish('celadon')"
-                  class="px-2.5 py-1 rounded-lg transition text-stone-300 hover:text-white hover:bg-white/15 cursor-pointer">
+                  class="px-2 py-1 rounded-lg transition text-stone-300 hover:text-white hover:bg-white/15 cursor-pointer">
                   Celadon
                 </button>
                 <button id="dock-finish-raku" onclick="applyCeramicFinish('raku')"
-                  class="px-2.5 py-1 rounded-lg transition text-stone-300 hover:text-white hover:bg-white/15 cursor-pointer">
+                  class="px-2 py-1 rounded-lg transition text-stone-300 hover:text-white hover:bg-white/15 cursor-pointer">
                   Raku
                 </button>
                 <button id="dock-finish-porcelana" onclick="applyCeramicFinish('porcelana')"
-                  class="px-2.5 py-1 rounded-lg transition text-stone-300 hover:text-white hover:bg-white/15 cursor-pointer">
+                  class="px-2 py-1 rounded-lg transition text-stone-300 hover:text-white hover:bg-white/15 cursor-pointer">
                   Porcelana
                 </button>
               </div>
@@ -1811,28 +1829,28 @@
               <div class="h-4 w-px bg-white/20"></div>
 
               <!-- 3. Rotação do Torno (Girar + Slider) -->
-              <div class="flex items-center gap-2 px-1 text-xs text-stone-200">
+              <div class="flex items-center gap-1.5 px-1 text-xs text-stone-200">
                 <button id="dock-spin-btn" onclick="togglePotteryWheelSpin()"
-                  class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-stone-200 hover:text-white transition font-medium cursor-pointer">
+                  class="flex items-center gap-1 px-2 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-stone-200 hover:text-white transition font-medium cursor-pointer">
                   <span>↻</span>
                   <span>Girar</span>
                 </button>
                 <input type="range" id="dock-spin-slider" min="0.2" max="3.0" step="0.1" value="1.0"
                   oninput="setPotteryWheelSpeed(parseFloat(this.value))"
-                  class="w-14 sm:w-16 h-1 bg-white/20 accent-terracotta-500 rounded-lg cursor-pointer" title="Velocidade do Torno" />
+                  class="w-12 sm:w-14 h-1 bg-white/20 accent-terracotta-500 rounded-lg cursor-pointer" title="Velocidade do Torno" />
               </div>
 
               <div class="h-4 w-px bg-white/20"></div>
 
               <!-- 4. Corte 270° & Aramado -->
-              <div class="flex items-center gap-2.5 text-xs text-stone-200 px-1">
+              <div class="flex items-center gap-2 text-xs text-stone-200 px-1">
                 <button id="dock-cut-btn" onclick="toggleSectionCutDock()"
-                  class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-terracotta-500/20 text-terracotta-300 border border-terracotta-500/30 hover:bg-terracotta-500 hover:text-white transition font-medium cursor-pointer"
+                  class="flex items-center gap-1 px-2 py-1 rounded-lg bg-terracotta-500/20 text-terracotta-300 border border-terracotta-500/30 hover:bg-terracotta-500 hover:text-white transition font-medium cursor-pointer"
                   title="Abre corte de 90° para inspecionar a parede interna de argila">
                   <span>✂️</span>
                   <span>Corte 270°</span>
                 </button>
-                <label class="flex items-center gap-1.5 cursor-pointer hover:text-white transition font-medium">
+                <label class="flex items-center gap-1 cursor-pointer hover:text-white transition font-medium">
                   <input type="checkbox" id="dock-wireframe-toggle" onchange="toggleWireframe(this.checked)"
                     class="accent-terracotta-500 rounded" />
                   <span>Aramado</span>
@@ -1841,43 +1859,57 @@
             </div>
 
             <!-- Legenda Sutil de Navegação com Mouse -->
-            <div class="text-[10.5px] text-stone-400 font-mono-cad text-center pointer-events-none drop-shadow">
-              Botão esquerdo: orbitar • Scroll: zoom • Botão direito: arrastar
+            <div class="text-[10px] text-stone-400 font-mono-cad text-center pointer-events-none drop-shadow">
+              Clique em uma parte do objeto 3D para selecioná-la nos moldes 2D • Orbitar: botão esq. • Zoom: scroll
             </div>
           </div>
         </div>
       </div>
 
       <!-- =====================================================================
-           MODO 2D: CONTORNOS, NÓS CARTESIANOS CAD & MOLDES PLANIFICADOS (SCREENSHOT 2)
+           MODO 2D: CONTORNOS, NÓS CARTESIANOS CAD & MOLDES PLANIFICADOS + SPLIT-VIEW 3D
            ===================================================================== -->
-      <div id="studio-view-2d" class="flex-1 flex flex-col relative overflow-hidden w-full h-full hidden">
-        <!-- Sub-abas do Modo 2D: Perfil da Peça vs Moldes Planificados -->
-        <div class="h-10 bg-[#1e1c1a] border-b border-white/10 px-4 flex items-center justify-between shrink-0 select-none">
-          <div class="flex items-center gap-2">
+      <div id="studio-view-2d" class="order-1 flex-1 flex flex-col relative overflow-hidden min-w-0 h-full hidden border-r border-white/10">
+        <!-- Sub-abas do Modo 2D: Perfil da Peça vs Moldes Planificados + Toggle Visão 3D Lateral -->
+        <div class="h-10 bg-[#1e1c1a] border-b border-white/10 px-3 flex items-center justify-between gap-2 shrink-0 select-none overflow-x-auto no-scrollbar">
+          <div class="flex items-center gap-1.5 shrink-0">
+            <button id="btn-toggle-catalog-2d" onclick="toggleCatalogDrawer2D()"
+              class="px-2.5 py-1 rounded-lg text-xs font-bold transition bg-white/10 hover:bg-white/15 text-stone-200 flex items-center gap-1 cursor-pointer"
+              title="Mostrar ou recolher a gaveta do Catálogo de 100 Peças">
+              <span>📚</span>
+              <span class="hidden lg:inline">Catálogo 100</span>
+            </button>
             <button id="subtab-2d-perfil" onclick="setStudio2DSubTab('perfil')"
-              class="px-3.5 py-1 rounded-lg text-xs font-bold transition bg-terracotta-500 text-white flex items-center gap-1.5 shadow-xs">
+              class="px-3 py-1 rounded-lg text-xs font-bold transition bg-terracotta-500 text-white flex items-center gap-1.5 shadow-xs cursor-pointer">
               <span>✏️</span>
               <span>Perfil da Peça</span>
             </button>
             <button id="subtab-2d-moldes" onclick="setStudio2DSubTab('moldes')"
-              class="px-3.5 py-1 rounded-lg text-xs font-bold transition text-stone-400 hover:text-white hover:bg-white/5 flex items-center gap-1.5">
+              class="px-3 py-1 rounded-lg text-xs font-bold transition text-stone-400 hover:text-white hover:bg-white/5 flex items-center gap-1.5 cursor-pointer">
               <span>📐</span>
-              <span>Moldes Planificados</span>
+              <span>Moldes Planificados A4</span>
             </button>
           </div>
-          <div class="text-xs font-mono-cad text-stone-400 hidden sm:flex items-center gap-3">
-            <span>Espessura da Placa: <strong class="text-terracotta-400 font-bold" id="cad-display-wall">6.0 mm</strong></span>
-            <span>Retração: <strong class="text-stone-200" id="cad-display-shrink">1.12x</strong></span>
+          <div class="flex items-center gap-2 shrink-0">
+            <div class="text-xs font-mono-cad text-stone-400 hidden xl:flex items-center gap-2.5">
+              <span>Placa: <strong class="text-terracotta-400 font-bold" id="cad-display-wall">6.0 mm</strong></span>
+              <span>Retração: <strong class="text-stone-200" id="cad-display-shrink">1.12x</strong></span>
+            </div>
+            <button id="btn-toggle-2d-split-3d" onclick="toggle2DSplit3D()"
+              class="px-2.5 py-1 rounded-lg text-xs font-bold transition bg-emerald-600/25 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-600/35 flex items-center gap-1.5 cursor-pointer"
+              title="Ativar ou desativar a visualização 3D interativa ao lado da aba 2D">
+              <span>🧊</span>
+              <span id="lbl-toggle-2d-split-3d">Visão 3D Lateral: ATIVA</span>
+            </button>
           </div>
         </div>
 
         <!-- Conteúdo do Modo 2D: Gaveta Lateral de 100 Peças + Área Central CAD -->
         <div class="flex-1 flex overflow-hidden relative">
 
-          <!-- Gaveta Lateral Esquerda: CATÁLOGO DE 100 PEÇAS & MOLDES (Screenshot 2) -->
+          <!-- Gaveta Lateral Esquerda: CATÁLOGO DE 100 PEÇAS & MOLDES (Recolhível) -->
           <aside id="catalog-drawer-2d"
-            class="w-80 md:w-88 bg-[#181615] border-r border-white/10 flex flex-col shrink-0 overflow-hidden select-none">
+            class="w-72 xl:w-80 bg-[#181615] border-r border-white/10 flex flex-col shrink-0 overflow-hidden select-none transition-all duration-200">
             <!-- Cabeçalho do Catálogo -->
             <div class="p-3 border-b border-white/10 flex items-center justify-between">
               <span class="text-xs font-black tracking-wider text-stone-200 uppercase font-mono-cad">
@@ -1944,7 +1976,7 @@
           </aside>
 
           <!-- Área Central 2D: Canvas CAD ou Moldes Planificados -->
-          <div class="flex-1 flex flex-col overflow-hidden bg-[#141312]">
+          <div class="flex-1 flex flex-col overflow-hidden bg-[#141312] min-w-0">
 
             <!-- Painel Sub-Aba 1: Perfil da Peça (Canvas CAD Cartesiano com Eixos) -->
             <div id="subview-2d-perfil" class="flex-1 flex flex-col overflow-hidden">
@@ -1959,7 +1991,7 @@
                 </div>
                 <div class="text-[11px] font-mono-cad text-stone-400 flex items-center gap-2">
                   <span class="w-2 h-2 rounded-xs bg-terracotta-500"></span>
-                  <span>Arraste os nós para moldar o perfil</span>
+                  <span>Arraste os nós para moldar o perfil (atualiza o 3D ao vivo)</span>
                   <span class="text-stone-600">•</span>
                   <span>Duplo clique: adiciona nó</span>
                 </div>
@@ -1972,28 +2004,64 @@
               </div>
             </div>
 
-            <!-- Painel Sub-Aba 2: Moldes Planificados em Folhas A4 (Slab Unrolling) -->
+            <!-- Painel Sub-Aba 2: Moldes Planificados em Folhas A4 (Slab Unrolling + Seleção Visual 2D↔3D) -->
             <div id="subview-2d-moldes" class="flex-1 flex flex-col overflow-hidden hidden bg-[#141312]">
-              <div class="h-10 bg-[#191716] border-b border-white/10 px-4 flex items-center justify-between text-xs select-none">
-                <div class="flex items-center gap-3">
-                  <span class="font-bold text-stone-200">Moldes Planificados para Corte em Placa (1:1)</span>
-                  <span class="text-stone-500">|</span>
-                  <span id="cad-moldes-summary" class="font-mono-cad text-terracotta-400 text-[11px]">Leques cônicos, gomos e disco de base</span>
+              <!-- Barra Superior de Ações A4 e Paginação -->
+              <div class="min-h-10 py-1.5 bg-[#191716] border-b border-white/10 px-3 flex flex-wrap items-center justify-between gap-2 text-xs select-none">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-bold text-stone-200">Moldes Planificados A4 (1:1)</span>
+                  <span id="cad-moldes-summary" class="font-mono-cad text-terracotta-400 text-[11px] px-2 py-0.5 rounded bg-terracotta-500/15 border border-terracotta-500/30">
+                    Carregando folhas A4...
+                  </span>
                 </div>
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <select id="a4-split-mode-select" onchange="setA4LargePatternMode(this.value)"
+                    class="bg-[#24211e] text-stone-200 border border-white/15 rounded-lg text-[11px] font-semibold px-2 py-1 outline-hidden cursor-pointer"
+                    title="Modo de ajuste de anéis largos na folha A4">
+                    <option value="subdivide" selected>✂️ Subdividir Anéis p/ Caber no A4 (Costura [A↔B])</option>
+                    <option value="tiling">📐 Tiling Multi-Folhas (Tira Inteira c/ Emenda)</option>
+                  </select>
+                  <div class="flex items-center bg-[#24211e] rounded-lg border border-white/15 p-0.5 text-[11px] font-mono-cad">
+                    <button onclick="changeStudioMoldesSheetPage(-1)"
+                      class="px-2 py-0.5 rounded hover:bg-white/10 text-stone-300 font-bold cursor-pointer" title="Folha A4 Anterior">◀</button>
+                    <span id="moldes-sheet-page-label" class="px-2 text-stone-200 font-bold">Folha 1/1</span>
+                    <button onclick="changeStudioMoldesSheetPage(1)"
+                      class="px-2 py-0.5 rounded hover:bg-white/10 text-stone-300 font-bold cursor-pointer" title="Próxima Folha A4">▶</button>
+                    <button id="btn-moldes-view-all" onclick="toggleStudioMoldesAllSheetsView()"
+                      class="ml-1 px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 text-amber-300 font-sans font-bold cursor-pointer"
+                      title="Alternar entre ver 1 folha A4 ampliada ou todas as folhas A4 lado a lado">
+                      🗂️ Todas
+                    </button>
+                  </div>
                   <button onclick="generateVasePDF()"
-                    class="px-3.5 py-1.5 rounded-lg bg-terracotta-500 hover:bg-terracotta-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-terracotta-500/20 transition cursor-pointer">
+                    class="px-3 py-1 rounded-lg bg-terracotta-500 hover:bg-terracotta-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-terracotta-500/20 transition cursor-pointer">
                     <span>📄</span>
-                    <span>Baixar Moldes em PDF A4 (1:1)</span>
+                    <span>Baixar PDF A4 (1:1)</span>
                   </button>
                 </div>
               </div>
 
-              <div class="flex-1 p-3 overflow-auto flex flex-col items-center justify-center gap-2">
-                <canvas id="studio-moldes-canvas" width="840" height="480"
-                  class="border border-white/10 rounded-xl bg-[#fdfbf7] dark:bg-[#1a1816] shadow-2xl max-w-full max-h-full"></canvas>
-                <span class="text-[11px] font-mono-cad text-stone-400">
-                  Moldes calculados com desconto da espessura da placa de argila e compensação de retração linear.
+              <!-- Barra Interativa de Seleção Visual de Partes da Peça de Placa (2D ↔ 3D) -->
+              <div class="bg-[#1c1917] border-b border-white/10 px-3 py-2 flex flex-col gap-1.5 shrink-0">
+                <div class="flex items-center justify-between gap-2 text-[11px]">
+                  <span class="font-bold text-amber-400 flex items-center gap-1.5">
+                    <span>🎯</span>
+                    <span>Partes do Objeto de Placa (Clique no molde 2D, nos botões abaixo ou na peça 3D para destacar):</span>
+                  </span>
+                  <span id="moldes-active-part-info" class="font-mono-cad text-stone-300 text-[10.5px] truncate">
+                    Nenhuma parte isolada — exibindo peça completa
+                  </span>
+                </div>
+                <div id="moldes-part-selector-chips" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+                  <!-- Preenchido dinamicamente com chips clicáveis de cada parte do molde -->
+                </div>
+              </div>
+
+              <div class="flex-1 p-2.5 overflow-auto flex flex-col items-center justify-center gap-1.5">
+                <canvas id="studio-moldes-canvas" width="860" height="520"
+                  class="border border-white/10 rounded-xl bg-[#fdfbf7] dark:bg-[#1a1816] shadow-2xl max-w-full max-h-full cursor-pointer"></canvas>
+                <span class="text-[11px] font-mono-cad text-stone-400 text-center">
+                  Folhas A4 reais (210 × 297 mm · área útil 182 × 253 mm) com desconto da espessura da placa, retração linear e régua física de 50 mm.
                 </span>
               </div>
             </div>
@@ -2002,8 +2070,10 @@
         </div>
       </div>
 
-      <!-- BARRA DE TELEMETRIA AMAZON CLOUDSCAPE (OCULTA NO MODO ESTÚDIO UNIFICADO) -->
-      <footer id="app-footer" class="hidden">
+      </div><!-- /#studio-views-split-wrapper -->
+
+      <!-- BARRA DE TELEMETRIA AMAZON CLOUDSCAPE (VISÍVEL COM MÉTRICAS EM TEMPO REAL) -->
+      <footer id="app-footer" class="h-11 bg-white/95 dark:bg-[#1a1816]/95 backdrop-blur-md border-t border-stone-200/80 dark:border-white/10 px-4 flex items-center justify-between text-xs font-mono-cad shrink-0 z-20">
         <div class="flex items-center gap-2.5 md:gap-4 overflow-x-auto py-1">
           <div
             class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-stone-100/80 dark:bg-stone-900/60 border border-stone-200/60 dark:border-stone-800">
@@ -2351,6 +2421,45 @@
       activeMeshGroup = new THREE.Group();
       scene.add(activeMeshGroup);
 
+      // Seleção Visual 3D ↔ 2D via Raycaster (Clique direto nas partes da peça no Viewport 3D)
+      const raycaster3D = new THREE.Raycaster();
+      const pointerNDC = new THREE.Vector2();
+      let pointerDownPos = { x: 0, y: 0 };
+
+      renderer.domElement.addEventListener('pointerdown', (e) => {
+        pointerDownPos = { x: e.clientX, y: e.clientY };
+      });
+
+      renderer.domElement.addEventListener('pointerup', (e) => {
+        const dist = Math.hypot(e.clientX - pointerDownPos.x, e.clientY - pointerDownPos.y);
+        if (dist > 6) return; // Ignora se foi arraste de câmera OrbitControls
+        const rect = renderer.domElement.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+        pointerNDC.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+        pointerNDC.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+        raycaster3D.setFromCamera(pointerNDC, camera);
+        const hits = raycaster3D.intersectObjects(activeMeshGroup.children, true);
+        let hitPartId = null;
+        for (const hit of hits) {
+          let obj = hit.object;
+          while (obj && obj !== activeMeshGroup) {
+            if (obj.userData && obj.userData.partId) {
+              hitPartId = obj.userData.partId;
+              break;
+            }
+            obj = obj.parent;
+          }
+          if (hitPartId) break;
+        }
+        if (typeof selectSlabPart2D3D === 'function') {
+          if (hitPartId) {
+            selectSlabPart2D3D(selectedSlabPartId === hitPartId ? null : hitPartId);
+          } else if (selectedSlabPartId !== null) {
+            selectSlabPart2D3D(null);
+          }
+        }
+      });
+
       window.addEventListener('resize', () => {
         if (!container.clientWidth) return;
         camera.aspect = container.clientWidth / container.clientHeight;
@@ -2615,11 +2724,18 @@
     function loadSlabConnectedRecipe(recipeKey) {
       const recipe = SLAB_CONNECTED_RECIPES[recipeKey];
       if (!recipe) return;
+      isSlabPieceModeActive = false;
+      currentHDSlabPreset = 'classic_rings';
+      const hdSel = document.getElementById('hd-slab-model-select');
+      if (hdSel) hdSel.value = 'classic_rings';
       vaseStages = JSON.parse(JSON.stringify(recipe));
       enforceStageContinuity();
       syncSplineAttachmentsFromStages();
       renderVaseStagesUI();
       rebuildVase();
+      if (activeStudioAppMode === '2d' && active2DSubTab === 'moldes') {
+        renderStudioMoldesCanvas();
+      }
     }
 
     // Garante Continuidade Matemática Estrita C0 entre as camadas axiais, preservando anexos (alça, bico, tampa, borda)
@@ -3176,6 +3292,7 @@
     // Alternar entre Modo Silhueta Spline e Modo Estágios de Placas
     function switchVaseMode(mode) {
       vaseDesignMode = mode;
+      isSlabPieceModeActive = false;
       document.getElementById('subpanel-vase-spline')?.classList.toggle('hidden', mode !== 'spline');
       document.getElementById('subpanel-vase-estagios')?.classList.toggle('hidden', mode !== 'estagios');
       document.getElementById('vase-dock-spline')?.classList.toggle('hidden', mode !== 'spline');
@@ -3192,6 +3309,9 @@
         renderVaseStagesUI();
       }
       rebuildVase();
+      if (activeStudioAppMode === '2d' && active2DSubTab === 'moldes') {
+        renderStudioMoldesCanvas();
+      }
     }
 
     // =========================================================================
@@ -8111,9 +8231,16 @@
     let isPotteryWheelSpinning = false;
     let potteryWheelSpinSpeed = 1.0;
     let latheWheelheadGroup = null;
+    let isSlabPieceModeActive = false;
+    let is2DSplit3DEnabled = true;
+    let selectedSlabPartId = null;
+    let a4LargePatternMode = 'subdivide'; // 'subdivide' | 'tiling'
+    let currentStudioMoldesSheetIdx = 0;
+    let studioMoldesViewAllSheets = false;
+    let studioMoldesPackedSheets = [];
+    let studioMoldesOversizedItems = [];
+    let studioMoldesHitBoxes = [];
 
-    // Sincroniza o catálogo de 100 peças com a biblioteca histórica para compatibilidade
-    
     // Sincroniza as peças utilitárias de placas no catálogo de 100 peças
     Object.keys(SLAB_PIECES_DEFINITIONS).forEach(k => {
       const def = SLAB_PIECES_DEFINITIONS[k];
@@ -8131,18 +8258,120 @@
       }
     });
 
+    // Enriquecimento Geométrico: Garante que todas as 100 peças do catálogo tenham perfis autênticos e apêndices 3D reais
     STUDIO_100_CATALOG.forEach(p => {
-      if (!CLASSIC_CERAMIC_PROFILES[p.key]) {
-        CLASSIC_CERAMIC_PROFILES[p.key] = {
-          name: p.title,
-          desc: p.desc,
-          totalH: p.totalH,
-          maxR: p.maxR,
-          nodes: p.nodes,
-          attachments: p.attachments || []
-        };
+      const existingClassic = CLASSIC_CERAMIC_PROFILES[p.key];
+      if (existingClassic && existingClassic.nodes && existingClassic.nodes.length >= 4) {
+        p.nodes = JSON.parse(JSON.stringify(existingClassic.nodes));
+        if (existingClassic.attachments && existingClassic.attachments.length > 0) {
+          p.attachments = JSON.parse(JSON.stringify(existingClassic.attachments));
+        }
+        if (existingClassic.totalH) p.totalH = existingClassic.totalH;
+        if (existingClassic.maxR) p.maxR = existingClassic.maxR;
+      } else if (!p.isSlabModel && (!p.attachments || p.attachments.length === 0) && p.id > 10) {
+        const txt = `${p.key} ${p.title} ${p.desc}`.toLowerCase();
+        const R = p.maxR || 45;
+        const H = p.totalH || 110;
+        const scaleNodes = (normNodes) => normNodes.map(pt => ({ yNorm: pt.yNorm, r: Math.max(8, Math.round(pt.rFrac * R)) }));
+
+        if (/chaleira|bule|kyusu|infusor/.test(txt)) {
+          p.nodes = scaleNodes([
+            { yNorm: 0.0, rFrac: 0.62 }, { yNorm: 0.12, rFrac: 0.58 }, { yNorm: 0.42, rFrac: 1.0 },
+            { yNorm: 0.72, rFrac: 0.88 }, { yNorm: 0.90, rFrac: 0.56 }, { yNorm: 1.0, rFrac: 0.54 }
+          ]);
+          p.attachments = [
+            { tipo: 'borda', pos: 'base', rAnel: Math.round(R * 0.58), altura: 8, espAnel: 6 },
+            { tipo: 'alca', qtd: 1, yBaseFrac: 0.24, yTopoFrac: 0.82, projecao: Math.round(R * 0.55), largTira: 15, espTira: 6.5 },
+            { tipo: 'bico', yBaseFrac: 0.34, yTopoFrac: 0.88, projecao: Math.round(R * 0.62), rBaseBico: 14, rPontaBico: 7 },
+            { tipo: 'tampa', rTampa: Math.round(R * 0.55), alturaDomo: 18, rPuxador: 11 }
+          ];
+        } else if (/xicara|xícara|caneca|mug|copo.*alça/.test(txt)) {
+          p.nodes = scaleNodes([
+            { yNorm: 0.0, rFrac: 0.68 }, { yNorm: 0.10, rFrac: 0.64 }, { yNorm: 0.35, rFrac: 0.92 },
+            { yNorm: 0.75, rFrac: 0.98 }, { yNorm: 1.0, rFrac: 1.0 }
+          ]);
+          p.attachments = [
+            { tipo: 'borda', pos: 'base', rAnel: Math.round(R * 0.64), altura: 7, espAnel: 5.5 },
+            { tipo: 'alca', qtd: 1, yBaseFrac: 0.20, yTopoFrac: 0.84, projecao: Math.round(R * 0.68), largTira: 14, espTira: 6.0 }
+          ];
+        } else if (/cuia|chimarr|terer/.test(txt)) {
+          p.nodes = scaleNodes([
+            { yNorm: 0.0, rFrac: 0.58 }, { yNorm: 0.18, rFrac: 0.42 }, { yNorm: 0.55, rFrac: 0.94 },
+            { yNorm: 0.80, rFrac: 0.78 }, { yNorm: 1.0, rFrac: 1.0 }
+          ]);
+          p.attachments = [
+            { tipo: 'borda', pos: 'base', rAnel: Math.round(R * 0.46), altura: 10, espAnel: 6.5 },
+            { tipo: 'borda', pos: 'topo', rAnel: R, altura: 8, espAnel: 6.0 }
+          ];
+        } else if (/panela|caçarola|cacarola|sopeira|caldeir|moquequeira|feijoada|tajine|cocotte/.test(txt)) {
+          p.nodes = scaleNodes([
+            { yNorm: 0.0, rFrac: 0.76 }, { yNorm: 0.20, rFrac: 0.94 }, { yNorm: 0.58, rFrac: 1.0 },
+            { yNorm: 0.86, rFrac: 0.88 }, { yNorm: 1.0, rFrac: 0.90 }
+          ]);
+          p.attachments = [
+            { tipo: 'borda', pos: 'topo', rAnel: Math.round(R * 0.90), altura: 9, espAnel: 7.0 },
+            { tipo: 'alca', qtd: 2, yBaseFrac: 0.52, yTopoFrac: 0.86, projecao: 24, largTira: 18, espTira: 7.0 },
+            { tipo: 'tampa', rTampa: Math.round(R * 0.91), alturaDomo: Math.max(16, Math.round(H * 0.22)), rPuxador: 14 }
+          ];
+        } else if (/jarra|leiteira|garrafa.*alça|jarro/.test(txt)) {
+          p.nodes = scaleNodes([
+            { yNorm: 0.0, rFrac: 0.64 }, { yNorm: 0.35, rFrac: 1.0 }, { yNorm: 0.68, rFrac: 0.72 },
+            { yNorm: 0.86, rFrac: 0.64 }, { yNorm: 1.0, rFrac: 0.78 }
+          ]);
+          p.attachments = [
+            { tipo: 'alca', qtd: 1, yBaseFrac: 0.28, yTopoFrac: 0.88, projecao: 32, largTira: 15, espTira: 6.5 },
+            { tipo: 'bico', yBaseFrac: 0.72, yTopoFrac: 0.98, projecao: 22, rBaseBico: 14, rPontaBico: 8 }
+          ];
+        } else if (/pote|açucareiro|farinh|biscoit|mantiment|porta-/.test(txt) && /tampa|hermét/.test(txt)) {
+          p.nodes = scaleNodes([
+            { yNorm: 0.0, rFrac: 0.82 }, { yNorm: 0.25, rFrac: 1.0 }, { yNorm: 0.78, rFrac: 0.98 },
+            { yNorm: 0.92, rFrac: 0.84 }, { yNorm: 1.0, rFrac: 0.84 }
+          ]);
+          p.attachments = [
+            { tipo: 'tampa', rTampa: Math.round(R * 0.85), alturaDomo: 16, rPuxador: 12 }
+          ];
+        } else if (/tigela|bowl|chawan|saladeira|cumbuca|ramen|sopa|prato|travessa|fruteira/.test(txt)) {
+          p.nodes = scaleNodes([
+            { yNorm: 0.0, rFrac: 0.44 }, { yNorm: 0.14, rFrac: 0.42 }, { yNorm: 0.38, rFrac: 0.76 },
+            { yNorm: 0.72, rFrac: 0.94 }, { yNorm: 1.0, rFrac: 1.0 }
+          ]);
+          p.attachments = [
+            { tipo: 'borda', pos: 'base', rAnel: Math.round(R * 0.44), altura: 9, espAnel: 6.0 }
+          ];
+        } else if (/ânfora|anfora|cratera|hidria/.test(txt)) {
+          p.nodes = scaleNodes([
+            { yNorm: 0.0, rFrac: 0.44 }, { yNorm: 0.14, rFrac: 0.36 }, { yNorm: 0.46, rFrac: 1.0 },
+            { yNorm: 0.72, rFrac: 0.84 }, { yNorm: 0.84, rFrac: 0.42 }, { yNorm: 0.94, rFrac: 0.44 }, { yNorm: 1.0, rFrac: 0.58 }
+          ]);
+          p.attachments = [
+            { tipo: 'alca', qtd: 2, yBaseFrac: 0.52, yTopoFrac: 0.92, projecao: 26, largTira: 14, espTira: 6.5 }
+          ];
+        } else if (/moringa|bilha|garrafa|decantador|cantil|sakê|sake/.test(txt)) {
+          p.nodes = scaleNodes([
+            { yNorm: 0.0, rFrac: 0.52 }, { yNorm: 0.12, rFrac: 0.48 }, { yNorm: 0.44, rFrac: 1.0 },
+            { yNorm: 0.68, rFrac: 0.78 }, { yNorm: 0.80, rFrac: 0.34 }, { yNorm: 0.94, rFrac: 0.32 }, { yNorm: 1.0, rFrac: 0.40 }
+          ]);
+        }
       }
+
+      CLASSIC_CERAMIC_PROFILES[p.key] = {
+        name: p.title,
+        desc: p.desc,
+        totalH: p.totalH,
+        maxR: p.maxR,
+        nodes: p.nodes,
+        attachments: p.attachments || []
+      };
     });
+
+    function resizeUnified3DViewport() {
+      const container = document.getElementById('main-viewport-container');
+      if (container && renderer && camera && container.clientWidth > 0 && container.clientHeight > 0) {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+      }
+    }
 
     function setStudioAppMode(mode) {
       activeStudioAppMode = mode;
@@ -8152,39 +8381,73 @@
       const b2d = document.getElementById('mode-btn-2d');
 
       if (mode === '3d') {
-        if (v3d) v3d.classList.remove('hidden');
+        if (v3d) {
+          v3d.classList.remove('hidden');
+          v3d.className = 'order-2 flex-1 flex flex-col relative overflow-hidden w-full h-full';
+        }
         if (v2d) v2d.classList.add('hidden');
         if (b3d) {
-          b3d.className = 'px-3.5 sm:px-4 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2 transition bg-terracotta-500 text-white shadow-xs';
+          b3d.className = 'px-3.5 sm:px-4 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2 transition bg-terracotta-500 text-white shadow-xs cursor-pointer';
         }
         if (b2d) {
-          b2d.className = 'px-3.5 sm:px-4 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2 transition text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white';
+          b2d.className = 'px-3.5 sm:px-4 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2 transition text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white cursor-pointer';
         }
-        setTimeout(() => {
-          const container = document.getElementById('main-viewport-container');
-          if (container && renderer && camera) {
-            camera.aspect = container.clientWidth / container.clientHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(container.clientWidth, container.clientHeight);
-          }
-        }, 50);
+        requestAnimationFrame(resizeUnified3DViewport);
+        setTimeout(resizeUnified3DViewport, 60);
       } else {
-        if (v3d) v3d.classList.add('hidden');
         if (v2d) v2d.classList.remove('hidden');
+        if (v3d) {
+          if (is2DSplit3DEnabled) {
+            v3d.classList.remove('hidden');
+            v3d.className = 'order-2 w-[42%] xl:w-[45%] shrink-0 flex flex-col relative overflow-hidden h-full border-l border-white/10';
+          } else {
+            v3d.classList.add('hidden');
+          }
+        }
         if (b2d) {
-          b2d.className = 'px-3.5 sm:px-4 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2 transition bg-terracotta-500 text-white shadow-xs';
+          b2d.className = 'px-3.5 sm:px-4 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2 transition bg-terracotta-500 text-white shadow-xs cursor-pointer';
         }
         if (b3d) {
-          b3d.className = 'px-3.5 sm:px-4 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2 transition text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white';
+          b3d.className = 'px-3.5 sm:px-4 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2 transition text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white cursor-pointer';
         }
         renderCatalogPieceList();
         const curPiece = STUDIO_100_CATALOG.find(p => p.id === currentCatalogPieceId);
-        if (curPiece && (curPiece.isSlabModel || SLAB_PIECES_DEFINITIONS[curPiece.key])) {
+        if (isSlabPieceModeActive || (curPiece && (curPiece.isSlabModel || SLAB_PIECES_DEFINITIONS[curPiece.key])) || active2DSubTab === 'moldes') {
           setStudio2DSubTab('moldes');
         } else {
           drawCartesianCADProfile();
+          renderStudioMoldesCanvas();
+        }
+        requestAnimationFrame(resizeUnified3DViewport);
+        setTimeout(resizeUnified3DViewport, 60);
+      }
+    }
+
+    function toggle2DSplit3D(forceState) {
+      is2DSplit3DEnabled = typeof forceState === 'boolean' ? forceState : !is2DSplit3DEnabled;
+      const btn = document.getElementById('btn-toggle-2d-split-3d');
+      const lbl = document.getElementById('lbl-toggle-2d-split-3d');
+      if (btn && lbl) {
+        if (is2DSplit3DEnabled) {
+          btn.className = 'px-2.5 py-1 rounded-lg text-xs font-bold transition bg-emerald-600/25 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-600/35 flex items-center gap-1.5 cursor-pointer';
+          lbl.textContent = 'Visão 3D Lateral: ATIVA';
+        } else {
+          btn.className = 'px-2.5 py-1 rounded-lg text-xs font-bold transition bg-white/10 text-stone-400 border border-white/10 hover:text-white flex items-center gap-1.5 cursor-pointer';
+          lbl.textContent = 'Visão 3D Lateral: OCULTA';
         }
       }
+      if (activeStudioAppMode === '2d') {
+        setStudioAppMode('2d');
+      }
+    }
+
+    function toggleCatalogDrawer2D(forceState) {
+      const drawer = document.getElementById('catalog-drawer-2d');
+      if (!drawer) return;
+      const isHidden = drawer.classList.contains('hidden');
+      const show = typeof forceState === 'boolean' ? forceState : isHidden;
+      drawer.classList.toggle('hidden', !show);
+      requestAnimationFrame(resizeUnified3DViewport);
     }
 
     function setStudio2DSubTab(tab) {
@@ -8330,12 +8593,26 @@
 
       activeTool = 'vasos';
       vaseDesignMode = 'spline';
+      isSlabPieceModeActive = Boolean(piece.isSlabModel || SLAB_PIECES_DEFINITIONS[piece.key]);
+      selectedSlabPartId = null;
+      hdHoveredPartId = null;
+      currentStudioMoldesSheetIdx = 0;
+
+      if (SLAB_CONNECTED_RECIPES[piece.key]) {
+        vaseStages = JSON.parse(JSON.stringify(SLAB_CONNECTED_RECIPES[piece.key]));
+      } else {
+        vaseStages = synthesizeStagesFromSpline(vaseSplineNodes, piece.totalH || 150, currentSplineAttachments);
+      }
+      enforceStageContinuity();
+      renderVaseStagesUI();
 
       setQuickClayShape(defaultShape, false);
       setQuickClayTexture(defaultTex, false);
 
       rebuildVase();
+      drawSplineCanvas();
       drawCartesianCADProfile();
+      renderStudioMoldesCanvas();
       renderCatalogPieceList();
     }
 
@@ -8553,15 +8830,12 @@
     function toggleTechnicalParamsDrawer(forceState) {
       const drawer = document.getElementById('left-control-panel');
       if (!drawer) return;
-      const isOpen = !drawer.classList.contains('-translate-x-full');
+      const isOpen = !drawer.classList.contains('hidden') && !drawer.classList.contains('-translate-x-full');
       const nextState = forceState !== undefined ? forceState : !isOpen;
-      if (nextState) {
-        drawer.classList.remove('-translate-x-full');
-        drawer.classList.add('translate-x-0');
-      } else {
-        drawer.classList.add('-translate-x-full');
-        drawer.classList.remove('translate-x-0');
-      }
+      drawer.classList.remove('-translate-x-full', 'translate-x-0');
+      drawer.classList.toggle('hidden', !nextState);
+      requestAnimationFrame(resizeUnified3DViewport);
+      setTimeout(resizeUnified3DViewport, 60);
     }
 
     function openDimensionsModal() {
@@ -8862,6 +9136,101 @@
       });
     }
 
+    function changeStudioMoldesSheetPage(delta) {
+      if (!studioMoldesPackedSheets || studioMoldesPackedSheets.length === 0) return;
+      studioMoldesViewAllSheets = false;
+      currentStudioMoldesSheetIdx = (currentStudioMoldesSheetIdx + delta + studioMoldesPackedSheets.length) % studioMoldesPackedSheets.length;
+      renderStudioMoldesCanvas();
+    }
+
+    function toggleStudioMoldesAllSheetsView() {
+      studioMoldesViewAllSheets = !studioMoldesViewAllSheets;
+      const btn = document.getElementById('btn-moldes-view-all');
+      if (btn) {
+        btn.className = studioMoldesViewAllSheets
+          ? 'px-2 py-0.5 rounded bg-terracotta-500 text-white text-[10px] font-bold transition cursor-pointer'
+          : 'px-2 py-0.5 rounded bg-stone-200 dark:bg-stone-800 hover:bg-stone-300 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 text-[10px] font-bold transition cursor-pointer';
+      }
+      renderStudioMoldesCanvas();
+    }
+
+    function setA4LargePatternMode(mode) {
+      a4LargePatternMode = mode === 'tiling' ? 'tiling' : 'subdivide';
+      currentStudioMoldesSheetIdx = 0;
+      renderStudioMoldesCanvas();
+      draw2DPatternPreview();
+    }
+
+    function selectSlabPart2D3D(partId) {
+      selectedSlabPartId = partId || null;
+      hdHoveredPartId = selectedSlabPartId;
+
+      apply3DPartHighlight(selectedSlabPartId);
+      renderStudioMoldesCanvas();
+      draw2DPatternPreview();
+      if (typeof renderHDInteractivePattern2D === 'function') {
+        renderHDInteractivePattern2D();
+      }
+    }
+
+    function apply3DPartHighlight(partId) {
+      if (!activeMeshGroup) return;
+
+      let matchedLabel = null;
+
+      if (!isSlabPieceModeActive && vaseDesignMode === 'estagios' && typeof currentHDSlabPreset !== 'undefined' && currentHDSlabPreset !== 'classic_rings' && HD_SLAB_COLLECTION[currentHDSlabPreset]) {
+        // O Motor HD já reconstrói com highlightMat usando hdHoveredPartId
+        rebuildHDSlabEngine();
+      } else {
+        const baseMat = (typeof CinnabarMaterialSystem !== 'undefined' && CinnabarMaterialSystem.getMaterial)
+          ? CinnabarMaterialSystem.getMaterial(currentCeramicFinish, isWireframe)
+          : new THREE.MeshStandardMaterial({ color: 0xD05840, roughness: 0.45, wireframe: isWireframe, side: THREE.DoubleSide });
+
+        const highlightMat = new THREE.MeshStandardMaterial({
+          color: 0xFFB020,
+          emissive: 0x662800,
+          roughness: 0.25,
+          metalness: 0.12,
+          wireframe: isWireframe,
+          side: THREE.DoubleSide
+        });
+
+        activeMeshGroup.traverse(obj => {
+          if (obj.isMesh) {
+            let pId = obj.userData?.partId || obj.parent?.userData?.partId || null;
+            let pLbl = obj.userData?.partLabel || obj.parent?.userData?.partLabel || null;
+            if (!obj.userData._origMat && obj.material !== highlightMat) {
+              obj.userData._origMat = obj.material;
+            }
+            if (partId && pId === partId) {
+              obj.material = highlightMat;
+              if (pLbl && !matchedLabel) matchedLabel = pLbl;
+            } else if (obj.userData._origMat) {
+              obj.material = (obj.userData._isPrimaryClay) ? baseMat : obj.userData._origMat;
+            }
+          }
+        });
+      }
+
+      const pillEl = document.getElementById('viewport-selected-part-pill');
+      const nameEl = document.getElementById('viewport-selected-part-text') || document.getElementById('viewport-selected-part-name');
+      if (pillEl && nameEl) {
+        if (partId) {
+          if (!matchedLabel) {
+            const allItems = getActivePatternItemsForA4();
+            const foundItem = allItems.find(it => (it.partId || it.id) === partId);
+            matchedLabel = foundItem ? foundItem.label : partId;
+          }
+          nameEl.textContent = matchedLabel;
+          pillEl.classList.remove('hidden');
+          pillEl.classList.add('flex');
+        } else {
+          pillEl.classList.add('hidden');
+          pillEl.classList.remove('flex');
+        }
+      }
+    }
+
     function renderStudioMoldesCanvas() {
       const c = document.getElementById('studio-moldes-canvas');
       if (!c) return;
@@ -8869,208 +9238,329 @@
       ctx.clearRect(0, 0, c.width, c.height);
 
       const isDark = document.documentElement.classList.contains('dark');
-      ctx.fillStyle = isDark ? '#1a1816' : '#fdfbf7';
+      ctx.fillStyle = isDark ? '#1a1816' : '#f5f2eb';
       ctx.fillRect(0, 0, c.width, c.height);
 
-      const curPiece = STUDIO_100_CATALOG.find(p => p.id === currentCatalogPieceId);
-      const slabDef = curPiece ? (SLAB_PIECES_DEFINITIONS[curPiece.key] || (curPiece.isSlabModel && SLAB_PIECES_DEFINITIONS[curPiece.key])) : null;
+      const retracao = parseFloat(document.getElementById('v-retracao')?.value || document.getElementById('v-spline-retracao')?.value) || 1.12;
+      const items = getActivePatternItemsForA4();
+      const { sheets, oversized } = packPatternsToA4Sheets(items, 182, 253, 16);
 
-      if (slabDef && slabDef.patterns && slabDef.patterns.length > 0) {
-        // RENDERIZAÇÃO ESPECIALIZADA DE PLACAS CERÂMICAS (SLAB BUILDING)
-        let curX = 40;
-        const retracao = parseFloat(document.getElementById('v-retracao')?.value) || 1.12;
+      studioMoldesPackedSheets = sheets;
+      studioMoldesOversizedItems = oversized;
+      studioMoldesHitBoxes = [];
 
-        slabDef.patterns.forEach((pat, idx) => {
-          ctx.save();
-
-          if (pat.outline === 'circle') {
-            const rad = (pat.radius || 40) * retracao;
-            const diam = rad * 2;
-            const scale = Math.min(1.2, 180 / diam);
-
-            ctx.translate(curX + rad * scale, 240);
-
-            // Círculo de corte externo (linha contínua)
-            ctx.beginPath();
-            ctx.arc(0, 0, rad * scale, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(200, 100, 70, 0.12)';
-            ctx.fill();
-            ctx.strokeStyle = '#292524';
-            ctx.lineWidth = 2.0;
-            ctx.stroke();
-
-            // Rótulo e Cotas
-            ctx.fillStyle = isDark ? '#f5f5f4' : '#1c1917';
-            ctx.font = 'bold 12px sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText(pat.label, 0, -rad * scale - 12);
-
-            ctx.font = '11px monospace';
-            ctx.fillStyle = '#c86446';
-            ctx.fillText(`Corte: Ø${Math.round(diam)} mm • Queima: Ø${Math.round(diam / retracao)} mm`, 0, rad * scale + 18);
-            if (pat.dimensions && pat.dimensions.thickness) {
-              ctx.fillStyle = '#78716c';
-              ctx.fillText(`Espessura da Placa: ${pat.dimensions.thickness} mm`, 0, rad * scale + 32);
-            }
-
-            curX += diam * scale + 70;
-            ctx.restore();
-            return;
-          }
-
-          // Polígono / Peça com Contorno e Vincos
-          const pts = pat.outline;
-          let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
-          pts.forEach(p => {
-            const px = p.x * retracao;
-            const py = p.y * retracao;
-            if (px < minX) minX = px; if (px > maxX) maxX = px;
-            if (py < minY) minY = py; if (py > maxY) maxY = py;
-          });
-
-          const pw = Math.max(10, maxX - minX);
-          const ph = Math.max(10, maxY - minY);
-          const scale = Math.min(1.2, 220 / Math.max(pw, ph));
-
-          ctx.translate(curX - minX * scale, 240 - (minY + ph / 2) * scale);
-
-          // 1. Contorno de Corte Externo (Linha Contínua Sólida Preta #292524)
-          ctx.beginPath();
-          pts.forEach((p, i) => {
-            const x = p.x * retracao * scale;
-            const y = p.y * retracao * scale;
-            if (i === 0) ctx.moveTo(x, y);
-            else ctx.lineTo(x, y);
-          });
-          ctx.closePath();
-          ctx.fillStyle = 'rgba(200, 100, 70, 0.12)';
-          ctx.fill();
-          ctx.strokeStyle = isDark ? '#e7e5e4' : '#292524';
-          ctx.lineWidth = 2.2;
-          ctx.setLineDash([]);
-          ctx.stroke();
-
-          // 2. Linhas de Vinco / Dobra (Tracejado Vermelho para Montanha, Azul para Vale)
-          if (pat.creases && pat.creases.length > 0) {
-            pat.creases.forEach(cr => {
-              ctx.beginPath();
-              ctx.moveTo(cr.p1.x * retracao * scale, cr.p1.y * retracao * scale);
-              ctx.lineTo(cr.p2.x * retracao * scale, cr.p2.y * retracao * scale);
-
-              if (cr.type === 'mountain') {
-                ctx.strokeStyle = '#dc2626'; // Vermelho Montanha
-                ctx.setLineDash([6, 4]);
-              } else {
-                ctx.strokeStyle = '#0284c7'; // Azul Vale
-                ctx.setLineDash([8, 3, 2, 3]);
-              }
-              ctx.lineWidth = 1.6;
-              ctx.stroke();
-
-              // Ângulo de dobra ao lado do vinco
-              if (cr.angleDeg) {
-                const midX = (cr.p1.x + cr.p2.x) * 0.5 * retracao * scale;
-                const midY = (cr.p1.y + cr.p2.y) * 0.5 * retracao * scale;
-                ctx.font = 'bold 9px sans-serif';
-                ctx.fillStyle = cr.type === 'mountain' ? '#dc2626' : '#0284c7';
-                ctx.fillText(`Dobra: ${cr.angleDeg}°`, midX + 3, midY - 3);
-              }
-            });
-            ctx.setLineDash([]);
-          }
-
-          // 3. Furos e Drenos de Escoamento
-          if (pat.drains && pat.drains.length > 0) {
-            pat.drains.forEach(dr => {
-              ctx.beginPath();
-              ctx.arc(dr.cx * retracao * scale, dr.cy * retracao * scale, dr.r * retracao * scale, 0, Math.PI * 2);
-              ctx.fillStyle = isDark ? '#1a1816' : '#fdfbf7';
-              ctx.fill();
-              ctx.strokeStyle = '#0284c7';
-              ctx.lineWidth = 1.4;
-              ctx.stroke();
-            });
-          }
-
-          // 4. Rótulo e Cotas Técnicas
-          ctx.fillStyle = isDark ? '#f5f5f4' : '#1c1917';
-          ctx.font = 'bold 12px sans-serif';
-          ctx.fillText(pat.label, 0, -ph * scale / 2 - 12);
-
-          ctx.font = '11px monospace';
-          ctx.fillStyle = '#c86446';
-          ctx.fillText(`Molde Cru: ${Math.round(pw)} × ${Math.round(ph)} mm (Retração: ${retracao}x)`, 0, ph * scale / 2 + 18);
-
-          if (pat.dimensions && pat.dimensions.label) {
-            ctx.fillStyle = '#78716c';
-            ctx.fillText(pat.dimensions.label, 0, ph * scale / 2 + 32);
-          }
-
-          ctx.restore();
-          curX += pw * scale + 80;
-        });
-
-        // Legenda técnica de convenções de dobra no rodapé do canvas
-        ctx.save();
-        ctx.font = '10.5px sans-serif';
-        ctx.fillStyle = isDark ? '#a8a29e' : '#57534e';
-        ctx.fillText('━━ Linha de Corte Contínuo   - - - Linha de Vinco Montanha (Dobra para cima)   -·-· Linha de Vinco Vale (Dobra para baixo)', 40, c.height - 18);
-        ctx.restore();
-
-        return;
+      const totalSheets = Math.max(1, sheets.length + oversized.length);
+      if (currentStudioMoldesSheetIdx >= sheets.length) {
+        currentStudioMoldesSheetIdx = Math.max(0, sheets.length - 1);
       }
 
-      // FALLBACK: RINGS TRADICIONAIS DE TORNO
-      const rings = computeFrustumRings();
-      if (!rings || rings.length === 0) return;
+      // Atualiza barra de paginação A4 e badge de status
+      const pageLbl = document.getElementById('moldes-sheet-page-label');
+      if (pageLbl) {
+        pageLbl.textContent = studioMoldesViewAllSheets
+          ? `Todas (${totalSheets} A4)`
+          : `Folha ${Math.min(currentStudioMoldesSheetIdx + 1, totalSheets)}/${totalSheets}`;
+      }
+      const badgeEl = document.getElementById('cad-moldes-summary') || document.getElementById('moldes-a4-summary-badge');
+      if (badgeEl) {
+        badgeEl.textContent = `${items.length} molde(s) em ${totalSheets} Folha(s) A4 (1:1 • Retração ${retracao}x)`;
+      }
 
-      const items = prepareAllVasePatternItems(rings);
+      const activePartInfoEl = document.getElementById('moldes-active-part-info');
+      if (activePartInfoEl) {
+        if (selectedSlabPartId) {
+          const foundPart = items.find(it => (it.partId || it.id) === selectedSlabPartId);
+          activePartInfoEl.textContent = foundPart
+            ? `🔍 Destacando: ${foundPart.label}${foundPart.seamLeft ? ` (${foundPart.seamLeft}↔${foundPart.seamRight})` : ''}`
+            : `🔍 Parte selecionada: ${selectedSlabPartId}`;
+          activePartInfoEl.className = 'font-mono-cad text-amber-300 font-bold text-[10.5px] truncate';
+        } else {
+          activePartInfoEl.textContent = 'Nenhuma parte isolada — exibindo peça completa';
+          activePartInfoEl.className = 'font-mono-cad text-stone-300 text-[10.5px] truncate';
+        }
+      }
 
-      let curX = 35;
-      items.forEach((it, idx) => {
-        const pts = it.rawPoints;
-        if (!pts || pts.length === 0) return;
-
-        let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
-        pts.forEach(p => {
-          if (p.x < minX) minX = p.x;
-          if (p.x > maxX) maxX = p.x;
-          if (p.y < minY) minY = p.y;
-          if (p.y > maxY) maxY = p.y;
+      // Atualiza chips clicáveis de seleção de partes 2D ↔ 3D
+      const chipsContainer = document.getElementById('moldes-part-selector-chips');
+      if (chipsContainer) {
+        const uniqueParts = [];
+        const seenPartIds = new Set();
+        items.forEach(it => {
+          const pid = it.partId || it.id;
+          if (!seenPartIds.has(pid)) {
+            seenPartIds.add(pid);
+            uniqueParts.push({ partId: pid, label: it.label, seam: it.seamLeft ? `${it.seamLeft}↔${it.seamRight}` : null });
+          }
         });
+        chipsContainer.innerHTML = uniqueParts.map((up, idx) => {
+          const isSel = selectedSlabPartId === up.partId;
+          const shortLbl = up.label.length > 28 ? up.label.slice(0, 27) + '…' : up.label;
+          return `<button onclick="selectSlabPart2D3D('${selectedSlabPartId === up.partId ? '' : up.partId}')" class="whitespace-nowrap shrink-0 px-2.5 py-0.5 rounded-lg text-[10px] font-semibold border transition cursor-pointer ${isSel ? 'bg-amber-500 text-stone-950 border-amber-400 shadow-xs font-bold' : 'bg-white dark:bg-stone-800 text-stone-700 dark:text-stone-300 border-stone-300 dark:border-stone-700 hover:border-terracotta-500'}">${idx + 1}. ${shortLbl}</button>`;
+        }).join('');
+      }
 
-        const pw = Math.max(10, maxX - minX);
-        const ph = Math.max(10, maxY - minY);
-        const scale = Math.min(1.2, 180 / Math.max(pw, ph));
+      // Renderiza Folhas A4 Reais (210 × 297 mm) no Canvas (1 folha ampliada ou grade 2×2 em "Todas")
+      const sheetsToDraw = studioMoldesViewAllSheets
+        ? sheets.slice(0, 4)
+        : (sheets[currentStudioMoldesSheetIdx] ? [sheets[currentStudioMoldesSheetIdx]] : []);
 
+      const numCards = Math.max(1, sheetsToDraw.length);
+      const cols = numCards > 2 ? 2 : numCards;
+      const rows = Math.ceil(numCards / cols);
+      const padOuterX = 24;
+      const padOuterY = 18;
+      const gapCardsX = 18;
+      const gapCardsY = 14;
+      const availW = (c.width - padOuterX * 2 - (cols - 1) * gapCardsX) / cols;
+      const availH = (c.height - padOuterY * 2 - 22 - (rows - 1) * gapCardsY) / rows;
+
+      // Desenha cada folha A4 em orientação paisagem técnica (297 × 210 mm) para máximo aproveitamento horizontal da tela
+      const sheetMmW = 297;
+      const sheetMmH = 210;
+      const scale = Math.min(availW / sheetMmW, availH / sheetMmH);
+      const cardW = sheetMmW * scale;
+      const cardH = sheetMmH * scale;
+      const totalGridW = cols * cardW + (cols - 1) * gapCardsX;
+      const totalGridH = rows * cardH + (rows - 1) * gapCardsY;
+      const startX = (c.width - totalGridW) / 2;
+      const startY = padOuterY + Math.max(0, (c.height - padOuterY * 2 - 22 - totalGridH) / 2);
+
+      sheetsToDraw.forEach((sheet, idx) => {
+        const realSheetIdx = studioMoldesViewAllSheets ? idx : currentStudioMoldesSheetIdx;
+        const colIdx = idx % cols;
+        const rowIdx = Math.floor(idx / cols);
+        const sx = startX + colIdx * (cardW + gapCardsX);
+        const sy = startY + rowIdx * (cardH + gapCardsY);
+
+        // Papel A4 branco/creme com sombra
         ctx.save();
-        ctx.translate(curX - minX * scale, 240 - (minY + ph / 2) * scale);
-        ctx.strokeStyle = '#c86446';
-        ctx.lineWidth = 1.8;
-        ctx.fillStyle = 'rgba(200, 100, 70, 0.15)';
-        ctx.beginPath();
-        pts.forEach((p, i) => {
-          if (i === 0) ctx.moveTo(p.x * scale, p.y * scale);
-          else ctx.lineTo(p.x * scale, p.y * scale);
-        });
-        ctx.closePath();
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.fillStyle = isDark ? '#d6d3d1' : '#292524';
-        ctx.font = 'bold 11px sans-serif';
-        ctx.fillText(it.label, 0, -ph * scale / 2 - 8);
-
-        ctx.font = '10px monospace';
-        ctx.fillStyle = '#78716c';
-        ctx.fillText(`${Math.round(pw)} × ${Math.round(ph)} mm`, 0, ph * scale / 2 + 15);
+        ctx.shadowColor = 'rgba(0,0,0,0.22)';
+        ctx.shadowBlur = 12;
+        ctx.shadowOffsetY = 3;
+        ctx.fillStyle = isDark ? '#23201d' : '#ffffff';
+        ctx.fillRect(sx, sy, cardW, cardH);
         ctx.restore();
 
-        curX += pw * scale + 60;
+        ctx.strokeStyle = isDark ? '#44403c' : '#d6d3d1';
+        ctx.lineWidth = 1.2;
+        ctx.strokeRect(sx, sy, cardW, cardH);
+
+        // Margem útil A4 (253 × 182 mm em paisagem)
+        const marginMmX = (297 - 253) / 2; // 22mm
+        const marginMmY = (210 - 182) / 2; // 14mm
+        const ux = sx + marginMmX * scale;
+        const uy = sy + marginMmY * scale;
+        const uw = 253 * scale;
+        const uh = 182 * scale;
+
+        ctx.save();
+        ctx.setLineDash([4, 3]);
+        ctx.strokeStyle = 'rgba(200, 100, 70, 0.35)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(ux, uy, uw, uh);
+        ctx.restore();
+
+        // Cabeçalho da Folha A4
+        ctx.fillStyle = isDark ? '#d6d3d1' : '#292524';
+        ctx.font = 'bold 10px "JetBrains Mono", monospace';
+        ctx.textAlign = 'left';
+        ctx.fillText(`FOLHA A4 #${realSheetIdx + 1}/${totalSheets} (210×297 mm • Escala 1:1 • Retração ${retracao}x)`, sx + 10, sy + 13);
+
+        // Régua de calibração física 50 mm no rodapé da folha A4
+        const rulerX = sx + 14;
+        const rulerY = sy + cardH - 8;
+        const rulerLenPx = 50 * scale;
+        ctx.strokeStyle = '#c86446';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(rulerX, rulerY);
+        ctx.lineTo(rulerX + rulerLenPx, rulerY);
+        for (let rMm = 0; rMm <= 50; rMm += 10) {
+          const rx = rulerX + rMm * scale;
+          ctx.moveTo(rx, rulerY - 3);
+          ctx.lineTo(rx, rulerY + 3);
+        }
+        ctx.stroke();
+        ctx.fillStyle = '#c86446';
+        ctx.font = 'bold 8.5px monospace';
+        ctx.fillText('Régua 50 mm (1:1)', rulerX + rulerLenPx + 6, rulerY + 3);
+
+        // Renderiza cada molde posicionado na folha (mapeando p.y -> eixo horizontal 253mm, p.x -> eixo vertical 182mm)
+        sheet.placed.forEach((p, pIdx) => {
+          const ox = ux + p.y * scale;
+          const oy = uy + p.x * scale;
+          const partId = p.item.partId || p.item.id;
+          const isSelected = selectedSlabPartId && partId === selectedSlabPartId;
+
+          ctx.save();
+          ctx.beginPath();
+          p.points.forEach((pt, i) => {
+            const px = ox + pt.y * scale;
+            const py = oy + pt.x * scale;
+            if (i === 0) ctx.moveTo(px, py);
+            else ctx.lineTo(px, py);
+          });
+          ctx.closePath();
+
+          if (isSelected) {
+            ctx.fillStyle = 'rgba(245, 158, 11, 0.36)';
+            ctx.strokeStyle = '#d97706';
+            ctx.lineWidth = 2.6;
+          } else if (p.item.type === 'base') {
+            ctx.fillStyle = 'rgba(16, 185, 129, 0.16)';
+            ctx.strokeStyle = isDark ? '#34d399' : '#059669';
+            ctx.lineWidth = 1.8;
+          } else if (p.item.type === 'cilindro') {
+            ctx.fillStyle = 'rgba(37, 99, 235, 0.15)';
+            ctx.strokeStyle = isDark ? '#60a5fa' : '#2563eb';
+            ctx.lineWidth = 1.8;
+          } else {
+            ctx.fillStyle = 'rgba(200, 100, 70, 0.16)';
+            ctx.strokeStyle = isDark ? '#f59e0b' : '#b84a39';
+            ctx.lineWidth = 1.8;
+          }
+          ctx.fill();
+          ctx.stroke();
+
+          // Linhas de vinco Montanha / Vale (para peças de placa com dobras)
+          if (p.item.creases && p.item.creases.length > 0) {
+            p.item.creases.forEach(cr => {
+              ctx.save();
+              ctx.beginPath();
+              ctx.moveTo(ox + cr.p1.y * scale, oy + cr.p1.x * scale);
+              ctx.lineTo(ox + cr.p2.y * scale, oy + cr.p2.x * scale);
+              if (cr.type === 'mountain') {
+                ctx.strokeStyle = '#dc2626';
+                ctx.setLineDash([5, 3]);
+              } else {
+                ctx.strokeStyle = '#0284c7';
+                ctx.setLineDash([7, 3, 2, 3]);
+              }
+              ctx.lineWidth = 1.4;
+              ctx.stroke();
+              ctx.restore();
+            });
+          }
+
+          // Furos e drenos internos
+          if (p.item.holes && p.item.holes.length > 0) {
+            p.item.holes.forEach(h => {
+              const hx = ox + h.y * scale;
+              const hy = oy + h.x * scale;
+              const hr = Math.max(2, h.r * scale);
+              ctx.beginPath();
+              ctx.arc(hx, hy, hr, 0, Math.PI * 2);
+              ctx.fillStyle = isDark ? '#23201d' : '#ffffff';
+              ctx.fill();
+              ctx.strokeStyle = '#0284c7';
+              ctx.lineWidth = 1.2;
+              ctx.stroke();
+            });
+          }
+
+          // Rótulo, Costura e Cotas no centro do molde
+          const cx = ox + (p.h * scale) * 0.5;
+          const cy = oy + (p.w * scale) * 0.5;
+          ctx.fillStyle = isSelected ? (isDark ? '#fde68a' : '#92400e') : (isDark ? '#f5f5f4' : '#1c1917');
+          ctx.font = 'bold 9.5px sans-serif';
+          ctx.textAlign = 'center';
+          const shortTitle = p.item.label.length > 30 ? p.item.label.slice(0, 29) + '…' : p.item.label;
+          ctx.fillText(shortTitle, cx, cy - 3);
+
+          ctx.font = '8.5px "JetBrains Mono", monospace';
+          ctx.fillStyle = isSelected ? (isDark ? '#fbbf24' : '#b45309') : '#c86446';
+          const seamTxt = p.item.seamLeft ? ` • ${p.item.seamLeft}↔${p.item.seamRight}` : '';
+          const bevelTxt = p.item.bevelDeg ? ` • Bisel ${p.item.bevelDeg.toFixed(0)}°` : '';
+          ctx.fillText(`${Math.round(p.w)}×${Math.round(p.h)} mm${seamTxt}${bevelTxt}`, cx, cy + 9);
+          ctx.restore();
+
+          studioMoldesHitBoxes.push({
+            partId,
+            label: p.item.label,
+            x: ox,
+            y: oy,
+            w: p.h * scale,
+            h: p.w * scale
+          });
+        });
+      });
+
+      // Rodapé de convenções técnicas
+      ctx.save();
+      ctx.font = '10px sans-serif';
+      ctx.fillStyle = isDark ? '#a8a29e' : '#57534e';
+      ctx.textAlign = 'left';
+      ctx.fillText('━━ Corte Contínuo   - - - Vinco Montanha   -·-· Vinco Vale   💡 Clique em qualquer molde 2D ou na peça 3D ao lado para destacar a parte correspondente', 24, c.height - 8);
+      ctx.restore();
+    }
+
+    let studioMoldesEventsInitialized = false;
+    function initStudioMoldesCanvasEvents() {
+      const c = document.getElementById('studio-moldes-canvas');
+      if (!c || studioMoldesEventsInitialized) return;
+      studioMoldesEventsInitialized = true;
+
+      c.addEventListener('click', (e) => {
+        const rect = c.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+        const mx = (e.clientX - rect.left) * (c.width / rect.width);
+        const my = (e.clientY - rect.top) * (c.height / rect.height);
+        let hit = null;
+        for (const box of studioMoldesHitBoxes) {
+          if (mx >= box.x && mx <= box.x + box.w && my >= box.y && my <= box.y + box.h) {
+            hit = box;
+            break;
+          }
+        }
+        if (hit && hit.partId) {
+          selectSlabPart2D3D(selectedSlabPartId === hit.partId ? null : hit.partId);
+        } else if (selectedSlabPartId !== null) {
+          selectSlabPart2D3D(null);
+        }
+      });
+
+      c.addEventListener('mousemove', (e) => {
+        const rect = c.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+        const mx = (e.clientX - rect.left) * (c.width / rect.width);
+        const my = (e.clientY - rect.top) * (c.height / rect.height);
+        const over = studioMoldesHitBoxes.some(box => mx >= box.x && mx <= box.x + box.w && my >= box.y && my <= box.y + box.h);
+        c.style.cursor = over ? 'pointer' : 'default';
       });
     }
 
+    function synthesizeStagesFromSpline(nodes, totalH, attachments) {
+      const safeNodes = (Array.isArray(nodes) && nodes.length >= 2) ? nodes : [{ yNorm: 0, r: 35 }, { yNorm: 1, r: 45 }];
+      const hTotal = Math.max(30, totalH || 150);
+      const r0 = Math.max(8, Math.round(evaluateSplineRadius(0, safeNodes, 0.5, false)));
+      const stages = [
+        { tipo: 'disco', rBase: r0, rTopo: r0, altura: 7, corteTipo: 'solido', furoDiam: 0 }
+      ];
+      const numBands = 4;
+      const bandH = Math.max(8, Math.round(hTotal / numBands));
+      for (let i = 0; i < numBands; i++) {
+        const rb = Math.max(8, Math.round(evaluateSplineRadius(i / numBands, safeNodes, 0.5, false)));
+        const rt = Math.max(8, Math.round(evaluateSplineRadius((i + 1) / numBands, safeNodes, 0.5, false)));
+        stages.push({
+          tipo: Math.abs(rb - rt) <= 1 ? 'cilindro' : 'cone',
+          rBase: rb,
+          rTopo: rt,
+          altura: bandH,
+          aneis: 1
+        });
+      }
+      if (Array.isArray(attachments)) {
+        attachments.forEach(att => stages.push(JSON.parse(JSON.stringify(att))));
+      }
+      return stages;
+    }
+
     function loadClassicProfilePreset(presetKey) {
+      isSlabPieceModeActive = false;
+      selectedSlabPartId = null;
+      currentHDSlabPreset = 'classic_rings';
+      const hdSel = document.getElementById('hd-slab-model-select');
+      if (hdSel) hdSel.value = 'classic_rings';
       if (presetKey && presetKey.startsWith('bib_')) {
         const studioKey = presetKey.replace('bib_', '');
         if (typeof loadStudioPreset3D === 'function') {
@@ -9087,14 +9577,16 @@
       currentSplineAttachments = preset.attachments ? JSON.parse(JSON.stringify(preset.attachments)) : [];
       selectedSplineNodeIdx = null;
 
-      // Se existir receita correspondente de Camadas Conectadas, sincroniza vaseStages também
+      // Sincroniza vaseStages (receita dedicada ou síntese C0 a partir da silhueta)
       if (SLAB_CONNECTED_RECIPES[presetKey]) {
         vaseStages = JSON.parse(JSON.stringify(SLAB_CONNECTED_RECIPES[presetKey]));
-        enforceStageContinuity();
-        renderVaseStagesUI();
         const recipeSelect = document.getElementById('slab-recipe-select');
         if (recipeSelect) recipeSelect.value = presetKey;
+      } else {
+        vaseStages = synthesizeStagesFromSpline(vaseSplineNodes, preset.totalH || 165, currentSplineAttachments);
       }
+      enforceStageContinuity();
+      renderVaseStagesUI();
 
       if (preset.totalH) {
         const hEl = document.getElementById('v-total-height');
@@ -9116,7 +9608,11 @@
       }
 
       drawSplineCanvas();
+      drawCartesianCADProfile();
       rebuildVase();
+      if (activeStudioAppMode === '2d' && active2DSubTab === 'moldes') {
+        renderStudioMoldesCanvas();
+      }
     }
 
     function loadSampleSilhouette(preset) {
@@ -9310,7 +9806,8 @@
     function buildVaseAttachments3D(group, extMat, radiusAtYFn, totalH, attachmentsList) {
       if (!attachmentsList || attachmentsList.length === 0) return;
 
-      attachmentsList.forEach(att => {
+      attachmentsList.forEach((att, attIdx) => {
+        const defaultPartId = att.partId || `${att.tipo}-${attIdx}`;
         if (att.tipo === 'alca') {
           const proj = Math.max(8, att.projecao || 28);
           const larg = Math.max(5, att.largTira || att.largura || 15);
@@ -9347,7 +9844,13 @@
               posAttr.setZ(k, posAttr.getZ(k) * zScale);
             }
             tubeGeo.computeVertexNormals();
-            group.add(new THREE.Mesh(tubeGeo, extMat));
+            const handleMesh = new THREE.Mesh(tubeGeo, extMat);
+            handleMesh.userData = {
+              partId: defaultPartId,
+              partLabel: `Tira de Alça ${qtd > 1 ? (hIdx + 1) + '/' + qtd : ''}`.trim(),
+              _isPrimaryClay: true
+            };
+            group.add(handleMesh);
           }
         } else if (att.tipo === 'bico') {
           const reachX = Math.max(12, att.projecao || att.altura || 36);
@@ -9392,8 +9895,12 @@
 
           const spoutOutGeo = buildGridMeshGeometry(spoutOuterGrid, spoutSlices, spoutSegs, false);
           const spoutInGeo = buildGridMeshGeometry(spoutInnerGrid, spoutSlices, spoutSegs, true);
-          group.add(new THREE.Mesh(spoutOutGeo, extMat));
-          group.add(new THREE.Mesh(spoutInGeo, extMat));
+          const spoutOutMesh = new THREE.Mesh(spoutOutGeo, extMat);
+          const spoutInMesh = new THREE.Mesh(spoutInGeo, extMat);
+          spoutOutMesh.userData = { partId: defaultPartId, partLabel: 'Leque do Bico Vertedor', _isPrimaryClay: true };
+          spoutInMesh.userData = { partId: defaultPartId, partLabel: 'Leque do Bico Vertedor', _isPrimaryClay: true };
+          group.add(spoutOutMesh);
+          group.add(spoutInMesh);
 
           // Fecha o lábio da ponta do bico conectando parede externa e interna
           const tipVerts = [];
@@ -9408,7 +9915,9 @@
           const tipGeo = new THREE.BufferGeometry();
           tipGeo.setAttribute('position', new THREE.Float32BufferAttribute(tipVerts, 3));
           tipGeo.computeVertexNormals();
-          group.add(new THREE.Mesh(tipGeo, extMat));
+          const tipMesh = new THREE.Mesh(tipGeo, extMat);
+          tipMesh.userData = { partId: defaultPartId, partLabel: 'Leque do Bico Vertedor', _isPrimaryClay: true };
+          group.add(tipMesh);
         } else if (att.tipo === 'tampa') {
           const rRim = Math.max(12, att.rTampa || att.rBase || radiusAtYFn(totalH));
           const hDome = Math.max(5, att.alturaDomo || att.altura || 18);
@@ -9445,7 +9954,9 @@
             lidGrid.push(row);
           }
           const lidGeo = buildGridMeshGeometry(lidGrid, lidSlices, lidSegs, false);
-          group.add(new THREE.Mesh(lidGeo, extMat));
+          const lidMesh = new THREE.Mesh(lidGeo, extMat);
+          lidMesh.userData = { partId: defaultPartId, partLabel: 'Disco da Tampa c/ Puxador', _isPrimaryClay: true };
+          group.add(lidMesh);
         } else if (att.tipo === 'borda') {
           const isBase = (att.pos || att.posicao || 'topo') === 'base';
           const altAnel = Math.max(4, att.altura || 9);
@@ -9459,7 +9970,9 @@
           rawTorus.translate(0, yRing, 0);
           const torusGeo = rawTorus.index ? rawTorus.toNonIndexed() : rawTorus;
           torusGeo.computeVertexNormals();
-          group.add(new THREE.Mesh(torusGeo, extMat));
+          const torusMesh = new THREE.Mesh(torusGeo, extMat);
+          torusMesh.userData = { partId: defaultPartId, partLabel: isBase ? 'Faixa de Pé/Kodai' : 'Faixa de Borda/Boca', _isPrimaryClay: true };
+          group.add(torusMesh);
         }
       });
     }
@@ -9481,35 +9994,54 @@
       const texAmp = parseFloat(document.getElementById('v-spline-tex-amp')?.value) || 1.5;
       const texFreq = parseInt(document.getElementById('v-spline-tex-freq')?.value) || 18;
 
-      // Cria a geometria sólida volumétrica via CeramicMeshFactory
-      let geo = null;
-      if (typeof CeramicMeshFactory !== 'undefined' && CeramicMeshFactory.createSlabPieceGeometry) {
-        geo = CeramicMeshFactory.createSlabPieceGeometry(pieceKey, {
-          wallThickness: wall,
-          retracao: retracao,
-          cutSection: verCorte,
-          surfaceTexture: surfaceTexture,
-          shapeMode: shapeMode,
-          texAmp: texAmp,
-          texFreq: texFreq
-        });
-      }
-
-      if (!geo) {
-        rebuildVaseFromSpline();
-        return;
-      }
-
-      // Material cerâmico ativo com PBR
       const mat = (typeof CinnabarMaterialSystem !== 'undefined' && CinnabarMaterialSystem.getMaterial)
         ? CinnabarMaterialSystem.getMaterial(currentCeramicFinish, isWireframe)
         : new THREE.MeshStandardMaterial({ color: 0xD05840, roughness: 0.45, wireframe: isWireframe, side: THREE.DoubleSide });
-      const mesh = new THREE.Mesh(geo, mat);
-      mesh.castShadow = true;
-      mesh.receiveShadow = true;
 
-      activeMeshGroup.add(mesh);
+      const factoryOpts = {
+        wallThickness: wall,
+        retracao: retracao,
+        cutSection: verCorte,
+        surfaceTexture: surfaceTexture,
+        shapeMode: shapeMode,
+        texAmp: texAmp,
+        texFreq: texFreq
+      };
+
+      const slabDef = SLAB_PIECES_DEFINITIONS[pieceKey];
+      let parts = null;
+      if (typeof CeramicMeshFactory !== 'undefined' && CeramicMeshFactory.createSlabPieceParts) {
+        parts = CeramicMeshFactory.createSlabPieceParts(pieceKey, factoryOpts);
+      }
+
+      if (parts && parts.length > 0) {
+        parts.forEach((p, idx) => {
+          const patLabel = (slabDef && slabDef.patterns && slabDef.patterns[idx]) ? slabDef.patterns[idx].label : `Placa #${idx + 1}`;
+          const partMesh = new THREE.Mesh(p.geometry, mat);
+          partMesh.castShadow = true;
+          partMesh.receiveShadow = true;
+          partMesh.userData = { partId: p.partId || `slab-part-${idx}`, partLabel: patLabel, _isPrimaryClay: true };
+          activeMeshGroup.add(partMesh);
+        });
+      } else {
+        let geo = null;
+        if (typeof CeramicMeshFactory !== 'undefined' && CeramicMeshFactory.createSlabPieceGeometry) {
+          geo = CeramicMeshFactory.createSlabPieceGeometry(pieceKey, factoryOpts);
+        }
+        if (!geo) {
+          rebuildVaseFromSpline();
+          return;
+        }
+        const mesh = new THREE.Mesh(geo, mat);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        mesh.userData = { partId: 'slab-part-0', partLabel: slabDef?.patterns?.[0]?.label || 'Placa Principal', _isPrimaryClay: true };
+        activeMeshGroup.add(mesh);
+      }
+
+      apply3DPartHighlight(selectedSlabPartId);
       updateViewportBoundingBox();
+      draw2DPatternPreview();
     }
 
     function rebuildVaseFromSpline() {
@@ -9766,12 +10298,19 @@
 
       if (floorSliceIdx === -1) floorSliceIdx = 0;
 
-      // 1. Constrói Geometria da Parede Externa com Material Cerâmico Cinnabar
-      const extGeo = buildGridMeshGeometry(outerGrid, slices, radialSegs, false);
+      // 1. Constrói Geometria da Parede Externa com Material Cerâmico Cinnabar (subdividida em 5 faixas para seleção 2D↔3D)
       const extMat = CinnabarMaterialSystem.getMaterial(currentCeramicFinish, isWireframe);
-      const extMesh = new THREE.Mesh(extGeo, extMat);
-      extMesh.name = 'outerWall';
-      activeMeshGroup.add(extMesh);
+      const numSplineBands = 5;
+      for (let b = 0; b < numSplineBands; b++) {
+        const s0 = Math.floor((b / numSplineBands) * slices);
+        const s1 = Math.floor(((b + 1) / numSplineBands) * slices);
+        const bandGrid = outerGrid.slice(s0, s1 + 1);
+        const bandGeo = buildGridMeshGeometry(bandGrid, s1 - s0, radialSegs, false);
+        const bandMesh = new THREE.Mesh(bandGeo, extMat);
+        bandMesh.name = b === 0 ? 'outerWall' : `outerWallBand_${b}`;
+        bandMesh.userData = { partId: `stage-${b}`, partLabel: `Faixa S${b + 1} do Corpo`, _isPrimaryClay: true };
+        activeMeshGroup.add(bandMesh);
+      }
 
       // 2. Constrói Geometria da Parede Interna (Oca, do fundo até o topo)
       const innerSlices = innerGrid.length - 1;
@@ -9810,7 +10349,9 @@
       }
       bottomCapGeo.setAttribute('position', new THREE.Float32BufferAttribute(bVerts, 3));
       bottomCapGeo.computeVertexNormals();
-      activeMeshGroup.add(new THREE.Mesh(bottomCapGeo, extMat));
+      const bottomCapMesh = new THREE.Mesh(bottomCapGeo, extMat);
+      bottomCapMesh.userData = { partId: 'disco-0', partLabel: 'Disco de Base / Fundo', _isPrimaryClay: true };
+      activeMeshGroup.add(bottomCapMesh);
 
       // 4. Chão Interno da Cavidade do Vaso (em Y = yFloor)
       const floorY = sliceHeights[floorSliceIdx] || floorThick;
@@ -9921,7 +10462,9 @@
         );
       }
 
+      apply3DPartHighlight(selectedSlabPartId);
       updateViewportBoundingBox();
+      draw2DPatternPreview();
 
       // Métricas e custos sincronizados
       const volumeTotalCm3 = volMm3 / 1000;
@@ -10522,7 +11065,7 @@
     // Despachante Geral de Modelagem de Vasos
     function rebuildVase() {
       const curPiece = STUDIO_100_CATALOG.find(p => p.id === currentCatalogPieceId);
-      if (curPiece && (curPiece.isSlabModel || SLAB_PIECES_DEFINITIONS[curPiece.key])) {
+      if (isSlabPieceModeActive && curPiece && (curPiece.isSlabModel || SLAB_PIECES_DEFINITIONS[curPiece.key])) {
         renderSlabPiece3D(curPiece.key);
         return;
       }
@@ -10548,9 +11091,11 @@
         // Amostragem de linhas horizontais contínuas (Y, R)
         // Cada anel é subdividido suavemente garantindo continuidade C0 perfeita
         const outerRows = [];
+        const ringRowSpans = [];
         let curY = 0;
 
         rings.forEach((rg, k) => {
+          const startRowIdx = Math.max(0, outerRows.length - 1);
           const subSlices = Math.max(2, Math.round(rg.h / 5));
           for (let s = (k === 0 ? 0 : 1); s <= subSlices; s++) {
             const t = s / subSlices;
@@ -10560,10 +11105,11 @@
             // Insere linha exatamente na altura do fundo interno de argila
             if (outerRows.length > 0 && outerRows[outerRows.length - 1].y < espessura && y > espessura) {
               const alphaEsp = (espessura - curY) / rg.h;
-              outerRows.push({ y: espessura, r: rg.r1 + alphaEsp * (rg.r2 - rg.r1) });
+              outerRows.push({ y: espessura, r: rg.r1 + alphaEsp * (rg.r2 - rg.r1), ringIdx: k });
             }
-            outerRows.push({ y, r });
+            outerRows.push({ y, r, ringIdx: k });
           }
+          ringRowSpans.push({ ringIdx: k, rg, startRow: k === 0 ? 0 : startRowIdx, endRow: outerRows.length - 1 });
           curY += rg.h;
         });
 
@@ -10587,7 +11133,7 @@
         let floorIdx = outerRows.findIndex(row => row.y >= espessura - 0.001);
         if (floorIdx === -1) floorIdx = 0;
 
-        // Constrói Grid de Vértices da Parede Externa Unificada
+        // Constrói Grid de Vértices da Parede Externa Unificada (subdividida por anel para seleção visual 2D↔3D)
         const totalOuterSlices = outerRows.length - 1;
         const outerGrid = [];
         for (let j = 0; j <= totalOuterSlices; j++) {
@@ -10602,11 +11148,18 @@
           outerGrid.push(rowPts);
         }
 
-        const extGeo = buildGridMeshGeometry(outerGrid, totalOuterSlices, radialSegs, false);
         const extMat = CinnabarMaterialSystem.getMaterial(currentCeramicFinish, isWireframe);
-        const extMesh = new THREE.Mesh(extGeo, extMat);
-        extMesh.name = 'outerWall';
-        activeMeshGroup.add(extMesh);
+        ringRowSpans.forEach((span, idx) => {
+          const subGrid = outerGrid.slice(span.startRow, span.endRow + 1);
+          const subSlicesCount = span.endRow - span.startRow;
+          if (subSlicesCount <= 0) return;
+          const subGeo = buildGridMeshGeometry(subGrid, subSlicesCount, radialSegs, false);
+          const subMesh = new THREE.Mesh(subGeo, extMat);
+          subMesh.name = idx === 0 ? 'outerWall' : `outerWallRing_${idx}`;
+          const partId = span.rg.tipo === 'disco' ? 'disco-0' : `stage-${span.ringIdx}`;
+          subMesh.userData = { partId, partLabel: span.rg.label, _isPrimaryClay: true };
+          activeMeshGroup.add(subMesh);
+        });
 
         // Constrói Grid de Vértices da Parede Interna (Oca, do fundo Y=espessura até o topo)
         const innerRows = outerRows.slice(floorIdx);
@@ -10761,7 +11314,12 @@
         }
 
         // 5. Renderiza os Apêndices Funcionais 3D do modo Camadas Conectadas (Alça, Bico, Tampa, Borda/Pé)
-        const stageAttachments = (vaseStages || []).filter(st => !isAxialStage(st));
+        const stageAttachments = [];
+        (vaseStages || []).forEach((st, sIdx) => {
+          if (!isAxialStage(st)) {
+            stageAttachments.push({ ...st, partId: `${st.tipo}-${sIdx}` });
+          }
+        });
         if (stageAttachments.length > 0) {
           const interpRadiusAtY = (yVal) => {
             if (outerRows.length === 0) return 35;
@@ -10779,6 +11337,7 @@
           buildVaseAttachments3D(activeMeshGroup, extMat, interpRadiusAtY, topY, stageAttachments);
         }
 
+        apply3DPartHighlight(selectedSlabPartId);
         updateViewportBoundingBox();
         draw2DPatternPreview(rings);
         const stageVolMl = computeVaseInternalHollowVolumeMl();
@@ -10960,8 +11519,45 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
       }));
     }
 
-    // Desenvolvimento matemático exato do tronco de cone (cone frustum) em 2D
-    function frustumPatternPoints(rg) {
+    // 5b. Transforma linhas de vinco (Montanha / Vale) caso a peça de placa sofra rotação no Nesting A4
+    function transformItemCreases(creases, rawPoints, rotDeg) {
+      if (!creases || creases.length === 0) return [];
+      const rad = (rotDeg * Math.PI) / 180;
+      const cos = Math.cos(rad);
+      const sin = Math.sin(rad);
+
+      let minX = Infinity, minY = Infinity;
+      rawPoints.forEach(p => {
+        const rx = p.x * cos - p.y * sin;
+        const ry = p.x * sin + p.y * cos;
+        if (rx < minX) minX = rx;
+        if (ry < minY) minY = ry;
+      });
+
+      return creases.map(cr => ({
+        ...cr,
+        p1: {
+          x: (cr.p1.x * cos - cr.p1.y * sin) - minX,
+          y: (cr.p1.x * sin + cr.p1.y * cos) - minY
+        },
+        p2: {
+          x: (cr.p2.x * cos - cr.p2.y * sin) - minX,
+          y: (cr.p2.x * sin + cr.p2.y * cos) - minY
+        }
+      }));
+    }
+
+    function canPolygonFitA4(rawPoints, usableW = 182, usableH = 253) {
+      for (let deg = 0; deg < 180; deg += 15) {
+        const rot = rotateAndNormalizePolygon(rawPoints, deg);
+        if (rot.width <= usableW && rot.height <= usableH) return true;
+      }
+      return false;
+    }
+
+    // Desenvolvimento matemático exato do tronco de cone (cone frustum) em 2D (suporta subdivisão em arco 1/K)
+    function frustumPatternPoints(rg, angleFraction = 1.0) {
+      const frac = Math.max(0.05, Math.min(1.0, angleFraction || 1.0));
       const a = Math.max(0.1, rg.R1);
       const b = Math.max(0.1, rg.R2);
       const slant = Math.max(0.1, rg.G);
@@ -10969,7 +11565,7 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
 
       // Cilindro Perfeito (|R1 - R2| < 0.05 mm) -> Retângulo Desenrolado
       if (delta < 0.05) {
-        const length = 2 * Math.PI * ((a + b) / 2);
+        const length = 2 * Math.PI * ((a + b) / 2) * frac;
         return [
           { x: 0, y: 0 },
           { x: length, y: 0 },
@@ -10981,8 +11577,8 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
       // Tronco de Cone -> Setor de Coroa Circular (Leque Curvo Real)
       const outerRadius = (slant * Math.max(a, b)) / delta;
       const innerRadius = Math.max(0.1, outerRadius - slant);
-      const angle = (2 * Math.PI * delta) / slant;
-      const segments = Math.max(32, Math.min(180, Math.ceil((angle * outerRadius) / 3)));
+      const angle = ((2 * Math.PI * delta) / slant) * frac;
+      const segments = Math.max(24, Math.min(180, Math.ceil((angle * outerRadius) / 3)));
       const points = [];
 
       // Arco Externo (Raio Maior)
@@ -11006,33 +11602,260 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
       return points;
     }
 
-    // Prepara a lista unificada de todos os moldes 2D do vaso (cones, cilindros e disco da base)
-    function prepareAllVasePatternItems(rings) {
+    function computeSplineRingsFor2D() {
+      const totalH = parseFloat(document.getElementById('v-total-height')?.value) || 165;
+      const isPoly = document.getElementById('v-spline-type')?.value === 'polilinha';
+      const tension = (parseFloat(document.getElementById('v-spline-tension')?.value) || 50) / 100;
+      const espessura = parseFloat(document.getElementById('v-spline-wall')?.value || document.getElementById('v-espessura')?.value) || 5.5;
+      const retracao = parseFloat(document.getElementById('v-retracao')?.value || document.getElementById('v-spline-retracao')?.value) || 1.12;
+
+      const numStages = 5;
+      const hStage = totalH / numStages;
+      const rings = [];
+      for (let i = 0; i < numStages; i++) {
+        const t0 = i / numStages;
+        const t1 = (i + 1) / numStages;
+        const r1 = evaluateSplineRadius(t0, vaseSplineNodes, tension, isPoly);
+        const r2 = evaluateSplineRadius(t1, vaseSplineNodes, tension, isPoly);
+        const R1 = Math.max(4, (r1 - espessura / 2) * retracao);
+        const R2 = Math.max(4, (r2 - espessura / 2) * retracao);
+        const H = hStage * retracao;
+        const G = Math.sqrt(H * H + (R1 - R2) * (R1 - R2));
+        const tipo = Math.abs(R1 - R2) < 1.0 ? 'cilindro' : 'cone';
+        rings.push({
+          label: `Faixa S${i + 1} (${tipo === 'cilindro' ? 'Cilindro' : 'Cone'})`,
+          r1, r2, h: hStage, tipo, stageIdx: i, R1, R2, H, G, espessura
+        });
+      }
+      return rings;
+    }
+
+    function getActivePatternItemsForA4() {
+      const curPiece = STUDIO_100_CATALOG.find(p => p.id === currentCatalogPieceId);
+      const retracao = parseFloat(document.getElementById('v-retracao')?.value || document.getElementById('v-spline-retracao')?.value) || 1.12;
+
+      // 1. Modo Peça de Placa Especializada (SLAB_PIECES_DEFINITIONS)
+      if (isSlabPieceModeActive && curPiece && SLAB_PIECES_DEFINITIONS[curPiece.key]) {
+        const slabDef = SLAB_PIECES_DEFINITIONS[curPiece.key];
+        const items = [];
+        (slabDef.patterns || []).forEach((pat, idx) => {
+          const partId = `slab-part-${idx}`;
+          if (pat.outline === 'circle') {
+            const rScaled = (pat.radius || 40) * retracao;
+            const pts = [];
+            for (let i = 0; i <= 64; i++) {
+              const a = (i / 64) * Math.PI * 2;
+              pts.push({ x: rScaled + rScaled * Math.cos(a), y: rScaled + rScaled * Math.sin(a) });
+            }
+            items.push({
+              id: partId,
+              partId,
+              type: 'base',
+              label: pat.label,
+              rawPoints: pts,
+              holes: [],
+              creases: [],
+              corteTipo: 'solido',
+              outerArcMm: Math.PI * rScaled * 2,
+              innerArcMm: 0,
+              slantMm: rScaled * 2,
+              angleDeg: 360,
+              rBase: pat.radius || 40,
+              altura: pat.dimensions?.thickness || 6
+            });
+            return;
+          }
+
+          let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+          (pat.outline || []).forEach(p => {
+            const px = p.x * retracao;
+            const py = p.y * retracao;
+            if (px < minX) minX = px;
+            if (px > maxX) maxX = px;
+            if (py < minY) minY = py;
+            if (py > maxY) maxY = py;
+          });
+
+          const rawPts = (pat.outline || []).map(p => ({
+            x: p.x * retracao - minX,
+            y: p.y * retracao - minY
+          }));
+          const creases = (pat.creases || []).map(cr => ({
+            type: cr.type || 'mountain',
+            angleDeg: cr.angleDeg || 90,
+            p1: { x: cr.p1.x * retracao - minX, y: cr.p1.y * retracao - minY },
+            p2: { x: cr.p2.x * retracao - minX, y: cr.p2.y * retracao - minY }
+          }));
+          const holes = (pat.drains || []).map(dr => ({
+            x: dr.cx * retracao - minX,
+            y: dr.cy * retracao - minY,
+            r: (dr.r || 3) * retracao
+          }));
+          const pw = Math.max(10, maxX - minX);
+          const ph = Math.max(10, maxY - minY);
+
+          // Se a peça de placa exceder A4 e estiver em modo subdivisão, divide ao meio com costura
+          if (a4LargePatternMode === 'subdivide' && !canPolygonFitA4(rawPts, 182, 253) && pw > 182) {
+            const halfW = pw / 2;
+            const leftPts = [
+              { x: 0, y: 0 },
+              { x: halfW, y: 0 },
+              { x: halfW, y: ph },
+              { x: 0, y: ph }
+            ];
+            items.push({
+              id: `${partId}-A`,
+              partId,
+              type: 'cilindro',
+              label: `${pat.label} (Seg. 1/2)`,
+              seamLeft: `[P${idx + 1}-A]`,
+              seamRight: `[P${idx + 1}-B]`,
+              bevelDeg: 45,
+              rawPoints: leftPts,
+              holes: holes.filter(h => h.x <= halfW),
+              creases: [],
+              outerArcMm: halfW,
+              innerArcMm: halfW,
+              slantMm: ph,
+              angleDeg: 0
+            });
+            items.push({
+              id: `${partId}-B`,
+              partId,
+              type: 'cilindro',
+              label: `${pat.label} (Seg. 2/2)`,
+              seamLeft: `[P${idx + 1}-B]`,
+              seamRight: `[P${idx + 1}-A]`,
+              bevelDeg: 45,
+              rawPoints: leftPts,
+              holes: holes.filter(h => h.x > halfW).map(h => ({ ...h, x: h.x - halfW })),
+              creases: [],
+              outerArcMm: halfW,
+              innerArcMm: halfW,
+              slantMm: ph,
+              angleDeg: 0
+            });
+          } else {
+            items.push({
+              id: partId,
+              partId,
+              type: 'cilindro',
+              label: pat.label,
+              bevelDeg: creases[0]?.angleDeg || 45,
+              rawPoints: rawPts,
+              holes,
+              creases,
+              outerArcMm: pw,
+              innerArcMm: pw,
+              slantMm: ph,
+              angleDeg: 0
+            });
+          }
+        });
+        return items;
+      }
+
+      // 2. Modo Motor HD de Placas Multi-Peças (Gomos + Bico + Alça + Tampa)
+      if (vaseDesignMode === 'estagios' && typeof currentHDSlabPreset !== 'undefined' && currentHDSlabPreset !== 'classic_rings' && typeof buildHDSlabPatternItems === 'function') {
+        return buildHDSlabPatternItems();
+      }
+
+      // 3. Modo Silhueta Spline -> Converte os 5 estágios axiais + Disco de Base + Anexos Ativos
+      if (vaseDesignMode === 'spline') {
+        const splineRings = computeSplineRingsFor2D();
+        const drainHole = parseFloat(document.getElementById('v-drainage-hole')?.value) || 0;
+        const r0 = splineRings[0] ? splineRings[0].r1 : 35;
+        const syntheticStages = [
+          {
+            tipo: 'disco',
+            rBase: r0,
+            rTopo: r0,
+            altura: 6,
+            corteTipo: drainHole > 0 ? 'furo_central' : 'solido',
+            furoDiam: drainHole
+          },
+          ...(currentSplineAttachments || []).map(a => JSON.parse(JSON.stringify(a)))
+        ];
+        return prepareAllVasePatternItems(splineRings, syntheticStages);
+      }
+
+      // 4. Modo Estágios de Placas C⁰ Conectadas
+      const rings = computeFrustumRings();
+      return prepareAllVasePatternItems(rings, vaseStages);
+    }
+
+    // Prepara a lista unificada de todos os moldes 2D do vaso (cones, cilindros, disco da base e apêndices)
+    function prepareAllVasePatternItems(rings, stagesListOverride) {
       if (!rings || rings.length === 0) return [];
       const items = [];
+      const activeStages = stagesListOverride || vaseStages || [];
+      const seamLetters = ['A', 'B', 'C', 'D', 'E', 'F'];
 
       rings.forEach((rg, idx) => {
-        const pts = frustumPatternPoints(rg);
-        const isCylinder = Math.abs(rg.R1 - rg.R2) < 0.05;
-        const outerArcMm = 2 * Math.PI * Math.max(rg.R1, rg.R2);
-        const innerArcMm = 2 * Math.PI * Math.min(rg.R1, rg.R2);
-        const angleDeg = isCylinder ? 0 : ((2 * Math.PI * Math.abs(rg.R1 - rg.R2) / rg.G) * (180 / Math.PI));
+        // IMPORTANTE: Estágios do tipo 'disco' são processados na seção dedicada de discos abaixo (evita duplicação!)
+        if (rg.tipo === 'disco') return;
 
-        items.push({
-          id: `stage-${idx}`,
-          type: isCylinder ? 'cilindro' : 'cone',
-          label: rg.label,
-          rawPoints: pts,
-          outerArcMm,
-          innerArcMm,
-          slantMm: rg.G,
-          angleDeg,
-          rg
-        });
+        const partId = `stage-${idx}`;
+        const fullPts = frustumPatternPoints(rg, 1.0);
+        const isCylinder = Math.abs(rg.R1 - rg.R2) < 0.05;
+        const fullOuterArcMm = 2 * Math.PI * Math.max(rg.R1, rg.R2);
+        const fullInnerArcMm = 2 * Math.PI * Math.min(rg.R1, rg.R2);
+        const fullAngleDeg = isCylinder ? 0 : ((2 * Math.PI * Math.abs(rg.R1 - rg.R2) / rg.G) * (180 / Math.PI));
+
+        // Subdivisão Inteligente em Arcos para Caber em Folha A4 Única (182 × 253 mm)
+        let numSubdivisions = 1;
+        if (a4LargePatternMode === 'subdivide' && !canPolygonFitA4(fullPts, 182, 253)) {
+          for (const kCand of [2, 3, 4, 6, 8]) {
+            const subPts = frustumPatternPoints(rg, 1 / kCand);
+            if (canPolygonFitA4(subPts, 182, 253)) {
+              numSubdivisions = kCand;
+              break;
+            }
+          }
+        }
+
+        if (numSubdivisions === 1) {
+          items.push({
+            id: partId,
+            partId,
+            type: isCylinder ? 'cilindro' : 'cone',
+            label: rg.label,
+            seamLeft: `[S${idx + 1}-A]`,
+            seamRight: `[S${idx + 1}-A]`,
+            bevelDeg: 45,
+            rawPoints: fullPts,
+            outerArcMm: fullOuterArcMm,
+            innerArcMm: fullInnerArcMm,
+            slantMm: rg.G,
+            angleDeg: fullAngleDeg,
+            rg
+          });
+        } else {
+          const subPts = frustumPatternPoints(rg, 1 / numSubdivisions);
+          for (let s = 0; s < numSubdivisions; s++) {
+            const leftLet = seamLetters[s % seamLetters.length];
+            const rightLet = seamLetters[(s + 1) % numSubdivisions];
+            items.push({
+              id: `${partId}-seg-${s + 1}`,
+              partId,
+              type: isCylinder ? 'cilindro' : 'cone',
+              label: `${rg.label} (Arco ${s + 1}/${numSubdivisions})`,
+              seamLeft: `[S${idx + 1}-${leftLet}]`,
+              seamRight: `[S${idx + 1}-${rightLet}]`,
+              bevelDeg: 45,
+              rawPoints: subPts,
+              outerArcMm: fullOuterArcMm / numSubdivisions,
+              innerArcMm: fullInnerArcMm / numSubdivisions,
+              slantMm: rg.G,
+              angleDeg: fullAngleDeg / numSubdivisions,
+              rg
+            });
+          }
+        }
       });
 
       // Adiciona o(s) Disco(s) configurado(s) pelo usuário
-      const discStages = (vaseStages || []).filter(st => st.tipo === 'disco');
+      const discStages = activeStages.filter(st => st.tipo === 'disco');
       const retracao = parseFloat(document.getElementById('v-retracao')?.value || document.getElementById('v-spline-retracao')?.value) || 1.12;
 
       if (discStages.length > 0) {
@@ -11063,7 +11886,9 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
           const holes = [];
           if (st.corteTipo === 'furo_central') {
             const rHole = Math.min(rBase - 4, ((st.furoDiam || 20) * retracao) / 2);
-            holes.push({ x: rBase, y: rBase, r: rHole });
+            if (rHole > 0.5) {
+              holes.push({ x: rBase, y: rBase, r: rHole });
+            }
           } else if (st.corteTipo === 'crivo_multiplo') {
             const rCenter = Math.min(rBase * 0.3, ((st.furoDiam || 14) * retracao) / 2);
             holes.push({ x: rBase, y: rBase, r: rCenter });
@@ -11092,19 +11917,20 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
             }
           }
 
-          const corteDesc = st.corteTipo === 'furo_central' ? `Dreno Ø${st.furoDiam || 20}`
+          const corteDesc = (st.corteTipo === 'furo_central' && (st.furoDiam || 0) > 0) ? `Dreno Ø${st.furoDiam}`
             : st.corteTipo === 'crivo_multiplo' ? `Crivo ${st.furoQtd || 6}x`
               : st.corteTipo === 'entalhes_borda' ? `Entalhes`
                 : st.corteTipo === 'setor_vazado' ? `Setor ${st.setorAng || 45}°` : 'Sólido';
 
           items.push({
             id: `disco-${dIdx}`,
+            partId: `disco-${dIdx}`,
             type: 'base',
             label: `Disco ${dIdx === 0 ? 'Fundo' : `Placa ${dIdx + 1}`} Ø${(st.rBase * 2).toFixed(0)} (${corteDesc})`,
             rawPoints: basePts,
             holes,
             corteTipo: st.corteTipo || 'solido',
-            furoDiam: st.furoDiam || 20,
+            furoDiam: st.furoDiam || 0,
             furoQtd: st.furoQtd || 6,
             setorAng: st.setorAng || 45,
             outerArcMm: Math.PI * diamBase,
@@ -11126,7 +11952,8 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
           basePts.push({ x: rBase + rBase * Math.cos(a), y: rBase + rBase * Math.sin(a) });
         }
         items.push({
-          id: 'base-disc',
+          id: 'disco-0',
+          partId: 'disco-0',
           type: 'base',
           label: `Disco Base Ø${diamBase.toFixed(0)}`,
           rawPoints: basePts,
@@ -11142,7 +11969,7 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
       }
 
       // Se houver estágio de Bojo Esférico, inclui o Disco Polar Anti-Pinch (Truncagem 98%)
-      const hasEsfera = (vaseStages || []).some(st => st.tipo === 'esfera');
+      const hasEsfera = activeStages.some(st => st.tipo === 'esfera');
       if (hasEsfera) {
         const rPolar = 14 * retracao;
         const diamPolar = rPolar * 2;
@@ -11153,6 +11980,7 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
         }
         items.push({
           id: 'disco-polar-anti-pinch',
+          partId: 'disco-0',
           type: 'base',
           label: `Disco Polar Anti-Pinch Ø${diamPolar.toFixed(0)} (Fecho 98%)`,
           rawPoints: polarPts,
@@ -11168,14 +11996,19 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
       }
 
       // Planificação 2D de Alças, Bicos Vertedores, Tampas e Colarinhos/Pés (Slab Building)
-      const totalBodyH = rings.reduce((acc, rg) => acc + (rg.h || 0), 0) || 120;
-      (vaseStages || []).forEach((st, idx) => {
+      const totalBodyH = rings.reduce((acc, rg) => acc + (rg.tipo === 'disco' ? 0 : (rg.h || 0)), 0) || 120;
+      let nonAxialCounter = 0;
+      activeStages.forEach((st, idx) => {
+        if (isAxialStage(st)) return;
+        const attPartId = stagesListOverride ? `${st.tipo}-${nonAxialCounter}` : `${st.tipo}-${idx}`;
+        nonAxialCounter++;
+
         if (st.tipo === 'alca') {
           const spanFrac = Math.max(0.2, (st.yTopoFrac !== undefined ? st.yTopoFrac : 0.84) - (st.yBaseFrac !== undefined ? st.yBaseFrac : 0.22));
           const h = (st.altura || Math.round(totalBodyH * spanFrac)) * retracao;
           const proj = (st.projecao || 28) * retracao;
           const w = (st.largTira || st.largura || 15) * retracao;
-          const stripLen = Math.round(Math.sqrt(h * h + Math.pow(proj * 1.65, 2)) + 16 * retracao);
+          const stripLen = Math.min(248, Math.round(Math.sqrt(h * h + Math.pow(proj * 1.65, 2)) + 16 * retracao));
           const qtd = st.qtd === 2 ? 2 : 1;
           for (let q = 0; q < qtd; q++) {
             const pts = [
@@ -11186,6 +12019,7 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
             ];
             items.push({
               id: `alca-${idx}-${q}`,
+              partId: attPartId,
               type: 'cilindro',
               label: `Tira de Alça ${qtd > 1 ? (q + 1) + '/' + qtd : ''} (${stripLen.toFixed(0)}x${w.toFixed(0)} mm)`,
               rawPoints: pts,
@@ -11202,9 +12036,10 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
           const reach = st.projecao || st.altura || 36;
           const G = Math.max(15, Math.hypot(reach, reach * 0.88) * retracao);
           const rgBico = { R1, R2, G, h: reach, label: `Molde do Bico Vertedor` };
-          const pts = frustumPatternPoints(rgBico);
+          const pts = frustumPatternPoints(rgBico, 1.0);
           items.push({
             id: `bico-${idx}`,
+            partId: attPartId,
             type: 'cone',
             label: `Leque do Bico Vertedor (Base Ø${(R1 * 2).toFixed(0)} ➔ Ponta Ø${(R2 * 2).toFixed(0)} • Alcance ${reach}mm)`,
             rawPoints: pts,
@@ -11225,6 +12060,7 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
           }
           items.push({
             id: `tampa-${idx}`,
+            partId: attPartId,
             type: 'base',
             label: `Disco da Tampa Ø${diamTampa.toFixed(0)} mm (Domo ${st.alturaDomo || 18}mm)`,
             rawPoints: lidPts,
@@ -11241,25 +12077,30 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
           const isBase = (st.pos || st.posicao || 'topo') === 'base';
           const rFallback = isBase ? (rings[0]?.R1 || 40) : (rings[rings.length - 1]?.R2 || 40);
           const rColar = st.rAnel ? (st.rAnel * retracao) : rFallback;
-          const compFaixa = Math.round(2 * Math.PI * rColar);
+          const fullCompFaixa = Math.round(2 * Math.PI * rColar);
           const altFaixa = Math.max(6, (st.altura || 9) * retracao);
-          const pts = [
-            { x: 0, y: 0 },
-            { x: compFaixa, y: 0 },
-            { x: compFaixa, y: altFaixa },
-            { x: 0, y: altFaixa }
-          ];
-          items.push({
-            id: `borda-${idx}`,
-            type: 'cilindro',
-            label: `Faixa de ${isBase ? 'Pé/Kodai' : 'Borda/Boca'} (${compFaixa}x${altFaixa.toFixed(0)} mm)`,
-            rawPoints: pts,
-            outerArcMm: compFaixa,
-            innerArcMm: compFaixa,
-            slantMm: altFaixa,
-            angleDeg: 0,
-            rg: { R1: rColar, R2: rColar, G: altFaixa, h: altFaixa }
-          });
+          const subK = (a4LargePatternMode === 'subdivide' && fullCompFaixa > 248) ? Math.ceil(fullCompFaixa / 240) : 1;
+          const compFaixa = Math.round(fullCompFaixa / subK);
+          for (let s = 0; s < subK; s++) {
+            const pts = [
+              { x: 0, y: 0 },
+              { x: compFaixa, y: 0 },
+              { x: compFaixa, y: altFaixa },
+              { x: 0, y: altFaixa }
+            ];
+            items.push({
+              id: `borda-${idx}-${s}`,
+              partId: attPartId,
+              type: 'cilindro',
+              label: `Faixa de ${isBase ? 'Pé/Kodai' : 'Borda/Boca'}${subK > 1 ? ` (${s + 1}/${subK})` : ''} (${compFaixa}x${altFaixa.toFixed(0)} mm)`,
+              rawPoints: pts,
+              outerArcMm: compFaixa,
+              innerArcMm: compFaixa,
+              slantMm: altFaixa,
+              angleDeg: 0,
+              rg: { R1: rColar, R2: rColar, G: altFaixa, h: altFaixa }
+            });
+          }
         }
       });
 
@@ -11365,7 +12206,8 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
           const chosenOri = bestPlacement.ori;
           const rotatedItem = {
             ...entry.item,
-            holes: transformItemHoles(entry.item.holes, entry.item.rawPoints, chosenOri.rot)
+            holes: transformItemHoles(entry.item.holes, entry.item.rawPoints, chosenOri.rot),
+            creases: transformItemCreases(entry.item.creases, entry.item.rawPoints, chosenOri.rot)
           };
           targetSheet.placed.push({
             item: rotatedItem,
@@ -11381,7 +12223,8 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
           const bestOri = entry.validOrientations[0];
           const rotatedItem = {
             ...entry.item,
-            holes: transformItemHoles(entry.item.holes, entry.item.rawPoints, bestOri.rot)
+            holes: transformItemHoles(entry.item.holes, entry.item.rawPoints, bestOri.rot),
+            creases: transformItemCreases(entry.item.creases, entry.item.rawPoints, bestOri.rot)
           };
           sheets.push({
             placed: [{
@@ -11445,9 +12288,11 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
       const ctx = canvas.getContext('2d');
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      if (!rings || rings.length === 0) return;
+      const items = (rings && rings.length > 0 && vaseDesignMode === 'estagios' && !isSlabPieceModeActive)
+        ? prepareAllVasePatternItems(rings)
+        : getActivePatternItemsForA4();
+      if (!items || items.length === 0) return;
 
-      const items = prepareAllVasePatternItems(rings);
       const { sheets, oversized } = packPatternsToA4Sheets(items, 182, 253, 20);
       const totalSheetsCount = sheets.length + oversized.length;
 
@@ -11512,6 +12357,8 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
         sheet.placed.forEach(p => {
           const px = curSheetX + marginX + p.x * scale;
           const py = curSheetY + marginTop + p.y * scale;
+          const partId = p.item.partId || p.item.id;
+          const isSel = selectedSlabPartId && partId === selectedSlabPartId;
 
           ctx.save();
           ctx.beginPath();
@@ -11523,7 +12370,10 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
           });
           ctx.closePath();
 
-          if (p.item.type === 'cone') {
+          if (isSel) {
+            ctx.fillStyle = 'rgba(245, 158, 11, 0.42)';
+            ctx.strokeStyle = '#D97706';
+          } else if (p.item.type === 'cone') {
             ctx.fillStyle = 'rgba(184, 74, 57, 0.22)';
             ctx.strokeStyle = '#B84A39';
           } else if (p.item.type === 'cilindro') {
@@ -11534,7 +12384,7 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
             ctx.strokeStyle = '#059669';
           }
           ctx.fill();
-          ctx.lineWidth = 1.2;
+          ctx.lineWidth = isSel ? 1.8 : 1.2;
           ctx.stroke();
 
           // Desenha furos e cortes internos se existirem
@@ -11579,9 +12429,6 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
     }
 
 
-    // =========================================================================
-    // EXPORTAÇÕES GERAIS (PDF A4 1:1, COSTELA STL E MALHA ATIVA STL)
-    // =========================================================================
     // =========================================================================
     // EXPORTAÇÕES GERAIS (PDF A4 1:1 COM ARCOS REAIS, TILING & MARCAS DE REGISTRO)
     // =========================================================================
@@ -11666,16 +12513,10 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
         const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4', compress: true });
         const retracao = parseFloat(document.getElementById('v-retracao')?.value || document.getElementById('v-spline-retracao')?.value) || 1.12;
 
-        let items = [];
-        if (vaseDesignMode === 'estagios' && typeof currentHDSlabPreset !== 'undefined' && currentHDSlabPreset !== 'classic_rings' && typeof buildHDSlabPatternItems === 'function') {
-          items = buildHDSlabPatternItems();
-        } else {
-          const rings = computeFrustumRings();
-          if (!rings.length) {
-            alert('Adicione ao menos uma seção ao vaso para gerar os moldes.');
-            return;
-          }
-          items = prepareAllVasePatternItems(rings);
+        const items = getActivePatternItemsForA4();
+        if (!items || !items.length) {
+          alert('Adicione ao menos uma seção ao vaso para gerar os moldes.');
+          return;
         }
 
         const { sheets, oversized } = packPatternsToA4Sheets(items, 182, 253, 20);
@@ -11715,6 +12556,21 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
               const p1 = pts[i];
               const p2 = pts[(i + 1) % pts.length];
               doc.line(originX + p1.x, originY + p1.y, originX + p2.x, originY + p2.y);
+            }
+
+            // Linhas de Vinco Montanha / Vale para dobras de placas
+            if (p.item.creases && p.item.creases.length > 0) {
+              p.item.creases.forEach(cr => {
+                if (cr.type === 'mountain') {
+                  doc.setDrawColor(220, 38, 38);
+                } else {
+                  doc.setDrawColor(2, 132, 199);
+                }
+                doc.setLineWidth(0.25);
+                doc.line(originX + cr.p1.x, originY + cr.p1.y, originX + cr.p2.x, originY + cr.p2.y);
+              });
+              doc.setDrawColor(25, 20, 18);
+              doc.setLineWidth(0.35);
             }
 
             // Orifícios e marcações de centro ⊕ para vazador de argila
@@ -13184,6 +14040,7 @@ Gere o código OpenSCAD e o arquivo .STL binário fechado.`;
       renderBatchPieceChips();
       renderCatalogPieceList();
       initCADCanvasInteractions();
+      initStudioMoldesCanvasEvents();
       drawCartesianCADProfile();
       renderVaseStagesUI();
       rebuildVase();
