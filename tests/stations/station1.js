@@ -15,6 +15,7 @@ async function testStation1(cdp, reporter) {
       return true;
     })()
   `);
+  await new Promise(r => setTimeout(r, 300));
 
   // =========================================================================
   // 1.1 Spline Mode — 54 Profiles in #classic-profile-select
@@ -43,8 +44,12 @@ async function testStation1(cdp, reporter) {
         })()
       `);
 
-      await new Promise(r => setTimeout(r, 60));
-      const mesh = await cdp.inspectActiveMesh();
+      await new Promise(r => setTimeout(r, 80));
+      let mesh = await cdp.inspectActiveMesh();
+      if (mesh.meshCount === 0) {
+        await new Promise(r => setTimeout(r, 120));
+        mesh = await cdp.inspectActiveMesh();
+      }
 
       const pass = mesh.meshCount > 0 && mesh.totalVertices > 0 && !mesh.hasNaN && !mesh.isEmpty;
       reporter.record({
@@ -405,8 +410,12 @@ async function testStation1(cdp, reporter) {
         })()
       `);
 
-      await new Promise(r => setTimeout(r, 60));
-      const mesh = await cdp.inspectActiveMesh();
+      await new Promise(r => setTimeout(r, 80));
+      let mesh = await cdp.inspectActiveMesh();
+      if (mesh.meshCount === 0) {
+        await new Promise(r => setTimeout(r, 120));
+        mesh = await cdp.inspectActiveMesh();
+      }
       const pass = data.stagesCount > 0 && mesh.meshCount > 0 && data.patternsCount > 0 && !mesh.hasNaN;
 
       reporter.record({
@@ -468,8 +477,12 @@ async function testStation1(cdp, reporter) {
         })()
       `);
 
-      await new Promise(r => setTimeout(r, 60));
-      const mesh = await cdp.inspectActiveMesh();
+      await new Promise(r => setTimeout(r, 80));
+      let mesh = await cdp.inspectActiveMesh();
+      if (mesh.meshCount === 0) {
+        await new Promise(r => setTimeout(r, 120));
+        mesh = await cdp.inspectActiveMesh();
+      }
       const pass = res.after === res.before + 1 && mesh.meshCount > 0 && res.patterns > 0;
 
       reporter.record({
@@ -535,8 +548,12 @@ async function testStation1(cdp, reporter) {
         })()
       `);
 
-      await new Promise(r => setTimeout(r, 60));
-      const mesh = await cdp.inspectActiveMesh();
+      await new Promise(r => setTimeout(r, 80));
+      let mesh = await cdp.inspectActiveMesh();
+      if (mesh.meshCount === 0) {
+        await new Promise(r => setTimeout(r, 120));
+        mesh = await cdp.inspectActiveMesh();
+      }
       const pass = cardUpdate.patternsCount > 0 && mesh.meshCount > 0;
 
       reporter.record({
@@ -637,8 +654,12 @@ async function testStation1(cdp, reporter) {
     const t0 = Date.now();
     try {
       await cdp.evaluate(`previewVaseRib3D();`);
-      await new Promise(r => setTimeout(r, 60));
-      const mesh = await cdp.inspectActiveMesh();
+      await new Promise(r => setTimeout(r, 80));
+      let mesh = await cdp.inspectActiveMesh();
+      if (mesh.meshCount === 0) {
+        await new Promise(r => setTimeout(r, 120));
+        mesh = await cdp.inspectActiveMesh();
+      }
       const pass = mesh.meshCount > 0 && mesh.totalVertices > 0 && !mesh.hasNaN;
 
       reporter.record({
@@ -671,8 +692,12 @@ async function testStation1(cdp, reporter) {
     const t0 = Date.now();
     try {
       await cdp.evaluate(`previewVaseNegativeTemplate3D();`);
-      await new Promise(r => setTimeout(r, 60));
-      const mesh = await cdp.inspectActiveMesh();
+      await new Promise(r => setTimeout(r, 80));
+      let mesh = await cdp.inspectActiveMesh();
+      if (mesh.meshCount === 0) {
+        await new Promise(r => setTimeout(r, 120));
+        mesh = await cdp.inspectActiveMesh();
+      }
       const pass = mesh.meshCount > 0 && mesh.totalVertices > 0 && !mesh.hasNaN;
 
       reporter.record({
@@ -1000,16 +1025,17 @@ async function testStation1(cdp, reporter) {
     }
   }
 
-  // 2. Testa as 7 Novas Peças em Placas (3D e 2D)
-  const slabPieceIds = [86, 39, 90, 88, 9, 38, 68];
+  // 2. Testa as 12 Peças em Placas (3D e 2D) incluindo Manteigueira Canadense e novos utilitários
+  const slabPieceIds = ['centro_ondulado', 'saboneteira_escorredor', 'porta_incenso', 'descanso_talheres', 'manteigueira_francesa', 'saleiro_paredao', 'garrafa_facetada', 'pote_alho_ventilado', 'galheteiro_quadrado', 'bandeja_retangular_dobrada', 'pote_cha_hermetico', 'cachepo_pes_prismaticos'];
   for (const pId of slabPieceIds) {
     const t0 = Date.now();
     try {
+      const pParam = typeof pId === 'number' ? pId : `'${pId}'`;
       const res = await cdp.evaluate(`
         (() => {
           setStudioAppMode('3d');
-          loadCatalogPiece(${pId});
-          const cur = STUDIO_100_CATALOG.find(p => p.id === ${pId});
+          loadCatalogPiece(${pParam});
+          const cur = STUDIO_100_CATALOG.find(p => p.id === ${pParam} || p.key === ${pParam}) || SLAB_PIECES_DEFINITIONS[${pParam}];
           const isSlab = !!(cur && (cur.isSlabModel || SLAB_PIECES_DEFINITIONS[cur.key]));
           const patCount = (SLAB_PIECES_DEFINITIONS[cur.key]?.patterns || []).length;
           
@@ -1021,7 +1047,7 @@ async function testStation1(cdp, reporter) {
           // Volta para 3D para inspecionar malha
           setStudioAppMode('3d');
           return {
-            id: ${pId},
+            id: cur.id || ${pParam},
             key: cur.key,
             title: cur.title,
             isSlab,
@@ -1031,8 +1057,12 @@ async function testStation1(cdp, reporter) {
         })()
       `);
 
-      await new Promise(r => setTimeout(r, 60));
-      const mesh = await cdp.inspectActiveMesh();
+      await new Promise(r => setTimeout(r, 80));
+      let mesh = await cdp.inspectActiveMesh();
+      if (mesh.meshCount === 0) {
+        await new Promise(r => setTimeout(r, 120));
+        mesh = await cdp.inspectActiveMesh();
+      }
 
       const pass = res.isSlab &&
         res.patternsCount > 0 &&

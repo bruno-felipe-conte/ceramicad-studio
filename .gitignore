@@ -5,3 +5,7 @@ Thumbs.db
 graphify-out/
 .system_generated/
 .agents/
+
+# Scratch e artefatos de teste gerados
+scratch/
+*.pdf

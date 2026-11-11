@@ -1,30 +1,32 @@
-# Modelo de Ameaças (STRIDE) & Checklist OWASP ASVS
+# Threat Model (STRIDE) — Ciclo 05: Cálculo Paramétrico e Estampa de Faixa de Chanfro
 
-## 1. Fronteiras de Confiança
-1. **Fronteira 1 — Entrada de Parâmetros do Usuário e Upload Local (DOM / FileReader)**:
-   - Sliders numéricos (altura, raio, espessura de parede, retração, quantidade de gomos/anéis), busca textual no catálogo e importação de receitas JSON / fotos de referência.
-2. **Fronteira 2 — Motor de Geometria 3D, Raycasting & Nesting A4 (Memória / WebGL / Canvas 2D)**:
-   - Geração de malhas `THREE.BufferGeometry`, interseção de raios (`THREE.Raycaster`), subdivisão de anéis para folha A4 e cálculo de fecho convexo (`packPatternsToA4Sheets`).
-3. **Fronteira 3 — Exportação de Arquivos Locais (Blob / jsPDF / STLExporter)**:
-   - Geração de arquivos `.pdf` e `.stl` no navegador do usuário.
+## 1. Fronteiras de Confiança e Fluxo de Dados
+
+```mermaid
+flowchart LR
+    User["Entrada do Usuário\n(v-espessura, custom inputs)"] -->|Validação Numérica| Calc["Motor Paramétrico de Bisel\n(computeBevelInfoForPatternItem)"]
+    Catalog["Catálogo Studio 100\n(STUDIO_100_CATALOG / SLAB_DEFINITIONS)"] --> Calc
+    Calc -->|Sanitização NaN/Infinity| Canvas["Canvas 2D A4\n(#studio-moldes-canvas)"]
+    Calc -->|Sanitização Escala Real| PDF["Gerador jsPDF 1:1\n(generateVasePDF)"]
+```
 
 ---
 
-## 2. Análise STRIDE por Fronteira
+## 2. Análise de Ameaças STRIDE
 
-| Ameaça (STRIDE) | Fronteira | Cenário de Risco | Mitigação Aplicada |
+| Categoria STRIDE | Ameaça Identificada | Risco / Impacto | Mitigação Arquitetural |
 | :--- | :--- | :--- | :--- |
-| **S — Spoofing** | F1 | Carregamento de arquivo JSON malformado fingindo ser receita do CeramiCAD. | Validação estrita de tipos numéricos (`Number.isFinite`, limites `min`/`max`) em `importVasePatternJSON()`. |
-| **T — Tampering** | F1 / F2 | Manipulação de inputs numéricos no DOM (`rBase <= 0`, `aneis = 0`, `retracao <= 0`) causando `NaN` ou geometria degenerada. | Clamping matemático defensivo em `computeFrustumRings()`, `splitRingToFitA4()` e `evaluateSplineRadius()` (`Math.max`, `Math.min`). |
-| **R — Repudiation** | F3 | Divergência entre as dimensões exibidas na tela e o molde impresso em papel A4. | Cabeçalho técnico auditável em cada folha A4 com fator de retração explícito, cotas em mm e régua física de calibração de $50\text{ mm}$. |
-| **I — Information Disclosure** | F1 / F3 | Vazamento de dados em logs ou chamadas externas. | Processamento 100% local (client-side); nenhum dado de projeto ou imagem do usuário é enviado a servidores externos. |
-| **D — Denial of Service (DoS)** | F2 | Loop infinito ou travamento da thread principal no Nesting A4 ou na subdivisão de anéis muito largos. | Limite superior determinístico no número de subdivisões ($K \le 8$), passos fixos de $15^\circ$ no nesting e descarte seguro de geometrias vazias. |
-| **E — Elevation of Privilege** | F1 | Injeção de HTML/XSS via nomes de peças ou importação de JSON na renderização de listas e badges. | Uso de `textContent` ou templates controlados com dados numéricos sanitizados; zero uso de `eval()`. |
+| **Spoofing** | N/A (Execução 100% client-side local sem sessão de rede) | Baixo | Não aplicável |
+| **Tampering** | Injeção de valores extremos de espessura (ex: $E < 0$, $E = \text{NaN}$, $E = 1000\text{ mm}$) | Médio (Trava do renderizador ou desenho que invade a folha inteira) | Clamping rígido da espessura: $E \in [1.0, 30.0]\text{ mm}$ e limitação de $w \le 0.5 \times \text{largura do molde}$. |
+| **Repudiation** | N/A | Baixo | Não aplicável |
+| **Information Disclosure** | N/A (Sem dados de usuários, PII ou segredos) | Baixo | Nenhum dado pessoal manipulado |
+| **Denial of Service** | Loop ou recursão infinita no cálculo de offset geométrico da faixa | Alto (Crash da aba do navegador) | Vetorização direta das bordas com cálculo fechado em $\mathcal{O}(1)$ por molde, sem loops recursivos |
+| **Elevation of Privilege** | XSS em rótulos gerados | Médio (Injeção via innerHTML) | Renderização em Canvas 2D via `ctx.fillText()` e PDF via `pdf.text()` (APIs puras de texto vetorial imunes a XSS) |
 
 ---
 
-## 3. Checklist OWASP ASVS (Aplicável a Aplicação Web Client-Side CAD)
-- [x] **V1.1**: Arquitetura e fronteiras de confiança documentadas com fluxos de dados claros.
-- [x] **V5.1 (Validação de Entrada)**: Todos os parâmetros geométricos possuem limites mínimos e máximos impostos no código antes do cálculo de malhas 3D e moldes 2D.
-- [x] **V5.3 (Codificação de Saída)**: Dados dinâmicos em rótulos de peças e telemetria não permitem execução de scripts.
-- [x] **V14.2 (Integridade de Dependências)**: Bibliotecas carregadas de CDNs oficiais em versões fixadas (`three@0.128.0`, `jspdf@2.5.1`).
+## 3. Checklist de Segurança & Confiabilidade
+- [x] Sanitização estrita contra `NaN` e `Infinity` em todas as operações trigonométricas (`Math.tan`).
+- [x] Clamping de $E$ entre $1.0\text{ mm}$ e $30.0\text{ mm}$.
+- [x] Limitação de largura da faixa $w \le \min(w, \text{dimensão}/2)$ para evitar que a faixa ocupe todo o molde.
+- [x] Zero manipulação perigosa de DOM (`ctx.fillText` puro).

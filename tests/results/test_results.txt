@@ -1,198 +1,246 @@
 ================================================================================
 CERAMICAD STUDIO PRO — AUTOMATED TEST SUITE REPORT
-Timestamp: 2026-11-10T01:10:18.148Z
-Total: 120 | Passed: 120 | Failed: 0 | Pass Rate: 100.0%
+Timestamp: 2026-11-11T23:03:54.839Z
+Total: 144 | Passed: 144 | Failed: 0 | Pass Rate: 100.0%
 ================================================================================
+
+[PASS] [St.1 - Spline Profiles (54)] #9 Manteigueira Canadense / Francesa (Butter Bell - Vedação por Água) (s1_spline_profile_manteigueira_canadense)
+  Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
+  Actual:   Meshes: 4, Vertices: 1,728, Bounds: [112 x 106 x 112 mm], NaN: false, ActiveTool: vasos
+
+[PASS] [St.1 - Spline Profiles (54)] #38 Saleiro de Mesa / Paredão c/ Chanfro 45° (s1_spline_profile_saleiro_paredao)
+  Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
+  Actual:   Meshes: 9, Vertices: 22,284, Bounds: [106.26 x 102.94 x 76.82 mm], NaN: false, ActiveTool: vasos
+
+[PASS] [St.1 - Spline Profiles (54)] #39 Saboneteira c/ Escorredor e Drenos (s1_spline_profile_saboneteira_escorredor)
+  Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
+  Actual:   Meshes: 12, Vertices: 18,216, Bounds: [120.66 x 43.65 x 96.6 mm], NaN: false, ActiveTool: vasos
+
+[PASS] [St.1 - Spline Profiles (54)] #41 Pote de Alho & Cebola Ventilado em Placas (s1_spline_profile_pote_alho_ventilado)
+  Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
+  Actual:   Meshes: 12, Vertices: 16,308, Bounds: [144.94 x 132 x 135.28 mm], NaN: false, ActiveTool: vasos
+
+[PASS] [St.1 - Spline Profiles (54)] #42 Galheteiro / Porta-Azeite Quadrado c/ Bico & Alça (s1_spline_profile_galheteiro_quadrado)
+  Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
+  Actual:   Meshes: 14, Vertices: 23,964, Bounds: [162.64 x 183.25 x 78.53 mm], NaN: false, ActiveTool: vasos
+
+[PASS] [St.1 - Spline Profiles (54)] #43 Bandeja Retangular Dobrada c/ Pegas Manuais (s1_spline_profile_bandeja_retangular_dobrada)
+  Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
+  Actual:   Meshes: 10, Vertices: 1,056, Bounds: [240.76 x 34 x 196.32 mm], NaN: false, ActiveTool: vasos
+
+[PASS] [St.1 - Spline Profiles (54)] #44 Pote Hermético de Chá / Mantimentos em Placas (s1_spline_profile_pote_cha_hermetico)
+  Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
+  Actual:   Meshes: 10, Vertices: 15,924, Bounds: [106.78 x 137 x 106.78 mm], NaN: false, ActiveTool: vasos
+
+[PASS] [St.1 - Spline Profiles (54)] #45 Cachepô Geométrico c/ Pés Prismáticos de Placa (s1_spline_profile_cachepo_pes_prismaticos)
+  Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
+  Actual:   Meshes: 9, Vertices: 8,928, Bounds: [140 x 116.25 x 125.3 mm], NaN: false, ActiveTool: vasos
+
+[PASS] [St.1 - Spline Profiles (54)] #68 Garrafa / Vaso Facetado Prismático em Placas (s1_spline_profile_garrafa_facetada)
+  Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
+  Actual:   Meshes: 10, Vertices: 10,800, Bounds: [117.69 x 178.81 x 102.43 mm], NaN: false, ActiveTool: vasos
+
+[PASS] [St.1 - Spline Profiles (54)] #86 Porta-Copos Hexagonal Vincado (s1_spline_profile_porta_copos_vincado)
+  Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
+  Actual:   Meshes: 8, Vertices: 384, Bounds: [108 x 11 x 92.18 mm], NaN: false, ActiveTool: vasos
+
+[PASS] [St.1 - Spline Profiles (54)] #88 Descanso de Talheres Ondulado em V (s1_spline_profile_descanso_talheres)
+  Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
+  Actual:   Meshes: 8, Vertices: 336, Bounds: [83.15 x 19 x 76.82 mm], NaN: false, ActiveTool: vasos
+
+[PASS] [St.1 - Spline Profiles (54)] #90 Porta-Incenso Tipo Canoa Parabólica (s1_spline_profile_porta_incenso_canoa)
+  Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
+  Actual:   Meshes: 9, Vertices: 9,204, Bounds: [76 x 45 x 64.87 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 1. Xícara de Café Espresso c/ Alça Ergonômica (s1_spline_profile_xicara_cafe)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 12, Vertices: 134,640, Bounds: [93.33 x 68 x 59.75 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 12, Vertices: 134,640, Bounds: [95.9 x 68 x 64.13 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 2. Xícara de Chá Clássica c/ Alça e Pé Torneado (s1_spline_profile_xicara_cha)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 13, Vertices: 141,552, Bounds: [126.59 x 74.1 x 85.36 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 13, Vertices: 141,552, Bounds: [130.26 x 74.1 x 91.62 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 3. Caneca Cilíndrica de Ateliê c/ Alça (s1_spline_profile_caneca_cilindrica)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 12, Vertices: 134,640, Bounds: [121.76 x 102 x 73.41 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 12, Vertices: 135,288, Bounds: [122.65 x 102 x 78.84 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 4. Caneca Bojo Barril Rústica c/ Alça (s1_spline_profile_caneca_barril)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 12, Vertices: 134,640, Bounds: [134.65 x 105 x 85.45 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 12, Vertices: 135,288, Bounds: [124.82 x 105 x 84.29 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 5. Cuia de Chimarrão Gaúcha c/ Bocal e Pé (s1_spline_profile_cuia_chimarrao)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 13, Vertices: 144,576, Bounds: [102.05 x 139.01 x 102.05 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [109.48 x 139 x 93.45 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 6. Cuia de Tereré / Mate Copo Contemporânea (s1_spline_profile_cuia_terere)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 12, Vertices: 137,664, Bounds: [94.05 x 115.9 x 94.05 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [100.9 x 115 x 86.12 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 7. Chaleira / Bule Oriental c/ Bico, Alça e Tampa (s1_spline_profile_chaleira_bule)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 16, Vertices: 152,496, Bounds: [218.26 x 142 x 117.32 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 16, Vertices: 151,224, Bounds: [174.67 x 173.76 x 104.45 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 8. Bule de Café Alto c/ Bico de Cisne, Alça e Tampa (s1_spline_profile_bule_cafe)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 16, Vertices: 152,496, Bounds: [184.42 x 182 x 90.2 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 16, Vertices: 150,456, Bounds: [173.4 x 182 x 82.65 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 9. Panela de Barro Capixaba c/ 2 Alças e Tampa (s1_spline_profile_panela_barro)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 15, Vertices: 152,352, Bounds: [217.21 x 122 x 159.87 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 13, Vertices: 139,824, Bounds: [226.91 x 122 x 144.78 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 10. Caçarola Cocotte de Forno c/ 2 Alças e Tampa (s1_spline_profile_cacarola_forno)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 15, Vertices: 152,352, Bounds: [190.52 x 112 x 147.7 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 14, Vertices: 144,816, Bounds: [178 x 112 x 151.43 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 11. Sopeira Bojo Largo c/ 2 Alças e Tampa (s1_spline_profile_sopeira_artesanal)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 15, Vertices: 152,352, Bounds: [225.64 x 146.12 x 149.23 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 14, Vertices: 144,816, Bounds: [213.81 x 146 x 139.51 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 12. Jarra / Leiteira de Mesa c/ Bico Vertedor e Alça (s1_spline_profile_leiteira_jarra)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 15, Vertices: 145,584, Bounds: [150.04 x 136 x 92.48 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 15, Vertices: 146,232, Bounds: [132.48 x 136.88 x 84.31 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 13. Tigela Chawan de Chá Matcha c/ Pé Kodai (s1_spline_profile_tigela_chawan)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 12, Vertices: 137,664, Bounds: [116.01 x 82.12 x 99.02 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [124.51 x 82 x 106.27 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 14. Pote / Açucareiro de Mesa c/ Tampa e Puxador (s1_spline_profile_acucareiro_pote)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 13, Vertices: 144,576, Bounds: [96.03 x 112 x 94.31 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 12, Vertices: 135,360, Bounds: [103.1 x 112 x 96.55 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 15. Ânfora Grega Clássica (s1_spline_profile_anfora)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 13, Vertices: 138,528, Bounds: [164.24 x 96 x 109.25 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 13, Vertices: 139,824, Bounds: [129.54 x 185 x 110.57 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 16. Cratera Grega (Krater) (s1_spline_profile_cratera)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [136 x 96 x 116.08 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 13, Vertices: 139,824, Bounds: [198.08 x 160 x 131.93 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 17. Hidria / Jarro de Água (s1_spline_profile_hidria)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [134.54 x 175 x 114.84 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 13, Vertices: 139,824, Bounds: [172.49 x 175 x 117.88 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 18. Lécito Grego (Lekythos) (s1_spline_profile_lecito)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [80.43 x 190 x 68.66 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 12, Vertices: 135,288, Bounds: [97.37 x 190 x 77.25 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 19. Pithos Mediterrâneo (s1_spline_profile_pithos)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [131.18 x 210 x 111.97 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [162.24 x 210 x 138.48 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 20. Kylix / Taça Alta (s1_spline_profile_kylix)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [136 x 110 x 116.08 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 13, Vertices: 139,824, Bounds: [206.63 x 110 x 128.26 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 21. Enócoa (Oinochoe) (s1_spline_profile_enocoa)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [128.05 x 168 x 109.3 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 12, Vertices: 135,288, Bounds: [123.52 x 168 x 101.31 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 22. Psicter (Psykter) (s1_spline_profile_psicter)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [132.03 x 170 x 112.7 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [133.87 x 170 x 114.27 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 23. Pelike (s1_spline_profile_pelike)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [132.13 x 170 x 112.78 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [141.83 x 170 x 121.06 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 24. Aríbalo (Aryballos) (s1_spline_profile_aribalo)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [128.21 x 170 x 109.44 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [137.62 x 170 x 117.47 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 25. Cântaro (Kantharos) (s1_spline_profile_cantaro)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [116 x 170 x 99.01 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [124.51 x 170 x 106.28 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 26. Cabaça / Hulu (Duplo Bojo) (s1_spline_profile_cabaca)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [132.03 x 170 x 112.7 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [141.72 x 170 x 120.97 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 27. Jarro Moon (Dal-hangari) (s1_spline_profile_moonjar)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [132 x 170 x 112.67 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [141.69 x 170 x 120.94 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 28. Meiping Imperial (Ameixeira) (s1_spline_profile_meiping)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [132.29 x 170 x 112.92 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [142 x 170 x 121.2 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 29. Guanyin / Baluster Qing (s1_spline_profile_baluster)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [124 x 170 x 105.84 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [133.1 x 170 x 113.61 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 30. Tokkuri (Garrafa de Saquê) (s1_spline_profile_tokkuri)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [124.38 x 170 x 106.16 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [133.51 x 170 x 113.95 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 31. Yuhuchunping (Pêra Song) (s1_spline_profile_yuhuchun)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [128.51 x 170 x 109.69 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [137.94 x 170 x 117.74 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 32. Zun Imperial Ritualístico (s1_spline_profile_zun)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [132 x 170 x 112.67 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [141.69 x 170 x 120.94 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 33. Cong (Tubo Prismático) (s1_spline_profile_cong)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [100 x 170 x 85.35 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [107.34 x 170 x 91.62 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 34. Suanpanping (Cabeça de Alho) (s1_spline_profile_alho)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [128.34 x 170 x 109.54 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [137.76 x 170 x 117.58 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 35. Tsubo (Jarro de Chá Japonês) (s1_spline_profile_tsubo)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [130.02 x 170 x 110.98 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [139.56 x 170 x 119.12 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 36. Maebyong Coreano (Goryeo) (s1_spline_profile_maebyong)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [131.93 x 170 x 112.61 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [141.61 x 170 x 120.87 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 37. Garrafa Clássica (s1_spline_profile_garrafa)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [90 x 205 x 76.82 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [96.49 x 205 x 82.36 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 38. Gota Minimalista (s1_spline_profile_gota)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [128.23 x 205 x 109.45 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [137.64 x 205 x 117.48 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 39. Albarello Farmacêutico (s1_spline_profile_albarello)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [88.11 x 205 x 75.21 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [94.58 x 205 x 80.73 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 40. Vaso Tulipa / Cálice (s1_spline_profile_tulipa)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [128 x 205 x 109.25 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [137.39 x 205 x 117.27 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 41. Cilindro Nórdico Minimalista (s1_spline_profile_nordico)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [84.44 x 205 x 72.08 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [90.64 x 205 x 77.37 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 42. Vaso Ampulheta / Diabolo (s1_spline_profile_ampulheta)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [112 x 205 x 95.6 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [120.22 x 205 x 102.61 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 43. Bule / Jarro Bojo Baixo (s1_spline_profile_bojobaixo)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [132.41 x 205 x 113.02 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [142.12 x 205 x 121.31 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 44. Urna Marajoara (s1_spline_profile_marajoara)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [132 x 205 x 112.67 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [141.69 x 205 x 120.94 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 45. Aríbalo Inca (s1_spline_profile_inca)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [128.65 x 180 x 109.81 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 13, Vertices: 139,824, Bounds: [138.09 x 180 x 117.87 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 46. Moringa Brasileira (Bilha) (s1_spline_profile_moringa)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [132.07 x 185 x 112.73 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 12, Vertices: 137,664, Bounds: [143.89 x 205 x 122.82 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 47. Vaso Totem Escultural (s1_spline_profile_totem)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [111.87 x 220 x 95.48 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [120.2 x 220 x 102.6 mm], NaN: false, ActiveTool: vasos
 
-[PASS] [St.1 - Spline Profiles (54)] 48. Vaso Espiral Torcido (Twisted Octogonal) (s1_spline_profile_bib_twisted)
+[PASS] [St.1 - Spline Profiles (54)] 48. Vaso Espiral Torcido (Twisted Loft) (s1_spline_profile_bib_twisted)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
   Actual:   Meshes: 1, Vertices: 475, Bounds: [98.2 x 160 x 98.2 mm], NaN: false, ActiveTool: vasos
 
@@ -206,87 +254,115 @@ Total: 120 | Passed: 120 | Failed: 0 | Pass Rate: 100.0%
 
 [PASS] [St.1 - Spline Profiles (54)] 51. Cachepô Facetado Low-Poly Contemporâneo (s1_spline_profile_bib_facetado)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 1, Vertices: 672, Bounds: [126 x 95 x 126 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 1, Vertices: 240, Bounds: [110 x 140 x 110 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 52. Costela de Oleiro Ergonômica c/ Pega (Rib) (s1_spline_profile_bib_costela)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 1, Vertices: 2,400, Bounds: [106.93 x 52.76 x 6.1 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 1, Vertices: 924, Bounds: [71.01 x 111.02 x 5 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - Spline Profiles (54)] 53. Chanfrador de Placas 45° (Gabarito Bisel) (s1_spline_profile_bib_chanfrador)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
   Actual:   Meshes: 1, Vertices: 24, Bounds: [60 x 40 x 45 mm], NaN: false, ActiveTool: vasos
 
-[PASS] [St.1 - Spline Profiles (54)] 54. Bocal Matriz de Extrusora (Ø58 mm) (s1_spline_profile_bib_extrusora)
+[PASS] [St.1 - Spline Profiles (54)] 54. Bocal Matriz de Extrusora (Ø5.8 cm) (s1_spline_profile_bib_extrusora)
   Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
-  Actual:   Meshes: 1, Vertices: 372, Bounds: [58 x 5 x 58 mm], NaN: false, ActiveTool: vasos
+  Actual:   Meshes: 1, Vertices: 1,092, Bounds: [90 x 10 x 90 mm], NaN: false, ActiveTool: vasos
+
+[PASS] [St.1 - Spline Profiles (54)] 55. Vaso Cônico para Bonsai com Drenos (s1_spline_profile_vaso_bonsai)
+  Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
+  Actual:   Meshes: 1, Vertices: 960, Bounds: [170 x 53 x 170 mm], NaN: false, ActiveTool: vasos
+
+[PASS] [St.1 - Spline Profiles (54)] 56. Cachepô Cilíndrico Reto Contemporâneo (s1_spline_profile_cachepo_cilindrico)
+  Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
+  Actual:   Meshes: 13, Vertices: 144,576, Bounds: [128.81 x 121.02 x 127.7 mm], NaN: false, ActiveTool: vasos
+
+[PASS] [St.1 - Spline Profiles (54)] 57. Cachepô Esférico Suspenso para Macramê (s1_spline_profile_cachepo_esferico)
+  Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [139.6 x 110 x 119.16 mm], NaN: false, ActiveTool: vasos
+
+[PASS] [St.1 - Spline Profiles (54)] 58. Cachepô Cúbico com Cantos Biselados 45° (s1_spline_profile_cachepo_cubico)
+  Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
+  Actual:   Meshes: 1, Vertices: 132, Bounds: [100 x 115 x 100 mm], NaN: false, ActiveTool: vasos
+
+[PASS] [St.1 - Spline Profiles (54)] 59. Jardineira Retangular Longa com Prato (s1_spline_profile_jardineira_placa)
+  Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
+  Actual:   Meshes: 1, Vertices: 168, Bounds: [255 x 95 x 115 mm], NaN: false, ActiveTool: vasos
+
+[PASS] [St.1 - Spline Profiles (54)] 60. Vaso para Orquídeas com Aberturas Vazadas (s1_spline_profile_vaso_orquideas)
+  Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
+  Actual:   Meshes: 11, Vertices: 130,752, Bounds: [118.39 x 130 x 101.05 mm], NaN: false, ActiveTool: vasos
+
+[PASS] [St.1 - Spline Profiles (54)] 61. Vaso Autoirrigável com Câmara d’Água (s1_spline_profile_vaso_irrigavel)
+  Expected: Generates valid 3D ceramic mesh (meshCount > 0, vertices > 0, finite bounds, no NaN)
+  Actual:   Meshes: 12, Vertices: 137,664, Bounds: [133.36 x 159.75 x 127.47 mm], NaN: false, ActiveTool: vasos
 
 [PASS] [St.1 - 3D Surface Textures (11)] 1. Liso Natural de Torno (s1_texture_liso)
   Expected: Modifies vertex displacement with continuous texture profile without NaN
-  Actual:   Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 109.22 mm]
+  Actual:   Meshes: 13, Vertices: 139,824, Bounds: [129.53 x 185 x 110.56 mm]
 
 [PASS] [St.1 - 3D Surface Textures (11)] 2. Canelado Romano (Fluted) (s1_texture_canelado)
   Expected: Modifies vertex displacement with continuous texture profile without NaN
-  Actual:   Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 112.22 mm]
+  Actual:   Meshes: 13, Vertices: 139,824, Bounds: [172.62 x 185 x 140.56 mm]
 
 [PASS] [St.1 - 3D Surface Textures (11)] 3. Ondas Senoidais Horizontais (s1_texture_senoidal)
   Expected: Modifies vertex displacement with continuous texture profile without NaN
-  Actual:   Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 110.93 mm]
+  Actual:   Meshes: 13, Vertices: 139,824, Bounds: [187.73 x 185 x 160.23 mm]
 
 [PASS] [St.1 - 3D Surface Textures (11)] 4. Cones & Diamantes 3D (s1_texture_cones)
   Expected: Modifies vertex displacement with continuous texture profile without NaN
-  Actual:   Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 112.21 mm]
+  Actual:   Meshes: 13, Vertices: 139,824, Bounds: [188 x 185 x 153.2 mm]
 
 [PASS] [St.1 - 3D Surface Textures (11)] 5. Escamas de Peixe / Pétalas (s1_texture_escamas)
   Expected: Modifies vertex displacement with continuous texture profile without NaN
-  Actual:   Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 114.24 mm]
+  Actual:   Meshes: 13, Vertices: 139,824, Bounds: [187.53 x 185 x 160.04 mm]
 
 [PASS] [St.1 - 3D Surface Textures (11)] 6. Martelado Japonês (Tsuchime) (s1_texture_martelado)
   Expected: Modifies vertex displacement with continuous texture profile without NaN
-  Actual:   Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 108.61 mm]
+  Actual:   Meshes: 13, Vertices: 139,824, Bounds: [128.63 x 185 x 109.81 mm]
 
 [PASS] [St.1 - 3D Surface Textures (11)] 7. Espiral de Corda (Jomon) (s1_texture_espiral_corda)
   Expected: Modifies vertex displacement with continuous texture profile without NaN
-  Actual:   Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 113.98 mm]
+  Actual:   Meshes: 13, Vertices: 139,824, Bounds: [186.34 x 185 x 159.28 mm]
 
 [PASS] [St.1 - 3D Surface Textures (11)] 8. Favo Hexagonal Alveolar (s1_texture_favo_3d)
   Expected: Modifies vertex displacement with continuous texture profile without NaN
-  Actual:   Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 111.82 mm]
+  Actual:   Meshes: 13, Vertices: 139,824, Bounds: [174.18 x 185 x 138.42 mm]
 
 [PASS] [St.1 - 3D Surface Textures (11)] 9. Ondas Cruzadas Zen (Karesansui) (s1_texture_ondas_zen)
   Expected: Modifies vertex displacement with continuous texture profile without NaN
-  Actual:   Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 113.47 mm]
+  Actual:   Meshes: 13, Vertices: 139,824, Bounds: [180.1 x 185 x 153.72 mm]
 
 [PASS] [St.1 - 3D Surface Textures (11)] 10. Gomos Botânicos (Cabotiá) (s1_texture_gomos_abobora)
   Expected: Modifies vertex displacement with continuous texture profile without NaN
-  Actual:   Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 110.09 mm]
+  Actual:   Meshes: 13, Vertices: 139,824, Bounds: [171.61 x 185 x 138 mm]
 
 [PASS] [St.1 - 3D Surface Textures (11)] 11. Trama Cestaria Entrelaçada (s1_texture_trama_cesto)
   Expected: Modifies vertex displacement with continuous texture profile without NaN
-  Actual:   Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 112.87 mm]
+  Actual:   Meshes: 13, Vertices: 139,824, Bounds: [173 x 185 x 151.03 mm]
 
 [PASS] [St.1 - Morphology & Twist] Seção Transversal: Círculo (s1_morph_cross_circle)
   Expected: Parametric loft/cross-section modulates 3D shape smoothly without NaN
-  Actual:   Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 112.87 mm]
+  Actual:   Meshes: 13, Vertices: 139,824, Bounds: [170.97 x 185 x 146.94 mm]
 
 [PASS] [St.1 - Morphology & Twist] Seção Transversal: Pétalas (8) (s1_morph_cross_petals)
   Expected: Parametric loft/cross-section modulates 3D shape smoothly without NaN
-  Actual:   Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 117.37 mm]
+  Actual:   Meshes: 13, Vertices: 139,824, Bounds: [174.95 x 185 x 151.36 mm]
 
 [PASS] [St.1 - Morphology & Twist] Seção Transversal: Polígono (6 lados) (s1_morph_cross_polygon)
   Expected: Parametric loft/cross-section modulates 3D shape smoothly without NaN
-  Actual:   Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 114.67 mm]
+  Actual:   Meshes: 13, Vertices: 139,824, Bounds: [161.03 x 185 x 146.69 mm]
 
 [PASS] [St.1 - Morphology & Twist] Torção Helicoidal: -180° (s1_morph_twist_neg180)
   Expected: Parametric loft/cross-section modulates 3D shape smoothly without NaN
-  Actual:   Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 118.88 mm]
+  Actual:   Meshes: 13, Vertices: 139,824, Bounds: [178.43 x 185 x 147.05 mm]
 
 [PASS] [St.1 - Morphology & Twist] Torção Helicoidal: +180° (s1_morph_twist_pos180)
   Expected: Parametric loft/cross-section modulates 3D shape smoothly without NaN
-  Actual:   Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 118.88 mm]
+  Actual:   Meshes: 13, Vertices: 139,824, Bounds: [178.43 x 185 x 147.05 mm]
 
 [PASS] [St.1 - Morphology & Twist] Lofting Hermite: Base Quadrada -> Topo Circular (s1_morph_lofting_blend)
   Expected: Parametric loft/cross-section modulates 3D shape smoothly without NaN
-  Actual:   Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 117.88 mm]
+  Actual:   Meshes: 13, Vertices: 139,824, Bounds: [178.43 x 185 x 147 mm]
 
 [PASS] [St.1 - Ceramic Finishes (6)] Acabamento Cerâmico: TERRACOTA (s1_finish_terracota)
   Expected: CinnabarMaterialSystem applies PBR shader maps (roughness, metalness, bump/normal)
@@ -314,135 +390,135 @@ Total: 120 | Passed: 120 | Failed: 0 | Pass Rate: 100.0%
 
 [PASS] [St.1 - Cut, Fillet & Drainage] Corte 270° c/ Paredes Espessas Tampadas (s1_feature_cut_270)
   Expected: Generates non-empty geometry with caps/tubular sleeve
-  Actual:   Meshes: 13, Vertices: 138,528, Bounds: [166.62 x 220 x 117.88 mm]
+  Actual:   Meshes: 13, Vertices: 139,824, Bounds: [178.43 x 185 x 147 mm]
 
 [PASS] [St.1 - Cut, Fillet & Drainage] Vaso 360° Fechado Sem Corte (s1_feature_closed_360)
   Expected: Generates non-empty geometry with caps/tubular sleeve
-  Actual:   Meshes: 11, Vertices: 137,376, Bounds: [166.62 x 220 x 137.16 mm]
+  Actual:   Meshes: 11, Vertices: 138,672, Bounds: [175.88 x 185 x 173.1 mm]
 
 [PASS] [St.1 - Cut, Fillet & Drainage] Furo Central de Drenagem Ø25mm c/ Manga Tubular (s1_feature_drainage_hole)
   Expected: Generates non-empty geometry with caps/tubular sleeve
-  Actual:   Meshes: 12, Vertices: 138,816, Bounds: [166.62 x 220 x 137.16 mm]
+  Actual:   Meshes: 12, Vertices: 140,112, Bounds: [291.37 x 185 x 320.38 mm]
 
 [PASS] [St.1 - Cut, Fillet & Drainage] Filete de Base Anti-Trinca Raio 12mm (s1_feature_base_fillet)
   Expected: Generates non-empty geometry with caps/tubular sleeve
-  Actual:   Meshes: 12, Vertices: 143,856, Bounds: [166.62 x 220 x 137.08 mm]
+  Actual:   Meshes: 12, Vertices: 144,432, Bounds: [305.34 x 185 x 321.68 mm]
 
 [PASS] [St.1 - Spline to Slabs Converter] Conversor Automático: Silhueta Spline ➔ 5 Estágios Conectados (s1_converter_spline_to_slabs)
   Expected: Switches to estagios mode, creates base disc + >= 5 axial stages, builds valid 3D mesh
-  Actual:   Mode: estagios, Stages: 7, Cards: 7, Meshes: 21, Vertices: 49,248
+  Actual:   Mode: estagios, Stages: 8, Cards: 8, Meshes: 17, Vertices: 40,608
 
 [PASS] [St.1 - Connected Slabs Recipes (14)] 🏺 1. Vaso / Ânfora em Anéis Conectados (Padrão) (s1_slab_recipe_anfora_aneis)
   Expected: Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items
-  Actual:   Stages: 4, 3D Meshes: 8, Verts: 27,648, 2D Patterns: 6 (S1 Cone, S2 Cilindro (Arco 1/2), S2 Cilindro (Arco 2/2), S3 Cone, S4 Cone, Disco Base Ø74)
+  Actual:   Stages: 7, 3D Meshes: 15, Verts: 48,816, 2D Patterns: 18 (S2 Cone (Arco 1/2), S2 Cone (Arco 2/2), S3 Bojo 1/4, S3 Bojo 2/4 (Arco 1/2), S3 Bojo 2/4 (Arco 2/2), S3 Bojo 3/4 (Arco 1/2), S3 Bojo 3/4 (Arco 2/2), S3 Bojo 4/4 (Arco 1/2), S3 Bojo 4/4 (Arco 2/2), S4 Cone, S5 Cilindro, S6 Cone, Disco Fundo Ø70 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Tira de Alça 1/2 (9.5×2.0 cm), Gabarito Curva 1:1 1/2 (4.0×5.6 cm • Apoio), Tira de Alça 2/2 (9.5×2.0 cm), Gabarito Curva 1:1 2/2 (4.0×5.6 cm • Apoio))
 
 [PASS] [St.1 - Connected Slabs Recipes (14)] ☕ 2. Xícara de Café Espresso (Cone + Pé + Alça) (s1_slab_recipe_xicara_cafe)
   Expected: Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items
-  Actual:   Stages: 4, 3D Meshes: 8, Verts: 15,984, 2D Patterns: 4 (S2 Cilindro, S3 Cone, Disco Fundo Ø44 (Sólido), Tira de Alça  (77x12 mm))
+  Actual:   Stages: 4, 3D Meshes: 8, Verts: 17,280, 2D Patterns: 5 (S2 Cilindro, S3 Cone, Disco Fundo Ø40 (Sólido), Tira de Alça  (7.6×1.3 cm), Gabarito Curva 1:1  (2.7×4.6 cm • Apoio))
 
 [PASS] [St.1 - Connected Slabs Recipes (14)] 🍵 3. Xícara de Chá Clássica (Bojo Esf. + Pé + Alça) (s1_slab_recipe_xicara_cha)
   Expected: Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items
-  Actual:   Stages: 4, 3D Meshes: 11, Verts: 22,896, 2D Patterns: 10 (S3 Bojo 1/4, S3 Bojo 2/4, S3 Bojo 3/4 (Arco 1/2), S3 Bojo 3/4 (Arco 2/2), S3 Bojo 4/4 (Arco 1/2), S3 Bojo 4/4 (Arco 2/2), Disco Fundo Ø52 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Pé/Kodai (183x10 mm), Tira de Alça  (80x15 mm))
+  Actual:   Stages: 4, 3D Meshes: 10, Verts: 14,928, 2D Patterns: 8 (S2 Cone, S3 Bojo 1/3, S3 Bojo 2/3, S3 Bojo 3/3 (Arco 1/2), S3 Bojo 3/3 (Arco 2/2), Disco Fundo Ø48 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Alça Orelha de Placa  (29x22 mm))
 
 [PASS] [St.1 - Connected Slabs Recipes (14)] 🍺 4. Caneca Cilíndrica de Ateliê (Cilindro + Borda + Alça) (s1_slab_recipe_caneca_cilindrica)
   Expected: Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items
-  Actual:   Stages: 4, 3D Meshes: 8, Verts: 28,944, 2D Patterns: 6 (S2 Cilindro (Arco 1/2), S2 Cilindro (Arco 2/2), Disco Fundo Ø84 (Sólido), Faixa de Borda/Boca (1/2) (148x9 mm), Faixa de Borda/Boca (2/2) (148x9 mm), Tira de Alça  (108x18 mm))
+  Actual:   Stages: 4, 3D Meshes: 8, Verts: 29,376, 2D Patterns: 7 (S2 Cilindro (Arco 1/2), S2 Cilindro (Arco 2/2), Disco Fundo Ø84 (Sólido), Faixa de Borda/Boca (1/2) (155x10 mm), Faixa de Borda/Boca (2/2) (155x10 mm), Tira de Alça  (10.7×2.5 cm), Gabarito Curva 1:1  (4.0×7.2 cm • Apoio))
 
 [PASS] [St.1 - Connected Slabs Recipes (14)] 🪵 5. Caneca Barril Rústica (Cone + Bojo + Alça) (s1_slab_recipe_caneca_barril)
   Expected: Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items
-  Actual:   Stages: 3, 3D Meshes: 10, Verts: 23,760, 2D Patterns: 9 (S2 Bojo 1/4, S2 Bojo 2/4 (Arco 1/2), S2 Bojo 2/4 (Arco 2/2), S2 Bojo 3/4 (Arco 1/2), S2 Bojo 3/4 (Arco 2/2), S2 Bojo 4/4, Disco Fundo Ø76 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Tira de Alça  (108x18 mm))
+  Actual:   Stages: 5, 3D Meshes: 10, Verts: 25,056, 2D Patterns: 10 (S2 Cone, S3 Bojo 1/2 (Arco 1/2), S3 Bojo 1/2 (Arco 2/2), S3 Bojo 2/2 (Arco 1/2), S3 Bojo 2/2 (Arco 2/2), S4 Cone, Disco Fundo Ø72 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Tira de Alça  (11.2×2.7 cm), Gabarito Curva 1:1  (4.2×7.7 cm • Apoio))
 
 [PASS] [St.1 - Connected Slabs Recipes (14)] 🧉 6. Cuia de Chimarrão Gaúcha (Pé + Bojo Esf. + Bocal) (s1_slab_recipe_cuia_chimarrao)
   Expected: Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items
-  Actual:   Stages: 6, 3D Meshes: 13, Verts: 38,016, 2D Patterns: 12 (S2 Cone, S4 Bojo 1/4, S4 Bojo 2/4, S4 Bojo 3/4 (Arco 1/2), S4 Bojo 3/4 (Arco 2/2), S4 Bojo 4/4, S5 Cone, Disco Fundo Ø60 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Pé/Kodai (155x11 mm), Faixa de Borda/Boca (1/2) (162x10 mm), Faixa de Borda/Boca (2/2) (162x10 mm))
+  Actual:   Stages: 4, 3D Meshes: 11, Verts: 27,216, 2D Patterns: 11 (S2 Cone, S3 Bojo 1/4, S3 Bojo 2/4 (Arco 1/2), S3 Bojo 2/4 (Arco 2/2), S3 Bojo 3/4 (Arco 1/2), S3 Bojo 3/4 (Arco 2/2), S3 Bojo 4/4, S4 Cone (Arco 1/2), S4 Cone (Arco 2/2), Disco Fundo Ø64 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%))
 
 [PASS] [St.1 - Connected Slabs Recipes (14)] 🌿 7. Cuia de Tereré / Mate Copo (Cone Duplo + Borda) (s1_slab_recipe_cuia_terere)
   Expected: Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items
-  Actual:   Stages: 4, 3D Meshes: 8, Verts: 27,648, 2D Patterns: 6 (S2 Cone, S3 Cilindro (Arco 1/2), S3 Cilindro (Arco 2/2), Disco Fundo Ø60 (Sólido), Faixa de Borda/Boca (1/2) (148x9 mm), Faixa de Borda/Boca (2/2) (148x9 mm))
+  Actual:   Stages: 4, 3D Meshes: 8, Verts: 22,032, 2D Patterns: 6 (S2 Cone, S3 Cone (Arco 1/2), S3 Cone (Arco 2/2), S4 Cilindro (Arco 1/2), S4 Cilindro (Arco 2/2), Disco Fundo Ø56 (Sólido))
 
 [PASS] [St.1 - Connected Slabs Recipes (14)] 🫖 8. Chaleira / Bule Completo (Bojo + Bico + Alça + Tampa) (s1_slab_recipe_chaleira_bule)
   Expected: Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items
-  Actual:   Stages: 6, 3D Meshes: 15, Verts: 44,208, 2D Patterns: 12 (S2 Bojo 1/4, S2 Bojo 2/4 (Arco 1/2), S2 Bojo 2/4 (Arco 2/2), S2 Bojo 3/4 (Arco 1/2), S2 Bojo 3/4 (Arco 2/2), S2 Bojo 4/4, S3 Cone, Disco Fundo Ø84 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Tira de Alça  (116x18 mm), Leque do Bico Vertedor (Base Ø34 ➔ Ponta Ø16 • Alcance 42mm), Disco da Tampa Ø83 mm (Domo 18mm))
+  Actual:   Stages: 7, 3D Meshes: 16, Verts: 42,048, 2D Patterns: 17 (S2 Cilindro (Arco 1/2), S2 Cilindro (Arco 2/2), S3 Bojo 1/4, S3 Bojo 2/4 (Arco 1/2), S3 Bojo 2/4 (Arco 2/2), S3 Bojo 3/4 (Arco 1/2), S3 Bojo 3/4 (Arco 2/2), S3 Bojo 4/4, S4 Cilindro (Arco 1/2), S4 Cilindro (Arco 2/2), Disco Fundo Ø90 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Leque do Bico Vertedor (Base Ø40 ➔ Ponta Ø18 • Alcance 45mm), Tira de Alça  (11.8×2.5 cm), Gabarito Curva 1:1  (4.4×8.2 cm • Apoio), Disco da Tampa Ø94 mm (Domo 14mm), Galeria Interna da Tampa (239x11 mm))
 
 [PASS] [St.1 - Connected Slabs Recipes (14)] ☕ 9. Bule de Café Alto Colonial (Cone + Bico + Alça + Tampa) (s1_slab_recipe_bule_cafe)
   Expected: Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items
-  Actual:   Stages: 7, 3D Meshes: 13, Verts: 50,256, 2D Patterns: 9 (S2 Cone (Arco 1/2), S2 Cone (Arco 2/2), S3 Cone (Arco 1/2), S3 Cone (Arco 2/2), S4 Cilindro, Disco Fundo Ø80 (Sólido), Tira de Alça  (142x17 mm), Leque do Bico Vertedor (Base Ø31 ➔ Ponta Ø15 • Alcance 44mm), Disco da Tampa Ø83 mm (Domo 20mm))
+  Actual:   Stages: 7, 3D Meshes: 13, Verts: 48,960, 2D Patterns: 11 (S2 Cilindro (Arco 1/2), S2 Cilindro (Arco 2/2), S3 Cone (Arco 1/2), S3 Cone (Arco 2/2), S4 Cone, Disco Fundo Ø104 (Sólido), Leque do Bico Vertedor (Base Ø31 ➔ Ponta Ø13 • Alcance 48mm), Tira de Alça  (15.3×2.2 cm), Gabarito Curva 1:1  (5.1×11.7 cm • Apoio), Disco da Tampa Ø90 mm (Domo 20mm), Galeria Interna da Tampa (225x11 mm))
 
 [PASS] [St.1 - Connected Slabs Recipes (14)] 🍲 10. Panela de Barro Capixaba (Bojo + 2 Alças + Tampa) (s1_slab_recipe_panela_barro)
   Expected: Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items
-  Actual:   Stages: 5, 3D Meshes: 13, Verts: 38,016, 2D Patterns: 17 (S2 Bojo 1/4 (Arco 1/2), S2 Bojo 1/4 (Arco 2/2), S2 Bojo 2/4 (Arco 1/2), S2 Bojo 2/4 (Arco 2/2), S2 Bojo 3/4 (Arco 1/3), S2 Bojo 3/4 (Arco 2/3), S2 Bojo 3/4 (Arco 3/3), S2 Bojo 4/4 (Arco 1/2), S2 Bojo 4/4 (Arco 2/2), Disco Fundo Ø128 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Borda/Boca (1/3) (169x11 mm), Faixa de Borda/Boca (2/3) (169x11 mm), Faixa de Borda/Boca (3/3) (169x11 mm), Tira de Alça 1/2 (72x22 mm), Tira de Alça 2/2 (72x22 mm), Disco da Tampa Ø168 mm (Domo 24mm))
+  Actual:   Stages: 5, 3D Meshes: 11, Verts: 30,720, 2D Patterns: 16 (S2 Bojo 1/2 (Arco 1/3), S2 Bojo 1/2 (Arco 2/3), S2 Bojo 1/2 (Arco 3/3), S2 Bojo 2/2 (Arco 1/3), S2 Bojo 2/2 (Arco 2/3), S2 Bojo 2/2 (Arco 3/3), S3 Cone (Arco 1/2), S3 Cone (Arco 2/2), Disco Fundo Ø150 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Alça Orelha de Placa 1/2 (31x38 mm), Alça Orelha de Placa 2/2 (31x38 mm), Disco da Tampa Ø188 mm (Domo 22mm), Galeria Interna da Tampa (1/3) (178x11 mm), Galeria Interna da Tampa (2/3) (178x11 mm), Galeria Interna da Tampa (3/3) (178x11 mm))
 
 [PASS] [St.1 - Connected Slabs Recipes (14)] 🥘 11. Caçarola Cocotte de Forno (Cilindro + 2 Alças + Tampa) (s1_slab_recipe_cacarola_forno)
   Expected: Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items
-  Actual:   Stages: 5, 3D Meshes: 10, Verts: 37,152, 2D Patterns: 8 (S2 Cilindro (Arco 1/2), S2 Cilindro (Arco 2/2), Disco Fundo Ø136 (Sólido), Faixa de Borda/Boca (1/2) (240x10 mm), Faixa de Borda/Boca (2/2) (240x10 mm), Tira de Alça 1/2 (66x25 mm), Tira de Alça 2/2 (66x25 mm), Disco da Tampa Ø159 mm (Domo 18mm))
+  Actual:   Stages: 5, 3D Meshes: 10, Verts: 32,544, 2D Patterns: 13 (S2 Cilindro (Arco 1/3), S2 Cilindro (Arco 2/3), S2 Cilindro (Arco 3/3), Disco Fundo Ø160 (Sólido), Faixa de Borda/Boca (1/3) (192x12 mm), Faixa de Borda/Boca (2/3) (192x12 mm), Faixa de Borda/Boca (3/3) (192x12 mm), Alça Retangular Vazada 1/2 (35x40 mm), Alça Retangular Vazada 2/2 (35x40 mm), Disco da Tampa Ø184 mm (Domo 15mm), Galeria Interna da Tampa (1/3) (174x11 mm), Galeria Interna da Tampa (2/3) (174x11 mm), Galeria Interna da Tampa (3/3) (174x11 mm))
 
 [PASS] [St.1 - Connected Slabs Recipes (14)] 🥣 12. Sopeira Artesanal Bojo Esférico (Bojo + 2 Alças + Tampa) (s1_slab_recipe_sopeira_artesanal)
   Expected: Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items
-  Actual:   Stages: 5, 3D Meshes: 13, Verts: 41,472, 2D Patterns: 14 (S3 Bojo 1/4, S3 Bojo 2/4 (Arco 1/2), S3 Bojo 2/4 (Arco 2/2), S3 Bojo 3/4 (Arco 1/2), S3 Bojo 3/4 (Arco 2/2), S3 Bojo 4/4 (Arco 1/2), S3 Bojo 4/4 (Arco 2/2), Disco Fundo Ø108 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Faixa de Pé/Kodai (1/2) (190x13 mm), Faixa de Pé/Kodai (2/2) (190x13 mm), Tira de Alça 1/2 (78x20 mm), Tira de Alça 2/2 (78x20 mm), Disco da Tampa Ø155 mm (Domo 28mm))
+  Actual:   Stages: 6, 3D Meshes: 14, Verts: 40,608, 2D Patterns: 25 (S2 Cone (Arco 1/2), S2 Cone (Arco 2/2), S3 Bojo 1/4 (Arco 1/2), S3 Bojo 1/4 (Arco 2/2), S3 Bojo 2/4 (Arco 1/3), S3 Bojo 2/4 (Arco 2/3), S3 Bojo 2/4 (Arco 3/3), S3 Bojo 3/4 (Arco 1/3), S3 Bojo 3/4 (Arco 2/3), S3 Bojo 3/4 (Arco 3/3), S3 Bojo 4/4 (Arco 1/2), S3 Bojo 4/4 (Arco 2/2), S4 Cilindro (Arco 1/3), S4 Cilindro (Arco 2/3), S4 Cilindro (Arco 3/3), Disco Fundo Ø110 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Tira de Alça 1/2 (8.5×2.7 cm), Gabarito Curva 1:1 1/2 (4.0×3.9 cm • Apoio), Tira de Alça 2/2 (8.5×2.7 cm), Gabarito Curva 1:1 2/2 (4.0×3.9 cm • Apoio), Disco da Tampa Ø179 mm (Domo 35mm), Galeria Interna da Tampa (1/3) (169x11 mm), Galeria Interna da Tampa (2/3) (169x11 mm), Galeria Interna da Tampa (3/3) (169x11 mm))
 
 [PASS] [St.1 - Connected Slabs Recipes (14)] 🥛 13. Jarra / Leiteira de Mesa (Bojo + Colo + Bico + Alça) (s1_slab_recipe_leiteira_jarra)
   Expected: Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items
-  Actual:   Stages: 5, 3D Meshes: 14, Verts: 37,296, 2D Patterns: 11 (S2 Bojo 1/4, S2 Bojo 2/4 (Arco 1/2), S2 Bojo 2/4 (Arco 2/2), S2 Bojo 3/4 (Arco 1/2), S2 Bojo 3/4 (Arco 2/2), S2 Bojo 4/4, S3 Cone, Disco Fundo Ø76 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Tira de Alça  (119x17 mm), Leque do Bico Vertedor (Base Ø31 ➔ Ponta Ø18 • Alcance 24mm))
+  Actual:   Stages: 6, 3D Meshes: 14, Verts: 40,320, 2D Patterns: 13 (S2 Bojo 1/3, S2 Bojo 2/3 (Arco 1/2), S2 Bojo 2/3 (Arco 2/2), S2 Bojo 3/3 (Arco 1/2), S2 Bojo 3/3 (Arco 2/2), S3 Cone, S4 Cilindro (Arco 1/2), S4 Cilindro (Arco 2/2), Disco Fundo Ø80 (Sólido), Disco Polar Anti-Pinch Ø31 (Fecho 98%), Leque do Bico Vertedor (Base Ø36 ➔ Ponta Ø18 • Alcance 25mm), Tira de Alça  (12.6×2.2 cm), Gabarito Curva 1:1  (4.4×9.1 cm • Apoio))
 
 [PASS] [St.1 - Connected Slabs Recipes (14)] 🍯 14. Pote / Açucareiro de Bancada (Cilindro + Borda + Tampa) (s1_slab_recipe_pote_tampa)
   Expected: Generates valid 3D multi-stage mesh and >0 2D unrolled pattern items
-  Actual:   Stages: 4, 3D Meshes: 8, Verts: 31,104, 2D Patterns: 6 (S2 Cilindro (Arco 1/2), S2 Cilindro (Arco 2/2), Disco Fundo Ø88 (Sólido), Faixa de Borda/Boca (1/2) (155x9 mm), Faixa de Borda/Boca (2/2) (155x9 mm), Disco da Tampa Ø105 mm (Domo 16mm))
+  Actual:   Stages: 4, 3D Meshes: 8, Verts: 29,808, 2D Patterns: 8 (S2 Cilindro (Arco 1/2), S2 Cilindro (Arco 2/2), Disco Fundo Ø84 (Sólido), Faixa de Borda/Boca (1/2) (155x9 mm), Faixa de Borda/Boca (2/2) (155x9 mm), Disco da Tampa Ø103 mm (Domo 18mm), Galeria Interna da Tampa (1/2) (134x11 mm), Galeria Interna da Tampa (2/2) (134x11 mm))
 
 [PASS] [St.1 - Stage Buttons (8)] + Cilindro (Anel Cilíndrico Reto) (s1_btn_add_cilindro)
   Expected: Adds component stage to vaseStages, refreshes cards, builds 3D and 2D unrolling
-  Actual:   Stage Count: 4 -> 5, 3D Meshes: 9, 2D Patterns: 8
+  Actual:   Stage Count: 4 -> 5, 3D Meshes: 9, 2D Patterns: 10
 
 [PASS] [St.1 - Stage Buttons (8)] + Cone (Tronco de Cone Flutuante) (s1_btn_add_cone)
   Expected: Adds component stage to vaseStages, refreshes cards, builds 3D and 2D unrolling
-  Actual:   Stage Count: 5 -> 6, 3D Meshes: 10, 2D Patterns: 9
+  Actual:   Stage Count: 5 -> 6, 3D Meshes: 10, 2D Patterns: 11
 
 [PASS] [St.1 - Stage Buttons (8)] + Bojo Esf. (Bojo Esférico em Frustuns) (s1_btn_add_esfera)
   Expected: Adds component stage to vaseStages, refreshes cards, builds 3D and 2D unrolling
-  Actual:   Stage Count: 6 -> 7, 3D Meshes: 14, 2D Patterns: 14
+  Actual:   Stage Count: 6 -> 7, 3D Meshes: 14, 2D Patterns: 16
 
 [PASS] [St.1 - Stage Buttons (8)] + Disco (Fundo ou Prato Separador) (s1_btn_add_disco)
   Expected: Adds component stage to vaseStages, refreshes cards, builds 3D and 2D unrolling
-  Actual:   Stage Count: 7 -> 8, 3D Meshes: 15, 2D Patterns: 15
+  Actual:   Stage Count: 7 -> 8, 3D Meshes: 15, 2D Patterns: 17
 
 [PASS] [St.1 - Stage Buttons (8)] + Alça (Alça Curva Cerâmica Extrudada) (s1_btn_add_alca)
   Expected: Adds component stage to vaseStages, refreshes cards, builds 3D and 2D unrolling
-  Actual:   Stage Count: 8 -> 9, 3D Meshes: 16, 2D Patterns: 16
+  Actual:   Stage Count: 8 -> 9, 3D Meshes: 16, 2D Patterns: 19
 
 [PASS] [St.1 - Stage Buttons (8)] + Bico (Bico Vertedor Cônico) (s1_btn_add_bico)
   Expected: Adds component stage to vaseStages, refreshes cards, builds 3D and 2D unrolling
-  Actual:   Stage Count: 9 -> 10, 3D Meshes: 19, 2D Patterns: 17
+  Actual:   Stage Count: 9 -> 10, 3D Meshes: 19, 2D Patterns: 20
 
 [PASS] [St.1 - Stage Buttons (8)] + Tampa (Tampa c/ Encaixe e Puxador) (s1_btn_add_tampa)
   Expected: Adds component stage to vaseStages, refreshes cards, builds 3D and 2D unrolling
-  Actual:   Stage Count: 10 -> 11, 3D Meshes: 20, 2D Patterns: 18
+  Actual:   Stage Count: 10 -> 11, 3D Meshes: 20, 2D Patterns: 22
 
 [PASS] [St.1 - Stage Buttons (8)] + Borda/Pé (Anel Reforçado de Boca ou Pé Kodai) (s1_btn_add_borda)
   Expected: Adds component stage to vaseStages, refreshes cards, builds 3D and 2D unrolling
-  Actual:   Stage Count: 11 -> 12, 3D Meshes: 21, 2D Patterns: 19
+  Actual:   Stage Count: 11 -> 12, 3D Meshes: 21, 2D Patterns: 23
 
 [PASS] [St.1 - Stage Card Inputs] Atualização Reativa de Parâmetros (Disco Crivo Múltiplo + Alça 35mm) (s1_card_inputs_reactive)
   Expected: Modifies 3D geometry vertices and updates 2D pattern unrolling accordingly
-  Actual:   Meshes: 8, Vertices: 15,984, Patterns: 4
+  Actual:   Meshes: 8, Vertices: 17,280, Patterns: 5
 
 [PASS] [St.1 - 2D Patterns & PDF] Planificação 2D A4 c/ Nesting >= 20mm & Exportação PDF A4 1:1 (s1_2d_patterns_pdf_export)
   Expected: Unrolls all pieces, packs onto A4 sheets with >= 20mm margin, exports PDF via jsPDF
-  Actual:   Items: 12, A4 Sheets: 6, ExportFn: exportVase2DPatternsPDF, PDFs Generated: 1 (moldes_ceramica_A4_nesting_1para1.pdf)
+  Actual:   Items: 17, A4 Sheets: 6, ExportFn: exportVase2DPatternsPDF, PDFs Generated: 1 (moldes_ceramica_A4_nesting_1para1.pdf)
 
 [PASS] [St.1 - Torno: Costela de Ataque] Costela Cerâmica 3D com Bisel 30°, Serrilha e Dente de Pé (Z=0) (s1_torno_costela_3d)
   Expected: Generates flat-bottom 2-manifold rib with thumb hole and attack geometry
-  Actual:   Meshes: 1, Vertices: 4,188, Bounds: [45.23 x 7 x 137.47 mm]
+  Actual:   Meshes: 1, Vertices: 4,248, Bounds: [46.86 x 7 x 137.47 mm]
 
 [PASS] [St.1 - Torno: Gabarito Negativo] Gabarito Negativo Externo do Vaso para Checagem em Giro no Torno (s1_torno_gabarito_negativo_3d)
   Expected: Generates concave plate template matching active vase outer silhouette with Z=0 foot
-  Actual:   Meshes: 1, Vertices: 2,130, Bounds: [118.97 x 4.8 x 144.8 mm]
+  Actual:   Meshes: 1, Vertices: 2,154, Bounds: [121.97 x 4.8 x 144.8 mm]
 
 [PASS] [St.1 - Queima: Volume Cúbico (1 - s)³] Calibração Volumétrica Direta para Meta Final Pós-Queima (400 mL) (s1_torno_volume_telemetry_scale)
   Expected: Calculates raw volume needed and rescales vase geometry via cubic factor
-  Actual:   RawBefore: 858 mL ➔ RawAfter: 592 mL (FiredExpected: 403 mL)
+  Actual:   RawBefore: 814 mL ➔ RawAfter: 591 mL (FiredExpected: 403 mL)
 
 [PASS] [St.1 - STL Export] Exportação STL Binário da Malha Ativa (s1_export_stl_binary)
   Expected: STLExporter parses activeMeshGroup and initiates binary STL download
-  Actual:   Downloads: 1 (test_vaso_360.stl: 35584 bytes)
+  Actual:   Downloads: 1 (test_vaso_360.stl: 35984 bytes)
 
 [PASS] [St.1 - CeramicMeshFactory (Origami BufferGeometry)] Geometrias Origami Manuais & Substituição de LatheGeometry (s1_ceramic_mesh_factory_origami)
   Expected: Gera BufferGeometry para Yoshimura, Miura, Waterbomb, Crease Pattern 2D e replaceLathe sem NaN
@@ -452,33 +528,53 @@ Total: 120 | Passed: 120 | Failed: 0 | Pass Rate: 100.0%
   Expected: Exibe painel completo, Split-View 3D na aba 2D, destaca partes 2D↔3D e converte 100% em folhas A4 sem duplicar base
   Actual:   Painel: true, Split2D+3D: true, PartSelect: true, BaseÚnica: true, ZeroOversizedA4: true
 
-[PASS] [St.1 - Catálogo de Peças em Placas (Slab Building)] #86 — Porta-Copos Geométrico Vincado (Monoplaca) (s1_slab_piece_porta_copos_vincado)
+[PASS] [St.1 - Catálogo de Peças em Placas (Slab Building)] #86 — Centro de Mesa Ondulado Orgânico (s1_slab_piece_centro_ondulado)
   Expected: Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas
-  Actual:   3D Verts: 276, Meshes: 1, Bounds: [117x15x107 mm], 2D Moldes: 1 placas
+  Actual:   3D Verts: 1440, Meshes: 1, Bounds: [180x54x180 mm], 2D Moldes: 2 placas
 
 [PASS] [St.1 - Catálogo de Peças em Placas (Slab Building)] #39 — Saboneteira com Escorredor Dobrado & Calha (s1_slab_piece_saboneteira_escorredor)
   Expected: Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas
-  Actual:   3D Verts: 472, Meshes: 1, Bounds: [91x25x135 mm], 2D Moldes: 1 placas
+  Actual:   3D Verts: 18144, Meshes: 10, Bounds: [120x44x97 mm], 2D Moldes: 1 placas
 
-[PASS] [St.1 - Catálogo de Peças em Placas (Slab Building)] #90 — Porta-Incenso Tipo Canoa Parabólica (s1_slab_piece_porta_incenso_canoa)
+[PASS] [St.1 - Catálogo de Peças em Placas (Slab Building)] #90 — Porta-Incenso de Fita c/ Sulco (s1_slab_piece_porta_incenso)
   Expected: Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas
-  Actual:   3D Verts: 1728, Meshes: 1, Bounds: [53x33x240 mm], 2D Moldes: 1 placas
+  Actual:   3D Verts: 924, Meshes: 1, Bounds: [241x26x51 mm], 2D Moldes: 1 placas
 
-[PASS] [St.1 - Catálogo de Peças em Placas (Slab Building)] #88 — Descanso de Talheres / Hashe Ondulado em V (s1_slab_piece_descanso_talheres)
+[PASS] [St.1 - Catálogo de Peças em Placas (Slab Building)] #88B — Descanso de Talheres / Hashe Ondulado em V (s1_slab_piece_descanso_talheres)
   Expected: Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas
-  Actual:   3D Verts: 144, Meshes: 1, Bounds: [88x19x42 mm], 2D Moldes: 1 placas
+  Actual:   3D Verts: 264, Meshes: 6, Bounds: [86x19x86 mm], 2D Moldes: 1 placas
 
-[PASS] [St.1 - Catálogo de Peças em Placas (Slab Building)] #9 — Manteigueira Francesa Hermética (Butter Bell) (s1_slab_piece_manteigueira_francesa)
+[PASS] [St.1 - Catálogo de Peças em Placas (Slab Building)] #9 — Manteigueira Canadense / Francesa (Butter Bell - Vedação por Água) (s1_slab_piece_manteigueira_francesa)
   Expected: Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas
   Actual:   3D Verts: 1728, Meshes: 4, Bounds: [112x106x112 mm], 2D Moldes: 4 placas
 
 [PASS] [St.1 - Catálogo de Peças em Placas (Slab Building)] #38 — Saleiro de Mesa / Paredão c/ Chanfro 45° (s1_slab_piece_saleiro_paredao)
   Expected: Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas
-  Actual:   3D Verts: 216, Meshes: 5, Bounds: [116x125x96 mm], 2D Moldes: 5 placas
+  Actual:   3D Verts: 22896, Meshes: 7, Bounds: [106x103x90 mm], 2D Moldes: 5 placas
 
-[PASS] [St.1 - Catálogo de Peças em Placas (Slab Building)] #68 — Vaso / Garrafa Facetada Prismática em Placas (s1_slab_piece_garrafa_facetada)
+[PASS] [St.1 - Catálogo de Peças em Placas (Slab Building)] #68 — Garrafa Quadrada em Placas de Argila (s1_slab_piece_garrafa_facetada)
   Expected: Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas
-  Actual:   3D Verts: 180, Meshes: 2, Bounds: [113x180x130 mm], 2D Moldes: 2 placas
+  Actual:   3D Verts: 10464, Meshes: 8, Bounds: [120x179x120 mm], 2D Moldes: 4 placas
+
+[PASS] [St.1 - Catálogo de Peças em Placas (Slab Building)] #41 — Pote de Alho & Cebola Ventilado em Placas (s1_slab_piece_pote_alho_ventilado)
+  Expected: Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas
+  Actual:   3D Verts: 16128, Meshes: 10, Bounds: [148x132x148 mm], 2D Moldes: 3 placas
+
+[PASS] [St.1 - Catálogo de Peças em Placas (Slab Building)] #42 — Galheteiro / Porta-Azeite Quadrado c/ Bico & Alça (s1_slab_piece_galheteiro_quadrado)
+  Expected: Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas
+  Actual:   3D Verts: 23568, Meshes: 12, Bounds: [163x183x92 mm], 2D Moldes: 4 placas
+
+[PASS] [St.1 - Catálogo de Peças em Placas (Slab Building)] #43 — Bandeja Retangular Dobrada c/ Pegas Manuais (s1_slab_piece_bandeja_retangular_dobrada)
+  Expected: Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas
+  Actual:   3D Verts: 1008, Meshes: 8, Bounds: [241x34x230 mm], 2D Moldes: 2 placas
+
+[PASS] [St.1 - Catálogo de Peças em Placas (Slab Building)] #44 — Pote Hermético de Chá / Mantimentos em Placas (s1_slab_piece_pote_cha_hermetico)
+  Expected: Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas
+  Actual:   3D Verts: 15696, Meshes: 8, Bounds: [107x137x107 mm], 2D Moldes: 3 placas
+
+[PASS] [St.1 - Catálogo de Peças em Placas (Slab Building)] #45 — Cachepô Geométrico c/ Pés Prismáticos de Placa (s1_slab_piece_cachepo_pes_prismaticos)
+  Expected: Gera malha 3D sólida sem NaN e moldes 2D desdobrados com vincos/cotas
+  Actual:   3D Verts: 8712, Meshes: 7, Bounds: [121x116x140 mm], 2D Moldes: 3 placas
 
 [PASS] [St.1 - Morfologia, Relevo e Materiais PBR (Dock 3D)] Vaso Circular Puro + Seletores de Forma, Relevo e Esmaltes Cinnabar (s1_clay_shape_texture_pbr)
   Expected: Peça #1 inicia circular (sem ondas), seletores alteram malha 3D e PBR atualiza materiais

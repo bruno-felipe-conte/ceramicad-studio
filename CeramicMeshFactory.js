@@ -1389,6 +1389,61 @@
         case 'saleiro_paredao':
           baseGeo = this.createSaleiroParedaoGeometry(opts);
           break;
+        case 'vaso_bonsai':
+          baseGeo = this.createVasoBonsaiGeometry(opts);
+          break;
+        case 'bib_facetado':
+          baseGeo = this.createBibFacetadoGeometry(opts);
+          break;
+        case 'cachepo_cubico':
+          baseGeo = this.createCachepoCubicoGeometry(opts);
+          break;
+        case 'jardineira_placa':
+          baseGeo = this.createJardineiraPlacaGeometry(opts);
+          break;
+        case 'copo_termico':
+        case 'copo_take_away':
+          baseGeo = this.createCopoTakeAwayGeometry(opts);
+          break;
+        case 'abajur_conico':
+          baseGeo = this.createAbajurConicoGeometry(opts);
+          break;
+        case 'arandela_parede':
+          baseGeo = this.createArandelaParedeGeometry(opts);
+          break;
+        case 'centro_ondulado':
+          baseGeo = this.createCentroOnduladoGeometry(opts);
+          break;
+        case 'porta_velas':
+          baseGeo = this.createPortaVelasGeometry(opts);
+          break;
+        case 'escultura_arco':
+          baseGeo = this.createEsculturaArcoGeometry(opts);
+          break;
+        case 'porta_incenso':
+          baseGeo = this.createPortaIncensoGeometry(opts);
+          break;
+        case 'tool_gauge':
+          baseGeo = this.createToolGaugeGeometry(opts);
+          break;
+        case 'tool_chamfer':
+          baseGeo = this.createToolChamferGeometry(opts);
+          break;
+        case 'tool_caliper':
+          baseGeo = this.createToolCaliperGeometry(opts);
+          break;
+        case 'tool_ruler':
+          baseGeo = this.createToolRulerGeometry(opts);
+          break;
+        case 'bib_costela':
+          baseGeo = this.createBibCostelaGeometry(opts);
+          break;
+        case 'tool_rib_garrity':
+          baseGeo = this.createToolRibGarrityGeometry(opts);
+          break;
+        case 'bib_extrusora':
+          baseGeo = this.createBibExtrusoraGeometry(opts);
+          break;
         case 'garrafa_facetada':
         default:
           baseGeo = this.createGarrafaFacetadaGeometry(opts);
@@ -1549,9 +1604,708 @@
         ];
       }
 
+      if (pieceKey === 'vaso_bonsai') {
+        const wall = opts.wallThickness || 7.0;
+        const legH = 12;
+        const height = opts.height || 65;
+        const gBody = this.replaceLatheGeometry([
+          { x: 64, y: legH }, { x: 70, y: legH + 8 }, { x: 75, y: legH + 20 },
+          { x: 81, y: legH + 35 }, { x: 85, y: height - 5 }, { x: 83.5, y: height }
+        ], 32, { wallThickness: wall, bottomThickness: 8.0, closedBottom: true, faceted: false });
+        return [
+          { partId: 'slab-part-0', geometry: this.applyProceduralClayModifiers(gBody, opts) }
+        ];
+      }
+
+      if (pieceKey === 'cachepo_cubico') {
+        return [
+          { partId: 'slab-part-0', geometry: this.createCachepoCubicoGeometry(opts) }
+        ];
+      }
+
+      if (pieceKey === 'jardineira_placa') {
+        return [
+          { partId: 'slab-part-0', geometry: this.createJardineiraPlacaGeometry(opts) }
+        ];
+      }
+
+      if (pieceKey === 'copo_termico' || pieceKey === 'copo_take_away') {
+        const wall = opts.wallThickness || 5.0;
+        const height = opts.height || 120;
+        const rBase = opts.radiusBase || 30.0;
+        const rTop = opts.radiusTop || 42.5;
+
+        const gFundo = this.replaceLatheGeometry([
+          { x: 0.5, y: 0 }, { x: rBase, y: 0 }, { x: rBase, y: 6.0 }
+        ], 32, { wallThickness: wall, bottomThickness: 6.0, closedBottom: true, faceted: false });
+
+        const gParede = this.replaceLatheGeometry([
+          { x: rBase, y: 6.0 }, { x: 32.0, y: 20 }, { x: 34.0, y: 40 },
+          { x: 36.0, y: 60 }, { x: 38.0, y: 80 }, { x: 40.5, y: 100 }, { x: rTop, y: height }
+        ], 32, { wallThickness: wall, closedBottom: false, faceted: false });
+
+        const shape = new THREE.Shape();
+        const angStart = Math.PI * 0.15;
+        const angEnd = Math.PI * 0.85;
+        const pX1 = rTop * Math.cos(angStart);
+        const pZ1 = rTop * Math.sin(angStart);
+        shape.moveTo(pX1, pZ1);
+        shape.absarc(0, 0, rTop, angStart, angEnd, false);
+        shape.lineTo(pX1, pZ1);
+
+        const hole = new THREE.Path();
+        hole.ellipse(0, rTop * 0.62, 12.5, 6.0, 0, Math.PI * 2, false);
+        shape.holes.push(hole);
+
+        const rawCrescent = new THREE.ExtrudeGeometry(shape, { depth: 5.0, bevelEnabled: true, bevelSegments: 2, steps: 1, bevelSize: 0.8, bevelThickness: 0.8 });
+        rawCrescent.rotateX(Math.PI / 2);
+        rawCrescent.translate(0, height + 2.5, 0);
+        const gCrescent = rawCrescent.index ? rawCrescent.toNonIndexed() : rawCrescent;
+        gCrescent.computeVertexNormals();
+
+        return [
+          { partId: 'slab-part-0', geometry: this.applyProceduralClayModifiers(gFundo, opts) },
+          { partId: 'slab-part-1', geometry: gCrescent },
+          { partId: 'slab-part-2', geometry: this.applyProceduralClayModifiers(gParede, opts) }
+        ];
+      }
+
+      if (pieceKey === 'abajur_conico') {
+        const wall = opts.wallThickness || 6.0;
+        const height = opts.height || 175;
+        const gBase = this.replaceLatheGeometry([
+          { x: 0.5, y: 0 }, { x: 49.0, y: 0 }, { x: 49.0, y: 8.0 }
+        ], 32, { wallThickness: wall, bottomThickness: 8.0, closedBottom: true, faceted: false });
+        const gWall = this.replaceLatheGeometry([
+          { x: 49.0, y: 8.0 }, { x: 53.0, y: 50.0 }, { x: 60.0, y: 130.0 }, { x: 65.0, y: 170.0 }, { x: 65.0, y: height }
+        ], 32, { wallThickness: wall, closedBottom: false, faceted: false });
+        return [
+          { partId: 'slab-part-0', geometry: this.applyProceduralClayModifiers(gBase, opts) },
+          { partId: 'slab-part-1', geometry: this.applyProceduralClayModifiers(gWall, opts) }
+        ];
+      }
+
+      if (pieceKey === 'arandela_parede') {
+        return [
+          { partId: 'slab-part-0', geometry: this.createArandelaParedeGeometry(opts) }
+        ];
+      }
+
+      if (pieceKey === 'centro_ondulado') {
+        return [
+          { partId: 'slab-part-0', geometry: this.createCentroOnduladoGeometry(opts) }
+        ];
+      }
+
+      if (pieceKey === 'porta_velas') {
+        return [
+          { partId: 'slab-part-0', geometry: this.createPortaVelasGeometry(opts) }
+        ];
+      }
+
+      if (pieceKey === 'escultura_arco') {
+        return [
+          { partId: 'slab-part-0', geometry: this.createEsculturaArcoGeometry(opts) }
+        ];
+      }
+
+      if (pieceKey === 'porta_incenso') {
+        return [
+          { partId: 'slab-part-0', geometry: this.createPortaIncensoGeometry(opts) }
+        ];
+      }
+
+      if (pieceKey === 'tool_gauge') {
+        return [
+          { partId: 'slab-part-0', geometry: this.createToolGaugeGeometry(opts) }
+        ];
+      }
+
+      if (pieceKey === 'tool_chamfer') {
+        return [
+          { partId: 'slab-part-0', geometry: this.createToolChamferGeometry(opts) }
+        ];
+      }
+
+      if (pieceKey === 'tool_caliper') {
+        return [
+          { partId: 'slab-part-0', geometry: this.createToolCaliperGeometry(opts) }
+        ];
+      }
+
+      if (pieceKey === 'tool_ruler') {
+        return [
+          { partId: 'slab-part-0', geometry: this.createToolRulerGeometry(opts) }
+        ];
+      }
+
+      if (pieceKey === 'bib_costela') {
+        return [
+          { partId: 'slab-part-0', geometry: this.createBibCostelaGeometry(opts) }
+        ];
+      }
+
+      if (pieceKey === 'tool_rib_garrity') {
+        return [
+          { partId: 'slab-part-0', geometry: this.createToolRibGarrityGeometry(opts) }
+        ];
+      }
+
+      if (pieceKey === 'bib_extrusora') {
+        return [
+          { partId: 'slab-part-0', geometry: this.createBibExtrusoraGeometry(opts) }
+        ];
+      }
+
       return [
         { partId: 'slab-part-0', geometry: this.createSlabPieceGeometry(pieceKey, options) }
       ];
+    },
+
+    /**
+     * #71. Vaso Cônico para Bonsai com Drenos
+     */
+    createVasoBonsaiGeometry(options = {}) {
+      const wall = options.wallThickness || 7.0;
+      const legH = 12;
+      const height = options.height || 65;
+
+      const bodyGeo = this.replaceLatheGeometry([
+        { x: 64, y: legH }, { x: 70, y: legH + 8 }, { x: 75, y: legH + 20 },
+        { x: 81, y: legH + 35 }, { x: 85, y: height - 5 }, { x: 83.5, y: height }
+      ], 32, { wallThickness: wall, bottomThickness: 8.0, closedBottom: true, faceted: false });
+
+      const positions = Array.from(bodyGeo.attributes.position.array);
+      const normals = Array.from(bodyGeo.attributes.normal.array);
+      const uvs = Array.from(bodyGeo.attributes.uv.array);
+
+      const THREE = getTHREE();
+      const legR = 54;
+      const legW = 16;
+      for (let i = 0; i < 4; i++) {
+        const angle = (i * Math.PI) / 2;
+        const lx = legR * Math.cos(angle);
+        const lz = legR * Math.sin(angle);
+        const legGeom = new THREE.BoxGeometry(legW, legH, legW);
+        legGeom.translate(lx, legH / 2, lz);
+        const lNonIdx = legGeom.index ? legGeom.toNonIndexed() : legGeom;
+        positions.push(...Array.from(lNonIdx.attributes.position.array));
+        normals.push(...Array.from(lNonIdx.attributes.normal.array));
+        uvs.push(...Array.from(lNonIdx.attributes.uv.array));
+      }
+
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geo.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+      geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+      geo.computeBoundingBox();
+      return geo;
+    },
+
+    createBibFacetadoGeometry(options = {}) {
+      const wall = options.wallThickness || 6.0;
+      const height = options.height || 140;
+      return this.replaceLatheGeometry([
+        { x: 41, y: 0 }, { x: 41, y: 8 }, { x: 48, y: 40 },
+        { x: 55, y: 95 }, { x: 55, y: 132 }, { x: 53, y: height }
+      ], 8, { wallThickness: wall, bottomThickness: 8.0, closedBottom: true, faceted: true });
+    },
+
+    createCachepoCubicoGeometry(options = {}) {
+      const THREE = getTHREE();
+      const H = options.height || 115;
+      const W = 100;
+      const wall = options.wallThickness || 6.0;
+
+      const shape = new THREE.Shape();
+      shape.moveTo(-W / 2, -W / 2);
+      shape.lineTo(W / 2, -W / 2);
+      shape.lineTo(W / 2, W / 2);
+      shape.lineTo(-W / 2, W / 2);
+      shape.closePath();
+
+      const hole = new THREE.Path();
+      hole.moveTo(-W / 2 + wall, -W / 2 + wall);
+      hole.lineTo(W / 2 - wall, -W / 2 + wall);
+      hole.lineTo(W / 2 - wall, W / 2 - wall);
+      hole.lineTo(-W / 2 + wall, W / 2 - wall);
+      hole.closePath();
+      shape.holes.push(hole);
+
+      const rawWalls = new THREE.ExtrudeGeometry(shape, { depth: H, bevelEnabled: false });
+      rawWalls.rotateX(-Math.PI / 2);
+      const rawBase = new THREE.BoxGeometry(W, wall, W);
+      rawBase.translate(0, wall / 2, 0);
+
+      const positions = [];
+      const normals = [];
+      const uvs = [];
+
+      [rawWalls, rawBase].forEach(g => {
+        const nonIdx = g.index ? g.toNonIndexed() : g;
+        positions.push(...Array.from(nonIdx.attributes.position.array));
+        normals.push(...Array.from(nonIdx.attributes.normal.array));
+        uvs.push(...Array.from(nonIdx.attributes.uv.array));
+      });
+
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geo.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+      geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+      geo.computeVertexNormals();
+      geo.computeBoundingBox();
+      return geo;
+    },
+
+    createJardineiraPlacaGeometry(options = {}) {
+      const THREE = getTHREE();
+      const L = 240;
+      const W = 100;
+      const H = options.height || 80;
+      const wall = options.wallThickness || 7.0;
+
+      const shape = new THREE.Shape();
+      shape.moveTo(-L / 2, -W / 2);
+      shape.lineTo(L / 2, -W / 2);
+      shape.lineTo(L / 2, W / 2);
+      shape.lineTo(-L / 2, W / 2);
+      shape.closePath();
+
+      const hole = new THREE.Path();
+      hole.moveTo(-L / 2 + wall, -W / 2 + wall);
+      hole.lineTo(L / 2 - wall, -W / 2 + wall);
+      hole.lineTo(L / 2 - wall, W / 2 - wall);
+      hole.lineTo(-L / 2 + wall, W / 2 - wall);
+      hole.closePath();
+      shape.holes.push(hole);
+
+      const rawWalls = new THREE.ExtrudeGeometry(shape, { depth: H, bevelEnabled: false });
+      rawWalls.rotateX(-Math.PI / 2);
+      const rawBase = new THREE.BoxGeometry(L, wall, W);
+      rawBase.translate(0, wall / 2, 0);
+
+      const trayL = 255;
+      const trayW = 115;
+      const trayH = 15;
+      const trayShape = new THREE.Shape();
+      trayShape.moveTo(-trayL / 2, -trayW / 2);
+      trayShape.lineTo(trayL / 2, -trayW / 2);
+      trayShape.lineTo(trayL / 2, trayW / 2);
+      trayShape.lineTo(-trayL / 2, trayW / 2);
+      trayShape.closePath();
+      const rawTray = new THREE.ExtrudeGeometry(trayShape, { depth: trayH, bevelEnabled: false });
+      rawTray.rotateX(-Math.PI / 2);
+      rawTray.translate(0, -trayH, 0);
+
+      const positions = [];
+      const normals = [];
+      const uvs = [];
+
+      [rawWalls, rawBase, rawTray].forEach(g => {
+        const nonIdx = g.index ? g.toNonIndexed() : g;
+        positions.push(...Array.from(nonIdx.attributes.position.array));
+        normals.push(...Array.from(nonIdx.attributes.normal.array));
+        uvs.push(...Array.from(nonIdx.attributes.uv.array));
+      });
+
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geo.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+      geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+      geo.computeVertexNormals();
+      geo.computeBoundingBox();
+      return geo;
+    },
+
+    createCopoTakeAwayGeometry(options = {}) {
+      const THREE = getTHREE();
+      const wall = options.wallThickness || 5.0;
+      const height = options.height || 120;
+      const rBase = options.radiusBase || 30.0;
+      const rTop = options.radiusTop || 42.5;
+
+      const bodyGeo = this.replaceLatheGeometry([
+        { x: 0.5, y: 0 }, { x: rBase, y: 0 }, { x: rBase, y: 6.0 },
+        { x: 32.0, y: 20 }, { x: 34.0, y: 40 }, { x: 36.0, y: 60 },
+        { x: 38.0, y: 80 }, { x: 40.5, y: 100 }, { x: rTop, y: height }
+      ], 32, { wallThickness: wall, bottomThickness: 6.0, closedBottom: true, faceted: false });
+
+      const positions = Array.from(bodyGeo.attributes.position.array);
+      const normals = Array.from(bodyGeo.attributes.normal.array);
+      const uvs = Array.from(bodyGeo.attributes.uv.array);
+
+      const shape = new THREE.Shape();
+      const angStart = Math.PI * 0.15;
+      const angEnd = Math.PI * 0.85;
+      const pX1 = rTop * Math.cos(angStart);
+      const pZ1 = rTop * Math.sin(angStart);
+
+      shape.moveTo(pX1, pZ1);
+      shape.absarc(0, 0, rTop, angStart, angEnd, false);
+      shape.lineTo(pX1, pZ1);
+
+      const hole = new THREE.Path();
+      hole.ellipse(0, rTop * 0.62, 12.5, 6.0, 0, Math.PI * 2, false);
+      shape.holes.push(hole);
+
+      const rawCrescent = new THREE.ExtrudeGeometry(shape, { depth: 5.0, bevelEnabled: true, bevelSegments: 2, steps: 1, bevelSize: 0.8, bevelThickness: 0.8 });
+      rawCrescent.rotateX(Math.PI / 2);
+      rawCrescent.translate(0, height + 2.5, 0);
+
+      const crescentGeo = rawCrescent.index ? rawCrescent.toNonIndexed() : rawCrescent;
+      crescentGeo.computeVertexNormals();
+
+      positions.push(...Array.from(crescentGeo.attributes.position.array));
+      normals.push(...Array.from(crescentGeo.attributes.normal.array));
+      uvs.push(...Array.from(crescentGeo.attributes.uv ? crescentGeo.attributes.uv.array : new Array((crescentGeo.attributes.position.count) * 2).fill(0)));
+
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geo.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+      geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+      geo.computeBoundingBox();
+      return geo;
+    },
+
+    createAbajurConicoGeometry(options = {}) {
+      const wall = options.wallThickness || 6.0;
+      const height = options.height || 175;
+      const pts = [
+        { x: 0.5, y: 0 }, { x: 49.0, y: 0 }, { x: 49.0, y: 8.0 },
+        { x: 53.0, y: 50.0 }, { x: 60.0, y: 130.0 }, { x: 65.0, y: 170.0 }, { x: 65.0, y: height }
+      ];
+      const geo = this.replaceLatheGeometry(pts, 36, { wallThickness: wall, bottomThickness: 8.0, closedBottom: true, faceted: false });
+      geo.computeBoundingBox();
+      return geo;
+    },
+
+    createArandelaParedeGeometry(options = {}) {
+      const THREE = getTHREE();
+      const H = options.height || 150;
+      const W = 120;
+      const D = 75;
+      const wall = options.wallThickness || 6.0;
+
+      const shape = new THREE.Shape();
+      shape.moveTo(-W / 2, 0);
+      shape.quadraticCurveTo(0, D * 2, W / 2, 0);
+      shape.lineTo(W / 2 - wall, 0);
+      shape.quadraticCurveTo(0, (D - wall) * 2, -W / 2 + wall, 0);
+      shape.closePath();
+
+      const raw = new THREE.ExtrudeGeometry(shape, { depth: H, bevelEnabled: true, bevelSegments: 2, steps: 1, bevelSize: 0.8, bevelThickness: 0.8 });
+      raw.rotateX(-Math.PI / 2);
+      const geo = raw.index ? raw.toNonIndexed() : raw;
+      geo.computeVertexNormals();
+      geo.computeBoundingBox();
+      return geo;
+    },
+
+    createCentroOnduladoGeometry(options = {}) {
+      const wall = options.wallThickness || 6.0;
+      const height = options.height || 50;
+      const pts = [
+        { x: 0.5, y: 0 }, { x: 40.0, y: 0 }, { x: 40.0, y: 8.0 },
+        { x: 65.0, y: 20.0 }, { x: 85.0, y: 40.0 }, { x: 90.0, y: height }
+      ];
+      const geo = this.replaceLatheGeometry(pts, 48, { wallThickness: wall, bottomThickness: 6.0, closedBottom: true, faceted: false });
+      const pos = geo.attributes.position;
+      for (let i = 0; i < pos.count; i++) {
+        const x = pos.getX(i);
+        const y = pos.getY(i);
+        const z = pos.getZ(i);
+        const r = Math.hypot(x, z);
+        if (r > 65 && y > 15) {
+          const angle = Math.atan2(z, x);
+          const wave = Math.sin(angle * 5) * 3.5 * ((r - 65) / 25);
+          pos.setY(i, y + wave);
+        }
+      }
+      geo.computeVertexNormals();
+      geo.computeBoundingBox();
+      return geo;
+    },
+
+    createPortaVelasGeometry(options = {}) {
+      const wall = options.wallThickness || 4.5;
+      const height = options.height || 90;
+      const pts = [
+        { x: 0.5, y: 0 }, { x: 42.0, y: 0 }, { x: 42.0, y: 10.0 },
+        { x: 42.0, y: 50.0 }, { x: 42.0, y: 85.0 }, { x: 42.0, y: height }
+      ];
+      const geo = this.replaceLatheGeometry(pts, 32, { wallThickness: wall, bottomThickness: 6.0, closedBottom: true, faceted: false });
+      geo.computeBoundingBox();
+      return geo;
+    },
+
+    createEsculturaArcoGeometry(options = {}) {
+      const THREE = getTHREE();
+      const rTube = 12.0;
+      const H = options.height || 165;
+      const curvePoints = [];
+      const steps = 60;
+      for (let i = 0; i <= steps; i++) {
+        const t = i / steps;
+        const angle = Math.PI * t;
+        const x = -40 * Math.cos(angle);
+        const y = rTube + (H - rTube) * Math.sin(angle);
+        curvePoints.push(new THREE.Vector3(x, y, 0));
+      }
+      const curve = new THREE.CatmullRomCurve3(curvePoints);
+      const raw = new THREE.TubeGeometry(curve, 64, rTube, 24, false);
+      const geo = raw.index ? raw.toNonIndexed() : raw;
+      geo.computeVertexNormals();
+      geo.computeBoundingBox();
+      return geo;
+    },
+
+    createPortaIncensoGeometry(options = {}) {
+      const THREE = getTHREE();
+      const L = 240;
+      const W = 50;
+      const H = 25;
+      const wall = options.wallThickness || 5.5;
+
+      const shape = new THREE.Shape();
+      shape.moveTo(-W / 2, H);
+      shape.quadraticCurveTo(0, -H, W / 2, H);
+      shape.lineTo(W / 2 - wall * 0.5, H);
+      shape.quadraticCurveTo(0, -H + wall * 2, -W / 2 + wall * 0.5, H);
+      shape.closePath();
+
+      const raw = new THREE.ExtrudeGeometry(shape, { depth: L, bevelEnabled: true, bevelSegments: 2, steps: 1, bevelSize: 0.6, bevelThickness: 0.6 });
+      raw.rotateY(Math.PI / 2);
+      raw.translate(-L / 2, 0, 0);
+      const geo = raw.index ? raw.toNonIndexed() : raw;
+      geo.computeVertexNormals();
+      geo.computeBoundingBox();
+      return geo;
+    },
+
+    createToolGaugeGeometry(options = {}) {
+      const THREE = getTHREE();
+      const H = options.height || 180;
+      const baseR = 30;
+      const baseH = 10;
+      const rodH = H - baseH;
+
+      const gBase = new THREE.CylinderGeometry(baseR, baseR, baseH, 32);
+      gBase.translate(0, baseH / 2, 0);
+
+      const gRod = new THREE.BoxGeometry(8, rodH, 8);
+      gRod.translate(0, baseH + rodH / 2, 0);
+
+      const gArm = new THREE.BoxGeometry(60, 6, 4);
+      gArm.translate(30, 120, 0);
+
+      const positions = [];
+      const normals = [];
+      const uvs = [];
+
+      [gBase, gRod, gArm].forEach(g => {
+        const nonIdx = g.index ? g.toNonIndexed() : g;
+        positions.push(...Array.from(nonIdx.attributes.position.array));
+        normals.push(...Array.from(nonIdx.attributes.normal.array));
+        if (nonIdx.attributes.uv) {
+          uvs.push(...Array.from(nonIdx.attributes.uv.array));
+        } else {
+          uvs.push(...new Array((nonIdx.attributes.position.count) * 2).fill(0));
+        }
+      });
+
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geo.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+      geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+      geo.computeVertexNormals();
+      geo.computeBoundingBox();
+      return geo;
+    },
+
+    createToolChamferGeometry(options = {}) {
+      const THREE = getTHREE();
+      const H = options.height || 45;
+      const W = 60;
+      const L = 80;
+
+      const shape = new THREE.Shape();
+      shape.moveTo(-W / 2, 0);
+      shape.lineTo(W / 2, 0);
+      shape.lineTo(W / 2, H - 20);
+      shape.lineTo(0, H);
+      shape.lineTo(-W / 2, H);
+      shape.closePath();
+
+      const raw = new THREE.ExtrudeGeometry(shape, { depth: L, bevelEnabled: true, bevelSegments: 2, steps: 1, bevelSize: 0.6, bevelThickness: 0.6 });
+      raw.rotateY(Math.PI / 2);
+      raw.translate(-L / 2, 0, 0);
+      const geo = raw.index ? raw.toNonIndexed() : raw;
+      geo.computeVertexNormals();
+      geo.computeBoundingBox();
+      return geo;
+    },
+
+    createToolCaliperGeometry(options = {}) {
+      const THREE = getTHREE();
+      const H = options.height || 10;
+      const span = 120;
+
+      const shapeA = new THREE.Shape();
+      shapeA.moveTo(-span / 2, -15);
+      shapeA.quadraticCurveTo(-20, -25, 0, 0);
+      shapeA.quadraticCurveTo(20, 25, span / 2, 15);
+      shapeA.lineTo(span / 2 - 4, 18);
+      shapeA.quadraticCurveTo(20, 20, 0, -4);
+      shapeA.quadraticCurveTo(-20, -20, -span / 2 + 4, -18);
+      shapeA.closePath();
+
+      const shapeB = new THREE.Shape();
+      shapeB.moveTo(-span / 2, 15);
+      shapeB.quadraticCurveTo(-20, 25, 0, 0);
+      shapeB.quadraticCurveTo(20, -25, span / 2, -15);
+      shapeB.lineTo(span / 2 - 4, -18);
+      shapeB.quadraticCurveTo(20, -20, 0, 4);
+      shapeB.quadraticCurveTo(-20, 20, -span / 2 + 4, 18);
+      shapeB.closePath();
+
+      const extA = new THREE.ExtrudeGeometry(shapeA, { depth: H / 2, bevelEnabled: false });
+      const extB = new THREE.ExtrudeGeometry(shapeB, { depth: H / 2, bevelEnabled: false });
+      extA.rotateX(-Math.PI / 2);
+      extB.rotateX(-Math.PI / 2);
+      extB.translate(0, H / 2, 0);
+
+      const positions = [];
+      const normals = [];
+      const uvs = [];
+
+      [extA, extB].forEach(g => {
+        const nonIdx = g.index ? g.toNonIndexed() : g;
+        positions.push(...Array.from(nonIdx.attributes.position.array));
+        normals.push(...Array.from(nonIdx.attributes.normal.array));
+        if (nonIdx.attributes.uv) {
+          uvs.push(...Array.from(nonIdx.attributes.uv.array));
+        } else {
+          uvs.push(...new Array((nonIdx.attributes.position.count) * 2).fill(0));
+        }
+      });
+
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geo.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+      geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+      geo.computeVertexNormals();
+      geo.computeBoundingBox();
+      return geo;
+    },
+
+    createToolRulerGeometry(options = {}) {
+      const THREE = getTHREE();
+      const L = 170;
+      const W = 40;
+      const T = 5;
+
+      const raw = new THREE.BoxGeometry(L, T, W);
+      raw.translate(0, T / 2, 0);
+      const geo = raw.index ? raw.toNonIndexed() : raw;
+      geo.computeVertexNormals();
+      geo.computeBoundingBox();
+      return geo;
+    },
+
+    createBibCostelaGeometry(options = {}) {
+      const THREE = getTHREE();
+      const H = options.height || 110;
+      const W = 70;
+      const T = 4;
+
+      const shape = new THREE.Shape();
+      shape.moveTo(-W / 2, 0);
+      shape.lineTo(W / 2, 0);
+      shape.lineTo(W / 2, H * 0.4);
+      shape.quadraticCurveTo(W * 0.45, H, 0, H);
+      shape.quadraticCurveTo(-W / 2, H * 0.6, -W / 2, 0);
+      shape.closePath();
+
+      const raw = new THREE.ExtrudeGeometry(shape, { depth: T, bevelEnabled: true, bevelSegments: 2, steps: 1, bevelSize: 0.5, bevelThickness: 0.5 });
+      raw.translate(0, 0, -T / 2);
+      const geo = raw.index ? raw.toNonIndexed() : raw;
+      geo.computeVertexNormals();
+      geo.computeBoundingBox();
+      return geo;
+    },
+
+    createToolRibGarrityGeometry(options = {}) {
+      const THREE = getTHREE();
+      const H = options.height || 120;
+      const W = 76;
+      const T = 5.5;
+
+      const shape = new THREE.Shape();
+      shape.moveTo(-W / 2, 0);
+      shape.lineTo(W / 2, 0);
+      shape.quadraticCurveTo(W / 2, H * 0.4, W * 0.2, H);
+      shape.lineTo(-W * 0.2, H);
+      shape.quadraticCurveTo(-W / 2, H * 0.5, -W / 2, 0);
+      shape.closePath();
+
+      const raw = new THREE.ExtrudeGeometry(shape, { depth: T, bevelEnabled: true, bevelSegments: 3, steps: 1, bevelSize: 1.2, bevelThickness: 1.2 });
+      raw.translate(0, 0, -T / 2);
+      const geo = raw.index ? raw.toNonIndexed() : raw;
+      geo.computeVertexNormals();
+      geo.computeBoundingBox();
+      return geo;
+    },
+
+    createBibExtrusoraGeometry(options = {}) {
+      const THREE = getTHREE();
+      const R = 45;
+      const T = 10;
+      const rHole = 15;
+      const rCore = 9;
+
+      const shape = new THREE.Shape();
+      shape.absarc(0, 0, R, 0, Math.PI * 2, false);
+      const hole = new THREE.Path();
+      hole.absarc(0, 0, rHole, 0, Math.PI * 2, true);
+      shape.holes.push(hole);
+
+      const rawPlate = new THREE.ExtrudeGeometry(shape, { depth: T, bevelEnabled: false });
+      rawPlate.rotateX(-Math.PI / 2);
+
+      const rawCore = new THREE.CylinderGeometry(rCore, rCore, T, 32);
+      rawCore.translate(0, T / 2, 0);
+
+      const spiderArms = [];
+      for (let i = 0; i < 3; i++) {
+        const ang = (i * 2 * Math.PI) / 3;
+        const arm = new THREE.BoxGeometry(3.5, T * 0.8, R);
+        arm.rotateY(ang);
+        arm.translate(0, T / 2, 0);
+        spiderArms.push(arm);
+      }
+
+      const positions = [];
+      const normals = [];
+      const uvs = [];
+
+      [rawPlate, rawCore, ...spiderArms].forEach(g => {
+        const nonIdx = g.index ? g.toNonIndexed() : g;
+        positions.push(...Array.from(nonIdx.attributes.position.array));
+        normals.push(...Array.from(nonIdx.attributes.normal.array));
+        if (nonIdx.attributes.uv) {
+          uvs.push(...Array.from(nonIdx.attributes.uv.array));
+        } else {
+          uvs.push(...new Array((nonIdx.attributes.position.count) * 2).fill(0));
+        }
+      });
+
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geo.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+      geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+      geo.computeVertexNormals();
+      geo.computeBoundingBox();
+      return geo;
     }
   };
 
